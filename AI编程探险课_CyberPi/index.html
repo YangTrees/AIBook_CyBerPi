@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI通识编程课 · 与 CyberPi 一起探索 AI</title>
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ 设计系统 ============ */
+:root{
+  --primary:hsl(214 77% 46%);
+  --primary-600:hsl(214 77% 40%);
+  --primary-100:hsl(214 80% 94%);
+  --primary-50:hsl(215 80% 97%);
+  --accent:hsl(215 28% 95%);
+  --ink:hsl(222 26% 18%);
+  --ink-2:hsl(222 14% 44%);
+  --card:#ffffff;
+  --line:hsl(215 26% 88%);
+  --radius:20px;
+  --radius-s:14px;
+  --shadow:0 12px 34px -14px hsl(214 60% 40% / .28);
+  --shadow-sm:0 6px 18px -8px hsl(214 60% 40% / .22);
+  --ch1:hsl(214 77% 46%);
+  --ch2:hsl(28 90% 52%);
+  --ch3:hsl(150 60% 36%);
+  --ch4:hsl(268 62% 52%);
+  --ok:hsl(150 60% 38%);
+  --bad:hsl(0 72% 55%);
+  --cat-event:#FFC019;
+  --cat-control:#FF8C1A;
+  --cat-display:#9C5CF5;
+  --cat-light:#F5589B;
+  --cat-sound:#E056E0;
+  --cat-sense:#4C97FF;
+  --cat-op:#59C059;
+  --cat-var:#FF751A;
+  --cat-ai:#00B8D4;
+  --cat-ext:#2F5CE0;
+  --cat-my:#FF6680;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Baloo 2","PingFang SC","Hiragino Sans GB","Microsoft YaHei Rounded","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 500px at 85% -100px, hsl(214 90% 90% / .55), transparent 60%),
+    radial-gradient(900px 420px at -100px 20%, hsl(28 100% 92% / .5), transparent 60%),
+    var(--accent);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.font-display{font-family:"ZCOOL KuaiLe","PingFang SC","Microsoft YaHei Rounded",sans-serif;font-weight:400;letter-spacing:.5px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:hsl(0 0% 100% / .88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.brand-logo{
+  width:38px;height:38px;border-radius:12px;flex:none;
+  background:linear-gradient(135deg,var(--primary),hsl(235 80% 62%));
+  display:grid;place-items:center;color:#fff;
+  box-shadow:var(--shadow-sm);
+}
+.brand-logo svg{width:22px;height:22px}
+.brand-name{font-size:19px;color:var(--primary)}
+.brand-sub{font-size:12px;color:var(--ink-2);letter-spacing:.4px}
+.top-nav{display:flex;gap:6px;margin-left:auto}
+.top-nav .nav-btn{
+  padding:10px 16px;min-height:42px;border-radius:999px;font-size:15px;font-weight:700;
+  color:var(--ink-2);display:flex;align-items:center;gap:6px;transition:.2s;
+}
+.top-nav .nav-btn:hover{background:var(--primary-50);color:var(--primary)}
+.top-nav .nav-btn.active{background:var(--primary);color:#fff;box-shadow:var(--shadow-sm)}
+.nick-pill{
+  display:flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;
+  background:var(--primary-50);border:1px solid hsl(214 70% 86%);font-weight:700;color:var(--primary);
+  font-size:14px;white-space:nowrap;
+}
+.nick-avatar{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:13px;font-family:"Baloo 2";font-weight:800}
+
+/* ============ 底部导航 ============ */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:#fff;border-top:1px solid var(--line);
+  display:flex;box-shadow:0 -6px 24px -10px hsl(214 60% 40% / .18);
+}
+.bottom-nav .bn-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:9px 0 10px;color:var(--ink-2);font-size:11.5px;font-weight:700;
+  transition:.2s;
+}
+.bottom-nav .bn-item svg{width:21px;height:21px}
+.bottom-nav .bn-item.active{color:var(--primary)}
+.bottom-nav .bn-item.active .bn-ico{background:var(--primary-100);border-radius:12px;padding:2px 10px}
+main{padding-bottom:76px}
+
+/* ============ 通用组件 ============ */
+.section-title{display:flex;align-items:baseline;gap:12px;margin:34px 0 18px}
+.section-title h2{font-size:26px}
+.section-title .en{color:var(--ink-2);font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:800;background:var(--primary-100);color:var(--primary)}
+.chip.light{background:#fff;color:var(--ink-2);border:1px solid var(--line)}
+
+/* ============ 首页 Hero ============ */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,hsl(214 85% 96%),hsl(210 90% 92%) 55%,hsl(200 90% 88%));
+}
+.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:44px 20px 40px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:7px 16px;font-weight:800;font-size:13.5px;color:var(--primary);box-shadow:var(--shadow-sm)}
+.hero-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px hsl(150 60% 38% / .18)}
+.hero h1{font-size:44px;line-height:1.22;margin:18px 0 14px;color:hsl(222 40% 16%)}
+.hero h1 em{font-style:normal;color:var(--primary)}
+.hero p.lead{font-size:17px;line-height:1.75;color:var(--ink-2);max-width:520px}
+.hero-cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;
+  font-size:16px;font-weight:800;color:#fff;background:var(--primary);
+  box-shadow:0 10px 22px -8px hsl(214 77% 46% / .55);transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);background:var(--primary-600)}
+.btn.ghost{background:#fff;color:var(--primary);box-shadow:var(--shadow-sm);border:1.5px solid hsl(214 70% 82%)}
+.btn.ghost:hover{background:var(--primary-50)}
+.btn.big{padding:16px 32px;font-size:17px}
+.hero-fig{position:relative}
+.hero-fig img{border-radius:26px;box-shadow:0 30px 60px -20px hsl(214 70% 40% / .4);width:100%;aspect-ratio:3/2;object-fit:cover}
+.hero-fig .float-chip{
+  position:absolute;background:#fff;border-radius:16px;box-shadow:var(--shadow);
+  padding:10px 16px;display:flex;align-items:center;gap:9px;font-weight:800;font-size:13.5px;
+  animation:floaty 3.6s ease-in-out infinite;
+}
+.hero-fig .fc1{top:-16px;left:-14px;color:var(--primary)}
+.hero-fig .fc2{bottom:-16px;right:-10px;color:var(--ch2);animation-delay:1.2s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ============ 数据条 ============ */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:-26px auto 0;position:relative;z-index:5;padding:0 20px;max-width:1200px}
+.stat-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 18px;text-align:center}
+.stat-card .num{font-family:"ZCOOL KuaiLe";font-size:34px;color:var(--primary)}
+.stat-card .lab{font-size:13.5px;color:var(--ink-2);font-weight:700;margin-top:2px}
+
+/* ============ 学习路径 ============ */
+.path-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 26px 22px}
+.path-svg{width:100%;height:auto;display:block}
+.path-svg text{font-family:"Baloo 2","PingFang SC",sans-serif}
+.legend-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.legend-row .lg{display:flex;align-items:center;gap:7px}
+.legend-row .sw{width:13px;height:13px;border-radius:4px}
+
+/* ============ 章节与课程卡 ============ */
+.chapter{margin-top:26px}
+.chapter-head{display:flex;align-items:center;gap:16px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px 22px;cursor:pointer;transition:.2s}
+.chapter-head:hover{transform:translateY(-2px)}
+.ch-head-ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;flex:none}
+.ch-head-ico svg{width:28px;height:28px}
+.ch-head-txt h3{font-size:21px}
+.ch-head-txt p{font-size:13.5px;color:var(--ink-2);margin-top:3px}
+.ch-head-meta{margin-left:auto;text-align:right;font-size:13px;color:var(--ink-2);font-weight:700;white-space:nowrap}
+.ch-head-meta .pbar{width:130px;height:8px;border-radius:99px;background:var(--accent);margin-top:6px;overflow:hidden}
+.ch-head-meta .pbar i{display:block;height:100%;border-radius:99px;background:var(--ch-color,var(--primary));transition:width .5s}
+.lesson-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:14px}
+.lesson-card{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:0 0 16px;
+  display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:.2s;text-align:left;
+}
+.lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.lc-cover{aspect-ratio:4/3;overflow:hidden;background:var(--accent);position:relative}
+.lc-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.lesson-card:hover .lc-cover img{transform:scale(1.05)}
+.lc-cover .lc-no-badge{position:absolute;top:10px;left:10px;font-size:12px;font-weight:800;color:#fff;background:var(--ch-color);padding:4px 12px;border-radius:99px;letter-spacing:.5px;box-shadow:0 2px 8px hsl(0 0% 0% / .2)}
+.lc-cover .lc-check-badge{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--ok);display:none;place-items:center;color:#fff}
+.lesson-card.done .lc-check-badge{display:grid}
+.lesson-card .lc-body{padding:14px 16px 0;display:flex;flex-direction:column;gap:7px;flex:1}
+.lesson-card .lc-top{display:flex;align-items:center;justify-content:space-between}
+.lc-no{font-size:12px;font-weight:800;color:#fff;background:var(--ch-color);padding:3px 10px;border-radius:99px;letter-spacing:.5px}
+.lc-check{color:var(--ok);display:none}
+.lesson-card.done .lc-check{display:block}
+.lesson-card h4{font-size:17px;line-height:1.3}
+.lesson-card .lc-theme{font-size:12.5px;color:var(--ink-2);font-weight:700}
+.lesson-card .lc-echo{font-size:11.5px;color:var(--primary);background:var(--primary-50);padding:4px 9px;border-radius:8px;margin-top:2px;display:inline-block}
+.lesson-card .lc-go{margin-top:auto;font-size:13px;font-weight:800;color:var(--ch-color);display:flex;align-items:center;gap:5px;padding-top:8px}
+
+/* ============ 课程详情页 ============ */
+.course-top{
+  background:linear-gradient(135deg,var(--ch-color),color-mix(in srgb,var(--ch-color) 60%, hsl(235 80% 62%)));
+  color:#fff;border-radius:0 0 30px 30px;padding:20px 0 26px;
+}
+.course-top .back{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:800;font-size:14px;opacity:.92;margin-bottom:12px}
+.course-top .back:hover{opacity:1}
+.ct-row{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.ct-no{font-size:14px;font-weight:800;background:hsl(0 0% 100% / .18);padding:5px 14px;border-radius:99px;display:inline-block}
+.ct-titles h1{font-size:34px;line-height:1.25}
+.ct-titles p{font-size:14px;opacity:.92;margin-top:6px;font-weight:600}
+.ct-progress{margin-left:auto;background:hsl(0 0% 100% / .15);border-radius:16px;padding:12px 18px;font-weight:800;font-size:13px;display:flex;align-items:center;gap:10px}
+.ct-progress .ring{--p:0;width:46px;height:46px;border-radius:50%;background:conic-gradient(#fff calc(var(--p)*1%), hsl(0 0% 100% / .25) 0);display:grid;place-items:center}
+.ct-progress .ring i{width:34px;height:34px;border-radius:50%;background:var(--ch-color);display:grid;place-items:center;font-size:12px;font-style:normal}
+
+/* 模块页签 */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.tab-btn{
+  padding:10px 18px;border-radius:999px;font-size:14.5px;font-weight:800;
+  background:#fff;color:var(--ink-2);box-shadow:var(--shadow-sm);transition:.2s;display:flex;align-items:center;gap:7px;
+}
+.tab-btn .t-ico{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;color:#fff}
+.tab-btn.active{background:var(--ch-color);color:#fff;transform:translateY(-2px)}
+.tab-btn.active .t-ico{background:hsl(0 0% 100% / .2)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .35s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.panel-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin-top:18px}
+.panel-card h3{font-size:21px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.panel-card h3 .t-ico{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;color:#fff;flex:none}
+
+/* 课程导入 */
+.echo-box{background:var(--primary-50);border:1.5px dashed hsl(214 60% 75%);border-radius:16px;padding:18px 20px;margin-bottom:18px}
+.echo-box .e-tag{font-size:12.5px;font-weight:800;color:var(--primary)}
+.echo-box .e-title{font-size:19px;margin:6px 0 4px}
+.echo-box .e-story{font-size:14.5px;line-height:1.75;color:var(--ink-2)}
+.intro-hero{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start;margin-bottom:20px}
+.intro-cover{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/4;flex:none}
+.intro-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.intro-hero .ih-info{display:flex;flex-direction:column;gap:10px}
+.intro-hero .ih-info h2{font-size:24px;line-height:1.3}
+.intro-hero .ih-theme{font-size:14px;color:var(--ink-2);font-weight:700}
+.intro-hero .ih-desc{font-size:14.5px;line-height:1.75;color:var(--ink-2)}
+.page-banner{border-radius:20px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow)}
+.page-banner img{width:100%;height:auto;display:block}
+.flow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.flow-step{background:var(--accent);border-radius:14px;padding:16px;text-align:center}
+.flow-step .fs-ico{width:44px;height:44px;border-radius:13px;background:#fff;display:grid;place-items:center;margin:0 auto 10px;color:var(--primary);box-shadow:var(--shadow-sm)}
+.flow-step .fs-ico svg{width:24px;height:24px}
+.flow-step b{font-size:15px}
+.flow-step p{font-size:12.5px;color:var(--ink-2);margin-top:5px;line-height:1.55}
+
+/* 知识点 */
+.kp-list{display:flex;flex-direction:column;gap:12px}
+.kp-item{display:flex;gap:14px;align-items:flex-start;background:var(--accent);border-radius:14px;padding:15px 17px}
+.kp-item .kp-no{flex:none;width:30px;height:30px;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
+.kp-item p{font-size:15px;line-height:1.6}
+
+/* 积木 */
+.blk-list{display:flex;flex-direction:column;gap:10px}
+.blk-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.blk-row .blk-lab{font-size:13px;font-weight:800;color:var(--ink-2);min-width:74px}
+.blk{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:8px;
+  color:#fff;font-size:13.5px;font-weight:800;line-height:1.2;position:relative;
+  filter:drop-shadow(0 3px 5px hsl(0 0% 0% / .14));
+}
+.blk::before{content:"";position:absolute;left:-7px;top:0;bottom:0;width:14px;border-radius:7px 0 0 7px}
+.blk-cat{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:800;background:hsl(0 0% 100% / .25)}
+.blk-note{width:100%;font-size:13px;color:var(--ink-2);margin-top:4px;padding-left:84px;line-height:1.6}
+
+/* 演示 */
+.proj-card{background:linear-gradient(140deg,var(--ch-color),color-mix(in srgb,var(--ch-color) 55%,hsl(235 80% 60%)));color:#fff;border-radius:16px;padding:20px 22px;margin-bottom:16px}
+.proj-card .p-name{font-size:20px;display:flex;align-items:center;gap:9px}
+.proj-card .p-eff{font-size:14.5px;line-height:1.7;margin-top:8px;opacity:.95}
+.steps-list{display:flex;flex-direction:column;gap:12px}
+.step-item{display:flex;gap:13px;align-items:flex-start}
+.step-item .s-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ch-color);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.step-item p{font-size:14.5px;line-height:1.65;padding-top:3px}
+.hw-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hw-chip{display:inline-flex;align-items:center;gap:6px;background:var(--accent);border-radius:99px;padding:7px 14px;font-size:13px;font-weight:800;color:var(--ink)}
+
+/* 挑战 */
+.challenge-box{background:linear-gradient(140deg,hsl(45 100% 92%),hsl(35 100% 96%));border:1.5px dashed hsl(35 90% 60%);border-radius:16px;padding:20px 22px}
+.challenge-box .c-tag{font-size:13px;font-weight:800;color:hsl(28 90% 38%)}
+.challenge-box p{font-size:15.5px;line-height:1.75;margin-top:8px}
+.tip-box{background:var(--primary-50);border-radius:14px;padding:14px 18px;font-size:13.5px;color:var(--primary-600);font-weight:600;line-height:1.7;margin-top:14px}
+
+/* 问答 */
+.quiz-wrap{max-width:760px;margin:0 auto}
+.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.quiz-head .q-prog{font-weight:800;color:var(--ink-2);font-size:14px}
+.q-card{background:var(--accent);border-radius:18px;padding:24px}
+.q-card .q-text{font-size:19px;font-weight:800;line-height:1.5}
+.q-opts{display:grid;gap:11px;margin-top:18px}
+.q-opt{
+  display:flex;align-items:center;gap:13px;background:#fff;border:2px solid var(--line);
+  border-radius:14px;padding:14px 16px;font-size:15.5px;font-weight:700;text-align:left;transition:.15s;
+}
+.q-opt .q-letter{flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.q-opt:hover{border-color:var(--primary);transform:translateX(3px)}
+.q-opt.correct{border-color:var(--ok);background:hsl(150 60% 96%)}
+.q-opt.correct .q-letter{background:var(--ok);color:#fff}
+.q-opt.wrong{border-color:var(--bad);background:hsl(0 72% 96%);animation:shake .4s}
+.q-opt.wrong .q-letter{background:var(--bad);color:#fff}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.q-opt:disabled{opacity:.55;cursor:not-allowed}
+.q-explain{display:none;margin-top:16px;background:hsl(150 60% 95%);border:1.5px solid hsl(150 60% 60%);border-radius:14px;padding:15px 18px;font-size:14.5px;line-height:1.7}
+.q-explain b{color:var(--ok)}
+.q-next{display:none;margin-top:16px}
+.quiz-done{text-align:center;padding:30px 10px}
+.quiz-done .big-emoji{font-size:54px}
+.quiz-done h3{font-size:24px;margin:10px 0 6px}
+.quiz-done p{color:var(--ink-2);font-size:15px}
+.quiz-stats{display:flex;gap:12px;justify-content:center;margin-top:16px}
+.qs-pill{background:#fff;border-radius:99px;padding:8px 18px;font-weight:800;font-size:14px;box-shadow:var(--shadow-sm)}
+.qs-pill.ok{color:var(--ok)}.qs-pill.bad{color:var(--bad)}.qs-pill.time{color:var(--ink-2)}
+
+/* 上下课导航 */
+.lesson-nav{display:flex;gap:12px;margin-top:20px}
+.lesson-nav .ln-btn{flex:1;background:#fff;border-radius:16px;box-shadow:var(--shadow-sm);padding:16px 18px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;transition:.2s;text-align:left}
+.lesson-nav .ln-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.lesson-nav .ln-btn.next{justify-content:flex-end;text-align:right}
+.lesson-nav .ln-btn .ln-t{color:var(--ink-2);font-size:12px;display:block}
+.lesson-nav .ln-btn .ln-c{color:var(--ch-color)}
+
+/* ============ 硬件页 ============ */
+.hw-hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-top:26px}
+.hw-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+.hw-card h3{font-size:21px;margin-bottom:12px;display:flex;align-items:center;gap:9px}
+.hw-card p{font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+.hw-svg-wrap{position:relative}
+.hw-svg-wrap svg{width:100%;height:auto}
+.hotspot{cursor:pointer;transition:.2s}
+.hotspot:hover{opacity:.85}
+.hw-info-panel{background:var(--accent);border-radius:16px;padding:18px 20px;margin-top:16px;min-height:118px}
+.hw-info-panel .hi-name{font-size:18px;font-weight:800;color:var(--primary);display:flex;align-items:center;gap:8px}
+.hw-info-panel .hi-desc{font-size:14px;line-height:1.7;margin-top:6px;color:var(--ink)}
+.hw-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.hw-feat{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow-sm);display:flex;gap:12px;align-items:flex-start}
+.hw-feat .hf-ico{flex:none;width:38px;height:38px;border-radius:11px;background:var(--primary-100);color:var(--primary);display:grid;place-items:center}
+.hw-feat .hf-ico svg{width:21px;height:21px}
+.hw-feat b{font-size:14.5px}
+.hw-feat p{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.55}
+
+/* ============ 成长页 ============ */
+.grow-hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:30px;margin-top:26px}
+.grow-ring{--p:0;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--primary) calc(var(--p)*1%),var(--accent) 0);display:grid;place-items:center;position:relative}
+.grow-ring::before{content:"";position:absolute;inset:14px;border-radius:50%;background:#fff}
+.grow-ring .gr-in{position:relative;text-align:center}
+.grow-ring .gr-num{font-family:"ZCOOL KuaiLe";font-size:34px;color:var(--primary)}
+.grow-ring .gr-lab{font-size:12.5px;color:var(--ink-2);font-weight:700}
+.grow-name{font-size:24px}
+.grow-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.gs-card{background:var(--accent);border-radius:14px;padding:16px;text-align:center}
+.gs-card .gs-num{font-family:"ZCOOL KuaiLe";font-size:26px;color:var(--primary)}
+.gs-card .gs-lab{font-size:12.5px;color:var(--ink-2);font-weight:700;margin-top:2px}
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.badge{background:#fff;border-radius:16px;padding:18px 14px;text-align:center;box-shadow:var(--shadow-sm);opacity:.45;transition:.2s;position:relative}
+.badge.earned{opacity:1;box-shadow:var(--shadow)}
+.badge .b-ico{width:58px;height:58px;margin:0 auto 10px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-size:26px;color:#c9cfd8}
+.badge.earned .b-ico{background:linear-gradient(140deg,hsl(45 100% 70%),hsl(35 100% 55%));color:#fff;box-shadow:0 8px 18px -6px hsl(35 90% 50% / .6)}
+.badge b{font-size:14.5px}
+.badge p{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+.grow-ch-list{display:flex;flex-direction:column;gap:10px}
+.grow-ch-row{display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:13px 16px;box-shadow:var(--shadow-sm)}
+.grow-ch-row .gcr-ico{width:36px;height:36px;border-radius:11px;color:#fff;display:grid;place-items:center;flex:none;font-size:12px;font-weight:800}
+.grow-ch-row b{font-size:14.5px}
+.grow-ch-row .gcr-bar{flex:1;height:9px;border-radius:99px;background:var(--accent);overflow:hidden}
+.grow-ch-row .gcr-bar i{display:block;height:100%;border-radius:99px;background:var(--ch-color);transition:width .5s}
+.grow-ch-row .gcr-num{font-size:13px;font-weight:800;color:var(--ink-2)}
+.reset-btn{margin-top:18px;padding:10px 20px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink-2);font-weight:700;font-size:13.5px;transition:.2s}
+.reset-btn:hover{border-color:var(--bad);color:var(--bad)}
+
+/* ============ 昵称弹层 ============ */
+.overlay{position:fixed;inset:0;z-index:100;background:hsl(214 70% 30% / .45);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px}
+.nick-card{background:#fff;border-radius:26px;box-shadow:0 40px 80px -30px hsl(214 70% 30% / .5);padding:34px 32px;max-width:420px;width:100%;text-align:center;animation:popIn .4s}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.nick-card .n-logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--primary),hsl(235 80% 62%));display:grid;place-items:center;margin:0 auto 14px;color:#fff}
+.nick-card .n-logo svg{width:34px;height:34px}
+.nick-card h2{font-size:24px}
+.nick-card p{font-size:14px;color:var(--ink-2);margin:8px 0 18px;line-height:1.6}
+.nick-input{
+  width:100%;padding:14px 18px;border-radius:14px;border:2px solid var(--line);font-size:16px;font-weight:700;
+  font-family:inherit;outline:none;transition:.2s;text-align:center;
+}
+.nick-input:focus{border-color:var(--primary)}
+.nick-go{width:100%;margin-top:12px;padding:14px;border-radius:14px;background:var(--primary);color:#fff;font-size:16px;font-weight:800;transition:.2s}
+.nick-go:hover{background:var(--primary-600)}
+
+/* ============ 响应式 ============ */
+@media (max-width:1024px){
+  .lesson-grid{grid-template-columns:repeat(3,1fr)}
+  .hero h1{font-size:38px}
+}
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr;padding-top:34px}
+  .hero-fig{order:-1}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .hw-hero{grid-template-columns:1fr}
+  .hw-feats{grid-template-columns:repeat(2,1fr)}
+  .grow-hero{grid-template-columns:1fr;text-align:center;justify-items:center}
+  .flow-steps{grid-template-columns:1fr}
+  .lesson-grid{grid-template-columns:repeat(2,1fr)}
+  .badge-grid{grid-template-columns:repeat(2,1fr)}
+  .intro-hero{grid-template-columns:200px 1fr;gap:18px}
+}
+@media (max-width:560px){
+  .lesson-grid{grid-template-columns:1fr 1fr}
+  .lesson-card h4{font-size:15px}
+  .top-nav .nav-btn span{display:none}
+  .brand-sub{display:none}
+  .hero h1{font-size:30px}
+  .stats-bar{grid-template-columns:repeat(2,1fr);margin-top:-18px}
+  .ct-row{flex-direction:column;align-items:flex-start}
+  .ct-progress{margin-left:0}
+  .grow-stats{grid-template-columns:1fr}
+  .chapter-head{flex-wrap:wrap}
+  .ch-head-meta{margin-left:0;width:100%;text-align:left}
+  .ch-head-meta .pbar{width:100%}
+  .intro-hero{grid-template-columns:1fr}
+  .intro-cover{max-width:220px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 顶部栏 ============ -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand" onclick="go('#/home')">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">AI通识编程课</div>
+        <div class="brand-sub">与 CyberPi 一起探索 AI</div>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a class="nav-btn" data-nav="home" onclick="go('#/home')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        <span>首页</span>
+      </a>
+      <a class="nav-btn" data-nav="hardware" onclick="go('#/hardware')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h.01M8 15h.01M12 12h4"/></svg>
+        <span>硬件</span>
+      </a>
+      <a class="nav-btn" data-nav="growth" onclick="go('#/growth')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-8"/></svg>
+        <span>成长</span>
+      </a>
+      <div class="nick-pill" id="nickPill" onclick="openNick()" title="点击修改昵称">
+        <span class="nick-avatar" id="nickAvatar">?</span><span id="nickName">小探险家</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 视图：首页 ============ -->
+  <section id="view-home">
+    <div class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <span class="hero-badge"><span class="dot"></span> 32 节课 · 4 大章节 · 全程动手演示</span>
+          <h1>和团团、点点一起<br>用 CyberPi <em>做出 AI</em></h1>
+          <p class="lead">读完一本 AI 绘本，再来搭一个 AI 程序！用 mBlock 彩色积木给 CyberPi（童芯派）编程——传感器当眼睛和耳朵，屏幕和彩灯当嘴巴，把故事里的 AI 知识亲手演出来。</p>
+          <div class="hero-cta">
+            <button class="btn big" onclick="go('#/course/1')">
+              开始第一课
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn ghost big" onclick="go('#/hardware')">认识 CyberPi</button>
+          </div>
+        </div>
+        <div class="hero-fig">
+          <img src="assets/hero.jpg" alt="团团和点点一起探索 CyberPi 编程">
+          <div class="float-chip fc1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>
+            信息 → 程序 → 反应
+          </div>
+          <div class="float-chip fc2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            每课 10 分钟上手
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-card"><div class="num">32</div><div class="lab">节编程课</div></div>
+      <div class="stat-card"><div class="num">4</div><div class="lab">大学习章节</div></div>
+      <div class="stat-card"><div class="num">8</div><div class="lab">个 AI 主题</div></div>
+      <div class="stat-card"><div class="num">96</div><div class="lab">道随堂问答</div></div>
+    </div>
+
+    <div class="wrap">
+      <div class="section-title">
+        <h2>课程探险地图</h2>
+        <span class="en">Learning Path</span>
+      </div>
+      <div class="path-card">
+        <div id="pathSvg"></div>
+        <div class="legend-row">
+          <span class="lg"><span class="sw" style="background:var(--ch1)"></span>第一章 信息与感知（1–8 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch2)"></span>第二章 算法与思维（9–16 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch3)"></span>第三章 机器学习（17–24 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch4)"></span>第四章 AI 创造与未来（25–32 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ok)"></span>已完成</span>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>全部课程</h2>
+        <span class="en">32 Lessons</span>
+        <span class="chip" style="margin-left:auto">和绘本课一一呼应</span>
+      </div>
+      <div id="chapters"></div>
+
+      <div class="section-title">
+        <h2>这套课怎么学</h2>
+        <span class="en">How It Works</span>
+      </div>
+      <div class="hw-feats">
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div><b>读故事</b><p>每课先回看同名 AI 绘本课的故事，带着问题进入编程</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg></div>
+          <div><b>搭积木</b><p>在 mBlock 里拖彩色积木，学会顺序、条件、循环、变量</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg></div>
+          <div><b>看效果</b><p>程序上传到 CyberPi，灯亮、屏显、发声，AI 知识现场演示</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div><b>做挑战</b><p>每课一个动手挑战 + 随堂问答，答对点亮勋章</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：课程详情 ============ -->
+  <section id="view-course" style="display:none">
+    <div class="course-top" id="courseTop">
+      <div class="wrap">
+        <a class="back" onclick="go('#/home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          返回首页
+        </a>
+        <div class="ct-row">
+          <div>
+            <span class="ct-no" id="ctNo">第 01 课</span>
+            <div class="ct-titles">
+              <h1 id="ctTitle"></h1>
+              <p id="ctSub"></p>
+            </div>
+          </div>
+          <div class="ct-progress">
+            <div class="ring" id="ctRing"><i id="ctRingPct">0%</i></div>
+            <span id="ctProgTxt">完成本课</span>
+          </div>
+        </div>
+        <div class="tabs" id="courseTabs"></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div id="coursePanels"></div>
+      <div class="lesson-nav" id="lessonNav"></div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：硬件 ============ -->
+  <section id="view-hardware" style="display:none">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>认识 CyberPi（童芯派）</h2>
+        <span class="en">Hardware Tour</span>
+        <span class="chip" style="margin-left:auto">点击图中部件查看功能</span>
+      </div>
+      <div class="page-banner"><img src="assets/hardware.jpg" alt="团团和点点探索CyberPi硬件"></div>
+      <div class="hw-hero">
+        <div class="hw-card hw-svg-wrap" id="hwSvgCard"></div>
+        <div>
+          <div class="hw-card">
+            <h3>
+              <span class="t-ico" style="background:var(--primary)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+              部件百科
+            </h3>
+            <div class="hw-info-panel" id="hwInfo">
+              <div class="hi-name">点击左侧 CyberPi 上的部件</div>
+              <div class="hi-desc">每个部件都是 AI 的"感官"或"嘴巴"，32 节课都会用到它们。</div>
+            </div>
+          </div>
+          <div class="hw-card" style="margin-top:16px">
+            <h3>
+              <span class="t-ico" style="background:var(--ch2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg></span>
+              它能做什么
+            </h3>
+            <p>CyberPi 是 Makeblock 出品的迷你编程电脑：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。在 mBlock 里拖积木就能让它"看"光线、"听"说话、"讲"故事。</p>
+          </div>
+        </div>
+      </div>
+      <div class="section-title">
+        <h2>学习收获</h2>
+        <span class="en">What You Get</span>
+      </div>
+      <div class="hw-feats">
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 8l6 8M15 8l-6 8"/></svg></div><div><b>积木编程</b><p>掌握顺序、条件、循环、变量与自制积木，零基础入门</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></div><div><b>AI 通识</b><p>信息、算法、机器学习、神经网络、AI 伦理八大主题</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.5 0 4.5 2 4.5 4.5 0 1.5-.7 2.8-1.8 3.6-1.6 1.1-2.7 2-2.7 3.9M12 21h.01"/></svg></div><div><b>计算思维</b><p>分解问题、找规律、调 Bug，像工程师一样思考</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v6c0 5 3.5 7.5 8 8 4.5-.5 8-3 8-8V7l-8-4z"/><path d="M9.5 12l2 2 3.5-4"/></svg></div><div><b>安全素养</b><p>隐私保护、信息查证、公平意识，做负责任的小创客</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：成长 ============ -->
+  <section id="view-growth" style="display:none">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>我的成长档案</h2>
+        <span class="en">My Growth</span>
+      </div>
+      <div class="page-banner"><img src="assets/growth.jpg" alt="团团和点点的成长档案"></div>
+      <div class="grow-hero">
+        <div class="grow-ring" id="growRing"><div class="gr-in"><div class="gr-num" id="growPct">0%</div><div class="gr-lab">课程完成度</div></div></div>
+        <div>
+          <div class="grow-name" id="growName">小探险家，加油！</div>
+          <p style="color:var(--ink-2);font-size:14.5px;margin-top:6px;line-height:1.7">每完成一课，点亮一个站点；集齐 32 站，解锁"毕业工程师"徽章。</p>
+          <div class="grow-stats">
+            <div class="gs-card"><div class="gs-num" id="gsDone">0</div><div class="gs-lab">已完成课程 / 32</div></div>
+            <div class="gs-card"><div class="gs-num" id="gsQuiz">0</div><div class="gs-lab">答对题目 / 96</div></div>
+            <div class="gs-card"><div class="gs-num" id="gsBadge">0</div><div class="gs-lab">获得徽章 / 6</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>我的勋章</h2><span class="en">Badges</span></div>
+      <div class="badge-grid" id="badgeGrid"></div>
+
+      <div class="section-title"><h2>章节进度</h2><span class="en">Chapters</span></div>
+      <div class="grow-ch-list" id="growCh"></div>
+
+      <div class="section-title"><h2>学习记录</h2><span class="en">Records</span></div>
+      <div class="grow-ch-list" id="growRecords"></div>
+      <button class="reset-btn" onclick="resetAll()">清空学习记录（重新开始）</button>
+    </div>
+  </section>
+</main>
+
+<!-- ============ 底部导航 ============ -->
+<nav class="bottom-nav">
+  <a class="bn-item" data-nav="home" onclick="go('#/home')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span>
+    首页
+  </a>
+  <a class="bn-item" data-nav="course" onclick="go('#/course/1')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    课程
+  </a>
+  <a class="bn-item" data-nav="hardware" onclick="go('#/hardware')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h.01M8 15h.01M12 12h4"/></svg></span>
+    硬件
+  </a>
+  <a class="bn-item" data-nav="growth" onclick="go('#/growth')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-8"/></svg></span>
+    成长
+  </a>
+</nav>
+
+<!-- ============ 昵称弹层 ============ -->
+<div class="overlay" id="nickOverlay" style="display:none">
+  <div class="nick-card">
+    <div class="n-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg></div>
+    <h2>欢迎来到 AI 编程探险课！</h2>
+    <p>输入你的名字，团团和点点会记住你的每一次学习进度。</p>
+    <input class="nick-input" id="nickInput" maxlength="8" placeholder="你的名字（比如：团团）">
+    <button class="nick-go" onclick="saveNick()">开始探索！</button>
+  </div>
+</div>
+
+<script>
+/* ===== 课程数据 ===== */
+/* ============ 课程数据：第 1–8 课 ============ */
+const LESSONS_1 = [
+{
+  id:1, ch:1, title:"你好，CyberPi！", theme:"信息与输入输出",
+  echoId:1, echoTitle:"小侦探找线索", echoBrief:"信息是能帮助我们做决定的线索",
+  story:"绘本里，团团蒙着眼睛摸东西，摸到“圆圆、滑滑、凉凉”的线索，猜出了苹果。今天，我们要让 CyberPi 也当一回小侦探——用按钮收集线索，用屏幕和彩灯告诉我们它的判断。",
+  knowledge:["信息就是能帮助我们做决定的线索","CyberPi 的传感器负责收集信息（输入）","屏幕、彩灯和喇叭负责把结果说出来（输出）"],
+  blocks:[["事件","当 CyberPi 开机时"],["显示","显示 文字 「你好，我是 CyberPi！」"],["灯","RGB 灯 亮起 蓝色"],["传感","当按钮A被按下时"]],
+  projName:"会打招呼的小机器人",
+  projEff:"开机后屏幕显示“你好，我是 CyberPi！”；按下按钮 A，5 颗 RGB 灯变成蓝色，喇叭播放“嘀”的一声。这就是一次完整的“输入 → 处理 → 输出”。",
+  steps:["开机事件里，用「显示」积木让屏幕说出问候语","加一个「当按钮A被按下时」事件","按下 A 后：灯变蓝色 + 播放提示音","上传到 CyberPi，按按钮试试"],
+  challenge:"把问候语换成你自己的名字，再给按钮 B 设计一种不同的灯色和回应。",
+  tip:"如果按按钮没反应，先检查：程序有没有上传成功？按钮是不是 A？",
+  hardware:["显示屏","按钮 A/B","RGB 灯×5","扬声器"],
+  quiz:[
+    {q:"信息是什么？",o:["一种玩具","能帮助我们做决定的线索","电脑里的零件","别人说的所有话"],a:1,exp:"信息就像小侦探的线索，帮我们做出更好的决定。"},
+    {q:"在 CyberPi 上，按钮属于什么？",o:["输出","记忆","输入","电源"],a:2,exp:"按钮把“被按下”的信息送进 CyberPi，所以它是输入。"},
+    {q:"屏幕和喇叭把结果告诉小朋友，这叫？",o:["输入","存储","处理","输出"],a:3,exp:"屏幕显示、喇叭发声，都是把信息“送出去”，叫输出。"}
+  ]
+},
+{
+  id:2, ch:1, title:"开关城里的 0 和 1", theme:"二进制与开关",
+  echoId:2, echoTitle:"开关城的两兄弟", echoBrief:"0 代表关，1 代表开，0 和 1 排队能表示各种信息",
+  story:"开关城里住着“关关”和“开开”两位居民，他们排成不同的队形就能代表不同的意思。今天，让 CyberPi 的彩灯也当开关城的居民——灯亮是 1，灯灭是 0。",
+  knowledge:["0 代表关（灯灭），1 代表开（灯亮）","多个 0 和 1 排在一起，能表示很多信息","电脑内部就是用 0 和 1 说话的"],
+  blocks:[["事件","当按钮A被按下时"],["控制","如果 灯亮着 那么"],["灯","RGB 灯 熄灭 / 亮起 黄色"],["显示","显示 数字 0 / 1"]],
+  projName:"0 和 1 的开关灯",
+  projEff:"每按一次按钮 A，彩灯在“亮（1）”和“灭（0）”之间切换，屏幕同步显示数字。再用两颗灯，拼出 00、01、10、11 四种不同的“密码”。",
+  steps:["建立变量「开关」，初始为 0","按 A：开关 = 1 - 开关（0 变 1，1 变 0）","开关是 1 就亮黄灯，是 0 就灭灯","屏幕显示当前的 0 或 1"],
+  challenge:"用 3 颗灯摆出 8 种组合（000 到 111），每摆一种，就说一个它代表的意思。",
+  tip:"两盏灯可以有 2×2=4 种组合，三盏灯是 2×2×2=8 种——位数越多，能表示的信息越多！",
+  hardware:["RGB 灯×5","按钮 A","显示屏"],
+  quiz:[
+    {q:"在开关城的故事里，1 代表什么？",o:["关","开","大","停"],a:1,exp:"1 代表开，就像灯亮起来；0 代表关，灯熄灭。"},
+    {q:"两盏灯（每盏亮或灭）最多能摆出几种组合？",o:["2 种","3 种","4 种","8 种"],a:2,exp:"每盏灯 2 种可能，2×2=4：00、01、10、11。"},
+    {q:"电脑内部是用什么“说话”的？",o:["0 和 1","中文和英文","画画","手势"],a:0,exp:"电脑只认识 0 和 1，所有信息都变成 0 和 1 来处理。"}
+  ]
+},
+{
+  id:3, ch:1, title:"小邮差的密码灯", theme:"编码与解码",
+  echoId:3, echoTitle:"小邮差的密码信", echoBrief:"编码把信息换一种样子，编码和解码要用同一套规则",
+  story:"绘本里，小邮差送的是密码信：约定好规则，别人才能看懂。今天我们用 CyberPi 的彩灯当“小邮差”，用短闪和长闪发出摩尔斯密码。",
+  knowledge:["编码 = 把信息换成另一种样子","解码 = 把密码翻译回原来的意思","发送和接收必须用同一套规则，否则会误解"],
+  blocks:[["灯","RGB 灯 亮起/熄灭"],["控制","重复执行 3 次"],["控制","等待 0.2 秒（点）/ 0.6 秒（划）"],["显示","显示 密码本"]],
+  projName:"摩尔斯密码灯",
+  projEff:"程序用短闪（·）和长闪（—）发出 SOS：··· ——— ···。屏幕同时显示密码本：“短闪=点，长闪=划”。没有密码本的人就看不懂啦！",
+  steps:["屏幕显示密码本：· 短闪，— 长闪","用灯闪 3 次短的（S）","用灯闪 3 次长的（O）","再闪 3 次短的（S），循环发送"],
+  challenge:"和好朋友约定一套“家庭暗号”（比如闪 2 次=要喝水），用灯发给他，看他能不能解码。",
+  tip:"编码和解码用同一套规则才不会“乱码”。电脑之间传信息也是这个道理。",
+  hardware:["RGB 灯","显示屏"],
+  quiz:[
+    {q:"把信息换成另一种样子来表示，这叫什么？",o:["删除","编码","放大","藏起来"],a:1,exp:"编码就是给信息“换外套”，比如闪灯、写字、做手势。"},
+    {q:"解码是什么意思？",o:["把密码翻译回原来的意思","把信息变乱","把信息删掉","把信息藏起来"],a:0,exp:"解码是编码的反过程，把密码变回原来的信息。"},
+    {q:"如果发信人和收信人用了不同的规则，会怎样？",o:["会更清楚","信息会传错","没影响","信息变多"],a:1,exp:"规则不一致就会误解，就像眨两下眼有人以为是“快跑”有人以为是“困了”。"}
+  ]
+},
+{
+  id:4, ch:1, title:"信息的小格子", theme:"变量与存储",
+  echoId:4, echoTitle:"仓库管理员机器人", echoBrief:"信息需要格子来存放，变量就是程序里的格子",
+  story:"绘本里，仓库管理员把每件货物放进一个小格子里。今天，我们给 CyberPi 的“记忆仓库”装格子——程序里的变量，就是能存数字和文字的格子。",
+  knowledge:["信息需要“格子”来存放","变量就是程序里的格子，能存数字和文字","格子（变量）可以加、可以改、可以清零"],
+  blocks:[["变量","建立变量「收集的信息」"],["事件","当按钮A被按下时"],["运算","「收集的信息」增加 1"],["显示","显示 变量「收集的信息」"]],
+  projName:"小小计数器",
+  projEff:"每按一次按钮 A，“收集的信息”就 +1，屏幕显示“今天收集到 N 条信息”；按按钮 B 清零，把格子清空重新开始。",
+  steps:["建立变量「收集的信息」，开机设为 0","按 A：变量增加 1","屏幕显示变量（显示“今天收集到”和数字）","按 B：变量设为 0"],
+  challenge:"做一个“绘本阅读打卡器”：每读完一本绘本按一次 A，一周下来数一数读了几本。",
+  tip:"变量就像小仓库：一格存一个数。格子越多，能记的信息越多——这就是“容量”。",
+  hardware:["按钮 A/B","显示屏"],
+  quiz:[
+    {q:"程序里的“变量”像什么？",o:["一个玩具","一个存信息的格子","一根电线","一块电池"],a:1,exp:"变量是程序里用来存数字或文字的小格子。"},
+    {q:"每按一次按钮，计数器 +1，用哪个积木？",o:["显示积木","灯积木","将变量增加 1","等待积木"],a:2,exp:"「将变量增加 1」会往格子里加一个数。"},
+    {q:"计数器按 B 清零，意思是？",o:["把格子清空，从 0 开始","把程序删掉","把灯关掉","把数字藏起来"],a:0,exp:"清零就是把变量设回 0，像把仓库清空重新装货。"}
+  ]
+},
+{
+  id:5, ch:1, title:"小方块拼出大世界", theme:"像素与显示",
+  echoId:5, echoTitle:"小方块拼出大世界", echoBrief:"图片由很多小方块（像素）组成，像素越多越清晰",
+  story:"绘本里，团团发现大世界其实是一块块小方块拼出来的。CyberPi 的屏幕只有 128×128 个小格子（像素），今天我们就当“像素画师”，一格一格点亮它。",
+  knowledge:["图片由许多小方块（像素）组成","像素越多，图片越清晰","CyberPi 屏幕 128×128，共 16384 个像素"],
+  blocks:[["显示","绘制 像素点 位置(x,y)"],["显示","显示 文字"],["控制","重复执行"],["显示","清空屏幕"]],
+  projName:"像素笑脸",
+  projEff:"用「绘制像素点」积木，在屏幕上 8×8 的小区域里一格一格点亮，画出笑脸和爱心；再试试放大看，每一格都是一个小方块。",
+  steps:["清空屏幕","用「绘制像素点」画出笑脸的眉毛（两横）","画眼睛（两点）和弯弯的嘴","按按钮 A，清屏换画一颗爱心"],
+  challenge:"用白色方块 + 蓝色小点，在屏幕上画一个“点点”云朵机器人。",
+  tip:"一个像素点虽然小，但几万个拼在一起，就能变成清晰的图片和动画。",
+  hardware:["显示屏"],
+  quiz:[
+    {q:"图片是由什么拼出来的？",o:["小方块（像素）","颜料","笔画","水彩"],a:0,exp:"图片由很多小方块（像素）组成，就像拼图。"},
+    {q:"像素越多，图片会怎样？",o:["越模糊","越清晰","越小","越重"],a:1,exp:"像素越多，细节越多，图片越清晰。"},
+    {q:"CyberPi 屏幕是 128×128，一共有多少个像素？",o:["256 个","16384 个","128 个","1000 个"],a:1,exp:"128×128=16384，屏幕上有 1 万多个小格子。"}
+  ]
+},
+{
+  id:6, ch:1, title:"红绿蓝的合唱团", theme:"RGB 颜色",
+  echoId:6, echoTitle:"红绿蓝灯的合唱团", echoBrief:"红、绿、蓝三色光混合出各种颜色，颜色可以用数字配方描述",
+  story:"绘本里，红绿蓝三盏灯组成的合唱团，唱出了五彩的世界。今天 CyberPi 的 5 颗 RGB 灯就是合唱团——红、绿、蓝三种光，亮度不同，颜色就不同。",
+  knowledge:["红、绿、蓝三种光可以混出几乎所有颜色","每种光的亮度（0–255）决定颜色的深浅","颜色可以写成数字“配方”，比如红色 = R255 G0 B0"],
+  blocks:[["灯","RGB 灯 亮起 红=… 绿=… 蓝=…"],["变量","建立变量 R / G / B"],["事件","当按钮A被按下时"],["显示","显示 配方 R=… G=… B=…"]],
+  projName:"调色小画家",
+  projEff:"用按钮 A/B 调节红、绿、蓝三种光的亮度，屏幕实时显示配方数字（R=255 G=0 B=0 是红色），摇杆确认颜色，看 5 颗灯一起变色。",
+  steps:["建立变量 R、G、B，都从 0 开始","按 A 切换要调的颜色（红→绿→蓝）","摇杆上下调整亮度 0–255","灯按 R/G/B 亮起，屏幕显示配方"],
+  challenge:"调出“草莓粉”和“柠檬黄”的配方，写下来分享给同学。",
+  tip:"红色+绿色=黄色，绿色+蓝色=青色，红色+蓝色=紫色，红绿蓝全开=白色！",
+  hardware:["RGB 灯×5","按钮/摇杆","显示屏"],
+  quiz:[
+    {q:"红、绿、蓝三种光加在一起会变成？",o:["黑色","白色","棕色","灰色"],a:1,exp:"三色全亮（亮度都最大）混出来是白光。"},
+    {q:"红色 + 绿色 会混出什么颜色？",o:["紫色","蓝色","黄色","青色"],a:2,exp:"红色和绿色光混在一起，就变成了黄色。"},
+    {q:"颜色写成 R255 G0 B0，这是？",o:["一种编码配方","一个游戏","一条命令","一个故事"],a:0,exp:"用数字精确描述颜色，电脑就知道要显示什么颜色。"}
+  ]
+},
+{
+  id:7, ch:1, title:"行李箱装不下啦", theme:"压缩与取舍",
+  echoId:7, echoTitle:"行李箱装不下啦", echoBrief:"压缩让信息变小，保留重要的、去掉不重要的",
+  story:"绘本里，团团的行李箱装不下所有东西，只好挑重要的带走。今天让 CyberPi 的屏幕当行李箱：画一幅“精细”的星星，再画“简化”的星星，比比谁占的格子少。",
+  knowledge:["压缩 = 让信息变小，节省空间","有的压缩会丢掉一些细节，但主要内容还看得懂","压缩是一种取舍：保留重要的，去掉不重要的"],
+  blocks:[["显示","绘制 像素点（精细图案）"],["控制","重复执行"],["变量","记录 用掉的像素数"],["显示","清空屏幕 后 绘制 简化图案"]],
+  projName:"图片瘦身记",
+  projEff:"屏幕先显示一颗用很多像素画的“精细星星”，数一数用了多少格；再显示只用几颗像素的“简化星星”，两幅图比比谁占的格子少——简化就是压缩。",
+  steps:["画精细星星：用 20+ 像素点","显示“用了 N 个格子”","清屏，画简化星星：只用 8 个像素","显示“压缩后只有 M 个格子”","比较：两幅图都能认出是星星吗？"],
+  challenge:"把笑脸从“精细版”改成“简化版”，看看别人还能不能认出来。",
+  tip:"照片、视频在电脑里也会被压缩——挑重要的留下，不重要的丢掉。",
+  hardware:["显示屏"],
+  quiz:[
+    {q:"压缩是什么意思？",o:["把信息变大","让信息变小","把信息删光","把信息藏起来"],a:1,exp:"压缩是让文件变小，节省存储空间。"},
+    {q:"压缩时会丢掉一些细节，这叫？",o:["出错","取舍","加密","乱码"],a:1,exp:"压缩要保留重要的、去掉不重要的，是一种取舍。"},
+    {q:"简化星星和精细星星，哪个占的格子少？",o:["精细星星","简化星星","一样多","都不占"],a:1,exp:"简化星星用的像素少，占的格子少，就像压缩后的文件。"}
+  ]
+},
+{
+  id:8, ch:1, title:"雾里的传感器", theme:"噪声与数据",
+  echoId:8, echoTitle:"雾气里的照片", echoBrief:"噪声是混在信息里的干扰，多次测量取平均能减少噪声",
+  story:"绘本里，照片被雾气罩住，看不清里面的东西。今天 CyberPi 的“眼睛”——光线传感器也遇到了雾：它的数值总在抖，那就是噪声。我们要帮它把雾吹散。",
+  knowledge:["噪声 = 混在信息里的干扰，让信息变模糊","数据不稳定，判断就容易出错","多次测量取平均，能减少噪声的影响"],
+  blocks:[["传感","环境光强度"],["变量","建立变量 光线总和"],["运算","总和 ÷ 3"],["显示","显示 稳定光线值"]],
+  projName:"数据过滤器",
+  projEff:"屏幕实时显示光线传感器数值（它会抖来抖去——这就是噪声）；程序连续读 3 次，取平均值，显示“稳定值”，数据立刻平稳下来。",
+  steps:["显示“原始值”：实时读取环境光强度","连读 3 次，加起来存进变量","用「÷ 3」算出平均","屏幕显示“稳定值 = 平均结果”","用手遮住传感器再松开，观察变化"],
+  challenge:"试试“取 5 次平均”比“取 3 次平均”哪个更稳？",
+  tip:"就像雾气里的照片，噪声多了判断就不准。AI 也要靠“干净”的数据才能做对决定。",
+  hardware:["光线传感器","显示屏"],
+  quiz:[
+    {q:"混在信息里、让信息变模糊的干扰叫什么？",o:["噪声","信号","电源","程序"],a:0,exp:"噪声是干扰，就像照片上的雾气。"},
+    {q:"光线传感器的数值一直抖，说明什么？",o:["传感器坏了","数据里有噪声","电脑坏了","灯坏了"],a:1,exp:"数值抖动就是噪声，数据不稳定判断就容易出错。"},
+    {q:"怎么减少噪声的影响？",o:["把传感器扔了","多测几次取平均","把灯关掉","大声喊"],a:1,exp:"多次测量取平均，能抵消一部分抖动，让数据更稳定。"}
+  ]
+}
+];
+
+/* ============ 课程数据：第 9–16 课 ============ */
+const LESSONS_2 = [
+{
+  id:9, ch:2, title:"智能红绿灯", theme:"条件判断",
+  echoId:9, echoTitle:"红灯停绿灯行", echoBrief:"“如果…就…”是条件判断，电脑靠无数个条件做决定",
+  story:"绘本里，团团学会了“红灯停、绿灯行”的规则。今天 CyberPi 也要遵守规则——光线暗了就亮红灯提醒开灯，光线亮了就亮绿灯。规则就是程序！",
+  knowledge:["“如果…就…”是条件判断，用规则做决定","条件可以叠加，多个条件让规则更聪明","电脑就是靠无数个“如果…就…”运行的"],
+  blocks:[["传感","环境光强度"],["控制","如果 环境光 < 30 那么…否则…"],["灯","RGB 灯 亮起 红色 / 绿色"],["显示","显示 「开灯啦！」/「白天好」"]],
+  projName:"感光小夜灯",
+  projEff:"如果光线暗（环境光 < 30），红灯亮，屏幕显示“开灯啦！”；否则绿灯亮，显示“白天好”。把 CyberPi 靠近台灯或用手遮住，它就会自动“变脸”。",
+  steps:["重复执行：读取环境光强度","如果 环境光 < 30：红灯 + “开灯啦！”","否则：绿灯 + “白天好”","用手遮住传感器，看它怎么反应"],
+  challenge:"再加一条规则：如果声音也大，就把灯变成黄色——体验“条件叠加”。",
+  tip:"条件判断就是程序做决定的规则。规则越清楚，程序越聪明。",
+  hardware:["光线传感器","RGB 灯","显示屏"],
+  quiz:[
+    {q:"“如果光线暗，就亮红灯”这是？",o:["循环","条件判断","变量","编码"],a:1,exp:"“如果…就…”是条件判断，根据条件做不同的事。"},
+    {q:"电脑是靠什么来做决定的？",o:["运气","无数个“如果…就…”规则","猜拳","天气"],a:1,exp:"电脑运行的程序里全是条件和规则。"},
+    {q:"想加一条“声音大也提醒”的规则，需要？",o:["换一台电脑","再叠一个条件","删掉旧程序","把灯关掉"],a:1,exp:"多个条件叠加在一起，规则会变得更聪明。"}
+  ]
+},
+{
+  id:10, ch:2, title:"会数数的刷牙计时器", theme:"循环",
+  echoId:10, echoTitle:"会数数的刷牙机器人", echoBrief:"循环就是重复做同一个步骤，可以规定次数或条件",
+  story:"绘本里，刷牙机器人会一遍遍数数，帮小朋友刷够时间。今天我们用 CyberPi 做一个刷牙小闹钟——循环 20 次，每次 1 秒，倒计时结束就响铃。",
+  knowledge:["循环 = 重复做同一个步骤","循环可以规定“重复几次”或“直到…为止”","电脑最擅长做重复的事"],
+  blocks:[["变量","建立变量 剩余时间"],["控制","重复执行 20 次"],["控制","等待 1 秒"],["显示","显示 剩余时间"],["声音","播放音符 C4 0.5 拍"]],
+  projName:"刷牙小闹钟",
+  projEff:"开机显示 20，每过 1 秒减 1，倒计时到 0 时，RGB 灯亮起、喇叭播放“刷完啦”的音乐——像绘本里的刷牙机器人一样可靠。",
+  steps:["剩余时间设为 20","重复执行 20 次：显示数字、等待 1 秒、数字减 1","倒计时结束，灯亮 + 播放音乐","改成“重复执行直到按钮被按下”试试"],
+  challenge:"把刷牙时间改成 30 秒，倒计时会不会变慢？为什么？",
+  tip:"循环让重复的工作稳定、可靠。人怕重复，电脑最爱重复。",
+  hardware:["显示屏","RGB 灯","扬声器"],
+  quiz:[
+    {q:"循环是什么意思？",o:["只做一次","重复做同一个步骤","倒着做","随便做"],a:1,exp:"循环就是一遍遍重复同一个步骤。"},
+    {q:"「重复执行 20 次」会执行几次？",o:["20 次","无限次","2 次","1 次"],a:0,exp:"循环规定做 20 次，一次不多一次不少。"},
+    {q:"电脑和人比，做重复的事谁更厉害？",o:["人","电脑","一样","都不行"],a:1,exp:"电脑最擅长不知疲倦地重复做同一件事。"}
+  ]
+},
+{
+  id:11, ch:2, title:"做披萨的流水线", theme:"任务分解",
+  echoId:11, echoTitle:"做披萨的流水线", echoBrief:"大任务分解成小步骤，按顺序执行，分工协作更快",
+  story:"绘本里，披萨流水线上的每个工人只做一步，大家合作做出大披萨。今天我们用“自制积木”把做汉堡分成几步，让 CyberPi 一步一步画出来。",
+  knowledge:["大任务可以分解成小步骤","步骤有先后顺序","合理分解和协作，事情做得更快更好"],
+  blocks:[["自制","定义 放面包"],["自制","定义 放肉饼"],["自制","定义 放蔬菜"],["显示","显示 当前步骤"],["控制","等待 1 秒"]],
+  projName:"汉堡流水线",
+  projEff:"自制 3 个积木——放面包、放肉饼、放蔬菜，再按顺序调用：先面包、再肉饼、最后蔬菜，屏幕一步步画出汉堡，就像一条流水线。",
+  steps:["自制积木「放面包」：画面包 + 显示步骤","自制积木「放肉饼」「放蔬菜」","按顺序调用：面包 → 肉饼 → 蔬菜","完成显示“汉堡做好啦！”"],
+  challenge:"把“倒水、放茶叶、搅拌、等待”做成一条“泡茶流水线”。",
+  tip:"大任务拆成小步骤，每一步都简单清楚，程序就不容易出错。",
+  hardware:["显示屏"],
+  quiz:[
+    {q:"做汉堡先做面包、再做肉饼，这体现了？",o:["顺序","循环","随机","猜拳"],a:0,exp:"步骤有先后顺序，按顺序执行才对。"},
+    {q:"把大任务分成小步骤，叫什么？",o:["任务分解","任务变大","任务删除","任务隐藏"],a:0,exp:"大任务分解成小步骤，每一步都更简单。"},
+    {q:"自制积木的好处是？",o:["让程序变乱","把步骤打包，随时调用","让灯变亮","让声音变大"],a:1,exp:"自制积木把一组步骤打包，用的时候调用一次就行。"}
+  ]
+},
+{
+  id:12, ch:2, title:"找 Bug 的小修理工", theme:"调试",
+  echoId:12, echoTitle:"找bug的小修理工", echoBrief:"Bug 是程序里的错误，调试四步：发现问题→找原因→修改→再试",
+  story:"绘本里，小修理工拿放大镜找程序里的“小虫子”。今天程序里也藏了一只 Bug：红绿灯的顺序乱了，灯总是不按规则变。帮 CyberPi 把它找出来！",
+  knowledge:["Bug = 程序中的错误，会导致结果不对","调试四步：发现问题 → 找到原因 → 修改 → 再试","一步步检查能更快定位问题"],
+  blocks:[["事件","当 CyberPi 开机时"],["控制","如果 按钮A被按下 那么"],["灯","RGB 灯 亮起 绿色（错误：顺序颠倒）"],["显示","显示 提示信息"]],
+  projName:"修一修红绿灯",
+  projEff:"老师给出一段“生病”的程序：该亮红灯的时候亮成了绿灯，该先显示的字被放到了最后。孩子先预测哪里出错，再修改顺序，最后红灯绿灯恢复正常。",
+  steps:["读一遍程序，说出哪里不对（找 Bug）","找到原因：条件写反 / 顺序颠倒","修改积木（把条件反过来）","再运行一次，灯按规则变色","总结：调试四步法"],
+  challenge:"和小伙伴交换程序，互相找 Bug，看谁找得又快又准。",
+  tip:"发现 Bug 不可怕，按“发现→找因→修改→再试”四步走，程序会越来越健康。",
+  hardware:["RGB 灯","按钮","显示屏"],
+  quiz:[
+    {q:"程序里的 Bug 是什么？",o:["小虫子","程序中的错误","一种积木","一个游戏"],a:1,exp:"Bug 是程序中的小错误，会让结果不对。"},
+    {q:"调试的第一步是？",o:["直接删除","发现问题","换电脑","重写全部"],a:1,exp:"调试从“发现问题”开始，然后是找原因、修改、再试。"},
+    {q:"改完程序后应该？",o:["不再管它","再运行试试","把它藏起来","把灯关掉"],a:1,exp:"修改后要“再试”，验证问题真的解决了。"}
+  ]
+},
+{
+  id:13, ch:2, title:"袜子大整理", theme:"分类",
+  echoId:13, echoTitle:"袜子大整理", echoBrief:"分类就是按特征把相似的东西放在一起",
+  story:"绘本里，团团把一筐袜子按颜色和大小分好。今天 CyberPi 当“声音分拣员”：把大声和小声自动分成两组，还帮你数一数每组有几只。",
+  knowledge:["分类 = 按特征把相似的东西放在一起","分类的规则不同，结果就不同","AI 也是靠分类来认识世界的"],
+  blocks:[["传感","声音强度"],["控制","如果 声音 > 60 那么…否则…"],["变量","大声组 / 小声组 各 +1"],["显示","显示 两组数量"]],
+  projName:"声音分拣员",
+  projEff:"对着麦克风拍手（大声）→“大声组”加 1；轻轻说话（小声）→“小声组”加 1。屏幕显示两组各有多少，像整理袜子一样整理声音。",
+  steps:["读取声音强度","声音 > 60：大声组 +1，显示“大声！”","否则：小声组 +1，显示“小声…”","屏幕显示两组数量"],
+  challenge:"把规则改成按“光线亮暗”分类，整理“亮光组”和“暗光组”。",
+  tip:"分类规则不同，结果就不同——用“大小”分是一种分法，用“颜色”分是另一种。",
+  hardware:["麦克风（声音传感器）","显示屏"],
+  quiz:[
+    {q:"把大声和小声分开，这是？",o:["分类","循环","预测","编码"],a:0,exp:"分类就是按特征（声音大小）把东西分成不同的组。"},
+    {q:"分类的规则变了，结果会？",o:["不变","跟着变","消失","变多"],a:1,exp:"规则不同结果就不同，比如按颜色分和按大小分结果不一样。"},
+    {q:"AI 靠什么来认识世界？",o:["猜","分类和特征","魔法","运气"],a:1,exp:"AI 认识世界的重要方法之一就是分类——找特征、分分组。"}
+  ]
+},
+{
+  id:14, ch:2, title:"特征放大镜", theme:"特征识别",
+  echoId:14, echoTitle:"特征放大镜", echoBrief:"特征是能区分事物的线索，找相同和找不同是识别的基本方法",
+  story:"绘本里，团团用放大镜找猫和狗的特征：竖耳朵还是耷耳朵。今天 CyberPi 用“放大镜”看你的动作——向左摇还是向右摇，用方向特征来区分。",
+  knowledge:["特征 = 能区分不同事物的线索","有些特征更能帮助识别","找相同和找不同，是识别事物的基本方法"],
+  blocks:[["传感","加速度 X 轴 / 陀螺仪"],["控制","如果 加速度X < -1 那么"],["显示","显示 「← 向左摇！」"],["显示","显示 「→ 向右摇！」"]],
+  projName:"摇一摇识方向",
+  projEff:"把 CyberPi 向左摇：屏幕显示“←”；向右摇：显示“→”；向上举：显示“↑”。用摇动的方向当“特征”，CyberPi 就能认出你的动作。",
+  steps:["读取加速度 X 轴的值","向左摇（X < -1）：显示“←”","向右摇（X > 1）：显示“→”","加上向上摇（Y 轴）的识别"],
+  challenge:"设计一个新特征：“摇两下 = 跳一跳”，让 CyberPi 认出来。",
+  tip:"好的特征一眼就能区分事物。选特征就像玩“找不同”。",
+  hardware:["6 轴陀螺仪+加速度计","显示屏"],
+  quiz:[
+    {q:"能区分不同事物的线索叫什么？",o:["噪声","特征","电源","积木"],a:1,exp:"特征是帮助我们区分事物的特点，比如耳朵的形状。"},
+    {q:"CyberPi 识别“向左摇”用的是哪个特征？",o:["声音大小","摇动的方向","屏幕颜色","灯光亮度"],a:1,exp:"它用加速度判断方向，方向就是特征。"},
+    {q:"识别猫和狗，哪个特征更好用？",o:["耳朵形状","毛的颜色","都一样","都不行"],a:1,exp:"有些特征区分度更高，比如猫狗的耳朵形状比毛色更可靠。"}
+  ]
+},
+{
+  id:15, ch:2, title:"猜一猜明天带伞吗", theme:"预测",
+  echoId:15, echoTitle:"猜一猜明天带伞吗", echoBrief:"预测是根据过去的规律猜未来，信息越多预测越靠谱",
+  story:"绘本里，团团看天色猜明天要不要带伞。今天 CyberPi 当“小小天气预报员”——连续记录 3 次光线，根据规律猜明天是晴是雨。",
+  knowledge:["预测 = 根据过去的规律来猜未来","预测不是 100% 确定，有不确定性","规律越明显、信息越多，预测越靠谱"],
+  blocks:[["变量","记录 光线1 / 光线2 / 光线3"],["运算","光线1 > 50 且 光线2 > 50"],["控制","如果 都亮 那么"],["显示","显示 预测结果"]],
+  projName:"小小天气预报员",
+  projEff:"程序连续记录 3 次环境光强度：如果三次都很亮，预测“明天是晴天”；如果越来越暗，预测“要下雨啦，带伞！”——像绘本里的团团一样做预测。",
+  steps:["连测 3 次光线，分别存进变量","如果 3 次都 > 50：预测“晴天！”","如果 第3次 < 第1次：预测“要下雨带伞”","屏幕显示预测结果"],
+  challenge:"每天记录一次光线，坚持一周，看看能不能预测第 7 天的天气。",
+  tip:"信息越多、规律越明显，预测越准。但预测永远有不确定性。",
+  hardware:["光线传感器","显示屏"],
+  quiz:[
+    {q:"预测是根据什么来猜未来的？",o:["运气","过去的规律","别人的话","魔法"],a:1,exp:"预测是根据过去观察到的规律，来猜接下来会发生什么。"},
+    {q:"预测的结果是 100% 确定的吗？",o:["是","不是，有不确定性","只有晴天确定","只有雨天确定"],a:1,exp:"预测不是百分百确定，只是“很可能”。"},
+    {q:"怎样让预测更靠谱？",o:["信息越多越好","信息越少越好","不收集信息","随便猜"],a:0,exp:"信息越多、规律越明显，预测就越靠谱。"}
+  ]
+},
+{
+  id:16, ch:2, title:"背答案的鹦鹉", theme:"理解 vs 背答案",
+  echoId:16, echoTitle:"背答案的鹦鹉", echoBrief:"背答案不等于真学会，过拟合是只会做见过的题",
+  story:"绘本里，鹦鹉只会背“1+1=2”，换个问题就哑了。今天让 CyberPi 也当一回“背答案的鹦鹉”——它只准备了两个固定问答，遇到新问题就答不上来。",
+  knowledge:["只记住答案不等于真正学会","过拟合 = 只会做见过的题，不会做新题","真正的学习是理解规律、能举一反三"],
+  blocks:[["变量","建立变量 问题"],["控制","如果 问题 = 1+1 那么"],["声音","朗读 「答案是 2」"],["显示","显示 回答结果"]],
+  projName:"背答案的鹦鹉",
+  projEff:"程序只存了两个固定问答：“1+1=？”答“2”，“3+2=？”答“5”。你问“2+3=？”它就答不上来了——因为它只会背，没有真正学会加法。",
+  steps:["存两个固定问答（问题和答案）","识别输入的问题","如果问题匹配，就朗读背好的答案","问一个没背过的问题，看它怎么“卡壳”","讨论：怎样才算真的会？"],
+  challenge:"给鹦鹉加 3 组新问答，再讨论：它是在“学会”还是在“背答案”？",
+  tip:"背答案的鹦鹉遇到新题就露馅——真正的学习要理解规律，能举一反三。",
+  hardware:["显示屏","扬声器","按钮"],
+  quiz:[
+    {q:"只会做见过的题，不会做新题，这叫？",o:["真学会","过拟合","很聪明","很厉害"],a:1,exp:"过拟合就是只记住了见过的答案，换新题就不会了。"},
+    {q:"背答案和真正学会，区别是？",o:["没区别","背答案是记住，学会是理解规律","背答案更好","学会更差"],a:1,exp:"真正学会是理解规律，能举一反三；背答案只是记住。"},
+    {q:"鹦鹉答不上“2+3=？”，是因为？",o:["它太笨","它只背过固定答案","它在休息","题太难"],a:1,exp:"它只准备了见过的题，没见过就不会——这就是背答案的局限。"}
+  ]
+}
+];
+
+/* ============ 课程数据：第 17–24 课 ============ */
+const LESSONS_3 = [
+{
+  id:17, ch:3, title:"学校里的 AI 同学", theme:"训练集与测试集",
+  echoId:17, echoTitle:"学校里的AI同学", echoBrief:"训练集是练习题，测试集是考试题，用新题检验是否真学会",
+  story:"绘本里，学校来了个 AI 同学，它要先做练习题，再做考试题。今天我们用 mBlock 的“机器学习 2.0”教 CyberPi 认识两种声音——拍手和吹口哨，再用没练过的新声音考考它。",
+  knowledge:["训练集 = 学习用的“练习题”","测试集 = 检验用的“考试题”","用新题检验，才知道是不是真的学会了"],
+  blocks:[["扩展","机器学习2.0 · 训练 声音类别1（拍手）"],["扩展","机器学习2.0 · 训练 声音类别2（吹口哨）"],["扩展","机器学习2.0 · 识别 声音"],["显示","显示 识别结果"]],
+  projName:"声音小老师",
+  projEff:"先录 5 次拍手、5 次吹口哨当“练习题”（训练集），训练完成后，让 AI 同学“考试”——用全新的拍手和吹口哨测试，它答对了吗？",
+  steps:["打开 mBlock「机器学习 2.0」扩展","训练类别1：录 5 次拍手（练习题）","训练类别2：录 5 次吹口哨（练习题）","开始训练模型","考试：用没练过的新声音测试识别"],
+  challenge:"每种声音多练几个样本再测，识别是不是更准了？",
+  tip:"练习题（训练集）决定它会什么，考试题（测试集）检验它真会了没有。",
+  hardware:["麦克风","显示屏"],
+  quiz:[
+    {q:"AI 同学学习用的“练习题”叫什么？",o:["考试题","训练集","游戏","作业本"],a:1,exp:"训练集是学习用的练习题，AI 从里面学规律。"},
+    {q:"检验 AI 是不是真学会了，要用？",o:["练过的旧题","没练过的新题","随便猜","背答案"],a:1,exp:"用新题（测试集）考试，才知道是不是真学会了。"},
+    {q:"训练时每种声音录 5 次，是为了？",o:["让 AI 认识更多样本","浪费时间","让声音变大","让灯变亮"],a:0,exp:"样本越多，AI 学到的规律越可靠。"}
+  ]
+},
+{
+  id:18, ch:3, title:"小狗学握手", theme:"强化学习",
+  echoId:18, echoTitle:"小狗学握手", echoBrief:"强化学习通过“奖励”学会行为：做对了得奖励，下次更愿意做",
+  story:"绘本里，小狗做对动作就得到奖励，越做越好。今天 CyberPi 屏幕上会随机亮出颜色，你按对按钮就 +1 分、播放奖励音效——这就是“奖励驱动学习”。",
+  knowledge:["强化学习 = 通过“奖励”来学会行为","做对了得到奖励 → 下次更愿意这么做","试一试 → 得反馈 → 再调整，是学习的关键循环"],
+  blocks:[["变量","建立变量 得分"],["事件","当按钮A被按下时"],["控制","如果 按对了 那么"],["运算","得分 增加 1"],["声音","播放 奖励音效"]],
+  projName:"训练小海豚",
+  projEff:"屏幕随机显示红色或蓝色，显示红色时按 A、显示蓝色时按 B：按对 +1 分并播放“叮咚”奖励音，连对 3 次获得勋章。像训练小海豚一样，奖励让行为变强。",
+  steps:["屏幕随机显示红色或蓝色","按 A / B 判断颜色","按对：得分 +1 + 奖励音效","按错：提示“再试试”","连对 3 次：显示勋章"],
+  challenge:"设计你的“奖励规则”：答对得星星，答错不扣分——说说奖励怎么帮助你变强。",
+  tip:"做对得奖励、做错得提示，多试几次，表现就会越来越好。",
+  hardware:["按钮 A/B","RGB 灯","显示屏","扬声器"],
+  quiz:[
+    {q:"强化学习靠什么让行为变强？",o:["惩罚","奖励","睡觉","运气"],a:1,exp:"做对了得到奖励，下次更愿意这么做——奖励驱动学习。"},
+    {q:"训练小海豚按对颜色，得分+1，这是？",o:["奖励","惩罚","休息","测试"],a:0,exp:"得分和音效就是奖励，让 CyberPi“学会”正确的按钮。"},
+    {q:"“试一试 → 得反馈 → 再调整”是？",o:["学习的关键循环","浪费时间","只有动物才会","没用的"],a:0,exp:"这个循环是学习的关键，人和 AI 都一样。"}
+  ]
+},
+{
+  id:19, ch:3, title:"贴标签的老师", theme:"监督学习",
+  echoId:19, echoTitle:"贴标签的老师", echoBrief:"监督学习是有标准答案的学习，标签越清楚学得越好",
+  story:"绘本里，老师给每样东西贴上标签：这是猫、那是狗。今天我们也给命令贴标签：说“红色”灯变红，说“蓝色”灯变蓝——每个命令词就是一个标签。",
+  knowledge:["监督学习 = 有“标准答案”的学习方式","标签 = 每条数据的“正确答案”","标签越清楚，机器学得越好"],
+  blocks:[["网络/AI","识别语音 2 秒"],["网络/AI","语音识别结果"],["控制","如果 识别结果 = 红色 那么"],["灯","RGB 灯 亮起 红色"],["显示","显示 识别到的标签"]],
+  projName:"语音小管家",
+  projEff:"对着麦克风说“红色”，CyberPi 识别到标签“红色”，灯变红；说“蓝色”灯变蓝；说“唱歌”就播放音乐。标签越清楚，执行越准确。",
+  steps:["添加「语音识别」扩展并连接 Wi-Fi","识别语音 2 秒，得到识别结果","如果结果 = “红色”：灯变红","如果结果 = “蓝色”：灯变蓝","做一本“命令标签手册”"],
+  challenge:"增加“黄色”“绿色”两个标签，设计一本完整的“命令标签手册”。",
+  tip:"有标准答案（标签）的学习叫监督学习。标签就像老师批改的正确答案。",
+  hardware:["麦克风","RGB 灯","扬声器","Wi-Fi"],
+  quiz:[
+    {q:"监督学习的特点是？",o:["没有答案","有标准答案","没有老师","全靠猜"],a:1,exp:"监督学习是“有标准答案”的学习，像老师教学生。"},
+    {q:"说“红色”灯就变红，“红色”这个命令词是？",o:["噪声","标签","电源","程序"],a:1,exp:"命令词就是标签，告诉 AI 每个数据对应的正确答案。"},
+    {q:"标签越清楚，AI 学得？",o:["越差","越好","没变化","越快消失"],a:1,exp:"标签清楚，AI 才知道标准答案，学得越好。"}
+  ]
+},
+{
+  id:20, ch:3, title:"没有标签的玩具箱", theme:"无监督学习",
+  echoId:20, echoTitle:"没有标签的玩具箱", echoBrief:"无监督学习不给标准答案，自己按相似性分组",
+  story:"绘本里，没有标签的玩具箱让团团自己找规律：亮晶晶的放一起，毛茸茸的放一起。今天让 CyberPi 自己看 10 个光线数据，不告诉它答案，让它自己分成“亮组”和“暗组”。",
+  knowledge:["无监督学习 = 不给“标准答案”的学习","没有标签也能按相似性把东西分成组","能发现“隐藏的分组”——数据自己会说话"],
+  blocks:[["变量","建立变量 亮组 / 暗组"],["传感","环境光强度"],["运算","与 平均值 比较"],["显示","显示 分组结果"]],
+  projName:"自动分组的玩具箱",
+  projEff:"连续收集 10 个光线数值，程序先算出平均值，再把每个数分到“比平均值亮”或“比平均值暗”的组里——全程没有标签，CyberPi 自己找规律分类。",
+  steps:["收集 10 个光线数值存进列表","算出平均值（程序自己定的分界线）","每个数 > 平均值 → 亮组","每个数 ≤ 平均值 → 暗组","屏幕显示两组结果"],
+  challenge:"换一组“声音大小”数据，程序还能自己分组吗？",
+  tip:"没有标签也能分组——这种“自己找规律”的学习叫无监督学习（聚类）。",
+  hardware:["光线传感器","显示屏"],
+  quiz:[
+    {q:"无监督学习给不给“标准答案”？",o:["给","不给","看心情","都行"],a:1,exp:"无监督学习没有标签、没有标准答案，自己找规律。"},
+    {q:"没有标签时，CyberPi 靠什么分组？",o:["相似性","老师","猜拳","天气"],a:0,exp:"它按数据的相似程度自动分组，比如亮的放一组。"},
+    {q:"“数据自己会说话”的意思是？",o:["数据会唱歌","规律藏在数据里，可以自己发现","数据会聊天","数据会消失"],a:1,exp:"不用人告诉它，规律就藏在数据里，自己就能发现。"}
+  ]
+},
+{
+  id:21, ch:3, title:"点亮聪明灯", theme:"神经元",
+  echoId:21, echoTitle:"点亮聪明灯", echoBrief:"神经元接收多个信号，共同决定是否“点亮”",
+  story:"绘本里，聪明灯要收到很多信号才会亮。今天 CyberPi 也有一颗“聪明灯”：光线亮 且 声音大，两个信号都到齐，灯才亮——这就是一个迷你神经元。",
+  knowledge:["神经元（节点）是处理信息的小单元","一个神经元接收很多输入信号","多个信号共同决定输出"],
+  blocks:[["传感","环境光强度"],["传感","声音强度"],["运算","光线亮 且 声音大"],["控制","如果 两个都满足 那么"],["灯","RGB 灯 亮起 黄色"]],
+  projName:"小小神经元",
+  projEff:"一颗“聪明灯”神经元：只有当光线亮 且 声音大时（比如拍手+开灯），灯才亮；只满足一个条件，灯不亮。像神经元一样“收集信号→决定亮不亮”。",
+  steps:["读取光线强度和声音强度","用「且」把两个条件连起来","两个都满足：黄灯亮 + 显示“神经元激活！”","缺一个条件：灯灭"],
+  challenge:"把「且」改成「或」，灯什么时候会亮？和“且”有什么区别？",
+  tip:"神经元收到多个输入，一起决定输出。大脑里千亿个神经元就是这么工作的。",
+  hardware:["光线传感器","麦克风","RGB 灯"],
+  quiz:[
+    {q:"神经元是什么？",o:["处理信息的小单元","一颗电池","一个灯泡","一根线"],a:0,exp:"神经元是信息处理的小单元，接收多个信号做决定。"},
+    {q:"聪明灯“光线亮 且 声音大”才亮，用了什么运算？",o:["或","且","不","等于"],a:1,exp:"「且」要求两个条件都满足，缺一不可。"},
+    {q:"如果只满足一个条件，聪明灯会？",o:["亮","不亮","闪烁","爆炸"],a:1,exp:"「且」规则下，只有一个信号到齐，灯不会亮。"}
+  ]
+},
+{
+  id:22, ch:3, title:"从边边角角到整张脸", theme:"神经网络分层",
+  echoId:22, echoTitle:"从边边角角到整张脸", echoBrief:"神经网络分层处理：前层看简单局部，后层组合成整体",
+  story:"绘本里，神经网络先看见边边角角，再拼出整张脸。今天 CyberPi 当“三层小助手”：第一层看光线，第二层听声音，第三层综合出结论。",
+  knowledge:["神经网络有多层，每层看不同层次的信息","前面的层看简单的局部","后面的层把局部组合成整体"],
+  blocks:[["自制","定义 第一层：看光线"],["自制","定义 第二层：听声音"],["自制","定义 第三层：综合结论"],["显示","显示 结论卡"]],
+  projName:"三层小助手",
+  projEff:"第一层看光线（亮/暗），第二层听声音（大/小），第三层把两层结果综合成结论卡：亮+大声=“热闹的白天”，暗+小声=“安静的夜晚”——像神经网络一样一层层加工信息。",
+  steps:["自制积木「第一层」：判断光线亮暗","自制积木「第二层」：判断声音大小","自制积木「第三层」：组合两层结果","按“第一层→第二层→第三层”顺序调用"],
+  challenge:"再加一层“按钮层”，三层变四层，结论会更丰富。",
+  tip:"分层让复杂任务变简单：每层只管一小步，组合起来就是大智慧。",
+  hardware:["光线传感器","麦克风","按钮","显示屏"],
+  quiz:[
+    {q:"神经网络的前面几层看什么？",o:["整体","简单的局部特征","全部答案","颜色"],a:1,exp:"前面的层先看简单局部，比如线条、边角。"},
+    {q:"后面的层把局部组合成？",o:["噪声","整体","灰尘","碎片"],a:1,exp:"后面的层把局部组合起来，看到完整的东西。"},
+    {q:"三层小助手“一层层加工”像什么？",o:["神经网络分层","背答案","猜拳","跑步"],a:0,exp:"一层层处理信息正是神经网络分层的工作方式。"}
+  ]
+},
+{
+  id:23, ch:3, title:"音量旋钮", theme:"权重",
+  echoId:23, echoTitle:"音量旋钮决定谁更重要", echoBrief:"权重像旋钮，控制每个线索的影响力",
+  story:"绘本里，音量旋钮决定谁的声音更重要。今天 CyberPi 有两个线索：光线和声音。我们给它们各接一个“旋钮”（权重），调大谁，谁说了就算。",
+  knowledge:["不同的线索重要程度不一样","权重就像旋钮，控制每个线索的影响力","调整权重是让 AI 变聪明的关键"],
+  blocks:[["变量","建立变量 光线权重 / 声音权重"],["运算","综合分 = 光线×权重1 + 声音×权重2"],["事件","当按钮A被按下时"],["显示","显示 综合分 和 谁说了算"]],
+  projName:"谁说了算",
+  projEff:"综合分 = 光线得分×光线权重 + 声音得分×声音权重。按按钮调大光线权重，光线就“说了算”；调大声音权重，声音就“说了算”。屏幕实时显示综合分。",
+  steps:["建立权重变量（初始各为 1）","按 A：光线权重 +1；按 B：声音权重 +1","计算综合分 = 光线×权重1 + 声音×权重2","屏幕显示综合分和“谁的权重更大”"],
+  challenge:"做个小实验：判断“今天冷不冷”，光线和声音哪个线索更重要？",
+  tip:"权重大的线索影响大。AI 就是靠调权重，学会“谁更重要”。",
+  hardware:["光线传感器","麦克风","按钮","显示屏"],
+  quiz:[
+    {q:"权重是什么？",o:["重量","线索的重要程度","颜色","音量"],a:1,exp:"权重像音量旋钮，控制每个线索的影响力。"},
+    {q:"把光线权重调大，结果会更听谁的？",o:["声音","光线","都不听","随机"],a:1,exp:"权重大的线索说了算，光线权重调大就听光线的。"},
+    {q:"调权重是让 AI？",o:["变笨","变聪明","关机","变吵"],a:1,exp:"调整权重是 AI 学习的关键——学会判断谁更重要。"}
+  ]
+},
+{
+  id:24, ch:3, title:"慢慢调准的小箭头", theme:"梯度下降",
+  echoId:24, echoTitle:"慢慢调准的小箭头", echoBrief:"梯度下降是每次只调一点点，慢慢接近目标",
+  story:"绘本里，小箭头每次只动一点点，慢慢对准目标。今天 CyberPi 学“自动调音师”：从阈值 0 开始，每次 +5，慢慢找到一个能把拍手和说话分开的最佳值。",
+  knowledge:["每次只调整一点点，慢慢接近目标","方向要对——朝着“更接近答案”的方向调","持续微调，结果越来越好"],
+  blocks:[["变量","建立变量 阈值"],["控制","重复执行直到 找到最佳值"],["运算","阈值 增加 5"],["传感","声音强度"],["显示","显示 当前阈值"]],
+  projName:"自动调音师",
+  projEff:"程序从阈值 0 开始，每次 +5，测试“拍手”和“轻轻说话”能不能被分开：声音 > 阈值算“大声”。慢慢地，阈值调整到不偏大也不偏小——这就是一步步逼近最佳值。",
+  steps:["阈值从 0 开始","重复：阈值 +5，测试能否分开拍手和说话","拍手 > 阈值 且 说话 ≤ 阈值 → 记下这个阈值","继续微调，找出“最佳阈值”","显示“找到啦：阈值 = N”"],
+  challenge:"换成光线数据，让程序自己找到“亮/暗”的分界线。",
+  tip:"每次调一点点、方向要对，慢慢就接近了目标——这就是“梯度下降”的直觉。",
+  hardware:["麦克风","显示屏"],
+  quiz:[
+    {q:"梯度下降是怎么接近目标的？",o:["一步跳过去","每次调一点点","原地不动","乱调"],a:1,exp:"每次只调整一点点，方向对了就慢慢接近目标。"},
+    {q:"调整的方向应该？",o:["随意","朝着更接近答案的方向","越来越远","反方向"],a:1,exp:"方向要对——朝着“更接近答案”的方向调整。"},
+    {q:"持续微调的结果是？",o:["越来越差","越来越好","没变化","关机"],a:1,exp:"持续微调，结果会越来越好，直到找到最佳值。"}
+  ]
+}
+];
+
+/* ============ 课程数据：第 25–32 课 ============ */
+const LESSONS_4 = [
+{
+  id:25, ch:4, title:"会接话的鹦鹉 2.0", theme:"语言模型",
+  echoId:25, echoTitle:"会接话的鹦鹉2.0", echoBrief:"语言模型根据前面的话预测下一个词，AI 在“接话”而不是“懂”",
+  story:"绘本里，鹦鹉 2.0 学会了接话：听到上一句，接下一句。今天 CyberPi 也当“接话鹦鹉”——听到“你好”就接“你好呀！”，它其实是在做“接话预测”。",
+  knowledge:["语言模型根据前面的话预测下一个词","上下文（之前说了什么）影响 AI 的输出","AI 不是“懂”意思，而是在做“接话预测”"],
+  blocks:[["网络/AI","识别语音 2 秒"],["网络/AI","语音识别结果"],["控制","如果 结果 = 你好 那么"],["声音","朗读 「你好呀！」"],["显示","显示 接的话"]],
+  projName:"接话鹦鹉",
+  projEff:"对着 CyberPi 说“你好”，它识别后接“你好呀！”；说“天气”，它接“今天真不错！”。它每句话都是“听到上一句→猜下一句”，像鹦鹉学舌。",
+  steps:["添加「语音识别」扩展","识别语音 2 秒，得到结果","如果 = “你好”：朗读“你好呀！”","如果 = “天气”：朗读“今天真不错！”","多设计几句“接话”"],
+  challenge:"给鹦鹉设计 3 句新“接话”，再想想：它真的“懂”意思吗？",
+  tip:"AI 聊天其实是“预测下一个词”——听起来聪明，但并不是真的理解。",
+  hardware:["麦克风","扬声器","显示屏","Wi-Fi"],
+  quiz:[
+    {q:"语言模型主要是做什么的？",o:["预测下一个词","修电脑","画图","炒菜"],a:0,exp:"语言模型根据前面的话，预测接下来最可能出现的词。"},
+    {q:"AI 是“懂”意思，还是在“接话预测”？",o:["真的懂","接话预测","都会","都不会"],a:1,exp:"AI 更像在接话——根据上下文猜下一个词，不是真的理解。"},
+    {q:"上下文对 AI 的输出？",o:["没影响","有影响","只有颜色影响","只有音量影响"],a:1,exp:"之前说了什么会影响 AI 接下来接什么——上下文很重要。"}
+  ]
+},
+{
+  id:26, ch:4, title:"给 AI 的清楚指令", theme:"提示词",
+  echoId:26, echoTitle:"给AI的清楚指令", echoBrief:"提示词就是你给 AI 的指令，指令越清楚回答越靠谱",
+  story:"绘本里，团团发现说得越清楚，AI 做得越好。今天做个小实验：对 CyberPi 说“灯”——它不知道怎么办；说“把灯变成红色”——它立刻就懂了。",
+  knowledge:["提示词就是你给 AI 的指令","指令越清楚，AI 的回答越靠谱","好的提示词要说明角色、目标和限制"],
+  blocks:[["网络/AI","识别语音 2 秒"],["控制","如果 结果 = 灯 那么（模糊）"],["控制","如果 结果 = 把灯变成红色 那么"],["灯","RGB 灯 亮起 红色"],["显示","显示 提示词对比"]],
+  projName:"清楚的魔法指令",
+  projEff:"对比两种指令：说“灯”（模糊指令）→ CyberPi 显示“我不确定你想做什么”；说“把灯变成红色”（清楚指令）→ 灯立刻变红。总结：指令越清楚，效果越好。",
+  steps:["设计模糊指令：“灯”“（程序不知道怎么执行）","设计清楚指令：“把灯变成红色”","分别测试两种指令","对比结果，讨论“为什么”","把指令写成“角色+目标+限制”格式"],
+  challenge:"把“让 CyberPi 开心”改写成一条清楚的指令（比如“把灯变成黄色并播放音乐”）。",
+  tip:"给 AI 下指令（写提示词），越具体、越清楚，结果越靠谱。",
+  hardware:["麦克风","RGB 灯","显示屏"],
+  quiz:[
+    {q:"提示词是什么？",o:["给 AI 的指令","AI 的名字","一种积木","一个游戏"],a:0,exp:"提示词就是你给 AI 的指令，告诉它要做什么。"},
+    {q:"说“把灯变成红色”比说“灯”，结果？",o:["更差","更清楚更好","没区别","更乱"],a:1,exp:"指令越清楚，AI 越知道该做什么，结果越靠谱。"},
+    {q:"好的提示词要写清楚？",o:["角色、目标和限制","AI 的心情","天气","时间"],a:0,exp:"好的提示词说清楚“你是谁、要什么、有什么限制”。"}
+  ]
+},
+{
+  id:27, ch:4, title:"会讲故事的机器人", theme:"生成式 AI",
+  echoId:27, echoTitle:"从乱点点到清图画", echoBrief:"生成式 AI 一步一步创造内容，语音合成把文字变成声音",
+  story:"绘本里，AI 从一团乱点点慢慢画出清晰的图画。今天 CyberPi 当“故事小工厂”：从词库里随机抽句子组合，再用“朗读”积木把故事讲出来——每一步生成一点点内容。",
+  knowledge:["生成式 AI 是一步一步创造内容的","语音合成（朗读）把文字变成声音","随机组合让内容每次都不同"],
+  blocks:[["声音","朗读 文字"],["运算","随机数 1-3"],["变量","建立变量 故事"],["显示","显示 故事内容"],["事件","当按钮A被按下时"]],
+  projName:"故事小工厂",
+  projEff:"按按钮 A，程序从“开头/中间/结尾”三个词库里各随机抽一句，拼成一个新故事，屏幕显示文字、喇叭朗读出来。每次按都有不同的故事！",
+  steps:["准备三个词库：开头、中间、结尾","用「随机数」各抽一句","组合成一个完整故事","屏幕显示 + 朗读积木讲出来","再按一次，生成新故事"],
+  challenge:"加入“角色”和“地点”两个词库，生成更多样的故事。",
+  tip:"生成式 AI 不是变魔术，而是一步步组合、生成内容。",
+  hardware:["扬声器","显示屏","按钮"],
+  quiz:[
+    {q:"生成式 AI 是怎么产生内容的？",o:["一下变出来","一步一步生成","从天上掉下来","抄别人的"],a:1,exp:"生成式 AI 一步一步地生成内容，像画画一样层层推进。"},
+    {q:"把文字变成声音，靠的是？",o:["语音合成","拍照","写字","画图"],a:0,exp:"语音合成（朗读）能把文字变成好听的声音。"},
+    {q:"故事小工厂每次按出来的故事？",o:["一模一样","不一样","越来越短","都是唱歌"],a:1,exp:"因为随机抽词，每次组合都不同，故事也不同。"}
+  ]
+},
+{
+  id:28, ch:4, title:"小侦探查证", theme:"信息查证",
+  echoId:28, echoTitle:"会编故事的机器人", echoBrief:"AI 可能编出像真的假信息（幻觉），要学会查证",
+  story:"绘本里，机器人编了一个听起来很像真的故事，团团差点信了。今天 CyberPi 先说“我猜外面很亮！”，再用光线传感器实测——说归说，测过才算数。",
+  knowledge:["AI 可能编出听起来很真但不对的内容（幻觉）","不能 AI 说什么就信什么，要学会查证","多方验证是检验信息可靠性的好方法"],
+  blocks:[["显示","显示 AI 说的（可能不准）"],["传感","环境光强度"],["运算","比较 说的 和 测的"],["控制","如果 不一致 那么"],["显示","显示 查证结果"]],
+  projName:"真假小侦探",
+  projEff:"程序先“猜测”：外面很亮！（可能是假话），再让光线传感器实测。如果“说的”和“测的”不一致，屏幕显示“我在吹牛，以实测为准！”——学会验证信息。",
+  steps:["屏幕显示 AI 的“猜测”","读取光线传感器实测值","比较猜测和实测","不一致 → 显示“以实测为准”","讨论：还有哪些信息需要查证"],
+  challenge:"上网查一条天气信息，再用光线传感器实测验证一次。",
+  tip:"AI 会“编故事”（幻觉）。听到任何信息，都要想办法验证一下。",
+  hardware:["光线传感器","显示屏","Wi-Fi（可选）"],
+  quiz:[
+    {q:"AI 说了一句话，我们应该？",o:["全信","先查证再判断","马上转发","大声读出来"],a:1,exp:"AI 也可能说错（幻觉），要学会查证再相信。"},
+    {q:"AI 编出听起来很真的假信息，这叫？",o:["幻觉","魔法","编程","预测"],a:0,exp:"AI 可能生成“听起来很真但实际不对”的内容，叫幻觉。"},
+    {q:"检验信息可靠性的好方法是？",o:["多方验证","听一个人说","闭眼猜","靠运气"],a:0,exp:"多方验证、实地测量，是检验信息的好方法。"}
+  ]
+},
+{
+  id:29, ch:4, title:"隐私小卫士", theme:"隐私保护",
+  echoId:29, echoTitle:"不要随便给陌生人", echoBrief:"有些个人信息不能随便告诉别人，隐私由自己决定给谁看",
+  story:"绘本里，团团学会不把个人信息告诉陌生人。今天 CyberPi 当“个人信息保险箱”：只有输入正确的按钮密码，才显示你的名字；密码错了，谁也别想看。",
+  knowledge:["有些个人信息不能随便告诉别人","隐私就像一扇门，你有权决定让谁进来","遇到不确定的情况，要找大人帮忙"],
+  blocks:[["变量","建立变量 密码"],["事件","当按钮A被按下时"],["控制","如果 密码 = AAB 那么"],["显示","显示 我的名字 / 不告诉你！"],["声音","播放 提示音"]],
+  projName:"个人信息保险箱",
+  projEff:"设置一个按钮密码（比如 A、A、B），按顺序按对，屏幕才显示“我的名字：团团”；按错显示“不告诉你！”——像绘本里的团团一样保护自己的隐私。",
+  steps:["设置密码：A → A → B","把每次按的按钮记进变量","比较：密码对不对？","对：显示个人信息；错：警告提示","讨论：哪些是隐私信息"],
+  challenge:"和家人约定一个“家庭暗号”，一起讨论：姓名、住址、电话能告诉陌生人吗？",
+  tip:"隐私像一扇门，钥匙在自己手里。遇到要“密码”的陌生人，先找大人。",
+  hardware:["按钮 A/B","显示屏","扬声器"],
+  quiz:[
+    {q:"哪些信息属于隐私？",o:["姓名、住址、电话","喜欢的颜色","爱吃的水果","今天星期几"],a:0,exp:"姓名、住址、电话这些个人信息是隐私，不能随便告诉别人。"},
+    {q:"隐私像什么？",o:["一扇门，自己决定让谁进","一扇开着的窗","一张门票","一把伞"],a:0,exp:"隐私就像一扇门，你有权决定让谁进来。"},
+    {q:"陌生人问你家庭住址，应该？",o:["告诉他","先问大人","写在纸上","拍照发给他"],a:1,exp:"遇到不确定的情况，要停下来找大人帮忙。"}
+  ]
+},
+{
+  id:30, ch:4, title:"同样努力却分数不同", theme:"偏见与公平",
+  echoId:30, echoTitle:"同样努力却分数不同", echoBrief:"数据不公平会导致 AI 结果偏心，偏见来自训练数据不平衡",
+  story:"绘本里，团团发现同样努力分数却不同。今天让 AI 裁判“偏心”一次：只训练“大声”的样本，不练“小声”，结果小声总是被认错——数据不公平，结果就偏心。",
+  knowledge:["数据不公平会导致 AI 的结果偏心","偏见可能来自训练数据的不平衡","学会质疑不公平的结果，并想办法改进"],
+  blocks:[["扩展","机器学习2.0 · 只训练 大声样本"],["扩展","机器学习2.0 · 识别 声音"],["变量","记录 识别错误次数"],["显示","显示 偏心结果"],["扩展","补训练 小声样本"]],
+  projName:"偏心的裁判",
+  projEff:"先只训练“大声”这一类（数据不平衡），测试时“小声”总是被认成大声音——裁判偏心啦！再补练“小声”样本，裁判变公平。",
+  steps:["只训练“大声”样本（不练小声）","测试小声：总被识别成大声（偏心！）","记录错误次数","补训练“小声”样本","再测：裁判变公平了吗？"],
+  challenge:"讨论：如果训练数据里只有一种声音，会发生什么？数据不公平会造成什么结果？",
+  tip:"训练数据不平衡，AI 就会偏心。想让 AI 公平，先让数据公平。",
+  hardware:["麦克风","显示屏"],
+  quiz:[
+    {q:"AI 会偏心，最可能的原因是？",o:["数据不公平","它心情不好","灯光太暗","没吃饭"],a:0,exp:"偏见常来自训练数据的不平衡——数据不公平，结果就偏心。"},
+    {q:"只训练“大声”样本，小声会怎样？",o:["被认对","总被认错","不受影响","消失"],a:1,exp:"没练过小声，它就不认识小声，总是认错。"},
+    {q:"发现 AI 结果偏心，应该？",o:["不管它","想办法改进数据","骂 AI","关掉它"],a:1,exp:"学会质疑不公平的结果，并想办法改进（比如补数据）。"}
+  ]
+},
+{
+  id:31, ch:4, title:"超级搭档", theme:"人机协作",
+  echoId:31, echoTitle:"超级搭档", echoBrief:"人和 AI 各有所长，搭档合作比单独做更厉害",
+  story:"绘本里，团团和 AI 组成超级搭档，一个想办法、一个算得快。今天玩“合作救援队”：人摇一摇出题，CyberPi 出题验证，一起完成任务。",
+  knowledge:["人和 AI 各有擅长的事情","AI 擅长快速处理大量数据、不知疲倦地重复","最好的方式是人机搭档，而不是谁替代谁"],
+  blocks:[["传感","加速度（摇一摇）"],["运算","随机数 出题"],["事件","当按钮A被按下时"],["控制","如果 答案正确 那么"],["显示","显示 加油/答对了"]],
+  projName:"合作救援队",
+  projEff:"人摇一摇 CyberPi“出发救援”，屏幕随机出算式（如 3+5=？），人算出答案按按钮，CyberPi 负责检查对错并播放加油声——人出脑力，机器出算力，搭档完成任务。",
+  steps:["摇一摇：程序随机出一道算式","人算出答案，按 A/B 选择","CyberPi 检查答案","答对：播放“太棒了” + 显示“救到啦！”","再来一题，合作继续"],
+  challenge:"设计一个人机合作小游戏，再想想：什么事交给 AI 做最好，什么事留给自己？",
+  tip:"AI 算得快、不喊累；人懂创造、会判断。搭档起来最厉害。",
+  hardware:["6 轴陀螺仪","按钮","显示屏","扬声器"],
+  quiz:[
+    {q:"AI 最擅长什么？",o:["快速处理大量数据","做决定","讲笑话","交朋友"],a:0,exp:"AI 擅长快速处理大量数据、不知疲倦地重复。"},
+    {q:"人最擅长什么？",o:["创造力、情感和判断","背圆周率","无限循环","算大数"],a:0,exp:"人的创造力、情感理解和道德判断，是 AI 比不上的。"},
+    {q:"人和 AI 最好的关系是？",o:["谁替代谁","搭档合作","互不理睬","比赛"],a:1,exp:"人和 AI 搭档，比各自单独做更厉害。"}
+  ]
+},
+{
+  id:32, ch:4, title:"小小 AI 工程师毕业啦", theme:"综合项目",
+  echoId:32, echoTitle:"小小AI研究员毕业啦", echoBrief:"信息→规则→学习→安全，AI 素养闭环，毕业是新的开始",
+  story:"绘本里，小小 AI 研究员毕业了，但不是终点，是新的开始。今天我们要把学过的本领装进一个毕业作品——AI 安全小管家，然后领毕业证书！",
+  knowledge:["回顾整个课程：信息 → 规则 → 学习 → 安全","形成完整的 AI 素养框架","AI 在不断进步，保持好奇心和批判性思维"],
+  blocks:[["声音","朗读 欢迎语"],["传感","环境光强度（自动调光）"],["网络/AI","语音识别（语音开关）"],["控制","如果 密码正确 那么（隐私保护）"],["显示","绘制 像素笑脸"]],
+  projName:"AI 安全小管家（毕业作品）",
+  projEff:"把四大本领装进一个项目：①语音命令开灯（监督学习）②光线暗自动开灯（条件判断）③按钮密码保护设置（隐私安全）④像素笑脸欢迎（显示）。开机自检后，它就是你的毕业作品！",
+  steps:["开机：屏幕画像素笑脸 + 朗读“欢迎回来”","语音说“开灯”→ 灯亮（贴标签）","光线暗时自动提示开灯（条件判断）","修改设置需输入按钮密码（隐私保护）","展示作品，领取毕业证书"],
+  challenge:"给学弟学妹录一段“CyberPi 使用小提示”，展示你的毕业作品。",
+  tip:"32 课毕业不是终点——保持好奇，AI 世界还有更多奥秘等你探索！",
+  hardware:["全传感器","显示屏","RGB 灯","扬声器"],
+  quiz:[
+    {q:"这门课四大主题的顺序是？",o:["信息→规则→学习→安全","安全→学习→规则→信息","随机","只有安全"],a:0,exp:"从信息开始，到规则、学习，最后是安全，形成完整闭环。"},
+    {q:"学完这门课，你应该成为？",o:["会用的 AI 小工程师","只会玩的玩家","害怕 AI 的人","不碰电脑的人"],a:0,exp:"学成 AI 素养：会用、会想、会保护。"},
+    {q:"毕业之后应该？",o:["停止学习","保持好奇继续探索","删掉所有程序","忘掉知识"],a:1,exp:"毕业是新的开始，保持好奇心，继续探索 AI 世界。"}
+  ]
+}
+];
+
+
+/* ===== 应用逻辑 ===== */
+/* ============ 章节元数据 ============ */
+var CHAPTERS = [
+  {id:1, name:'信息与感知', range:'第 1–8 课', desc:'呼应绘本模块A「信息从哪里来」+ 模块B「看见像素世界」', color:'var(--ch1)',
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>'},
+  {id:2, name:'算法与思维', range:'第 9–16 课', desc:'呼应绘本模块C「机器按规则做事」+ 模块D「机器如何思考」', color:'var(--ch2)',
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8M8 4a3 3 0 0 0-3 3v3a3 3 0 0 1-3 3 3 3 0 0 1 3 3v3a3 3 0 0 0 3 3M16 4a3 3 0 0 1 3 3v3a3 3 0 0 0 3 3 3 3 0 0 0-3 3v3a3 3 0 0 1-3 3"/></svg>'},
+  {id:3, name:'机器学习', range:'第 17–24 课', desc:'呼应绘本模块E「从例子里学」+ 模块F「神经网络是什么」', color:'var(--ch3)',
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6.8 7.4 10.8 16M17.2 7.4 13.2 16M7.4 6h9.2"/></svg>'},
+  {id:4, name:'AI 创造与未来', range:'第 25–32 课', desc:'呼应绘本模块G「AI会说话会画画」+ 模块H「安全、偏见与未来」', color:'var(--ch4)',
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg>'}
+];
+
+/* ============ 课程数据汇总 ============ */
+var ALL = [].concat(LESSONS_1, LESSONS_2, LESSONS_3, LESSONS_4);
+var COURSE = {};
+ALL.forEach(function(l){ COURSE[l.id] = l; });
+
+/* 积木分类颜色 */
+var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)'};
+
+/* ============ 工具函数 ============ */
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtNo(n){ return n < 10 ? '第 0'+n+' 课' : '第 '+n+' 课'; }
+function chColor(ch){ return CHAPTERS[ch-1].color; }
+
+/* ============ 存储 ============ */
+var DB = {
+  load: function(){ try{ return JSON.parse(localStorage.getItem('cyberpi_course')||'{}'); }catch(e){ return {}; } },
+  save: function(d){ localStorage.setItem('cyberpi_course', JSON.stringify(d)); },
+  get: function(){ var d = this.load(); d.nick = d.nick || ''; d.records = d.records || {}; return d; },
+  lessonRec: function(d, id){ return d.records[id] || {done:false, correct:0, wrong:0}; },
+  doneCount: function(d){ return Object.keys(d.records).filter(function(k){ return d.records[k].done; }).length; }
+};
+
+/* ============ 路由 ============ */
+function go(hash){
+  if(location.hash === hash){ route(); } else { location.hash = hash; }
+}
+function route(){
+  var h = location.hash || '#/home';
+  var m;
+  if(h === '#/home' || h === '' || h === '#/'){ showView('view-home'); renderHome(); setNav('home'); window.scrollTo(0,0); }
+  else if((m = h.match(/^#\/course\/(\d+)$/))){ showView('view-course'); renderCourse(parseInt(m[1],10)); setNav('course'); window.scrollTo(0,0); }
+  else if(h === '#/hardware'){ showView('view-hardware'); renderHardware(); setNav('hardware'); window.scrollTo(0,0); }
+  else if(h === '#/growth'){ showView('view-growth'); renderGrowth(); setNav('growth'); window.scrollTo(0,0); }
+  else { location.hash = '#/home'; }
+}
+function showView(id){
+  ['view-home','view-course','view-hardware','view-growth'].forEach(function(v){
+    document.getElementById(v).style.display = (v === id) ? '' : 'none';
+  });
+}
+function setNav(key){
+  document.querySelectorAll('[data-nav]').forEach(function(el){
+    el.classList.toggle('active', el.getAttribute('data-nav') === key);
+  });
+}
+
+/* ============ 昵称 ============ */
+function renderNick(){
+  var d = DB.get();
+  if(d.nick){
+    document.getElementById('nickName').textContent = d.nick;
+    document.getElementById('nickAvatar').textContent = d.nick.slice(0,1);
+  } else {
+    document.getElementById('nickName').textContent = '小探险家';
+    document.getElementById('nickAvatar').textContent = '?';
+  }
+  if(!d.nick){ document.getElementById('nickOverlay').style.display = 'grid'; document.getElementById('nickInput').focus(); }
+  else { document.getElementById('nickOverlay').style.display = 'none'; }
+}
+function openNick(){ document.getElementById('nickOverlay').style.display = 'grid'; setTimeout(function(){ document.getElementById('nickInput').focus(); }, 50); }
+function saveNick(){
+  var v = document.getElementById('nickInput').value.trim() || '小探险家';
+  var d = DB.get(); d.nick = v; DB.save(d);
+  renderNick();
+}
+
+/* ============ 首页 ============ */
+function renderHome(){
+  renderPathSvg();
+  renderChapters();
+  renderHomeStats();
+}
+function renderHomeStats(){
+  var d = DB.get();
+  var done = DB.doneCount(d);
+  var items = [['32','节编程课'],['4','大学习章节'],['8','个 AI 主题'],['96','道随堂问答']];
+  if(done > 0){ items[3] = [done + '/32', '已学课程']; }
+  document.querySelector('.stats-bar').innerHTML = items.map(function(it){
+    return '<div class="stat-card"><div class="num">'+it[0]+'</div><div class="lab">'+it[1]+'</div></div>';
+  }).join('');
+}
+
+/* ---- 学习路径 SVG ---- */
+function renderPathSvg(){
+  var d = DB.get();
+  var W = 1100, colX = [120, 398, 676, 954];
+  var svg = '<svg class="path-svg" viewBox="0 0 '+W+' 300" role="img" aria-label="课程学习路径">';
+  svg += '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#B9CBE4"/></marker></defs>';
+  var i, k;
+  for(i=0;i<3;i++){
+    var x1 = colX[i]+78, x2 = colX[i+1]-78, cx = (x1+x2)/2;
+    svg += '<path d="M'+x1+',46 C'+cx+',20 '+cx+',72 '+x2+',46" fill="none" stroke="#C6D6EC" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" marker-end="url(#arrow)"/>';
+  }
+  CHAPTERS.forEach(function(ch, ci){
+    var cx = colX[ci], c = ch.color;
+    svg += '<g><circle cx="'+cx+'" cy="46" r="30" fill="'+c+'" opacity=".12"/>' +
+      '<circle cx="'+cx+'" cy="46" r="24" fill="'+c+'"/>' +
+      '<text x="'+cx+'" y="53" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">'+ch.id+'</text>' +
+      '<text x="'+cx+'" y="98" text-anchor="middle" font-size="15" font-weight="800" fill="#3d4b63">'+ch.name+'</text>' +
+      '<text x="'+cx+'" y="116" text-anchor="middle" font-size="11.5" fill="#8b98ad" font-weight="600">'+ch.range+'</text></g>';
+    var dx = [-36, 36];
+    for(k=0;k<8;k++){
+      var px = cx + dx[k%2], py = 150 + Math.floor(k/2)*38;
+      var lid = (ch.id-1)*8 + k + 1;
+      var rec = d.records[lid] || {};
+      var done = rec.done;
+      var fill = done ? 'var(--ok)' : (c+'22');
+      var tx = done ? '#fff' : c;
+      svg += '<g class="path-lesson" data-id="'+lid+'" onclick="go(\'#/course/'+lid+'\')" style="cursor:pointer">' +
+        '<circle cx="'+px+'" cy="'+py+'" r="14" fill="'+fill+'" stroke="'+c+'" stroke-width="2"/>' +
+        '<text x="'+px+'" y="'+(py+5)+'" text-anchor="middle" font-size="12" font-weight="800" fill="'+tx+'">'+lid+'</text>' +
+        '<title>第'+lid+'课 · '+esc(COURSE[lid].title)+'</title></g>';
+    }
+  });
+  svg += '</svg>';
+  document.getElementById('pathSvg').innerHTML = svg;
+}
+
+/* ---- 章节 + 课程卡 ---- */
+function renderChapters(){
+  var d = DB.get();
+  var html = '';
+  CHAPTERS.forEach(function(ch){
+    var list = ALL.filter(function(l){ return l.ch === ch.id; });
+    var done = list.filter(function(l){ return (d.records[l.id]||{}).done; }).length;
+    var pct = Math.round(done / 8 * 100);
+    html += '<div class="chapter">' +
+      '<div class="chapter-head" onclick="go(\'#/course/'+list[0].id+'\')">' +
+        '<div class="ch-head-ico" style="background:'+ch.color+'">'+ch.icon+'</div>' +
+        '<div class="ch-head-txt"><h3>'+ch.name+'</h3><p>'+ch.desc+'</p></div>' +
+        '<div class="ch-head-meta" style="--ch-color:'+ch.color+'">'+done+' / 8 课完成<div class="pbar"><i style="width:'+pct+'%"></i></div></div>' +
+      '</div><div class="lesson-grid">';
+    list.forEach(function(l){
+      var rec = d.records[l.id] || {};
+      var pad = l.id < 10 ? '0' + l.id : '' + l.id;
+      html += '<button class="lesson-card'+(rec.done?' done':'')+'" style="--ch-color:'+ch.color+'" onclick="go(\'#/course/'+l.id+'\')">' +
+        '<div class="lc-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'">' +
+        '<span class="lc-no-badge">'+fmtNo(l.id)+'</span>' +
+        '<span class="lc-check-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span></div>' +
+        '<div class="lc-body">' +
+        '<h4>'+esc(l.title)+'</h4>' +
+        '<span class="lc-theme">'+esc(l.theme)+'</span>' +
+        '<span class="lc-echo">呼应 第'+l.echoId+'课 · '+esc(l.echoTitle)+'</span>' +
+        '<span class="lc-go">开始学习 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+        '</div></button>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById('chapters').innerHTML = html;
+}
+
+/* ============ 课程详情 ============ */
+var TABS = [
+  {key:'intro', name:'课程导入', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
+  {key:'know', name:'AI 知识点', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
+  {key:'blocks', name:'编程积木', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
+  {key:'demo', name:'CyberPi 演示', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
+  {key:'challenge', name:'动手挑战', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
+  {key:'quiz', name:'知识问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
+];
+var quizState = null;
+
+function renderCourse(id){
+  var l = COURSE[id];
+  if(!l){ go('#/home'); return; }
+  var ch = CHAPTERS[l.ch-1];
+  var d = DB.get();
+  var rec = DB.lessonRec(d, id);
+
+  document.getElementById('courseTop').style.setProperty('--ch-color', ch.color);
+  document.getElementById('ctNo').textContent = fmtNo(id);
+  document.getElementById('ctTitle').textContent = l.title;
+  document.getElementById('ctSub').textContent = '第'+ch.id+'章 · '+ch.name+' ｜ '+l.theme;
+  var pct = rec.done ? 100 : Math.round(rec.correct / l.quiz.length * 100);
+  document.getElementById('ctRing').style.setProperty('--p', pct);
+  document.getElementById('ctRingPct').textContent = rec.done ? '✓' : pct + '%';
+  document.getElementById('ctProgTxt').textContent = rec.done ? '本课已完成' : '完成问答点亮进度';
+
+  document.getElementById('courseTabs').innerHTML = TABS.map(function(t, i){
+    return '<button class="tab-btn'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="switchTab(this)">' +
+      '<span class="t-ico" style="background:'+ch.color+'">'+t.icon+'</span>'+t.name+'</button>';
+  }).join('');
+
+  document.getElementById('coursePanels').innerHTML =
+    panelIntro(l, ch) + panelKnow(l, ch) + panelBlocks(l, ch) + panelDemo(l, ch) + panelChallenge(l, ch) + panelQuiz(l, ch);
+
+  var prev = id > 1 ? COURSE[id-1] : null;
+  var next = id < 32 ? COURSE[id+1] : null;
+  document.getElementById('lessonNav').innerHTML =
+    (prev ? '<button class="ln-btn" onclick="go(\'#/course/'+prev.id+'\')"><span class="ln-t">上一课</span><span class="ln-c">'+fmtNo(prev.id)+' '+esc(prev.title)+'</span></button>' : '<div></div>') +
+    (next ? '<button class="ln-btn next" onclick="go(\'#/course/'+next.id+'\')"><span class="ln-t">下一课</span><span class="ln-c">'+fmtNo(next.id)+' '+esc(next.title)+'</span></button>'
+          : '<button class="ln-btn next" onclick="go(\'#/growth\')"><span class="ln-t">全部完成！</span><span class="ln-c">查看成长档案 →</span></button>');
+
+  quizState = {id:id, idx:0, correct:0, wrong:0, firstTry:0, start:Date.now(), done:false};
+  renderQuiz();
+}
+function switchTab(btn){
+  document.querySelectorAll('#courseTabs .tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var key = btn.getAttribute('data-tab');
+  document.querySelectorAll('#coursePanels .tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('panel-'+key).classList.add('active');
+}
+
+/* ---- 面板：课程导入 ---- */
+function panelIntro(l, ch){
+  var pad = l.id < 10 ? '0' + l.id : '' + l.id;
+  var steps = [
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', t:'读故事', p:'回顾绘本第'+l.echoId+'课《'+l.echoTitle+'》'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'学知识', p:'掌握本节 AI 知识点'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'做项目', p:'在 mBlock 搭积木，CyberPi 现场演示'}
+  ];
+  return '<div class="panel-card tab-panel active" id="panel-intro">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[0].icon+'</span>课程导入 · 绘本呼应</h3>' +
+    '<div class="intro-hero">' +
+      '<div class="intro-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'"></div>' +
+      '<div class="ih-info">' +
+        '<h2>'+esc(l.title)+'</h2>' +
+        '<div class="ih-theme">'+esc(l.theme)+' ｜ 第'+ch.id+'章 '+ch.name+'</div>' +
+        '<div class="ih-desc">'+esc(l.echoBrief)+'</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="echo-box">' +
+      '<span class="e-tag">呼应绘本课 · 第'+l.echoId+'课《'+esc(l.echoTitle)+'》</span>' +
+      '<div class="e-title">'+esc(l.echoBrief)+'</div>' +
+      '<div class="e-story">'+esc(l.story)+'</div>' +
+    '</div>' +
+    '<div class="flow-steps">' + steps.map(function(s){
+      return '<div class="flow-step"><div class="fs-ico">'+s.ico+'</div><b>'+s.t+'</b><p>'+s.p+'</p></div>';
+    }).join('') + '</div></div>';
+}
+
+/* ---- 面板：AI 知识点 ---- */
+function panelKnow(l, ch){
+  return '<div class="panel-card tab-panel" id="panel-know">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节 AI 知识点</h3>' +
+    '<div class="kp-list">' + l.knowledge.map(function(k, i){
+      return '<div class="kp-item"><span class="kp-no">'+(i+1)+'</span><p>'+esc(k)+'</p></div>';
+    }).join('') + '</div></div>';
+}
+
+/* ---- 面板：编程积木 ---- */
+function panelBlocks(l, ch){
+  var rows = '';
+  l.blocks.forEach(function(b){
+    var color = CAT_COLOR[b[0]] || 'var(--primary)';
+    rows += '<div class="blk-row"><span class="blk-lab">'+b[0]+'</span>' +
+      '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span></div>';
+  });
+  return '<div class="panel-card tab-panel" id="panel-blocks">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>用到的 mBlock 积木</h3>' +
+    '<div class="blk-list">'+rows+'</div>' +
+    '<div class="tip-box">在 mBlock 5 中选择「CyberPi」设备，从对应分类里拖出这些积木，像拼乐高一样把它们接起来。</div></div>';
+}
+
+/* ---- 面板：CyberPi 演示 ---- */
+function panelDemo(l, ch){
+  return '<div class="panel-card tab-panel" id="panel-demo">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>CyberPi 演示项目</h3>' +
+    '<div class="proj-card"><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div>' +
+    '<div class="p-eff">'+esc(l.projEff)+'</div></div>' +
+    '<div class="steps-list">' + l.steps.map(function(s, i){
+      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><p>'+esc(s)+'</p></div>';
+    }).join('') + '</div>' +
+    '<div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>';
+}
+
+/* ---- 面板：动手挑战 ---- */
+function panelChallenge(l, ch){
+  return '<div class="panel-card tab-panel" id="panel-challenge">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>动手挑战</h3>' +
+    '<div class="challenge-box"><span class="c-tag">小创客任务</span><p>'+esc(l.challenge)+'</p></div>' +
+    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + '</div>';
+}
+
+/* ---- 面板：知识问答 ---- */
+function panelQuiz(l, ch){
+  return '<div class="panel-card tab-panel" id="panel-quiz">' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[5].icon+'</span>随堂问答</h3>' +
+    '<div class="quiz-wrap"><div class="quiz-head">' +
+    '<span class="q-prog" id="quizProg">第 1 / '+l.quiz.length+' 题</span>' +
+    '<span class="chip light" id="quizScore">答对 0 题 · 答错 0 次</span></div>' +
+    '<div class="q-card" id="quizCard"></div></div></div>';
+}
+function renderQuiz(){
+  var l = COURSE[quizState.id];
+  var q = l.quiz[quizState.idx];
+  var opts = ['A','B','C','D'];
+  var html = '<div class="q-text">'+esc(q.q)+'</div><div class="q-opts">';
+  q.o.forEach(function(o, i){
+    html += '<button class="q-opt" data-i="'+i+'" onclick="answerQuiz(this)"><span class="q-letter">'+opts[i]+'</span><span>'+esc(o)+'</span></button>';
+  });
+  html += '</div><div class="q-explain" id="qExplain"></div><button class="btn q-next" id="qNext" onclick="nextQuiz()">下一题</button>';
+  document.getElementById('quizCard').innerHTML = html;
+  document.getElementById('quizProg').textContent = '第 ' + (quizState.idx+1) + ' / ' + l.quiz.length + ' 题';
+  document.getElementById('quizScore').textContent = '答对 ' + quizState.correct + ' 题 · 答错 ' + quizState.wrong + ' 次';
+}
+function answerQuiz(btn){
+  var l = COURSE[quizState.id];
+  var q = l.quiz[quizState.idx];
+  var i = parseInt(btn.getAttribute('data-i'), 10);
+  var options = document.querySelectorAll('#quizCard .q-opt');
+  if(btn.disabled) return;
+  if(i === q.a){
+    btn.classList.add('correct');
+    options.forEach(function(o){ o.disabled = true; });
+    if(!btn.classList.contains('wrong')) quizState.firstTry++;
+    quizState.correct++;
+    var ex = document.getElementById('qExplain');
+    ex.style.display = 'block';
+    ex.style.background = 'hsl(150 60% 95%)';
+    ex.style.borderColor = 'hsl(150 60% 60%)';
+    ex.innerHTML = '<b style="color:var(--ok)">答对啦！</b> ' + esc(q.exp);
+    var nb = document.getElementById('qNext');
+    nb.style.display = 'inline-flex';
+    nb.textContent = (quizState.idx === l.quiz.length - 1) ? '查看本课成绩' : '下一题';
+  } else {
+    btn.classList.add('wrong');
+    btn.disabled = true;
+    quizState.wrong++;
+    var ex2 = document.getElementById('qExplain');
+    ex2.style.display = 'block';
+    ex2.style.background = 'hsl(0 72% 96%)';
+    ex2.style.borderColor = 'hsl(0 72% 75%)';
+    ex2.innerHTML = '<b style="color:var(--bad)">答错啦，再想想！</b> 正确答案就在剩下的选项里，答对后我会给你讲解。';
+    document.getElementById('quizScore').textContent = '答对 ' + quizState.correct + ' 题 · 答错 ' + quizState.wrong + ' 次';
+  }
+}
+function nextQuiz(){
+  var l = COURSE[quizState.id];
+  if(quizState.idx < l.quiz.length - 1){
+    quizState.idx++;
+    renderQuiz();
+  } else {
+    finishQuiz();
+  }
+}
+function finishQuiz(){
+  var l = COURSE[quizState.id];
+  var time = Math.round((Date.now() - quizState.start) / 1000);
+  var d = DB.get();
+  var rec = DB.lessonRec(d, quizState.id);
+  rec.done = true;
+  rec.correct = quizState.firstTry;
+  rec.wrong = quizState.wrong;
+  rec.time = time;
+  d.records[quizState.id] = rec;
+  DB.save(d);
+  quizState.done = true;
+
+  var done = DB.doneCount(d);
+  var msg = done === 32 ? '太厉害了！32 课全部完成，你是毕业工程师！' : '本课完成！继续下一站探险吧。';
+  var nextId = quizState.id < 32 ? quizState.id + 1 : quizState.id;
+  document.getElementById('quizCard').innerHTML =
+    '<div class="quiz-done">' +
+    '<div class="big-emoji" style="font-size:52px;line-height:1">★</div>' +
+    '<h3>本课完成！</h3><p>'+msg+'</p>' +
+    '<div class="quiz-stats">' +
+      '<span class="qs-pill ok">✓ 首次答对 '+quizState.firstTry+' 题</span>' +
+      '<span class="qs-pill bad">✗ 答错 '+quizState.wrong+' 次</span>' +
+      '<span class="qs-pill time">用时 '+time+' 秒</span>' +
+    '</div>' +
+    '<button class="btn" style="margin-top:20px" onclick="go(\'#/course/'+nextId+'\')">' +
+      (quizState.id < 32 ? '去下一课 →' : '回到首页') + '</button></div>';
+  document.getElementById('quizProg').textContent = '已完成';
+  document.getElementById('quizScore').textContent = '答对 ' + quizState.correct + ' 题 · 答错 ' + quizState.wrong + ' 次';
+  document.getElementById('ctRing').style.setProperty('--p', 100);
+  document.getElementById('ctRingPct').textContent = '✓';
+  document.getElementById('ctProgTxt').textContent = '本课已完成';
+  if(location.hash === '#/home'){ renderHome(); }
+  if(location.hash === '#/growth'){ renderGrowth(); }
+}
+
+/* ============ 硬件页 ============ */
+var HW_PARTS = [
+  {key:'display', name:'1.44 英寸全彩屏', desc:'128×128 个像素小格子。显示文字、数字、图片，还能画像素画——第 5、6、7 课的主角。'},
+  {key:'joystick', name:'五向摇杆', desc:'可以上下左右拨动、还可以按下确认。它是 CyberPi 的“方向盘”，第 6 课调颜色用它。'},
+  {key:'btnA', name:'按钮 A', desc:'像游戏手柄的按键。程序里可以用“当按钮A被按下时”触发事情，是常用的“输入”。'},
+  {key:'btnB', name:'按钮 B', desc:'和按钮 A 配合使用：一个负责“上一步”，一个负责“确认”。第 4 课计数器就用它清零。'},
+  {key:'home', name:'HOME 键', desc:'回到系统主界面，相当于手机的“主页键”。长按可以进入系统设置。'},
+  {key:'mic', name:'麦克风', desc:'收集声音信息：既能当“声音传感器”（第 13 课分拣声音），也能做语音识别——AI 的“耳朵”。'},
+  {key:'light', name:'光线传感器', desc:'测量环境光的亮暗，数值会在 0–100 之间变化。第 8 课的数据过滤就是靠它。'},
+  {key:'speaker', name:'扬声器', desc:'播放声音和音乐，还能用“朗读”积木把文字变成声音——AI 的“嘴巴”（语音合成）。'},
+  {key:'rgb', name:'RGB 灯 ×5', desc:'5 颗可以编程的彩色灯，红绿蓝三种光混合出任何颜色。第 2 课的 0 和 1、第 6 课的调色都靠它。'},
+  {key:'gyro', name:'6 轴陀螺仪 + 加速度计', desc:'感知倾斜、摇晃和移动。第 14 课“摇一摇识方向”、第 31 课“合作救援”都用它。'},
+  {key:'wifi', name:'Wi-Fi + 蓝牙', desc:'连接网络后，CyberPi 可以上网：语音识别、获取天气、设备互联（第 19、25、26 课需要）。'},
+  {key:'typec', name:'Type-C 接口', desc:'连接电脑上传程序、给设备供电充电。是编程和 CyberPi 之间的“桥梁”。'},
+  {key:'mbuild', name:'扩展接口', desc:'连接更多电子模块：温湿度传感器、AI 摄像头、舵机等，让 CyberPi 的本领越来越大。'}
+];
+function renderHardware(){
+  var W = 480, H = 270;
+  var svg = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="CyberPi 硬件图解">';
+  svg += '<defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2F8FF"/><stop offset="1" stop-color="#DCEBFB"/></linearGradient></defs>';
+  svg += '<rect x="14" y="14" width="452" height="242" rx="28" fill="url(#bd)" stroke="#A9C9EC" stroke-width="2"/>';
+  svg += '<rect x="24" y="24" width="432" height="222" rx="20" fill="none" stroke="#C8DFF4" stroke-width="1.2" stroke-dasharray="5 5"/>';
+  svg += '<text x="38" y="44" font-size="12" font-weight="800" fill="#5D82A8" letter-spacing="1">CyberPi · 童芯派</text>';
+
+  svg += '<g class="hotspot" data-hw="display" onclick="hwInfo(\'display\')"><rect x="150" y="52" width="180" height="112" rx="10" fill="#12294A" stroke="#0A1B30" stroke-width="2"/>' +
+    '<circle cx="196" cy="96" r="7" fill="#FFD166"/><circle cx="250" cy="96" r="7" fill="#FFD166"/>' +
+    '<path d="M196 130 q28 26 54 0" stroke="#7EE0A3" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+    '<text x="240" y="40" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">显示屏</text></g>';
+
+  svg += '<g class="hotspot" data-hw="joystick" onclick="hwInfo(\'joystick\')"><circle cx="70" cy="88" r="19" fill="#fff" stroke="#7FA8D8" stroke-width="2.5"/>' +
+    '<circle cx="70" cy="88" r="9" fill="#BBD8F5"/><path d="M70 66v44M48 88h44" stroke="#9DC2E8" stroke-width="3" stroke-linecap="round"/>' +
+    '<text x="70" y="132" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">五向摇杆</text></g>';
+
+  svg += '<g class="hotspot" data-hw="btnA" onclick="hwInfo(\'btnA\')"><circle cx="368" cy="84" r="14" fill="#FF7A7A" stroke="#E05757" stroke-width="2"/>' +
+    '<text x="368" y="89" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">A</text>' +
+    '<text x="368" y="120" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">按钮 A</text></g>';
+  svg += '<g class="hotspot" data-hw="btnB" onclick="hwInfo(\'btnB\')"><circle cx="368" cy="138" r="14" fill="#4C97FF" stroke="#2E6FD8" stroke-width="2"/>' +
+    '<text x="368" y="143" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">B</text>' +
+    '<text x="368" y="174" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">按钮 B</text></g>';
+
+  svg += '<g class="hotspot" data-hw="home" onclick="hwInfo(\'home\')"><rect x="352" y="190" width="34" height="12" rx="5" fill="#9AA7B8"/>' +
+    '<text x="369" y="199" text-anchor="middle" font-size="8" font-weight="800" fill="#fff">HOME</text>' +
+    '<text x="369" y="222" text-anchor="middle" font-size="10" font-weight="800" fill="#2E5B92">HOME 键</text></g>';
+
+  svg += '<g class="hotspot" data-hw="mic" onclick="hwInfo(\'mic\')"><circle cx="112" cy="138" r="11" fill="#6BCB77" stroke="#4DA85A" stroke-width="2"/>' +
+    '<circle cx="112" cy="138" r="4" fill="#fff"/>' +
+    '<text x="112" y="170" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">麦克风</text></g>';
+
+  svg += '<g class="hotspot" data-hw="light" onclick="hwInfo(\'light\')"><circle cx="66" cy="170" r="11" fill="#FFD166" stroke="#E0AC2E" stroke-width="2"/>' +
+    '<path d="M66 150v-6M50 158l-4-4M82 158l4-4" stroke="#FFD166" stroke-width="2.4" stroke-linecap="round"/>' +
+    '<text x="66" y="202" text-anchor="middle" font-size="10.5" font-weight="800" fill="#2E5B92">光线传感器</text></g>';
+
+  svg += '<g class="hotspot" data-hw="speaker" onclick="hwInfo(\'speaker\')"><rect x="52" y="216" width="78" height="20" rx="6" fill="#DCE7F5" stroke="#A9C0DC" stroke-width="1.5"/>' +
+    '<path d="M66 220v12M78 220v12M90 220v12M104 220v12" stroke="#A9C0DC" stroke-width="1.6"/>' +
+    '<text x="52" y="252" font-size="11" font-weight="800" fill="#2E5B92">扬声器</text></g>';
+
+  var rgbCols = ['#FF5F5F','#5FC95F','#5F8BFF','#FF5F5F','#5FC95F'];
+  var rgbG = '<g class="hotspot" data-hw="rgb" onclick="hwInfo(\'rgb\')">';
+  var i;
+  for(i=0;i<5;i++){ rgbG += '<circle cx="'+(192+i*22)+'" cy="212" r="7.5" fill="'+rgbCols[i]+'" stroke="#fff" stroke-width="2"/>'; }
+  rgbG += '<text x="240" y="238" text-anchor="middle" font-size="10.5" font-weight="800" fill="#2E5B92">RGB 灯 ×5</text></g>';
+  svg += rgbG;
+
+  svg += '<g class="hotspot" data-hw="gyro" onclick="hwInfo(\'gyro\')"><rect x="300" y="206" width="58" height="20" rx="5" fill="#C9D8EC" stroke="#9DB4D6" stroke-width="1.5"/>' +
+    '<circle cx="316" cy="216" r="4" fill="#7FA8D8"/><circle cx="330" cy="216" r="4" fill="#7FA8D8"/>' +
+    '<text x="329" y="244" text-anchor="middle" font-size="10" font-weight="800" fill="#2E5B92">陀螺仪+加速度计</text></g>';
+
+  svg += '<g class="hotspot" data-hw="wifi" onclick="hwInfo(\'wifi\')"><rect x="248" y="34" width="76" height="20" rx="5" fill="#B9D6F2" stroke="#8FB6DE" stroke-width="1.5"/>' +
+    '<path d="M272 44a8 8 0 0 1 12 0M276 48a4 4 0 0 1 4 0" stroke="#2E6FD8" stroke-width="1.8" fill="none" stroke-linecap="round"/>' +
+    '<text x="286" y="72" text-anchor="middle" font-size="10.5" font-weight="800" fill="#2E5B92">Wi-Fi + 蓝牙</text></g>';
+
+  svg += '<g class="hotspot" data-hw="typec" onclick="hwInfo(\'typec\')"><rect x="416" y="216" width="32" height="14" rx="4" fill="#7FA8D8"/>' +
+    '<path d="M424 220h16M424 224h16" stroke="#fff" stroke-width="1.4"/>' +
+    '<text x="432" y="252" text-anchor="middle" font-size="10" font-weight="800" fill="#2E5B92">Type-C</text></g>';
+
+  svg += '<g class="hotspot" data-hw="mbuild" onclick="hwInfo(\'mbuild\')"><rect x="410" y="100" width="34" height="36" rx="7" fill="#E5C7F7" stroke="#B78AD6" stroke-width="1.5"/>' +
+    '<circle cx="427" cy="112" r="3" fill="#B78AD6"/><circle cx="427" cy="124" r="3" fill="#B78AD6"/>' +
+    '<text x="427" y="156" text-anchor="middle" font-size="10" font-weight="800" fill="#2E5B92">扩展接口</text></g>';
+
+  svg += '</svg>';
+  document.getElementById('hwSvgCard').innerHTML = svg;
+  hwInfo('display');
+}
+function hwInfo(key){
+  var p = null;
+  HW_PARTS.forEach(function(x){ if(x.key === key) p = x; });
+  if(!p) return;
+  document.getElementById('hwInfo').innerHTML =
+    '<div class="hi-name"><span style="display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff">●</span>'+p.name+'</div>' +
+    '<div class="hi-desc">'+p.desc+'</div>';
+}
+
+/* ============ 成长页 ============ */
+var BADGES = [
+  {id:'start', name:'初来乍到', desc:'完成第 1 节课', icon:'★', need:function(d){ return DB.doneCount(d) >= 1; }},
+  {id:'ch1', name:'信息小侦探', desc:'完成第一章 8 课', icon:'◎', need:function(d){ return chDone(d,1) >= 8; }},
+  {id:'ch2', name:'算法小达人', desc:'完成第二章 8 课', icon:'◇', need:function(d){ return chDone(d,2) >= 8; }},
+  {id:'ch3', name:'机器学习家', desc:'完成第三章 8 课', icon:'△', need:function(d){ return chDone(d,3) >= 8; }},
+  {id:'ch4', name:'AI 安全卫士', desc:'完成第四章 8 课', icon:'○', need:function(d){ return chDone(d,4) >= 8; }},
+  {id:'grad', name:'毕业工程师', desc:'完成全部 32 课', icon:'♛', need:function(d){ return DB.doneCount(d) >= 32; }}
+];
+function chDone(d, ch){
+  return ALL.filter(function(l){ return l.ch === ch && (d.records[l.id]||{}).done; }).length;
+}
+function renderGrowth(){
+  var d = DB.get();
+  var done = DB.doneCount(d);
+  var pct = Math.round(done / 32 * 100);
+  var correct = 0;
+  Object.keys(d.records).forEach(function(k){ correct += d.records[k].correct; });
+  var earned = BADGES.filter(function(b){ return b.need(d); }).length;
+
+  document.getElementById('growRing').style.setProperty('--p', pct);
+  document.getElementById('growPct').textContent = pct + '%';
+  document.getElementById('growName').textContent = (d.nick || '小探险家') + (done === 32 ? '，毕业快乐！' : (done > 0 ? '，继续加油！' : '，准备好出发了吗？'));
+  document.getElementById('gsDone').textContent = done;
+  document.getElementById('gsQuiz').textContent = correct;
+  document.getElementById('gsBadge').textContent = earned;
+
+  document.getElementById('badgeGrid').innerHTML = BADGES.map(function(b){
+    var ok = b.need(d);
+    return '<div class="badge'+(ok?' earned':'')+'"><div class="b-ico">'+b.icon+'</div><b>'+b.name+'</b><p>'+b.desc+'</p></div>';
+  }).join('');
+
+  document.getElementById('growCh').innerHTML = CHAPTERS.map(function(ch){
+    var c = chDone(d, ch.id);
+    return '<div class="grow-ch-row"><span class="gcr-ico" style="background:'+ch.color+'">'+ch.id+'</span><b>'+ch.name+'</b>' +
+      '<div class="gcr-bar"><i style="width:'+(c/8*100)+'%"></i></div><span class="gcr-num">'+c+' / 8</span></div>';
+  }).join('');
+
+  var recs = ALL.filter(function(l){ return (d.records[l.id]||{}).done; });
+  if(recs.length === 0){
+    document.getElementById('growRecords').innerHTML = '<div style="background:#fff;border-radius:14px;padding:26px;text-align:center;color:var(--ink-2);font-weight:600">还没有学习记录，去完成第一课吧！</div>';
+  } else {
+    document.getElementById('growRecords').innerHTML = recs.map(function(l){
+      var r = d.records[l.id];
+      return '<div class="grow-ch-row"><span class="gcr-ico" style="background:'+chColor(l.ch)+'">'+l.id+'</span><b>'+esc(l.title)+'</b>' +
+        '<span style="font-size:12.5px;color:var(--ink-2);font-weight:700">首次答对 '+r.correct+' 题</span>' +
+        '<span class="gcr-num" style="color:var(--ok)">已完成 ✓</span></div>';
+    }).join('');
+  }
+}
+function resetAll(){
+  if(confirm('确定要清空所有学习记录吗？')){
+    localStorage.removeItem('cyberpi_course');
+    location.hash = '#/home';
+    location.reload();
+  }
+}
+
+/* ============ 初始化 ============ */
+window.addEventListener('hashchange', route);
+window.addEventListener('DOMContentLoaded', function(){
+  renderNick();
+  route();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && document.getElementById('nickOverlay').style.display === 'grid'){ saveNick(); }
+});
+
+</script>
+</body>
+</html>

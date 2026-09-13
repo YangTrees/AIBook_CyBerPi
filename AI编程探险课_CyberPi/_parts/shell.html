@@ -1,0 +1,261 @@
+<body>
+
+<!-- ============ 顶部栏 ============ -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand" onclick="go('#/home')">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">AI通识编程课</div>
+        <div class="brand-sub">与 CyberPi 一起探索 AI</div>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a class="nav-btn" data-nav="home" onclick="go('#/home')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        <span>首页</span>
+      </a>
+      <a class="nav-btn" data-nav="hardware" onclick="go('#/hardware')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h.01M8 15h.01M12 12h4"/></svg>
+        <span>硬件</span>
+      </a>
+      <a class="nav-btn" data-nav="growth" onclick="go('#/growth')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-8"/></svg>
+        <span>成长</span>
+      </a>
+      <div class="nick-pill" id="nickPill" onclick="openNick()" title="点击修改昵称">
+        <span class="nick-avatar" id="nickAvatar">?</span><span id="nickName">小探险家</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 视图：首页 ============ -->
+  <section id="view-home">
+    <div class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <span class="hero-badge"><span class="dot"></span> 32 节课 · 4 大章节 · 全程动手演示</span>
+          <h1>和团团、点点一起<br>用 CyberPi <em>做出 AI</em></h1>
+          <p class="lead">读完一本 AI 绘本，再来搭一个 AI 程序！用 mBlock 彩色积木给 CyberPi（童芯派）编程——传感器当眼睛和耳朵，屏幕和彩灯当嘴巴，把故事里的 AI 知识亲手演出来。</p>
+          <div class="hero-cta">
+            <button class="btn big" onclick="go('#/course/1')">
+              开始第一课
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn ghost big" onclick="go('#/hardware')">认识 CyberPi</button>
+          </div>
+        </div>
+        <div class="hero-fig">
+          <img src="assets/hero.jpg" alt="团团和点点一起探索 CyberPi 编程">
+          <div class="float-chip fc1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>
+            信息 → 程序 → 反应
+          </div>
+          <div class="float-chip fc2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            每课 10 分钟上手
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-card"><div class="num">32</div><div class="lab">节编程课</div></div>
+      <div class="stat-card"><div class="num">4</div><div class="lab">大学习章节</div></div>
+      <div class="stat-card"><div class="num">8</div><div class="lab">个 AI 主题</div></div>
+      <div class="stat-card"><div class="num">96</div><div class="lab">道随堂问答</div></div>
+    </div>
+
+    <div class="wrap">
+      <div class="section-title">
+        <h2>课程探险地图</h2>
+        <span class="en">Learning Path</span>
+      </div>
+      <div class="path-card">
+        <div id="pathSvg"></div>
+        <div class="legend-row">
+          <span class="lg"><span class="sw" style="background:var(--ch1)"></span>第一章 信息与感知（1–8 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch2)"></span>第二章 算法与思维（9–16 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch3)"></span>第三章 机器学习（17–24 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ch4)"></span>第四章 AI 创造与未来（25–32 课）</span>
+          <span class="lg"><span class="sw" style="background:var(--ok)"></span>已完成</span>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>全部课程</h2>
+        <span class="en">32 Lessons</span>
+        <span class="chip" style="margin-left:auto">和绘本课一一呼应</span>
+      </div>
+      <div id="chapters"></div>
+
+      <div class="section-title">
+        <h2>这套课怎么学</h2>
+        <span class="en">How It Works</span>
+      </div>
+      <div class="hw-feats">
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div><b>读故事</b><p>每课先回看同名 AI 绘本课的故事，带着问题进入编程</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg></div>
+          <div><b>搭积木</b><p>在 mBlock 里拖彩色积木，学会顺序、条件、循环、变量</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg></div>
+          <div><b>看效果</b><p>程序上传到 CyberPi，灯亮、屏显、发声，AI 知识现场演示</p></div>
+        </div>
+        <div class="hw-feat">
+          <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div><b>做挑战</b><p>每课一个动手挑战 + 随堂问答，答对点亮勋章</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：课程详情 ============ -->
+  <section id="view-course" style="display:none">
+    <div class="course-top" id="courseTop">
+      <div class="wrap">
+        <a class="back" onclick="go('#/home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          返回首页
+        </a>
+        <div class="ct-row">
+          <div>
+            <span class="ct-no" id="ctNo">第 01 课</span>
+            <div class="ct-titles">
+              <h1 id="ctTitle"></h1>
+              <p id="ctSub"></p>
+            </div>
+          </div>
+          <div class="ct-progress">
+            <div class="ring" id="ctRing"><i id="ctRingPct">0%</i></div>
+            <span id="ctProgTxt">完成本课</span>
+          </div>
+        </div>
+        <div class="tabs" id="courseTabs"></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div id="coursePanels"></div>
+      <div class="lesson-nav" id="lessonNav"></div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：硬件 ============ -->
+  <section id="view-hardware" style="display:none">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>认识 CyberPi（童芯派）</h2>
+        <span class="en">Hardware Tour</span>
+        <span class="chip" style="margin-left:auto">点击图中部件查看功能</span>
+      </div>
+      <div class="page-banner"><img src="assets/hardware.jpg" alt="团团和点点探索CyberPi硬件"></div>
+      <div class="hw-hero">
+        <div class="hw-card hw-svg-wrap" id="hwSvgCard"></div>
+        <div>
+          <div class="hw-card">
+            <h3>
+              <span class="t-ico" style="background:var(--primary)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+              部件百科
+            </h3>
+            <div class="hw-info-panel" id="hwInfo">
+              <div class="hi-name">点击左侧 CyberPi 上的部件</div>
+              <div class="hi-desc">每个部件都是 AI 的"感官"或"嘴巴"，32 节课都会用到它们。</div>
+            </div>
+          </div>
+          <div class="hw-card" style="margin-top:16px">
+            <h3>
+              <span class="t-ico" style="background:var(--ch2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg></span>
+              它能做什么
+            </h3>
+            <p>CyberPi 是 Makeblock 出品的迷你编程电脑：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。在 mBlock 里拖积木就能让它"看"光线、"听"说话、"讲"故事。</p>
+          </div>
+        </div>
+      </div>
+      <div class="section-title">
+        <h2>学习收获</h2>
+        <span class="en">What You Get</span>
+      </div>
+      <div class="hw-feats">
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 8l6 8M15 8l-6 8"/></svg></div><div><b>积木编程</b><p>掌握顺序、条件、循环、变量与自制积木，零基础入门</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></div><div><b>AI 通识</b><p>信息、算法、机器学习、神经网络、AI 伦理八大主题</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.5 0 4.5 2 4.5 4.5 0 1.5-.7 2.8-1.8 3.6-1.6 1.1-2.7 2-2.7 3.9M12 21h.01"/></svg></div><div><b>计算思维</b><p>分解问题、找规律、调 Bug，像工程师一样思考</p></div></div>
+        <div class="hw-feat"><div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v6c0 5 3.5 7.5 8 8 4.5-.5 8-3 8-8V7l-8-4z"/><path d="M9.5 12l2 2 3.5-4"/></svg></div><div><b>安全素养</b><p>隐私保护、信息查证、公平意识，做负责任的小创客</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 视图：成长 ============ -->
+  <section id="view-growth" style="display:none">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>我的成长档案</h2>
+        <span class="en">My Growth</span>
+      </div>
+      <div class="page-banner"><img src="assets/growth.jpg" alt="团团和点点的成长档案"></div>
+      <div class="grow-hero">
+        <div class="grow-ring" id="growRing"><div class="gr-in"><div class="gr-num" id="growPct">0%</div><div class="gr-lab">课程完成度</div></div></div>
+        <div>
+          <div class="grow-name" id="growName">小探险家，加油！</div>
+          <p style="color:var(--ink-2);font-size:14.5px;margin-top:6px;line-height:1.7">每完成一课，点亮一个站点；集齐 32 站，解锁"毕业工程师"徽章。</p>
+          <div class="grow-stats">
+            <div class="gs-card"><div class="gs-num" id="gsDone">0</div><div class="gs-lab">已完成课程 / 32</div></div>
+            <div class="gs-card"><div class="gs-num" id="gsQuiz">0</div><div class="gs-lab">答对题目 / 96</div></div>
+            <div class="gs-card"><div class="gs-num" id="gsBadge">0</div><div class="gs-lab">获得徽章 / 6</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>我的勋章</h2><span class="en">Badges</span></div>
+      <div class="badge-grid" id="badgeGrid"></div>
+
+      <div class="section-title"><h2>章节进度</h2><span class="en">Chapters</span></div>
+      <div class="grow-ch-list" id="growCh"></div>
+
+      <div class="section-title"><h2>学习记录</h2><span class="en">Records</span></div>
+      <div class="grow-ch-list" id="growRecords"></div>
+      <button class="reset-btn" onclick="resetAll()">清空学习记录（重新开始）</button>
+    </div>
+  </section>
+</main>
+
+<!-- ============ 底部导航 ============ -->
+<nav class="bottom-nav">
+  <a class="bn-item" data-nav="home" onclick="go('#/home')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span>
+    首页
+  </a>
+  <a class="bn-item" data-nav="course" onclick="go('#/course/1')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    课程
+  </a>
+  <a class="bn-item" data-nav="hardware" onclick="go('#/hardware')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h.01M8 15h.01M12 12h4"/></svg></span>
+    硬件
+  </a>
+  <a class="bn-item" data-nav="growth" onclick="go('#/growth')">
+    <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-8"/></svg></span>
+    成长
+  </a>
+</nav>
+
+<!-- ============ 昵称弹层 ============ -->
+<div class="overlay" id="nickOverlay" style="display:none">
+  <div class="nick-card">
+    <div class="n-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg></div>
+    <h2>欢迎来到 AI 编程探险课！</h2>
+    <p>输入你的名字，团团和点点会记住你的每一次学习进度。</p>
+    <input class="nick-input" id="nickInput" maxlength="8" placeholder="你的名字（比如：团团）">
+    <button class="nick-go" onclick="saveNick()">开始探索！</button>
+  </div>
+</div>
+
+</body>
+</html>
