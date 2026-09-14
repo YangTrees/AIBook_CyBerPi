@@ -1488,6 +1488,16 @@ function switchTab(btn){
   var key = btn.getAttribute('data-tab');
   document.querySelectorAll('#coursePanels .tab-panel').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('panel-'+key).classList.add('active');
+  window.scrollTo({top:document.getElementById('view-course').offsetTop - 70, behavior:'smooth'});
+}
+function goNextTab(){
+  var tabs = document.querySelectorAll('#courseTabs .tab-btn');
+  var activeIdx = 0;
+  tabs.forEach(function(b, i){ if(b.classList.contains('active')) activeIdx = i; });
+  if(activeIdx < tabs.length - 1){ switchTab(tabs[activeIdx + 1]); }
+}
+function nextStageBtn(label){
+  return '<div style="margin-top:24px;display:flex;justify-content:flex-end"><button class="btn" onclick="goNextTab()" style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;font-size:15px;font-weight:700;border-radius:14px;background:var(--primary);color:#fff;box-shadow:0 6px 18px -6px hsl(214 77% 46% / .5)">'+label+' <span style="font-size:18px">→</span></button></div>';
 }
 
 /* ---- 面板：课程导入 ---- */
@@ -1515,7 +1525,7 @@ function panelIntro(l, ch){
     '</div>' +
     '<div class="flow-steps">' + steps.map(function(s){
       return '<div class="flow-step"><div class="fs-ico">'+s.ico+'</div><b>'+s.t+'</b><p>'+s.p+'</p></div>';
-    }).join('') + '</div></div>';
+    }).join('') + '</div>' + nextStageBtn('下一环节：学知识') + '</div>';
 }
 
 /* ---- 面板：AI 知识点 ---- */
@@ -1524,7 +1534,7 @@ function panelKnow(l, ch){
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节 AI 知识点</h3>' +
     '<div class="kp-list">' + l.knowledge.map(function(k, i){
       return '<div class="kp-item"><span class="kp-no">'+(i+1)+'</span><p>'+esc(k)+'</p></div>';
-    }).join('') + '</div></div>';
+    }).join('') + '</div>' + nextStageBtn('下一环节：看积木') + '</div>';
 }
 
 /* ---- 面板：编程积木 ---- */
@@ -1538,7 +1548,7 @@ function panelBlocks(l, ch){
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>用到的 mBlock 积木</h3>' +
     '<div class="blk-list">'+rows+'</div>' +
-    '<div class="tip-box">在 mBlock 5 中选择「CyberPi」设备，从对应分类里拖出这些积木，像拼乐高一样把它们接起来。</div></div>';
+    '<div class="tip-box">在 mBlock 5 中选择「CyberPi」设备，从对应分类里拖出这些积木，像拼乐高一样把它们接起来。</div>' + nextStageBtn('下一环节：看演示') + '</div>';
 }
 
 /* ---- 面板：CyberPi 演示 ---- */
@@ -1550,7 +1560,7 @@ function panelDemo(l, ch){
     '<div class="steps-list">' + l.steps.map(function(s, i){
       return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><p>'+esc(s)+'</p></div>';
     }).join('') + '</div>' +
-    '<div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>';
+    '<div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div>' + nextStageBtn('下一环节：做挑战') + '</div>';
 }
 
 /* ---- 面板：动手挑战 ---- */
@@ -1558,7 +1568,7 @@ function panelChallenge(l, ch){
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>动手挑战</h3>' +
     '<div class="challenge-box"><span class="c-tag">小创客任务</span><p>'+esc(l.challenge)+'</p></div>' +
-    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + '</div>';
+    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStageBtn('下一环节：答问题') + '</div>';
 }
 
 /* ---- 面板：知识问答 ---- */
@@ -1639,9 +1649,16 @@ function finishQuiz(){
   var done = DB.doneCount(d);
   var msg = done === 32 ? '太厉害了！32 课全部完成，你是毕业工程师！' : '本课完成！继续下一站探险吧。';
   var nextId = quizState.id < 32 ? quizState.id + 1 : quizState.id;
+  var starCount = Math.min(quizState.firstTry, 3);
+  var starSvg = '<svg viewBox="0 0 24 24" width="44" height="44"><defs><linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD93D"/><stop offset="1" stop-color="#F5A623"/></linearGradient></defs><path fill="url(#goldGrad)" stroke="#E8940A" stroke-width="0.8" d="M12 2l2.9 6.26 6.86.72-5.1 4.64 1.42 6.72L12 17.27 5.92 20.34l1.42-6.72-5.1-4.64 6.86-.72z"/></svg>';
+  var starEmpty = '<svg viewBox="0 0 24 24" width="44" height="44"><path fill="#E8ECF2" stroke="#D0D7E2" stroke-width="0.8" d="M12 2l2.9 6.26 6.86.72-5.1 4.64 1.42 6.72L12 17.27 5.92 20.34l1.42-6.72-5.1-4.64 6.86-.72z"/></svg>';
+  var starsHtml = '<div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px">';
+  for(var si=0; si<3; si++){ starsHtml += (si < starCount ? starSvg : starEmpty); }
+  starsHtml += '</div>';
+  var starLabel = '<div style="font-size:14px;color:var(--ink-2);font-weight:700;margin-bottom:12px">答对 '+quizState.firstTry+' 题，获得 '+starCount+' 颗星星</div>';
   document.getElementById('quizCard').innerHTML =
     '<div class="quiz-done">' +
-    '<div class="big-emoji" style="font-size:52px;line-height:1">★</div>' +
+    starsHtml + starLabel +
     '<h3>本课完成！</h3><p>'+msg+'</p>' +
     '<div class="quiz-stats">' +
       '<span class="qs-pill ok">✓ 首次答对 '+quizState.firstTry+' 题</span>' +
