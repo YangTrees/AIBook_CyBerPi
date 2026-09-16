@@ -16,7 +16,26 @@ var COURSE = {};
 ALL.forEach(function(l){ COURSE[l.id] = l; });
 
 /* 积木分类颜色 */
-var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)'};
+var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)',侦测:'var(--cat-sense)',外观:'var(--cat-display)',循环:'var(--cat-control)',列表:'var(--cat-var)',随机:'var(--cat-op)'};
+
+/* 同类积木扩展：用于课程页的可展开积木百科 */
+var BLOCK_FAMILIES = {
+  '事件':['当程序开始运行','当按键被按下','当摇杆向指定方向','当收到广播消息','广播消息'],
+  '控制':['等待若干秒','重复执行若干次','一直重复执行','如果…那么','如果…那么…否则','重复执行直到','停止程序'],
+  '显示':['显示文字','显示数字','设置文字大小与颜色','清空屏幕','绘制点、线与图形','设置显示位置'],
+  '灯':['点亮全部RGB灯','熄灭全部RGB灯','设置RGB颜色','设置第N颗灯','设置灯光亮度','播放灯光动画'],
+  '声音':['播放音符','播放内置音效','设置音量','录制声音','播放录音','停止所有声音'],
+  '传感':['按钮是否按下','摇杆方向与坐标','环境光强度','声音强度','加速度','倾斜角度','摇一摇状态'],
+  '侦测':['询问并等待','读取回答','按键是否按下','鼠标位置','碰到指定对象','计时器'],
+  '外观':['说出文字','切换造型','改变大小','显示或隐藏角色','切换背景','添加图形效果'],
+  '运算':['加减乘除','比较大小','且 / 或 / 不成立','生成随机数','连接文字','判断文字是否包含'],
+  '随机':['生成范围内随机数','按权重抽取结果','随机打乱列表'],
+  '变量':['建立变量','变量设为指定值','变量增加或减少','显示变量','隐藏变量'],
+  '列表':['新建列表','加入一项','读取第N项','替换列表项','删除列表项','获取列表长度'],
+  '扩展':['图像分类','姿态或声音识别','训练并使用模型','读取模型结果','置信度判断'],
+  '网络/AI':['连接网络服务','语音识别','语音合成','读取识别结果','发送或接收数据'],
+  '自制':['定义自制积木','添加输入参数','运行自制积木','设置不刷新屏幕运行']
+};
 
 /* ============ 工具函数 ============ */
 function $(s){ return document.querySelector(s); }
@@ -92,6 +111,9 @@ function renderHomeStats(){
     return '<div class="stat-card"><div class="num">'+it[0]+'</div><div class="lab">'+it[1]+'</div></div>';
   }).join('');
 }
+function lessonAsset(id){
+  return 'assets/prototype/lesson-' + (id < 10 ? '0' + id : '' + id) + '-v3-web.jpg';
+}
 
 /* ---- 学习路径 SVG ---- */
 function renderPathSvg(){
@@ -147,7 +169,7 @@ function renderChapters(){
       var rec = d.records[l.id] || {};
       var pad = l.id < 10 ? '0' + l.id : '' + l.id;
       html += '<button class="lesson-card'+(rec.done?' done':'')+'" style="--ch-color:'+ch.color+'" onclick="go(\'#/course/'+l.id+'\')">' +
-        '<div class="lc-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'">' +
+        '<div class="lc-cover"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'">' +
         '<span class="lc-no-badge">'+fmtNo(l.id)+'</span>' +
         '<span class="lc-check-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span></div>' +
         '<div class="lc-body">' +
@@ -164,14 +186,68 @@ function renderChapters(){
 
 /* ============ 课程详情 ============ */
 var TABS = [
-  {key:'intro', name:'课程导入', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
-  {key:'know', name:'AI 知识点', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
-  {key:'blocks', name:'编程积木', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
-  {key:'demo', name:'CyberPi 演示', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
-  {key:'challenge', name:'动手挑战', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
-  {key:'quiz', name:'知识问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
+  {key:'intro', name:'故事回声', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
+  {key:'know', name:'学习目标', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
+  {key:'blocks', name:'积木程序', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
+  {key:'demo', name:'编程任务', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
+  {key:'challenge', name:'运行与测试', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
+  {key:'quiz', name:'挑战与问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
 ];
+var SAMPLE_CONTENT = {
+  1:{
+    driving:"怎样让程序像小侦探一样，接收线索、作出判断并给出回应？",
+    deliverable:"完成一个能提问、接收回答、判断关键词并反馈结果的“线索回应机”，最后用 CyberPi 按钮和屏幕验证同一套逻辑。",
+    prep:["新建空白角色项目，保留一个提问角色","准备“圆、小球、方形”等测试回答","先在舞台完成调试，确认逻辑后再连接 CyberPi"],
+    stepTitles:["提出线索问题","读取用户回答","判断关键词","连续输入测试","迁移到硬件"],
+    levels:[["必做任务","输入“圆”时回应“收到形状线索”，其他回答提示继续观察。"],["加星任务","让程序同时理解“圆”和“小球”两种说法。"],["创造任务","把题目改造成动物、植物或校园物品猜谜机。"]],
+    tests:[["输入“圆”","显示“收到形状线索”","基础判断"],["输入“小球”","修改前记录结果，修改后正确识别","表达变化"],["输入“方形”","提示“请继续观察”","否则分支"],["按下按钮 A","CyberPi 屏幕显示回应","硬件迁移"]],
+    bugs:[["所有回答都进入同一结果","检查条件中的关键词、比较符号和“否则”连接位置。"],["舞台正确但设备没有回应","确认已连接正确设备，并重新上传修改后的程序。"]],
+    reflection:["程序真正理解“圆”了吗，还是只在匹配文字？","还可以加入哪些表达，让判断更接近人的说法？"]
+  },
+  17:{
+    driving:"怎样证明模型学会了规律，而不是只记住训练时见过的图片？",
+    deliverable:"训练圆形与三角形分类器，用完全没有参与训练的新卡片考试，记录准确率和错误样本，并在 CyberPi 上显示测试结论。",
+    prep:["把图形卡分成训练袋和测试袋，测试袋先封存","保证两类训练样本数量接近，并包含不同角度和光线","建立测试总数、正确数和准确率记录表"],
+    stepTitles:["分开训练与测试","采集两类样本","训练分类模型","新卡片考试","补充样本复测"],
+    levels:[["必做任务","使用独立测试卡完成至少10次测试并计算准确率。"],["加星任务","比较每类5张与每类15张训练图的测试结果。"],["创造任务","增加第三个类别，重新设计训练和测试方案。"]],
+    tests:[["训练图再次识别","通常较容易正确","不能作为考试成绩"],["全新圆形卡","判断为圆形","泛化能力"],["旋转后的三角形","判断为三角形","角度变化"],["光线较暗的新卡","记录判断与置信表现","环境变化"]],
+    bugs:[["测试准确率异常高","检查测试图片是否曾混入训练集，避免“题目泄露”。"],["换角度就识别错误","训练样本可能过于单一，需要补充角度、大小和光线变化。"]],
+    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"]
+  },
+  30:{
+    driving:"一次结果不同就是不公平吗？怎样用重复实验找到真正的规则偏差？",
+    deliverable:"制作100轮公平检测器，对比50/50与70/30两种抽签规则，用多组数据说明差异来自随机波动还是规则偏斜。",
+    prep:["建立甲组次数、乙组次数和实验轮数变量","准备50/50与70/30两套分界规则","设计每组实验的结果记录表"],
+    stepTitles:["变量清零","运行公平规则","记录多组结果","制造偏斜规则","比较并提出修改"],
+    levels:[["必做任务","完成一组50/50规则下的100轮实验并保存结果。"],["加星任务","两种规则各运行5组，比较平均差值。"],["创造任务","设计一种新的抽样规则，并说明它为什么更公平或更不公平。"]],
+    tests:[["50/50运行100轮","两组次数接近但不必完全相同","随机波动"],["50/50重复5组","差异方向不固定","多次证据"],["70/30重复5组","甲组持续明显更高","规则偏斜"],["恢复50/50复测","稳定差异减小","修改验证"]],
+    bugs:[["每组结果越来越大","新一组实验前没有把计数变量清零。"],["50/50实际不是一半机会","检查随机数范围和分界值是否包含或遗漏边界。"]],
+    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"]
+  }
+};
 var quizState = null;
+
+function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
+function sampleDriving(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
+}
+function sampleMediaStudio(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
+    '<div class="media-featured"><div class="video-slot" style="--poster:url(\''+lessonAsset(l.id)+'\')"><div class="play-mark">▶</div><b>最终效果视频</b><span>程序运行 + CyberPi 反馈 · 30–90 秒</span><em>待上传</em></div>'+
+    '<figure class="full-code-slot"><img src="assets/blocks/official-interface-reference.png" alt="在线积木编程界面参考"><figcaption><b>完整程序截图</b><span>当前为界面参考，后续替换本课完整积木链</span><em>待替换</em></figcaption></figure></div>'+
+    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+s.stepTitles.map(function(n,i){return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';}).join('')+'</div>'+
+    '<div class="result-shot"><span>运行结果截图</span><b>记录舞台或设备最终反馈</b><small>待上传 · 与最终视频配合使用</small></div></section>';
+}
+function sampleTaskLab(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
+}
+function sampleTestLab(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="sample-test-lab"><div class="sample-test-head"><div><span>TEST & DEBUG</span><h4>测试记录与排错</h4></div><p>先预测，再运行；出现不同结果时先找原因，不急着改积木。</p></div><div class="test-table"><div class="test-row test-th"><b>测试条件</b><b>预期现象</b><b>观察重点</b></div>'+s.tests.map(function(r){return '<div class="test-row"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span><span>'+esc(r[2])+'</span></div>';}).join('')+'</div><div class="debug-reflect"><div class="debug-card"><span>文字排错卡</span>'+s.bugs.map(function(n){return '<article><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></article>';}).join('')+'</div><div class="reflect-card"><span>完成后想一想</span>'+s.reflection.map(function(n,i){return '<p><i>0'+(i+1)+'</i>'+esc(n)+'</p>';}).join('')+'</div></div></section>';
+}
 
 function renderCourse(id){
   var l = COURSE[id];
@@ -181,6 +257,7 @@ function renderCourse(id){
   var rec = DB.lessonRec(d, id);
 
   document.getElementById('courseTop').style.setProperty('--ch-color', ch.color);
+  document.getElementById('view-course').style.setProperty('--ch-color', ch.color);
   document.getElementById('ctNo').textContent = fmtNo(id);
   document.getElementById('ctTitle').textContent = l.title;
   document.getElementById('ctSub').textContent = '第'+ch.id+'章 · '+ch.name+' ｜ '+l.theme;
@@ -190,7 +267,7 @@ function renderCourse(id){
   document.getElementById('ctProgTxt').textContent = rec.done ? '本课已完成' : '完成问答点亮进度';
 
   document.getElementById('courseTabs').innerHTML = TABS.map(function(t, i){
-    return '<button class="tab-btn'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="switchTab(this)">' +
+    return '<button class="tab-btn'+(i===0?' active':'')+'" data-tab="'+t.key+'" aria-selected="'+(i===0?'true':'false')+'" aria-controls="panel-'+t.key+'" onclick="switchTab(this)">' +
       '<span class="t-ico" style="background:'+ch.color+'">'+t.icon+'</span>'+t.name+'</button>';
   }).join('');
 
@@ -208,11 +285,37 @@ function renderCourse(id){
   renderQuiz();
 }
 function switchTab(btn){
-  document.querySelectorAll('#courseTabs .tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#courseTabs .tab-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
   var key = btn.getAttribute('data-tab');
   document.querySelectorAll('#coursePanels .tab-panel').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('panel-'+key).classList.add('active');
+}
+function goStep(key){
+  var btn = document.querySelector('#courseTabs [data-tab="'+key+'"]');
+  if(btn){ switchTab(btn); window.scrollTo(0, document.getElementById('courseTop').offsetHeight || 0); }
+}
+function nextStepButton(key, label){
+  return '<div class="panel-next"><button class="btn" onclick="goStep(\''+key+'\')"><span>下一步</span>'+label+'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
+}
+function blockRole(cat){
+  if(['事件','传感','网络/AI','扩展'].indexOf(cat) >= 0) return 'input';
+  if(['显示','外观','灯','声音','运动'].indexOf(cat) >= 0) return 'output';
+  return 'logic';
+}
+function blockRoleLabel(cat){
+  var r = blockRole(cat);
+  return r === 'input' ? '输入 / 启动' : (r === 'output' ? '反馈 / 输出' : '处理 / 判断');
+}
+function blockFamilyExplorer(l){
+  var seen = {}, cats = [];
+  l.blocks.forEach(function(b){ if(!seen[b[0]]){ seen[b[0]] = true; cats.push(b[0]); } });
+  return '<div class="family-explorer"><div class="family-title"><b>同类型积木还能做什么？</b><span>点击积木类型展开</span></div>' + cats.map(function(cat, i){
+    var items = BLOCK_FAMILIES[cat] || ['更多同类积木将在工程验证后补充'];
+    var color = CAT_COLOR[cat] || 'var(--primary)';
+    return '<details class="block-family"'+(i===0?' open':'')+'><summary><i style="background:'+color+'"></i><b>'+esc(cat)+'类积木</b><span>'+items.length+' 个常用积木</span></summary><div class="family-items">'+items.map(function(n){ return '<span style="--family-color:'+color+'">'+esc(n)+'</span>'; }).join('')+'</div></details>';
+  }).join('') + '</div>';
 }
 
 /* ---- 面板：课程导入 ---- */
@@ -220,13 +323,13 @@ function panelIntro(l, ch){
   var pad = l.id < 10 ? '0' + l.id : '' + l.id;
   var steps = [
     {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', t:'读故事', p:'回顾绘本第'+l.echoId+'课《'+l.echoTitle+'》'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'学知识', p:'掌握本节 AI 知识点'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'做项目', p:'在 mBlock 搭积木，CyberPi 现场演示'}
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在线完成AI硬件编程任务'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'先屏幕调试，再用 CyberPi 验证'}
   ];
   return '<div class="panel-card tab-panel active" id="panel-intro">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[0].icon+'</span>课程导入 · 绘本呼应</h3>' +
     '<div class="intro-hero">' +
-      '<div class="intro-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'"></div>' +
+      '<div class="intro-cover"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'"></div>' +
       '<div class="ih-info">' +
         '<h2>'+esc(l.title)+'</h2>' +
         '<div class="ih-theme">'+esc(l.theme)+' ｜ 第'+ch.id+'章 '+ch.name+'</div>' +
@@ -238,58 +341,85 @@ function panelIntro(l, ch){
       '<div class="e-title">'+esc(l.echoBrief)+'</div>' +
       '<div class="e-story">'+esc(l.story)+'</div>' +
     '</div>' +
+    sampleDriving(l) +
+    '<div class="time-plan"><span>故事 10%</span><span>AI编程 55%</span><span>硬件交互 20%</span><span>挑战复盘 15%</span></div>' +
     '<div class="flow-steps">' + steps.map(function(s){
       return '<div class="flow-step"><div class="fs-ico">'+s.ico+'</div><b>'+s.t+'</b><p>'+s.p+'</p></div>';
-    }).join('') + '</div></div>';
+    }).join('') + '</div>' + nextStepButton('know','查看学习目标') + '</div>';
 }
 
 /* ---- 面板：AI 知识点 ---- */
 function panelKnow(l, ch){
+  var goalNames = ['知道什么','能够做到','解释与迁移'];
+  var goalHints = ['建立本课AI概念','把想法变成程序','把规律说给别人听'];
+  var goals = l.knowledge.map(function(k, i){
+    return '<article class="goal-stage"><span class="goal-stage-no">0'+(i+1)+'</span><div><small>'+goalNames[i%goalNames.length]+'</small><strong>'+esc(k)+'</strong><p>'+goalHints[i%goalHints.length]+'</p></div><i>✓</i></article>';
+  }).join('');
   return '<div class="panel-card tab-panel" id="panel-know">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节 AI 知识点</h3>' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节学习目标</h3>' +
+    '<figure class="goal-visual"><div class="goal-picture"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'学习目标图示"><span>'+fmtNo(l.id)+'</span></div>'+
+      '<div class="goal-map"><div class="goal-map-head"><span>LEARNING MAP · 学习路线</span><h4>'+esc(l.theme)+'</h4><p>从理解概念，到搭建逻辑，再到硬件验证</p></div>'+
+      '<div class="goal-stages">'+goals+'</div><div class="goal-finish"><span>本课达成</span><b>我能理解、搭建并验证一个“'+esc(l.theme)+'”作品</b></div>'+
+      '<figcaption>每完成一个目标，就为本课作品增加一种能力。</figcaption></div></figure>' +
     '<div class="kp-list">' + l.knowledge.map(function(k, i){
       return '<div class="kp-item"><span class="kp-no">'+(i+1)+'</span><p>'+esc(k)+'</p></div>';
-    }).join('') + '</div></div>';
+    }).join('') + '</div>' + nextStepButton('blocks','进入积木程序') + '</div>';
 }
 
 /* ---- 面板：编程积木 ---- */
 function panelBlocks(l, ch){
   var rows = '';
-  l.blocks.forEach(function(b){
+  var roleCount = {input:0,logic:0,output:0};
+  l.blocks.forEach(function(b, i){
     var color = CAT_COLOR[b[0]] || 'var(--primary)';
-    rows += '<div class="blk-row"><span class="blk-lab">'+b[0]+'</span>' +
-      '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span></div>';
+    var role = blockRole(b[0]); roleCount[role]++;
+    rows += '<div class="blk-row program-node"><span class="node-index">'+(i+1)+'</span><span class="blk-lab">'+blockRoleLabel(b[0])+'</span>' +
+      '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span><span class="node-check">检查参数</span></div>';
   });
+  var proof = sampleMediaStudio(l);
+  var first = l.blocks[0], middle = l.blocks[Math.floor(l.blocks.length/2)], last = l.blocks[l.blocks.length-1];
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>用到的 mBlock 积木</h3>' +
-    '<div class="blk-list">'+rows+'</div>' +
-    '<div class="tip-box">在 mBlock 5 中选择「CyberPi」设备，从对应分类里拖出这些积木，像拼乐高一样把它们接起来。</div></div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>本课积木程序</h3>' +
+    '<div class="program-summary"><div><span>PROGRAM BLUEPRINT</span><h4>'+esc(l.projName)+'</h4><p>先读懂程序为什么这样连接，再动手搭建。</p></div><div class="program-metrics"><b>'+l.blocks.length+'<small>块核心积木</small></b><b>'+roleCount.input+'<small>输入/启动</small></b><b>'+roleCount.logic+'<small>逻辑处理</small></b><b>'+roleCount.output+'<small>反馈输出</small></b></div></div>'+
+    '<div class="program-runtime"><div class="runtime-head"><b>程序运行路线</b><span>从左到右读一遍，再开始搭建</span></div><div class="runtime-track">'+
+      '<article class="runtime-card input"><span>01 · 启动 / 准备</span><b>'+esc(first[1])+'</b><small>'+esc(first[0])+'类积木</small></article><i>→</i>'+
+      '<article class="runtime-card logic"><span>02 · 处理 / 判断</span><b>'+esc(middle[1])+'</b><small>'+esc(middle[0])+'类积木</small></article><i>→</i>'+
+      '<article class="runtime-card output"><span>03 · 反馈 / 结果</span><b>'+esc(last[1])+'</b><small>'+esc(last[0])+'类积木</small></article></div></div>'+
+    '<div class="program-workbench"><section><div class="workbench-title"><div><span>搭建区</span><b>按顺序连接核心积木</b></div><small>共 '+l.blocks.length+' 步</small></div><div class="blk-list program-sequence">'+rows+'</div></section>'+
+      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样判断？</b><small>关注条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察屏幕、灯光、声音或角色反馈。</small></p></div><div class="guide-tip">搭完一小段就运行一次，更容易发现连接或参数问题。</div></aside></div>'+
+    proof + '<div class="tip-box"><b>搭建顺序：</b>先完成积木逻辑、运行和调试，再连接 CyberPi 完成真实的传感与反馈。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
 }
 
 /* ---- 面板：CyberPi 演示 ---- */
 function panelDemo(l, ch){
+  var phaseNames = ['准备','搭建','连接','测试','改进'];
   return '<div class="panel-card tab-panel" id="panel-demo">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>CyberPi 演示项目</h3>' +
-    '<div class="proj-card"><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div>' +
-    '<div class="p-eff">'+esc(l.projEff)+'</div></div>' +
-    '<div class="steps-list">' + l.steps.map(function(s, i){
-      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><p>'+esc(s)+'</p></div>';
-    }).join('') + '</div>' +
-    '<div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>本节AI硬件编程任务</h3>' +
+    '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 核心任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div><div class="p-eff">'+esc(l.projEff)+'</div></div>'+
+      '<div class="task-stamp"><b>'+l.steps.length+'</b><span>个关键步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
+    sampleTaskLab(l) +
+    '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>BUILD PLAN</span><h4>动手任务路线</h4></div><p>完成一步，检查一步</p></div><div class="steps-list task-steps">' + l.steps.map(function(s, i){
+      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-check">□ 完成</span></div>';
+    }).join('') + '</div></section>'+
+    '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
+      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul><li>程序能按步骤完整运行</li><li>硬件能给出可观察的反馈</li><li>我能解释“'+esc(l.theme)+'”怎样体现在作品中</li></ul></div></aside></div>'+
+    '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
+    '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
 }
 
 /* ---- 面板：动手挑战 ---- */
 function panelChallenge(l, ch){
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>动手挑战</h3>' +
-    '<div class="challenge-box"><span class="c-tag">小创客任务</span><p>'+esc(l.challenge)+'</p></div>' +
-    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + '</div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>运行、测试与改进</h3>' +
+    '<div class="challenge-box"><span class="c-tag">先测程序，再接硬件</span><p>'+esc(l.challenge)+'</p></div>' +
+    sampleTestLab(l) +
+    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','进入挑战与问答') + '</div>';
 }
 
 /* ---- 面板：知识问答 ---- */
 function panelQuiz(l, ch){
   return '<div class="panel-card tab-panel" id="panel-quiz">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[5].icon+'</span>随堂问答</h3>' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[5].icon+'</span>进阶挑战与随堂问答</h3>' +
     '<div class="quiz-wrap"><div class="quiz-head">' +
     '<span class="q-prog" id="quizProg">第 1 / '+l.quiz.length+' 题</span>' +
     '<span class="chip light" id="quizScore">答对 0 题 · 答错 0 次</span></div>' +

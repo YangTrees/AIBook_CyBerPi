@@ -4,7 +4,8 @@ global.document = { addEventListener: function(){}, getElementById: function(){ 
 global.localStorage = { getItem: function(){ return null; }, setItem: function(){}, removeItem: function(){} };
 global.location = { hash: "#/home" };
 global.confirm = function(){ return false; };
-const base = "D:\\PROJECTS\\_AI\\AIBook_CyberPi\\AI编程探险课_CyberPi\\_parts";
+const path = require("path");
+const base = __dirname;
 let src = "";
 ["data1.js","data2.js","data3.js","data4.js"].forEach(f => src += fs.readFileSync(base + "\\" + f, "utf8") + "\n");
 src += fs.readFileSync(base + "\\app.js", "utf8") + "\n";

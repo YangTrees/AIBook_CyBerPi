@@ -1,5 +1,5 @@
-import io, glob, os
-base = r"D:\PROJECTS\_AI\AIBook_CyberPi\AI编程探险课_CyberPi"
+import io, os
+base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 parts = os.path.join(base, "_parts")
 
 head = io.open(os.path.join(parts, "head.html"), encoding="utf-8").read()

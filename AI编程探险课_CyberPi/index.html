@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI通识编程课 · 与 CyberPi 一起探索 AI</title>
-<link rel="preconnect" href="https://miaoda.feishu.cn">
-<link href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>AI逻辑与硬件交互课程（CyberPi）</title>
 <style>
 /* ============ 设计系统 ============ */
 :root{
-  --primary:hsl(214 77% 46%);
-  --primary-600:hsl(214 77% 40%);
-  --primary-100:hsl(214 80% 94%);
-  --primary-50:hsl(215 80% 97%);
-  --accent:hsl(215 28% 95%);
-  --ink:hsl(222 26% 18%);
-  --ink-2:hsl(222 14% 44%);
-  --card:#ffffff;
-  --line:hsl(215 26% 88%);
-  --radius:20px;
+  --primary:#167C80;
+  --primary-600:#0F6367;
+  --primary-100:#DCEFED;
+  --primary-50:#F1F8F5;
+  --accent:#F2EDE2;
+  --paper:#FBF6EA;
+  --ink:#40382E;
+  --ink-2:#74695C;
+  --card:#FFFCF5;
+  --line:#D9CFBE;
+  --radius:14px;
   --radius-s:14px;
   --shadow:0 12px 34px -14px hsl(214 60% 40% / .28);
   --shadow-sm:0 6px 18px -8px hsl(214 60% 40% / .22);
@@ -39,11 +38,13 @@
   --cat-ai:#00B8D4;
   --cat-ext:#2F5CE0;
   --cat-my:#FF6680;
+  --font-body:"HarmonyOS Sans SC","MiSans","Alibaba PuHuiTi 3","PingFang SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+  --font-display:"HarmonyOS Sans SC","MiSans","Alibaba PuHuiTi 3","PingFang SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  font-family:"Baloo 2","PingFang SC","Hiragino Sans GB","Microsoft YaHei Rounded","Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-family:var(--font-body);
   color:var(--ink);
   background:
     radial-gradient(1200px 500px at 85% -100px, hsl(214 90% 90% / .55), transparent 60%),
@@ -52,7 +53,7 @@ body{
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,.font-display{font-family:"ZCOOL KuaiLe","PingFang SC","Microsoft YaHei Rounded",sans-serif;font-weight:400;letter-spacing:.5px}
+h1,h2,h3,.font-display{font-family:var(--font-display);font-weight:850;letter-spacing:.02em}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 img{max-width:100%;display:block}
@@ -135,7 +136,8 @@ main{padding-bottom:76px}
 .btn.ghost:hover{background:var(--primary-50)}
 .btn.big{padding:16px 32px;font-size:17px}
 .hero-fig{position:relative}
-.hero-fig img{border-radius:26px;box-shadow:0 30px 60px -20px hsl(214 70% 40% / .4);width:100%;aspect-ratio:3/2;object-fit:cover}
+.hero-fig{display:grid;place-items:center;padding:8px;background:rgba(255,249,236,.72);border:1px solid #D8CAB1}
+.hero-fig img{border-radius:26px;box-shadow:0 30px 60px -20px hsl(214 70% 40% / .4);width:100%;height:auto;object-fit:contain}
 .hero-fig .float-chip{
   position:absolute;background:#fff;border-radius:16px;box-shadow:var(--shadow);
   padding:10px 16px;display:flex;align-items:center;gap:9px;font-weight:800;font-size:13.5px;
@@ -176,8 +178,8 @@ main{padding-bottom:76px}
   display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:.2s;text-align:left;
 }
 .lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-.lc-cover{aspect-ratio:4/3;overflow:hidden;background:var(--accent);position:relative}
-.lc-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.lc-cover{aspect-ratio:3/4;overflow:hidden;background:linear-gradient(145deg,#F7F0E3,#FFFDF7);position:relative;display:grid;place-items:center;padding:6px}
+.lc-cover img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .4s}
 .lesson-card:hover .lc-cover img{transform:scale(1.05)}
 .lc-cover .lc-no-badge{position:absolute;top:10px;left:10px;font-size:12px;font-weight:800;color:#fff;background:var(--ch-color);padding:4px 12px;border-radius:99px;letter-spacing:.5px;box-shadow:0 2px 8px hsl(0 0% 0% / .2)}
 .lc-cover .lc-check-badge{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--ok);display:none;place-items:center;color:#fff}
@@ -230,8 +232,8 @@ main{padding-bottom:76px}
 .echo-box .e-title{font-size:19px;margin:6px 0 4px}
 .echo-box .e-story{font-size:14.5px;line-height:1.75;color:var(--ink-2)}
 .intro-hero{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start;margin-bottom:20px}
-.intro-cover{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/4;flex:none}
-.intro-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.intro-cover{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);flex:none;background:linear-gradient(145deg,#F2E9D8,#FFFDF7);padding:8px;display:grid;place-items:center}
+.intro-cover img{width:100%;height:auto;max-height:430px;object-fit:contain;display:block}
 .intro-hero .ih-info{display:flex;flex-direction:column;gap:10px}
 .intro-hero .ih-info h2{font-size:24px;line-height:1.3}
 .intro-hero .ih-theme{font-size:14px;color:var(--ink-2);font-weight:700}
@@ -252,38 +254,6 @@ main{padding-bottom:76px}
 .kp-item p{font-size:15px;line-height:1.6}
 
 /* 积木 */
-.blk-guide{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,hsl(214 80% 97%),hsl(28 100% 97%));border:2px solid hsl(214 60% 88%);border-radius:16px;padding:18px 20px;margin-bottom:18px}
-.blk-guide .bg-ico{width:44px;height:44px;border-radius:12px;background:var(--primary);color:#fff;display:grid;place-items:center;flex:none}
-.blk-guide .bg-ico svg{width:24px;height:24px}
-.blk-guide b{font-size:15px;color:var(--ink);display:block;margin-bottom:4px}
-.blk-guide p{font-size:13px;color:var(--ink-2);line-height:1.7;margin:0}
-.blk-cat-intro{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px}
-.bci-item{display:flex;gap:10px;align-items:flex-start;background:var(--accent);border-radius:12px;padding:12px 14px}
-.bci-dot{width:12px;height:12px;border-radius:4px;flex:none;margin-top:3px}
-.bci-item b{font-size:13px;color:var(--ink);display:block;margin-bottom:2px}
-.bci-item p{font-size:11.5px;color:var(--ink-2);line-height:1.6;margin:0}
-.blk-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
-.blk-card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow-sm)}
-.blk-card-top{display:flex;gap:12px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
-.blk-desc{font-size:13px;color:var(--ink-2);line-height:1.7;padding-left:10px;border-left:3px solid var(--primary-100);padding-top:4px;padding-bottom:4px}
-.cat-explore{margin-top:24px;border-top:2px dashed var(--line);padding-top:20px}
-.ce-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.ce-title .ce-ico{font-size:20px}
-.ce-title b{font-size:16px;color:var(--ink)}
-.ce-title .ce-hint{font-size:12px;color:var(--ink-2);font-weight:600;background:var(--accent);padding:4px 12px;border-radius:20px}
-.cat-btn{width:100%;display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:8px;cursor:pointer;transition:all .2s;text-align:left}
-.cat-btn:hover{border-color:var(--primary);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
-.cat-btn.open{border-color:var(--primary);background:hsl(214 80% 98%)}
-.cat-btn .cb-dot{width:14px;height:14px;border-radius:5px;flex:none}
-.cat-btn b{font-size:14.5px;color:var(--ink);min-width:60px}
-.cat-btn .cb-desc{font-size:12.5px;color:var(--ink-2);flex:1;line-height:1.5}
-.cat-btn .cb-arrow{font-size:14px;color:var(--ink-2);transition:transform .2s;flex:none}
-.cat-btn.open .cb-arrow{transform:rotate(90deg)}
-.cat-expand{display:none;background:var(--accent);border-radius:0 0 12px 12px;padding:14px 18px;margin:-8px 0 10px 0;border:1.5px solid var(--line);border-top:none}
-.ce-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
-.ce-item:last-child{border-bottom:none}
-.ce-blk{color:#fff;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:8px;flex:none;max-width:200px;line-height:1.3}
-.ce-item p{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin:0;flex:1}
 .blk-list{display:flex;flex-direction:column;gap:10px}
 .blk-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .blk-row .blk-lab{font-size:13px;font-weight:800;color:var(--ink-2);min-width:74px}
@@ -448,6 +418,216 @@ main{padding-bottom:76px}
   .intro-hero{grid-template-columns:1fr}
   .intro-cover{max-width:220px;margin:0 auto}
 }
+
+/* ============ 2026 原型：水彩绘本 × 儿童创客工作台 ============ */
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(rgba(104,86,61,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(104,86,61,.018) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.topbar{background:rgba(251,246,234,.94);border-bottom:1px solid rgba(120,99,70,.2)}
+.brand-logo{border-radius:8px;background:var(--primary);box-shadow:3px 3px 0 #E5B34B}
+.brand-name{font-size:17px;color:var(--ink);white-space:nowrap}
+.brand-sub{color:var(--ink-2)}
+.hero{background:linear-gradient(110deg,#F8EDD2 0%,#FBF6EA 54%,#DDEDE8 100%);border-bottom:1px solid #DCCEB6}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 10% 20%,rgba(229,179,75,.18) 0 2px,transparent 3px);background-size:31px 31px;opacity:.55}
+.hero-inner{padding-top:58px;padding-bottom:62px}
+.hero-kicker{font-size:12px;letter-spacing:2px;font-weight:900;color:#9A6630;text-transform:uppercase;margin-bottom:10px}
+.hero-badge{border-radius:7px;background:#FFF9EB;border:1px solid #DBC9A7;box-shadow:3px 3px 0 rgba(109,87,54,.14)}
+.hero h1{font-size:45px;color:var(--ink);margin:16px 0}.hero h1 em{color:#C86831}
+.hero p.lead{color:#62594D;max-width:580px}
+.hero-proof{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.hero-proof span{font-size:12px;font-weight:800;padding:6px 10px;border-left:3px solid #E5B34B;background:rgba(255,255,255,.48)}
+.btn{border-radius:9px;background:var(--primary);box-shadow:0 4px 0 #0B5559;transition:.16s}.btn:hover{transform:translateY(2px);box-shadow:0 2px 0 #0B5559}
+.btn.ghost{border-color:#BCA989;background:#FFF9EC;color:#6E5334;box-shadow:0 4px 0 #D9C6A5}.btn.ghost:hover{background:#FFF3D5}
+.hero-fig img{border-radius:8px;border:8px solid #FFF9EC;box-shadow:12px 14px 0 rgba(109,87,54,.13);transform:rotate(1deg)}
+.hero-fig .float-chip{border-radius:7px;border:1px solid #D5C5A8;box-shadow:4px 5px 0 rgba(109,87,54,.12);animation:none}
+.stats-bar{margin:-24px auto 0}.stat-card{border-radius:9px;border:1px solid #D8CAB1;box-shadow:4px 5px 0 rgba(109,87,54,.1);background:#FFFDF7}.stat-card .num{font-family:"Avenir Next","Microsoft YaHei",sans-serif;font-weight:900;color:var(--primary)}
+.studio-strip{max-width:1160px;margin:34px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.studio-step{display:flex;gap:14px;align-items:center;background:#FFFDF7;border:1px solid #D8CAB1;padding:17px}.studio-step .no{font:900 28px/1 "Avenir Next",sans-serif;color:#D57B3F}.studio-step b{display:block}.studio-step p{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.section-title{border-bottom:1px solid #D8CAB1;padding-bottom:10px}.section-title h2{font-size:27px}.section-title .en{color:#9A7A55}
+.path-card,.chapter-head,.lesson-card,.panel-card,.hw-card,.grow-hero{background:#FFFDF7;border:1px solid #D8CAB1;border-radius:10px;box-shadow:5px 6px 0 rgba(109,87,54,.09)}
+.chapter-head{border-left:7px solid var(--ch-color,var(--primary))}.chapter-head:hover,.lesson-card:hover{transform:translateY(-1px)}
+.lesson-card{border-radius:8px}.lc-cover{border-bottom:1px solid #D8CAB1}.lc-cover img{filter:saturate(.86) contrast(.96)}.lesson-card:hover .lc-cover img{transform:none}
+.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.featured-card{background:#FFFDF7;border:1px solid #D8CAB1;padding:20px;display:flex;flex-direction:column;gap:9px;box-shadow:5px 6px 0 rgba(109,87,54,.09)}.featured-card .tag{font-size:11px;font-weight:900;letter-spacing:1px;color:#A15B2D}.featured-card h3{font-size:21px}.featured-card p{font-size:13px;line-height:1.65;color:var(--ink-2)}.featured-card button{margin-top:auto;text-align:left;font-weight:900;color:var(--primary)}
+.course-top{background:var(--ch-color);border-radius:0;border-bottom:6px solid rgba(61,46,31,.2)}
+.tabs{gap:6px}.tab-btn{border-radius:7px;border:1px solid rgba(255,255,255,.35);box-shadow:none;padding:9px 13px}.tab-btn.active{background:#FFF9EC;color:var(--ink);transform:none}.tab-btn.active .t-ico{background:var(--ch-color)}
+.panel-card{position:relative}.panel-card::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:4px;background:var(--ch-color,#167C80)}
+.echo-box,.flow-step,.kp-item,.q-card,.tip-box{border-radius:7px}.flow-step{background:#F4EDDF}.proj-card{border-radius:8px;background:var(--ch-color)}
+.time-plan{display:grid;grid-template-columns:10fr 55fr 20fr 15fr;border:1px solid #D6C7AD;margin:16px 0;background:#FFF}.time-plan span{padding:10px 8px;font-size:11.5px;font-weight:900;text-align:center;border-right:1px solid #D6C7AD}.time-plan span:last-child{border:0}.time-plan span:nth-child(1){background:#F7E6C3}.time-plan span:nth-child(2){background:#DDEDE8}.time-plan span:nth-child(3){background:#F8D8C5}.time-plan span:nth-child(4){background:#E9E2F3}
+.program-proof{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:18px}.program-frame{background:#F3F4F5;border:1px solid #C9CBCD;padding:14px}.program-frame .pf-head{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:900;margin-bottom:10px}.program-placeholder{min-height:210px;display:grid;place-items:center;background:#FFF;border:1px dashed #A6A9AC;color:#6E7174;text-align:center;padding:24px}.program-placeholder img{max-width:330px;width:100%;margin:0 auto 5px}.program-placeholder small{display:block;margin-bottom:12px;color:#8A8D90}.program-placeholder b{display:block;color:var(--ink);margin-bottom:6px}.verify-list{background:#F7F0E3;border:1px solid #D8CAB1;padding:16px}.verify-list h4{margin-bottom:10px}.verify-list li{margin:8px 0 8px 18px;font-size:13px;line-height:1.5}
+.official-hardware{background:#FFF;border:1px solid #D8CAB1;padding:14px;margin-bottom:16px}.official-hardware img{width:100%;height:auto}.official-hardware figcaption{font-size:12px;color:var(--ink-2);margin-top:8px;line-height:1.55}
+.panel-next{display:flex;justify-content:flex-end;margin-top:24px;padding-top:18px;border-top:1px dashed #D8CAB1}.panel-next .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 17px}.panel-next .btn span{font-size:11px;letter-spacing:1px;opacity:.78}.panel-next .btn svg{transition:transform .18s}.panel-next .btn:hover svg{transform:translateX(3px)}
+.goal-visual{display:grid;grid-template-columns:minmax(190px,280px) 1fr;gap:20px;align-items:center;margin:20px 0 4px;padding:14px;background:#F7F0E3;border:1px solid #D8CAB1}.goal-visual>img{width:100%;height:auto;max-height:360px;object-fit:contain;border:7px solid #FFF;box-shadow:4px 5px 0 rgba(109,87,54,.1);background:#FFF}.goal-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.goal-flow span{padding:9px 11px;background:#FFF;border:1px solid #D8CAB1;font-size:12px;font-weight:900;color:var(--ink)}.goal-flow i{font-style:normal;color:#C86831;font-weight:900}.goal-visual figcaption{grid-column:2;font-size:12px;line-height:1.55;color:var(--ink-2);margin-top:-8px}
+.family-explorer{margin-top:22px;padding:18px;background:#F7F0E3;border:1px solid #D8CAB1}.family-title{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:10px}.family-title b{font-size:15px}.family-title span{font-size:11.5px;color:var(--ink-2)}.block-family{background:#FFF;border:1px solid #D8CAB1;margin-top:8px}.block-family summary{cursor:pointer;display:flex;align-items:center;gap:9px;padding:11px 13px;font-size:13px;font-weight:900;list-style:none}.block-family summary::-webkit-details-marker{display:none}.block-family summary::after{content:'＋';margin-left:auto;color:var(--ch-color);font-size:17px}.block-family[open] summary::after{content:'－'}.block-family summary>i{width:11px;height:11px;border-radius:3px;flex:none}.block-family summary>span{font-size:11px;color:var(--ink-2);font-weight:700}.family-items{display:flex;gap:8px;flex-wrap:wrap;padding:0 13px 13px;border-top:1px dashed #E1D5C1}.family-items span{margin-top:11px;padding:8px 10px;border-radius:6px;background:var(--family-color);color:#FFF;font-size:12px;font-weight:800;box-shadow:0 2px 0 rgba(45,37,28,.18)}
+@media(max-width:860px){.studio-strip,.featured-grid{grid-template-columns:1fr}.program-proof{grid-template-columns:1fr}.brand-sub{display:none}}
+@media(max-width:560px){.topbar-inner{gap:8px}.brand-name{font-size:13px;max-width:165px;white-space:normal;line-height:1.2}.brand-logo{width:32px;height:32px}.top-nav .nav-btn{padding:7px}.top-nav .nav-btn span{display:none}.nick-pill{display:none}.hero-inner{padding-top:28px;padding-bottom:40px}.hero h1{font-size:30px}.hero-fig{order:0;padding:5px}.hero-fig .float-chip{display:none}.stats-bar{grid-template-columns:1fr 1fr}.stat-card{padding:14px 8px}.studio-strip{margin-top:22px}.lesson-grid{grid-template-columns:1fr}.ct-titles h1{font-size:27px}.ct-progress{display:none}.tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px}.tab-btn{white-space:nowrap}.panel-card{padding:20px 16px}.time-plan{grid-template-columns:1fr 1fr}.time-plan span{border-bottom:1px solid #D6C7AD}.lesson-nav{flex-direction:column}.goal-visual{grid-template-columns:1fr}.goal-visual>img{height:auto;max-height:none}.goal-visual figcaption{grid-column:1;margin-top:0}.family-title{align-items:flex-start;flex-direction:column}.panel-next{justify-content:stretch}.panel-next .btn{width:100%;justify-content:center}}
+
+/* ============ Clay Lab：高保真黏土质感界面 ============ */
+:root{
+  --primary:#7C3AED;--primary-600:#6D28D9;--primary-100:#EDE9FE;--primary-50:#F5F3FF;
+  --paper:#F4F1FA;--ink:#332F3A;--ink-2:#635F69;--card:#FBF9FF;--line:#DDD6E8;
+  --radius:30px;--radius-sm:21px;
+  --shadow:14px 16px 34px rgba(76,58,106,.13),-9px -9px 24px rgba(255,255,255,.88),inset 1px 1px 1px rgba(255,255,255,.92),inset -1px -1px 2px rgba(76,58,106,.06);
+  --shadow-sm:7px 9px 18px rgba(76,58,106,.12),-5px -5px 14px rgba(255,255,255,.85),inset 1px 1px 1px rgba(255,255,255,.9),inset -1px -1px 2px rgba(76,58,106,.06);
+}
+html{background:#F4F1FA}
+body{
+  position:relative;isolation:isolate;color:var(--ink);background:
+  radial-gradient(circle at 8% 8%,rgba(196,181,253,.33),transparent 27%),
+  radial-gradient(circle at 94% 24%,rgba(186,230,253,.34),transparent 25%),
+  radial-gradient(circle at 50% 90%,rgba(251,207,232,.28),transparent 30%),#F4F1FA;
+  background-attachment:fixed;
+}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(9px);pointer-events:none;opacity:.7;animation:clayDrift 12s ease-in-out infinite alternate}
+body::before{width:280px;height:280px;left:-110px;top:24%;background:rgba(167,139,250,.18)}
+body::after{width:340px;height:340px;right:-150px;bottom:8%;background:rgba(125,211,252,.2);animation-delay:-5s}
+@keyframes clayDrift{to{transform:translate3d(24px,-18px,0) scale(1.06)}}
+
+.topbar{
+  top:10px;width:min(1200px,calc(100% - 28px));margin:10px auto 0;border:1px solid rgba(255,255,255,.82);
+  border-radius:27px;background:rgba(250,248,255,.82);box-shadow:var(--shadow-sm);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+.topbar-inner{height:68px;padding:0 16px}
+.brand-logo{border:1px solid rgba(255,255,255,.7);border-radius:18px;background:linear-gradient(145deg,#A78BFA,#7C3AED 70%,#6D28D9);box-shadow:5px 6px 12px rgba(109,40,217,.25),-3px -3px 8px #fff,inset 2px 2px 3px rgba(255,255,255,.44),inset -2px -2px 4px rgba(73,24,153,.2)}
+.brand-name{color:var(--ink)}.brand-sub{color:var(--ink-2)}
+.top-nav .nav-btn{border-radius:17px;color:var(--ink-2);transition:transform .2s,background .2s,box-shadow .2s}
+.top-nav .nav-btn:hover{color:var(--primary);background:#F5F1FC;transform:translateY(-2px);box-shadow:4px 5px 11px rgba(76,58,106,.09),-3px -3px 8px #fff}
+.top-nav .nav-btn.active{color:var(--primary);background:#ECE7F5;box-shadow:inset 4px 4px 9px rgba(76,58,106,.12),inset -4px -4px 9px rgba(255,255,255,.9);transform:none}
+.nick-pill{border-radius:16px;background:#F6F2FC;box-shadow:inset 2px 2px 5px rgba(76,58,106,.08),inset -2px -2px 5px #fff}
+
+.hero{
+  width:min(1240px,calc(100% - 28px));margin:24px auto 0;border:1px solid rgba(255,255,255,.8);border-radius:46px;overflow:hidden;
+  background:linear-gradient(135deg,#FBF9FF 0%,#EDE9FE 51%,#E0F2FE 100%);box-shadow:20px 24px 48px rgba(76,58,106,.15),-12px -12px 30px rgba(255,255,255,.9),inset 2px 2px 2px rgba(255,255,255,.9),inset -2px -2px 5px rgba(76,58,106,.05)
+}
+.hero::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;right:22%;top:-210px;background:rgba(244,114,182,.17);filter:blur(4px);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto -90px -150px auto;width:380px;height:380px;border-radius:50%;background:rgba(14,165,233,.12);opacity:1;pointer-events:none}
+.hero-inner{padding:54px 42px 62px;gap:46px}
+.hero-kicker{color:#7C3AED;font-size:12px;letter-spacing:2.2px}
+.hero-badge{border:1px solid rgba(255,255,255,.92);border-radius:18px;background:rgba(255,255,255,.62);box-shadow:5px 6px 13px rgba(76,58,106,.1),-4px -4px 10px rgba(255,255,255,.95),inset 1px 1px 2px #fff}
+.hero h1{font-size:45px;color:var(--ink);margin:16px 0}.hero h1 em{color:transparent;background:linear-gradient(100deg,#7C3AED,#DB2777);-webkit-background-clip:text;background-clip:text}
+.hero-title-main{display:block;font-size:clamp(32px,3.55vw,39px);line-height:1.2}.hero-title-main small{font-size:.72em;white-space:nowrap}.hero h1 em{display:block;margin-top:5px}
+.hero p.lead{color:var(--ink-2)}
+.hero-proof{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.hero-proof span{border:1px solid rgba(255,255,255,.9);border-radius:14px;background:rgba(255,255,255,.5);padding:7px 11px;box-shadow:inset 1px 1px 2px #fff;color:#514B5B}
+.hero-fig{border:1px solid rgba(255,255,255,.85);border-radius:35px;padding:12px;background:rgba(255,255,255,.36);box-shadow:10px 13px 28px rgba(76,58,106,.13),-7px -7px 19px rgba(255,255,255,.78),inset 2px 2px 3px rgba(255,255,255,.85)}
+.hero-fig img{display:block;width:100%;height:auto;object-fit:contain;border:0;border-radius:27px;box-shadow:none;transform:none}
+.hero-fig .float-chip{border:1px solid rgba(255,255,255,.9);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:7px 9px 18px rgba(76,58,106,.14),-4px -4px 10px rgba(255,255,255,.9);animation:chipFloat 4s ease-in-out infinite}
+@keyframes chipFloat{50%{transform:translateY(-6px) rotate(-1deg)}}
+
+.btn{min-height:52px;border:1px solid rgba(255,255,255,.4);border-radius:20px;background:linear-gradient(145deg,#9B76F5,#7C3AED 64%,#6D28D9);box-shadow:7px 9px 17px rgba(109,40,217,.27),-4px -4px 10px rgba(255,255,255,.85),inset 2px 2px 3px rgba(255,255,255,.35),inset -2px -2px 4px rgba(73,24,153,.18);transition:transform .18s,box-shadow .18s,filter .18s}
+.btn:hover{transform:translateY(-4px);box-shadow:10px 13px 21px rgba(109,40,217,.29),-5px -5px 12px rgba(255,255,255,.9),inset 2px 2px 3px rgba(255,255,255,.4)}
+.btn:active{transform:translateY(1px) scale(.96);box-shadow:inset 5px 5px 10px rgba(73,24,153,.28),inset -4px -4px 9px rgba(255,255,255,.22)}
+.btn.ghost{color:#5B5367;border:1px solid rgba(255,255,255,.9);background:#F8F5FC;box-shadow:7px 8px 16px rgba(76,58,106,.13),-5px -5px 12px #fff,inset 1px 1px 2px #fff,inset -1px -1px 2px rgba(76,58,106,.07)}
+.btn.ghost:hover{background:#fff;color:var(--primary)}
+.btn:focus-visible,.tab-btn:focus-visible,.nav-btn:focus-visible,.bottom-nav button:focus-visible{outline:3px solid rgba(14,165,233,.5);outline-offset:3px}
+
+.stats-bar{margin:-24px auto 0;gap:16px}.stat-card,.studio-step{border:1px solid rgba(255,255,255,.88);border-radius:27px;background:rgba(251,249,255,.94);box-shadow:var(--shadow-sm)}
+.stat-card{padding:21px 12px;transition:transform .22s,box-shadow .22s}.stat-card:hover{transform:translateY(-5px) rotate(-.5deg);box-shadow:11px 14px 25px rgba(76,58,106,.14),-7px -7px 17px #fff}.stat-card .num{color:var(--primary)}
+.studio-strip{gap:18px}.studio-step{padding:20px}.studio-step .no{width:49px;height:49px;display:grid;place-items:center;flex:none;border-radius:17px;color:#fff;font-size:21px;background:linear-gradient(145deg,#F472B6,#DB2777);box-shadow:5px 7px 13px rgba(219,39,119,.22),inset 2px 2px 3px rgba(255,255,255,.35)}
+.studio-step:nth-child(2) .no{background:linear-gradient(145deg,#38BDF8,#0EA5E9)}.studio-step:nth-child(3) .no{background:linear-gradient(145deg,#34D399,#10B981)}
+.section-title{border:0;padding-bottom:12px}.section-title h2{font-size:28px}.section-title .en{color:#8B7E99}
+
+.path-card,.chapter-head,.lesson-card,.panel-card,.hw-card,.grow-hero,.featured-card{
+  border:1px solid rgba(255,255,255,.9);border-radius:31px;background:rgba(251,249,255,.94);box-shadow:var(--shadow)
+}
+.path-card,.hw-card,.featured-card{transition:transform .22s,box-shadow .22s}.path-card:hover,.hw-card:hover,.featured-card:hover{transform:translateY(-6px);box-shadow:17px 21px 38px rgba(76,58,106,.15),-10px -10px 25px #fff}
+.chapter-head{border-left:1px solid rgba(255,255,255,.9);padding:23px 25px;overflow:hidden}.chapter-head:hover{transform:translateY(-3px)}
+.lesson-card{border-radius:28px;overflow:hidden;transition:transform .22s,box-shadow .22s}.lesson-card:hover{transform:translateY(-7px) rotate(-.3deg);box-shadow:16px 20px 34px rgba(76,58,106,.16),-9px -9px 22px #fff}
+.lc-cover{aspect-ratio:3/4;margin:10px 10px 0;border:0;border-radius:21px;background:#ECE7F3;overflow:hidden}.lc-cover img{width:100%;height:100%;object-fit:contain;filter:none}.lesson-card:hover .lc-cover img{transform:scale(1.018)}
+.featured-card{border-radius:28px;padding:23px}.featured-card .tag{color:#7C3AED}.featured-card button{color:var(--primary)}
+
+.course-top{width:min(1240px,calc(100% - 28px));margin:24px auto 0;border:1px solid rgba(255,255,255,.55);border-radius:42px;background:linear-gradient(135deg,color-mix(in srgb,var(--ch-color) 88%,#fff),var(--ch-color));box-shadow:14px 18px 34px color-mix(in srgb,var(--ch-color) 25%,transparent),-9px -9px 22px rgba(255,255,255,.8),inset 2px 2px 3px rgba(255,255,255,.3);overflow:hidden}
+.course-top-inner{padding-left:30px;padding-right:30px}
+.tabs{gap:8px;padding:7px;border-radius:23px;background:rgba(45,34,68,.09);box-shadow:inset 4px 5px 10px rgba(45,34,68,.13),inset -3px -3px 7px rgba(255,255,255,.15)}
+.tab-btn{min-height:44px;border:0;border-radius:17px;box-shadow:none;padding:10px 14px;transition:transform .18s,background .18s,box-shadow .18s}
+.tab-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.2)}
+.tab-btn.active{color:var(--ch-color);background:#FBF9FF;box-shadow:5px 6px 12px rgba(45,34,68,.17),-3px -3px 8px rgba(255,255,255,.35),inset 1px 1px 2px #fff;transform:none}.tab-btn.active .t-ico{background:var(--ch-color)}
+.panel-card{position:relative;border-radius:34px;padding:30px}.panel-card::before{display:none}
+.echo-box,.flow-step,.kp-item,.q-card,.tip-box,.challenge-box,.verify-list,.official-hardware,.family-explorer,.block-family,.program-frame,.goal-visual{
+  border:1px solid rgba(255,255,255,.88);border-radius:23px;background:#F3EFF8;box-shadow:inset 4px 5px 11px rgba(76,58,106,.09),inset -4px -4px 10px rgba(255,255,255,.9)
+}
+.flow-step{background:#F3EFF8}.proj-card{border-radius:27px;background:linear-gradient(145deg,color-mix(in srgb,var(--ch-color) 82%,#fff),var(--ch-color));box-shadow:8px 10px 19px color-mix(in srgb,var(--ch-color) 24%,transparent),inset 2px 2px 3px rgba(255,255,255,.26)}
+.time-plan{border:0;border-radius:20px;overflow:hidden;background:#F3EFF8;box-shadow:inset 4px 5px 10px rgba(76,58,106,.09),inset -4px -4px 10px #fff}.time-plan span{border-color:rgba(76,58,106,.1)}
+.program-proof{gap:18px}.program-frame{padding:16px}.program-placeholder{border:1px dashed #B8AEC7;border-radius:17px;background:#FBF9FF}.verify-list{padding:18px}.official-hardware{padding:15px}.official-hardware img{border-radius:16px}
+.panel-next{border-color:#D8CEE5}.panel-next .btn{min-height:48px}
+.goal-visual{padding:17px}.goal-visual>img{border:0;border-radius:18px;background:#fff;box-shadow:6px 8px 15px rgba(76,58,106,.11)}.goal-flow span{border:1px solid rgba(255,255,255,.9);border-radius:14px;background:#FBF9FF;box-shadow:4px 5px 10px rgba(76,58,106,.08)}.goal-flow i{color:#DB2777}
+.family-explorer{padding:19px}.block-family{overflow:hidden;background:#FBF9FF}.block-family summary{min-height:48px}.family-items{border-color:#D8CEE5}.family-items span{border-radius:13px;box-shadow:4px 5px 9px rgba(45,37,68,.18),inset 1px 1px 2px rgba(255,255,255,.3)}
+.blk,.blk-row{border-radius:15px!important}.badge-card{border-radius:27px!important}.progress-card{border-radius:28px!important}
+
+.bottom-nav{left:50%;right:auto;bottom:14px;width:min(720px,calc(100% - 24px));transform:translateX(-50%);border:1px solid rgba(255,255,255,.9);border-radius:27px;background:rgba(250,248,255,.89);box-shadow:12px 15px 31px rgba(76,58,106,.18),-7px -7px 19px rgba(255,255,255,.9),inset 1px 1px 2px #fff;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:7px 10px}
+.bottom-nav button{min-height:51px;border-radius:18px;color:var(--ink-2);transition:.18s}.bottom-nav button:hover{color:var(--primary);background:#F4F0FA}.bottom-nav button.active{color:var(--primary);background:#ECE7F5;box-shadow:inset 4px 4px 9px rgba(76,58,106,.12),inset -4px -4px 9px #fff}
+main{padding-bottom:95px}
+.nick-modal{background:rgba(51,47,58,.3);backdrop-filter:blur(10px)}.nick-card{border:1px solid rgba(255,255,255,.9);border-radius:34px;background:#FBF9FF;box-shadow:22px 27px 56px rgba(36,28,50,.26),-10px -10px 28px rgba(255,255,255,.7)}.nick-card .n-logo{border-radius:22px;background:linear-gradient(145deg,#A78BFA,#7C3AED);box-shadow:7px 9px 16px rgba(109,40,217,.25),inset 2px 2px 3px rgba(255,255,255,.35)}.nick-input{border:0;border-radius:18px;background:#F0EBF7;box-shadow:inset 4px 5px 10px rgba(76,58,106,.1),inset -4px -4px 9px #fff}.nick-go{min-height:50px;border-radius:18px;background:linear-gradient(145deg,#9B76F5,#7C3AED);box-shadow:6px 8px 15px rgba(109,40,217,.24),inset 2px 2px 3px rgba(255,255,255,.3)}
+
+/* 课程模块定位：让当前位置一眼可见 */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;overflow:visible}
+.tab-btn{position:relative;min-width:0;justify-content:center;border:0;background:rgba(255,255,255,.92);color:var(--ink-2);box-shadow:none}
+.tab-btn:hover{background:#fff;color:var(--ch-color);transform:translateY(-2px)}
+.tab-btn.active{z-index:2;color:var(--ch-color);background:#fff;transform:translateY(-4px);border-color:#fff;box-shadow:0 12px 22px rgba(38,21,61,.24),0 0 0 2px rgba(255,255,255,.42),inset 1px 1px 2px #fff}
+.tab-btn.active .t-ico{background:var(--ch-color)!important;color:#fff;box-shadow:0 4px 9px color-mix(in srgb,var(--ch-color) 32%,transparent)}
+
+/* 学习目标：能力路线图 */
+.goal-visual{grid-template-columns:minmax(220px,300px) minmax(0,1fr);align-items:stretch;gap:22px;padding:18px;margin-top:18px;background:linear-gradient(145deg,#F0EAF8,#F8F5FC)}
+.goal-picture{position:relative;display:grid;place-items:center;min-height:420px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:7px 9px 18px rgba(76,58,106,.12),-4px -4px 10px #fff}
+.goal-picture img{width:100%;height:100%;max-height:450px;object-fit:contain;background:#fff}
+.goal-picture>span{position:absolute;left:15px;top:15px;padding:7px 11px;border:1px solid rgba(255,255,255,.75);border-radius:12px;background:rgba(51,47,58,.75);color:#fff;font-size:11px;font-weight:900;letter-spacing:.08em;backdrop-filter:blur(8px)}
+.goal-map{display:flex;flex-direction:column;min-width:0;padding:5px 4px 2px}.goal-map-head>span{font-size:10px;font-weight:900;letter-spacing:.16em;color:var(--primary)}.goal-map-head h4{font-size:24px;margin:6px 0 5px}.goal-map-head p{font-size:13px;color:var(--ink-2)}
+.goal-stages{position:relative;display:grid;gap:10px;margin:18px 0}.goal-stages::before{content:"";position:absolute;left:22px;top:28px;bottom:28px;width:3px;border-radius:5px;background:linear-gradient(#7C3AED,#0EA5E9,#10B981);opacity:.35}
+.goal-stage{position:relative;display:grid;grid-template-columns:46px minmax(0,1fr) 26px;gap:12px;align-items:center;padding:13px 13px 13px 10px;border:1px solid rgba(255,255,255,.9);border-radius:18px;background:rgba(255,255,255,.72);box-shadow:5px 7px 13px rgba(76,58,106,.08),-3px -3px 8px rgba(255,255,255,.9)}
+.goal-stage-no{z-index:1;width:28px;height:28px;margin:auto;border-radius:10px;display:grid;place-items:center;background:#7C3AED;color:#fff;font-size:10px;font-weight:900;box-shadow:0 4px 9px rgba(124,58,237,.25)}.goal-stage:nth-child(2) .goal-stage-no{background:#0EA5E9}.goal-stage:nth-child(3) .goal-stage-no{background:#10B981}
+.goal-stage small{display:block;color:var(--primary);font-size:10px;font-weight:900;letter-spacing:.08em}.goal-stage strong{display:block;margin-top:3px;font-size:13px;line-height:1.45}.goal-stage p{font-size:10.5px;color:var(--ink-2);margin-top:3px}.goal-stage>i{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#E5F8EF;color:#0A8B5C;font-size:12px;font-style:normal;font-weight:900}
+.goal-finish{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:17px;background:linear-gradient(135deg,#7C3AED,#A855F7);color:#fff;box-shadow:6px 8px 16px rgba(124,58,237,.22)}.goal-finish span{flex:none;padding:5px 8px;border-radius:9px;background:rgba(255,255,255,.18);font-size:10px;font-weight:900}.goal-finish b{font-size:12px;line-height:1.45}.goal-map figcaption{margin:10px 2px 0;font-size:11px;color:var(--ink-2)}
+
+/* 积木程序：蓝图、运行路线与搭建工作台 */
+.program-summary{display:flex;justify-content:space-between;gap:22px;align-items:center;padding:21px 22px;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:linear-gradient(135deg,#312E81,#6D28D9 58%,#9333EA);color:#fff;box-shadow:9px 12px 24px rgba(76,29,149,.24),inset 2px 2px 3px rgba(255,255,255,.16)}
+.program-summary>div:first-child>span,.task-kicker{font-size:10px;font-weight:900;letter-spacing:.16em;opacity:.76}.program-summary h4{font-size:21px;margin:5px 0}.program-summary p{font-size:12px;opacity:.82}
+.program-metrics{display:grid;grid-template-columns:repeat(4,minmax(64px,1fr));gap:8px;min-width:390px}.program-metrics b{padding:10px 8px;border-radius:15px;background:rgba(255,255,255,.13);text-align:center;font-size:20px;box-shadow:inset 1px 1px 1px rgba(255,255,255,.16)}.program-metrics small{display:block;font-size:9px;margin-top:3px;opacity:.76;font-weight:700}
+.program-runtime{margin-top:18px;padding:18px;border:1px solid rgba(255,255,255,.9);border-radius:23px;background:#F3EFF8;box-shadow:inset 4px 5px 11px rgba(76,58,106,.08),inset -4px -4px 10px #fff}.runtime-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.runtime-head b{font-size:15px}.runtime-head span{font-size:11px;color:var(--ink-2)}
+.runtime-track{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center}.runtime-track>i{font-style:normal;color:#9B8CAB;font-size:22px;font-weight:900}.runtime-card{min-height:112px;padding:14px;border:1px solid rgba(255,255,255,.95);border-radius:18px;background:#fff;box-shadow:5px 7px 13px rgba(76,58,106,.08)}.runtime-card span{font-size:10px;font-weight:900;letter-spacing:.05em;color:#7C3AED}.runtime-card b{display:block;font-size:13px;line-height:1.45;margin:8px 0}.runtime-card small{color:var(--ink-2);font-size:10px}.runtime-card.input{border-top:4px solid #0EA5E9}.runtime-card.logic{border-top:4px solid #7C3AED}.runtime-card.output{border-top:4px solid #10B981}
+.program-workbench{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(230px,.65fr);gap:18px;margin-top:18px}.program-workbench>section,.program-guide{border:1px solid rgba(255,255,255,.9);border-radius:24px;background:#FBF9FF;box-shadow:var(--shadow-sm)}.program-workbench>section{padding:19px}.workbench-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.workbench-title span{display:block;font-size:10px;font-weight:900;letter-spacing:.13em;color:var(--primary)}.workbench-title b{display:block;font-size:16px;margin-top:3px}.workbench-title>small{padding:6px 9px;border-radius:10px;background:#EDE9FE;color:#6D28D9;font-size:10px;font-weight:900}
+.program-sequence{gap:0}.program-node{position:relative;display:grid;grid-template-columns:28px 78px minmax(0,1fr) auto;gap:9px;padding:9px 0;align-items:center}.program-node:not(:last-child)::after{content:"";position:absolute;left:13px;bottom:-7px;width:2px;height:14px;background:#C9BDD9}.node-index{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;background:#EDE9FE;color:#6D28D9;font-size:11px;font-weight:900}.program-node .blk-lab{min-width:0;font-size:10px}.program-node .blk{width:100%;min-height:42px}.node-check{font-size:9px;color:#7F748A;white-space:nowrap;padding:5px 7px;border-radius:8px;background:#F0EBF6}
+.program-guide{padding:19px;background:linear-gradient(160deg,#F6F2FB,#EDE7F5)}.guide-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:#7C3AED}.program-guide>div:not(.guide-tip){display:flex;gap:10px;margin-top:15px}.program-guide>div>i{flex:none;width:25px;height:25px;border-radius:9px;display:grid;place-items:center;background:#7C3AED;color:#fff;font-size:11px;font-style:normal;font-weight:900}.program-guide p b{display:block;font-size:12px}.program-guide p small{display:block;font-size:10.5px;line-height:1.45;color:var(--ink-2);margin-top:3px}.guide-tip{margin-top:17px;padding:11px;border-radius:13px;background:#FFF8DB;color:#705719;font-size:10.5px;line-height:1.55}
+
+/* 编程任务：任务简报、步骤阶段和实验记录 */
+.task-hero{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:22px;align-items:center;padding:25px 26px}.task-hero .p-name{font-size:23px;margin-top:7px}.task-stamp{width:126px;aspect-ratio:1;border:1px solid rgba(255,255,255,.3);border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.13);box-shadow:inset 2px 2px 3px rgba(255,255,255,.16)}.task-stamp b{font-size:36px;line-height:1}.task-stamp span{font-size:11px;font-weight:900;margin-top:5px}.task-stamp small{max-width:100px;margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.24);font-size:10px;text-align:center;opacity:.78}
+.task-dashboard{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.7fr);gap:18px;margin-top:18px}.task-main,.task-side-card,.task-record,.task-preview{border:1px solid rgba(255,255,255,.9);border-radius:24px;background:#FBF9FF;box-shadow:var(--shadow-sm)}.task-main{padding:20px}.task-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}.task-section-head span,.task-side-card>span{font-size:9px;font-weight:900;letter-spacing:.15em;color:var(--primary)}.task-section-head h4,.task-side-card h4{font-size:17px;margin-top:3px}.task-section-head p{font-size:10.5px;color:var(--ink-2)}
+.task-steps{gap:9px}.task-steps .step-item{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;padding:11px 12px;border-radius:17px;background:#F3EFF8;border:1px solid rgba(255,255,255,.9)}.task-steps .s-no{width:32px;height:32px;border-radius:11px}.step-copy small{font-size:9px;font-weight:900;color:var(--ch-color);letter-spacing:.08em}.step-copy p{padding:0;margin-top:3px;font-size:12.5px;line-height:1.45}.step-check{font-size:9px;color:#81758E;white-space:nowrap}
+.task-side{display:grid;gap:14px;align-content:start}.task-side-card{padding:18px}.task-side-card .hw-chips{margin-top:12px}.task-side-card .hw-chip{width:100%;border-radius:13px;padding:8px 10px;background:#F0EBF7;font-size:11px}.criteria ul{list-style:none;margin-top:11px;display:grid;gap:9px}.criteria li{position:relative;padding-left:20px;font-size:11px;line-height:1.5}.criteria li::before{content:"✓";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:5px;background:#DDF7EA;color:#078354;display:grid;place-items:center;font-size:9px;font-weight:900}
+.task-record{margin-top:18px;padding:19px}.task-record-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.task-record-head span{font-size:15px;font-weight:900}.task-record-head b{font-size:10.5px;color:var(--ink-2)}.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px}.record-grid label{min-height:86px;padding:12px;border:1px dashed #C8BBD8;border-radius:16px;background:#F8F5FC}.record-grid span{display:block;font-size:11px;font-weight:900;color:#6D28D9}.record-grid i{display:block;margin-top:12px;font-size:10px;font-style:normal;color:#A096AA}
+.task-preview{display:flex;gap:13px;align-items:flex-start;margin-top:14px;padding:15px 17px;background:linear-gradient(135deg,#FFF8DB,#FFF1E8)}.task-preview span{flex:none;padding:5px 8px;border-radius:9px;background:#F59E0B;color:#fff;font-size:9px;font-weight:900}.task-preview p{font-size:12px;line-height:1.55;color:#655125}
+
+/* 三节样板课：丰富教学内容与媒体占位 */
+.sample-driving{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 13px;align-items:center;margin:0 0 18px;padding:16px 18px;border:1px solid rgba(255,255,255,.9);border-radius:20px;background:linear-gradient(135deg,#EDE9FE,#FDF4FF);box-shadow:var(--shadow-sm)}
+.sample-driving span{grid-row:1/3;padding:8px 10px;border-radius:12px;background:var(--ch-color);color:#fff;font-size:10px;font-weight:900}.sample-driving b{font-size:15px;line-height:1.5}.sample-driving p{font-size:11px;color:var(--ink-2)}
+.media-studio{margin-top:22px;padding:21px;border:1px solid rgba(255,255,255,.92);border-radius:27px;background:linear-gradient(145deg,#F5F1FA,#FBF9FF);box-shadow:var(--shadow-sm)}
+.media-studio-head,.sample-test-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px}.media-studio-head span,.sample-test-head span{font-size:9px;font-weight:900;letter-spacing:.15em;color:#7C3AED}.media-studio-head h4,.sample-test-head h4{font-size:19px;margin-top:3px}.media-studio-head p,.sample-test-head p{max-width:420px;font-size:10.5px;line-height:1.5;color:var(--ink-2);text-align:right}
+.media-featured{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:16px}.video-slot,.full-code-slot{position:relative;min-height:250px;border:1px solid rgba(255,255,255,.9);border-radius:21px;overflow:hidden;background:#fff;box-shadow:5px 7px 14px rgba(76,58,106,.1)}
+.video-slot{display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;background-image:linear-gradient(180deg,rgba(34,22,50,.12),rgba(34,22,50,.84)),var(--poster);background-size:cover;background-position:center}.play-mark{position:absolute;left:50%;top:44%;width:54px;height:54px;border:1px solid rgba(255,255,255,.65);border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.24);font-size:18px;transform:translate(-50%,-50%);backdrop-filter:blur(8px)}.video-slot>b{font-size:17px}.video-slot>span{font-size:10.5px;margin-top:4px;opacity:.85}.video-slot>em,.full-code-slot em{position:absolute;right:13px;top:13px;padding:5px 8px;border-radius:9px;background:#F59E0B;color:#fff;font-size:9px;font-style:normal;font-weight:900}
+.full-code-slot{display:grid;grid-template-rows:minmax(0,1fr) auto}.full-code-slot img{width:100%;height:190px;object-fit:contain;padding:12px;background:#F1EDF6}.full-code-slot figcaption{padding:12px 14px}.full-code-slot b{display:block;font-size:13px}.full-code-slot span{display:block;font-size:10px;color:var(--ink-2);margin-top:3px}
+.step-shot-head{display:flex;justify-content:space-between;gap:12px;margin:18px 2px 10px}.step-shot-head b{font-size:14px}.step-shot-head span{font-size:10px;color:var(--ink-2)}.step-shot-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.shot-slot{position:relative;min-height:126px;padding:12px;border:1px dashed #BFB2CF;border-radius:17px;background:rgba(255,255,255,.7)}.shot-slot>span{position:absolute;right:10px;top:8px;font-size:9px;font-weight:900;color:#A398B0}.shot-slot>i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#EDE9FE;color:#7C3AED;font-size:9px;font-style:normal;font-weight:900}.shot-slot>b{display:block;font-size:11.5px;margin-top:10px}.shot-slot>small{display:block;font-size:9.5px;color:#9B90A5;margin-top:4px}.result-shot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:11px;padding:12px 14px;border:1px dashed #88CCB0;border-radius:17px;background:#EEFAF4}.result-shot>span{padding:6px 8px;border-radius:9px;background:#10B981;color:#fff;font-size:9px;font-weight:900}.result-shot>b{font-size:11.5px}.result-shot>small{font-size:9.5px;color:#56806B}
+.sample-task-lab{margin:16px 0}.sample-brief{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;padding:15px 17px;border-radius:19px;background:linear-gradient(135deg,#EEF2FF,#F5F3FF);border:1px solid #E1DDF0}.sample-brief span{padding:6px 8px;border-radius:9px;background:#7C3AED;color:#fff;font-size:9px;font-weight:900}.sample-brief b{font-size:12px;line-height:1.6}.sample-task-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px;margin-top:13px}.prep-card,.level-card{padding:17px;border:1px solid rgba(255,255,255,.9);border-radius:21px;background:#FBF9FF;box-shadow:var(--shadow-sm)}.prep-card>span,.level-card>span,.debug-card>span,.reflect-card>span{font-size:11px;font-weight:900;color:#7C3AED}.prep-card ol{display:grid;gap:9px;margin:12px 0 0 19px}.prep-card li{font-size:11px;line-height:1.5;padding-left:3px}.level-card{display:grid;gap:8px}.level-card>article{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:center;padding:9px 10px;border-radius:14px;background:#F3EFF8}.level-card article>i{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#7C3AED;color:#fff;font-size:10px;font-style:normal;font-weight:900}.level-card .level-1>i{background:#F59E0B}.level-card .level-2>i{background:#10B981}.level-card b{font-size:11px}.level-card p{font-size:10px;line-height:1.45;color:var(--ink-2);margin-top:2px}
+.sample-test-lab{margin-top:16px;padding:20px;border:1px solid rgba(255,255,255,.9);border-radius:25px;background:#F8F5FC;box-shadow:var(--shadow-sm)}.test-table{margin-top:15px;border:1px solid #E2DCEB;border-radius:17px;overflow:hidden}.test-row{display:grid;grid-template-columns:.8fr 1.45fr .75fr;background:#fff}.test-row:nth-child(odd){background:#F6F2FA}.test-row>*{padding:10px 12px;border-right:1px solid #E2DCEB;font-size:10.5px;line-height:1.45}.test-row>*:last-child{border:0}.test-th{background:#EDE9FE!important;color:#5B35A5}.test-th b{font-size:10px}.debug-reflect{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.debug-card,.reflect-card{padding:15px;border-radius:18px;background:#fff}.debug-card article{margin-top:10px;padding-left:12px;border-left:3px solid #F59E0B}.debug-card b{font-size:11px}.debug-card p{font-size:10px;line-height:1.5;color:var(--ink-2);margin-top:2px}.reflect-card p{display:flex;gap:8px;margin-top:11px;font-size:10.5px;line-height:1.5}.reflect-card i{flex:none;width:23px;height:23px;border-radius:8px;display:grid;place-items:center;background:#EDE9FE;color:#7C3AED;font-size:9px;font-style:normal;font-weight:900}
+
+@media(max-width:860px){
+  .hero-inner{padding:38px 28px 46px}.course-top-inner{padding-left:20px;padding-right:20px}.panel-card{padding:25px 21px}
+  .tabs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 5px 13px}.tab-btn{flex:0 0 154px;scroll-snap-align:center}
+  .goal-visual{grid-template-columns:220px minmax(0,1fr)}.goal-picture{min-height:360px}.goal-map-head h4{font-size:20px}
+  .program-summary{align-items:flex-start;flex-direction:column}.program-metrics{width:100%;min-width:0}.program-workbench,.task-dashboard{grid-template-columns:1fr}.program-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.program-guide .guide-kicker,.program-guide .guide-tip{grid-column:1/-1}.program-guide>div:not(.guide-tip){margin-top:4px}
+  .step-shot-grid{grid-template-columns:repeat(3,1fr)}.sample-task-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .topbar{top:6px;width:calc(100% - 16px);margin-top:6px;border-radius:22px}.topbar-inner{height:60px;padding:0 10px}.brand-logo{border-radius:14px}
+  .hero{width:calc(100% - 16px);margin-top:14px;border-radius:30px}.hero-inner{padding:28px 17px 34px;gap:25px}.hero h1{font-size:31px}.hero-fig{padding:8px;border-radius:25px}.hero-fig img{border-radius:19px}
+  .hero-cta{display:grid;grid-template-columns:1fr}.hero-cta .btn{width:100%;justify-content:center}.stats-bar{gap:10px}.stat-card{border-radius:22px;padding:15px 7px}.studio-step{border-radius:23px}
+  .path-card,.chapter-head,.lesson-card,.panel-card,.hw-card,.grow-hero,.featured-card{border-radius:25px}.lc-cover{border-radius:18px}
+  .course-top{width:calc(100% - 16px);margin-top:14px;border-radius:29px}.course-top-inner{padding-left:15px;padding-right:15px}.tabs{border-radius:19px}.panel-card{padding:21px 16px}
+  .echo-box,.flow-step,.kp-item,.q-card,.tip-box,.challenge-box,.verify-list,.official-hardware,.family-explorer,.block-family,.program-frame,.goal-visual{border-radius:19px}
+  .bottom-nav{bottom:8px;width:calc(100% - 16px);border-radius:23px}.bottom-nav button{min-height:48px;border-radius:16px}
+  .tabs{margin-left:-3px;margin-right:-3px}.tab-btn{flex-basis:145px}.tab-btn .tab-copy small{display:block}
+  .goal-visual{grid-template-columns:1fr;padding:12px}.goal-picture{min-height:0}.goal-picture img{height:auto;max-height:none}.goal-map{padding:7px 3px}.goal-map-head h4{font-size:21px}.goal-stage{grid-template-columns:40px minmax(0,1fr) 24px}.goal-finish{align-items:flex-start;flex-direction:column}
+  .program-summary{padding:18px}.program-metrics{grid-template-columns:repeat(2,1fr)}.runtime-track{grid-template-columns:1fr}.runtime-track>i{transform:rotate(90deg);text-align:center;line-height:12px}.runtime-card{min-height:0}.program-guide{display:block}.program-guide>div:not(.guide-tip){margin-top:14px}.program-node{grid-template-columns:28px minmax(0,1fr)}.program-node .blk-lab{grid-column:2}.program-node .blk{grid-column:2}.program-node .node-check{display:none}.program-node:not(:last-child)::after{height:34px;bottom:-17px}
+  .task-hero{grid-template-columns:1fr;padding:20px}.task-stamp{width:100%;aspect-ratio:auto;min-height:90px;border-radius:20px;display:grid;grid-template-columns:auto auto;column-gap:8px}.task-stamp b{grid-row:1/3}.task-stamp small{grid-column:1/-1;max-width:none}.task-section-head,.task-record-head{align-items:flex-start;flex-direction:column}.task-steps .step-item{grid-template-columns:32px minmax(0,1fr)}.task-steps .step-check{grid-column:2}.record-grid{grid-template-columns:1fr}.task-preview{flex-direction:column}
+  .sample-driving{grid-template-columns:1fr}.sample-driving span{grid-row:auto;justify-self:start}.media-studio{padding:15px}.media-studio-head,.sample-test-head{align-items:flex-start;flex-direction:column}.media-studio-head p,.sample-test-head p{text-align:left}.media-featured{grid-template-columns:1fr}.step-shot-grid{grid-template-columns:1fr 1fr}.result-shot{grid-template-columns:1fr}.sample-brief{grid-template-columns:1fr}.sample-brief span{justify-self:start}.test-row{grid-template-columns:1fr}.test-row>*{border-right:0;border-bottom:1px solid #E2DCEB}.test-th{display:none}.debug-reflect{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -460,8 +640,8 @@ main{padding-bottom:76px}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
       </div>
       <div>
-        <div class="brand-name">AI通识编程课</div>
-        <div class="brand-sub">与 CyberPi 一起探索 AI</div>
+        <div class="brand-name">AI逻辑与硬件交互课程（CyberPi）</div>
+        <div class="brand-sub">AI硬件编程 · 在线积木实践</div>
       </div>
     </div>
     <nav class="top-nav">
@@ -490,26 +670,28 @@ main{padding-bottom:76px}
     <div class="hero">
       <div class="wrap hero-inner">
         <div>
-          <span class="hero-badge"><span class="dot"></span> 32 节课 · 4 大章节 · 全程动手演示</span>
-          <h1>和团团、点点一起<br>用 CyberPi <em>做出 AI</em></h1>
-          <p class="lead">读完一本 AI 绘本，再来搭一个 AI 程序！用 mBlock 彩色积木给 CyberPi（童芯派）编程——传感器当眼睛和耳朵，屏幕和彩灯当嘴巴，把故事里的 AI 知识亲手演出来。</p>
+          <div class="hero-kicker">AI LOGIC × HARDWARE × CODING</div>
+          <span class="hero-badge"><span class="dot"></span> 6–12 岁 · 32 节课 · 每课 45–60 分钟</span>
+          <h1><span class="hero-title-main">AI逻辑与硬件交互课程 <small>（CyBerPi）</small></span><em>让AI连接真实世界</em></h1>
+          <p class="lead">团团和点点把绘本里的 AI 问题带进创客课堂。孩子通过在线积木编程完成每一节AI任务，再用 CyberPi 感知环境、执行程序、反馈结果。</p>
+          <div class="hero-proof"><span>每课都有编程任务</span><span>真实运行与调试</span><span>与原绘本一一呼应</span></div>
           <div class="hero-cta">
             <button class="btn big" onclick="go('#/course/1')">
               开始第一课
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <button class="btn ghost big" onclick="go('#/hardware')">认识 CyberPi</button>
+            <button class="btn ghost big" onclick="go('#/course/17')">查看样板课</button>
           </div>
         </div>
         <div class="hero-fig">
-          <img src="assets/hero.jpg" alt="团团和点点一起探索 CyberPi 编程">
+          <img src="assets/prototype/hero-v3-web.jpg" alt="团团和点点完成在线积木编程与CyberPi互动">
           <div class="float-chip fc1">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>
-            信息 → 程序 → 反应
+            故事 → 编程 → 测试
           </div>
           <div class="float-chip fc2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            每课 10 分钟上手
+            AI硬件编程全程实践
           </div>
         </div>
       </div>
@@ -520,6 +702,12 @@ main{padding-bottom:76px}
       <div class="stat-card"><div class="num">4</div><div class="lab">大学习章节</div></div>
       <div class="stat-card"><div class="num">8</div><div class="lab">个 AI 主题</div></div>
       <div class="stat-card"><div class="num">96</div><div class="lab">道随堂问答</div></div>
+    </div>
+
+    <div class="studio-strip">
+      <div class="studio-step"><span class="no">01</span><div><b>在绘本中发现问题</b><p>用熟悉的故事建立AI概念入口</p></div></div>
+      <div class="studio-step"><span class="no">02</span><div><b>在线搭建AI程序</b><p>连接积木、运行、观察并找到错误</p></div></div>
+      <div class="studio-step"><span class="no">03</span><div><b>用 CyberPi 验证</b><p>让程序连接真实世界的输入与输出</p></div></div>
     </div>
 
     <div class="wrap">
@@ -543,6 +731,11 @@ main{padding-bottom:76px}
         <span class="en">32 Lessons</span>
         <span class="chip" style="margin-left:auto">和绘本课一一呼应</span>
       </div>
+      <div class="featured-grid">
+        <article class="featured-card"><span class="tag">入门样板 · 第 01 课</span><h3>信息怎么走？</h3><p>从“按键—判断—反馈”理解输入、处理与输出，并完成第一个可运行程序。</p><button onclick="go('#/course/1')">查看课程设计 →</button></article>
+        <article class="featured-card"><span class="tag">核心样板 · 第 17 课</span><h3>让模型接受新题考试</h3><p>在在线积木编程环境中区分训练样本与测试样本，用新数据验证模型是否真的学会。</p><button onclick="go('#/course/17')">查看课程设计 →</button></article>
+        <article class="featured-card"><span class="tag">素养样板 · 第 30 课</span><h3>公平要用实验说话</h3><p>用随机抽签和多轮统计观察差异，讨论数据、规则与结果之间的关系。</p><button onclick="go('#/course/30')">查看课程设计 →</button></article>
+      </div>
       <div id="chapters"></div>
 
       <div class="section-title">
@@ -556,7 +749,7 @@ main{padding-bottom:76px}
         </div>
         <div class="hw-feat">
           <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg></div>
-          <div><b>搭积木</b><p>在 mBlock 里拖彩色积木，学会顺序、条件、循环、变量</p></div>
+          <div><b>搭积木</b><p>通过在线积木编程学习顺序、条件、循环、变量与AI扩展</p></div>
         </div>
         <div class="hw-feat">
           <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg></div>
@@ -608,7 +801,7 @@ main{padding-bottom:76px}
         <span class="en">Hardware Tour</span>
         <span class="chip" style="margin-left:auto">点击图中部件查看功能</span>
       </div>
-      <div class="page-banner"><img src="assets/hardware.jpg" alt="团团和点点探索CyberPi硬件"></div>
+      <figure class="official-hardware"><img src="assets/official/cyberpi-electronic-map.png" alt="CyberPi官方电子特性结构图"><figcaption>官方结构参考：CyberPi 是课程中的硬件交互与验证工具。课程插画严格保留摇杆、A/B键、HOME键、Type-C接口、屏幕和传感器位置。</figcaption></figure>
       <div class="hw-hero">
         <div class="hw-card hw-svg-wrap" id="hwSvgCard"></div>
         <div>
@@ -627,7 +820,7 @@ main{padding-bottom:76px}
               <span class="t-ico" style="background:var(--ch2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg></span>
               它能做什么
             </h3>
-            <p>CyberPi 是 Makeblock 出品的迷你编程电脑：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。在 mBlock 里拖积木就能让它"看"光线、"听"说话、"讲"故事。</p>
+            <p>CyberPi 是一台面向AI硬件编程的迷你设备：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。通过在线积木编程，就能让它"看"光线、"听"声音、"讲"故事。</p>
           </div>
         </div>
       </div>
@@ -714,17 +907,17 @@ main{padding-bottom:76px}
 /* ============ 课程数据：第 1–8 课 ============ */
 const LESSONS_1 = [
 {
-  id:1, ch:1, title:"你好，CyberPi！", theme:"信息与输入输出",
+  id:1, ch:1, title:"线索进来了，回应出去了", theme:"输入、处理与输出",
   echoId:1, echoTitle:"小侦探找线索", echoBrief:"信息是能帮助我们做决定的线索",
-  story:"绘本里，团团蒙着眼睛摸东西，摸到“圆圆、滑滑、凉凉”的线索，猜出了苹果。今天，我们要让 CyberPi 也当一回小侦探——用按钮收集线索，用屏幕和彩灯告诉我们它的判断。",
-  knowledge:["信息就是能帮助我们做决定的线索","CyberPi 的传感器负责收集信息（输入）","屏幕、彩灯和喇叭负责把结果说出来（输出）"],
-  blocks:[["事件","当 CyberPi 开机时"],["显示","显示 文字 「你好，我是 CyberPi！」"],["灯","RGB 灯 亮起 蓝色"],["传感","当按钮A被按下时"]],
-  projName:"会打招呼的小机器人",
-  projEff:"开机后屏幕显示“你好，我是 CyberPi！”；按下按钮 A，5 颗 RGB 灯变成蓝色，喇叭播放“嘀”的一声。这就是一次完整的“输入 → 处理 → 输出”。",
-  steps:["开机事件里，用「显示」积木让屏幕说出问候语","加一个「当按钮A被按下时」事件","按下 A 后：灯变蓝色 + 播放提示音","上传到 CyberPi，按按钮试试"],
-  challenge:"把问候语换成你自己的名字，再给按钮 B 设计一种不同的灯色和回应。",
-  tip:"如果按按钮没反应，先检查：程序有没有上传成功？按钮是不是 A？",
-  hardware:["显示屏","按钮 A/B","RGB 灯×5","扬声器"],
+  story:"绘本里，团团从“圆圆、滑滑、凉凉”的线索猜出苹果。今天先在在线积木编程舞台上做一名线索小侦探，让角色提问、接收回答、判断答案并给出回应；最后再把同样的逻辑交给 CyberPi 验证。",
+  knowledge:["能帮助判断的线索可以作为输入","程序按照我们写下的规则处理输入","角色说话、屏幕显示、灯光和声音都可以成为输出"],
+  blocks:[["事件","当绿旗被点击"],["侦测","询问「你发现了什么线索？」并等待"],["侦测","回答"],["控制","如果…那么…否则"],["外观","说出判断结果"]],
+  projName:"线索回应机",
+  projEff:"在线编程角色先询问一条线索，读取孩子的回答；如果回答中包含“圆”，就回应“我收到了形状线索”，否则提醒继续观察。程序在电脑上调试成功后，再把“按 A → 屏幕回应”的最小版本传到 CyberPi。",
+  steps:["新建角色程序：绿旗点击后提出问题","读取“回答”，用条件积木判断关键词","为两种结果设计不同的角色台词","连续输入三次，记录程序在哪些说法下判断失误","把核心逻辑改写成 CyberPi 的按钮输入与屏幕输出，完成硬件验证"],
+  challenge:"故意输入“它像一个小球”而不说“圆”，观察程序是否误判；再修改规则，让它能识别更多表达。",
+  tip:"这一课的重点不是让硬件打招呼，而是看见同一条逻辑怎样从在线积木编程舞台迁移到真实设备。",
+  hardware:["CyberPi 按钮 A（验证）","全彩显示屏（验证）"],
   quiz:[
     {q:"信息是什么？",o:["一种玩具","能帮助我们做决定的线索","电脑里的零件","别人说的所有话"],a:1,exp:"信息就像小侦探的线索，帮我们做出更好的决定。"},
     {q:"在 CyberPi 上，按钮属于什么？",o:["输出","记忆","输入","电源"],a:2,exp:"按钮把“被按下”的信息送进 CyberPi，所以它是输入。"},
@@ -1010,17 +1203,17 @@ const LESSONS_2 = [
 /* ============ 课程数据：第 17–24 课 ============ */
 const LESSONS_3 = [
 {
-  id:17, ch:3, title:"学校里的 AI 同学", theme:"训练集与测试集",
+  id:17, ch:3, title:"练习题不能当考试题", theme:"训练集、测试集与泛化",
   echoId:17, echoTitle:"学校里的AI同学", echoBrief:"训练集是练习题，测试集是考试题，用新题检验是否真学会",
-  story:"绘本里，学校来了个 AI 同学，它要先做练习题，再做考试题。今天我们用 mBlock 的“机器学习 2.0”教 CyberPi 认识两种声音——拍手和吹口哨，再用没练过的新声音考考它。",
-  knowledge:["训练集 = 学习用的“练习题”","测试集 = 检验用的“考试题”","用新题检验，才知道是不是真的学会了"],
-  blocks:[["扩展","机器学习2.0 · 训练 声音类别1（拍手）"],["扩展","机器学习2.0 · 训练 声音类别2（吹口哨）"],["扩展","机器学习2.0 · 识别 声音"],["显示","显示 识别结果"]],
-  projName:"声音小老师",
-  projEff:"先录 5 次拍手、5 次吹口哨当“练习题”（训练集），训练完成后，让 AI 同学“考试”——用全新的拍手和吹口哨测试，它答对了吗？",
-  steps:["打开 mBlock「机器学习 2.0」扩展","训练类别1：录 5 次拍手（练习题）","训练类别2：录 5 次吹口哨（练习题）","开始训练模型","考试：用没练过的新声音测试识别"],
-  challenge:"每种声音多练几个样本再测，识别是不是更准了？",
-  tip:"练习题（训练集）决定它会什么，考试题（测试集）检验它真会了没有。",
-  hardware:["麦克风","显示屏"],
+  story:"绘本里的 AI 同学先做练习题，再接受没见过的新题考试。这一课把主要实验放在在线积木编程环境：用不同角度和光线下的图形卡片训练两个类别，并提前留出一组从未参与训练的卡片作为测试集。CyberPi 负责显示最后的测试结论。",
+  knowledge:["训练集用于让模型寻找规律，测试集用于独立检验","测试图片不能偷偷混进训练集","在新样本上仍能做对，才说明模型有一定泛化能力"],
+  blocks:[["扩展","机器学习 2.0：建立两个图像类别"],["扩展","训练并使用模型"],["控制","如果识别类别为…那么"],["变量","记录测试总数与正确数"],["运算","正确数÷总数×100"]],
+  projName:"AI 同学的新题考试",
+  projEff:"孩子分工准备“训练卡”和“考试卡”。在在线积木编程环境中训练圆形与三角形分类器，再逐张测试从未见过的卡片，记录总数、正确数和错误样本。最后把准确率与结论显示到 CyberPi。",
+  steps:["先把卡片分为训练袋和测试袋，测试袋暂时封存","在在线机器学习扩展中分别采集圆形、三角形训练样本","训练模型，并只用测试袋里的新卡片进行考试","每测一张就更新总数和正确数，计算测试准确率","观察错误样本，补充更有代表性的训练数据后重新训练并复测"],
+  challenge:"比较“每类5张训练图”和“每类15张、多角度训练图”的测试结果。不能用训练过的图片冒充测试成绩。",
+  tip:"模型训练与测试发生在在线机器学习环境，CyberPi 承担硬件输入、运行反馈与结果展示。",
+  hardware:["CyberPi 全彩显示屏（显示测试结果）","RGB 灯带（结果提示）"],
   quiz:[
     {q:"AI 同学学习用的“练习题”叫什么？",o:["考试题","训练集","游戏","作业本"],a:1,exp:"训练集是学习用的练习题，AI 从里面学规律。"},
     {q:"检验 AI 是不是真学会了，要用？",o:["练过的旧题","没练过的新题","随便猜","背答案"],a:1,exp:"用新题（测试集）考试，才知道是不是真学会了。"},
@@ -1028,57 +1221,57 @@ const LESSONS_3 = [
   ]
 },
 {
-  id:18, ch:3, title:"小狗学握手", theme:"强化学习",
+  id:18, ch:3, title:"奖励真的会改变选择", theme:"强化学习循环",
   echoId:18, echoTitle:"小狗学握手", echoBrief:"强化学习通过“奖励”学会行为：做对了得奖励，下次更愿意做",
-  story:"绘本里，小狗做对动作就得到奖励，越做越好。今天 CyberPi 屏幕上会随机亮出颜色，你按对按钮就 +1 分、播放奖励音效——这就是“奖励驱动学习”。",
-  knowledge:["强化学习 = 通过“奖励”来学会行为","做对了得到奖励 → 下次更愿意这么做","试一试 → 得反馈 → 再调整，是学习的关键循环"],
-  blocks:[["变量","建立变量 得分"],["事件","当按钮A被按下时"],["控制","如果 按对了 那么"],["运算","得分 增加 1"],["声音","播放 奖励音效"]],
-  projName:"训练小海豚",
-  projEff:"屏幕随机显示红色或蓝色，显示红色时按 A、显示蓝色时按 B：按对 +1 分并播放“叮咚”奖励音，连对 3 次获得勋章。像训练小海豚一样，奖励让行为变强。",
-  steps:["屏幕随机显示红色或蓝色","按 A / B 判断颜色","按对：得分 +1 + 奖励音效","按错：提示“再试试”","连对 3 次：显示勋章"],
-  challenge:"设计你的“奖励规则”：答对得星星，答错不扣分——说说奖励怎么帮助你变强。",
-  tip:"做对得奖励、做错得提示，多试几次，表现就会越来越好。",
-  hardware:["按钮 A/B","RGB 灯","显示屏","扬声器"],
+  story:"绘本里的小狗会因为奖励而逐渐改变行为。仅仅给玩家加分还不是强化学习；这一课在在线积木编程舞台上做一个简化的“选门智能体”：程序自己选择 A 门或 B 门，根据奖励更新两扇门的分数，并在下一轮更常选择高分门。",
+  knowledge:["强化学习包含智能体、环境、动作和奖励","关键不是显示奖励，而是程序用奖励更新选择策略","探索新选择与利用已知好选择需要平衡"],
+  blocks:[["变量","A门价值 / B门价值 / 当前动作"],["运算","随机数决定探索或利用"],["控制","如果A门价值>B门价值那么"],["变量","根据奖励更新所选门价值"],["循环","重复多轮并记录选择"]],
+  projName:"会改变策略的选门智能体",
+  projEff:"在线编程角色每轮选择一扇门。环境在 A 门后更常给星星，程序收到奖励后更新对应的“门价值”，随后逐渐更常选择 A 门。孩子用折线或列表观察策略怎样随奖励改变；CyberPi 用灯光显示本轮奖励。",
+  steps:["建立两扇门的价值和选择次数，初始相同","每轮用少量随机探索，否则选择当前价值更高的门","环境按设定概率给出1或0的奖励","把奖励用于更新所选门的价值，而不是只给玩家加分","运行50轮，比较前10轮和后10轮的选择变化"],
+  challenge:"把奖励更高的门从A换成B，观察程序需要多少轮才改变策略；记录而不是凭感觉回答。",
+  tip:"如果程序下一轮的选择规则没有因奖励而更新，这只是奖励小游戏，不是强化学习实验。",
+  hardware:["CyberPi RGB灯带（显示奖励）","全彩显示屏（显示轮数）"],
   quiz:[
-    {q:"强化学习靠什么让行为变强？",o:["惩罚","奖励","睡觉","运气"],a:1,exp:"做对了得到奖励，下次更愿意这么做——奖励驱动学习。"},
-    {q:"训练小海豚按对颜色，得分+1，这是？",o:["奖励","惩罚","休息","测试"],a:0,exp:"得分和音效就是奖励，让 CyberPi“学会”正确的按钮。"},
-    {q:"“试一试 → 得反馈 → 再调整”是？",o:["学习的关键循环","浪费时间","只有动物才会","没用的"],a:0,exp:"这个循环是学习的关键，人和 AI 都一样。"}
+    {q:"只有玩家答对后加1分，程序的选择规则完全不变，这是强化学习吗？",o:["是","不是，只是计分反馈","一定是AI","看灯色决定"],a:1,exp:"强化学习要求智能体利用奖励更新策略。"},
+    {q:"强化学习里的“动作”在选门实验中是什么？",o:["选择A门或B门","播放音乐","显示分数","停止程序"],a:0,exp:"智能体对环境采取的选择就是动作。"},
+    {q:"为什么还要偶尔随机探索？",o:["发现可能更好的选择","让程序变慢","隐藏结果","省电"],a:0,exp:"只选当前高分项可能错过更好的选项，探索能收集新信息。"}
   ]
 },
 {
   id:19, ch:3, title:"贴标签的老师", theme:"监督学习",
   echoId:19, echoTitle:"贴标签的老师", echoBrief:"监督学习是有标准答案的学习，标签越清楚学得越好",
-  story:"绘本里，老师给每样东西贴上标签：这是猫、那是狗。今天我们也给命令贴标签：说“红色”灯变红，说“蓝色”灯变蓝——每个命令词就是一个标签。",
-  knowledge:["监督学习 = 有“标准答案”的学习方式","标签 = 每条数据的“正确答案”","标签越清楚，机器学得越好"],
-  blocks:[["网络/AI","识别语音 2 秒"],["网络/AI","语音识别结果"],["控制","如果 识别结果 = 红色 那么"],["灯","RGB 灯 亮起 红色"],["显示","显示 识别到的标签"]],
-  projName:"语音小管家",
-  projEff:"对着麦克风说“红色”，CyberPi 识别到标签“红色”，灯变红；说“蓝色”灯变蓝；说“唱歌”就播放音乐。标签越清楚，执行越准确。",
-  steps:["添加「语音识别」扩展并连接 Wi-Fi","识别语音 2 秒，得到识别结果","如果结果 = “红色”：灯变红","如果结果 = “蓝色”：灯变蓝","做一本“命令标签手册”"],
-  challenge:"增加“黄色”“绿色”两个标签，设计一本完整的“命令标签手册”。",
-  tip:"有标准答案（标签）的学习叫监督学习。标签就像老师批改的正确答案。",
-  hardware:["麦克风","RGB 灯","扬声器","Wi-Fi"],
+  story:"绘本里的老师把“猫”和“狗”作为正确答案贴在图片上。固定写下“听到红色就亮红灯”只是条件规则，不是训练模型；今天在在线机器学习扩展中真正采集带标签的图形样本，让模型从例子中学习。",
+  knowledge:["监督学习使用带标签的样本训练模型","标签说明每个样本的目标类别","写if规则和训练分类器是两种不同方法"],
+  blocks:[["扩展","机器学习 2.0：采集带标签图像"],["扩展","训练并使用分类模型"],["控制","如果识别类别为圆形那么"],["外观","角色显示识别类别"],["变量","记录正确与错误次数"]],
+  projName:"贴标签的图形老师",
+  projEff:"孩子为圆形和三角形图片贴上类别标签，在在线积木编程环境中训练分类器，再用新画的图形测试。角色先显示模型判断，再让 CyberPi 用不同灯色表示识别类别。",
+  steps:["准备多种颜色、大小和角度的圆形与三角形","按正确类别采集带标签训练样本","训练模型并保存训练条件","用没参与训练的新图测试并记录错误","对照一个手写if规则，讨论两种方法的区别"],
+  challenge:"故意贴错一张标签再训练，观察错误标签怎样影响结果；修正后重新测试。",
+  tip:"语音识别结果再接if判断，是在使用已经训练好的识别服务加规则，并不等于你完成了监督学习训练。",
+  hardware:["CyberPi RGB灯带（类别反馈）","全彩显示屏（显示结果）"],
   quiz:[
     {q:"监督学习的特点是？",o:["没有答案","有标准答案","没有老师","全靠猜"],a:1,exp:"监督学习是“有标准答案”的学习，像老师教学生。"},
-    {q:"说“红色”灯就变红，“红色”这个命令词是？",o:["噪声","标签","电源","程序"],a:1,exp:"命令词就是标签，告诉 AI 每个数据对应的正确答案。"},
-    {q:"标签越清楚，AI 学得？",o:["越差","越好","没变化","越快消失"],a:1,exp:"标签清楚，AI 才知道标准答案，学得越好。"}
+    {q:"直接写“如果识别到红色就亮红灯”属于？",o:["条件规则","训练模型","聚类","强化学习"],a:0,exp:"这是程序员写明的执行规则，没有用样本训练分类模型。"},
+    {q:"训练图形分类器时，标签的作用是？",o:["给出每张训练图的正确类别","调灯光","增加音量","连接硬件"],a:0,exp:"监督学习用标签告诉模型训练样本对应的目标类别。"}
   ]
 },
 {
   id:20, ch:3, title:"没有标签的玩具箱", theme:"无监督学习",
   echoId:20, echoTitle:"没有标签的玩具箱", echoBrief:"无监督学习不给标准答案，自己按相似性分组",
-  story:"绘本里，没有标签的玩具箱让团团自己找规律：亮晶晶的放一起，毛茸茸的放一起。今天让 CyberPi 自己看 10 个光线数据，不告诉它答案，让它自己分成“亮组”和“暗组”。",
-  knowledge:["无监督学习 = 不给“标准答案”的学习","没有标签也能按相似性把东西分成组","能发现“隐藏的分组”——数据自己会说话"],
-  blocks:[["变量","建立变量 亮组 / 暗组"],["传感","环境光强度"],["运算","与 平均值 比较"],["显示","显示 分组结果"]],
-  projName:"自动分组的玩具箱",
-  projEff:"连续收集 10 个光线数值，程序先算出平均值，再把每个数分到“比平均值亮”或“比平均值暗”的组里——全程没有标签，CyberPi 自己找规律分类。",
-  steps:["收集 10 个光线数值存进列表","算出平均值（程序自己定的分界线）","每个数 > 平均值 → 亮组","每个数 ≤ 平均值 → 暗组","屏幕显示两组结果"],
-  challenge:"换一组“声音大小”数据，程序还能自己分组吗？",
-  tip:"没有标签也能分组——这种“自己找规律”的学习叫无监督学习（聚类）。",
-  hardware:["光线传感器","显示屏"],
+  story:"绘本中的玩具没有标签，需要按相似性自己聚成几堆。把数据与人工指定的平均值比较仍是一条分类规则；这一课在在线积木编程舞台上用两颗会移动的“中心点”，让无标签圆点反复靠近最近的中心，体验简化的 k-means 聚类。",
+  knowledge:["无监督学习的数据没有预先给出的目标标签","聚类根据距离或相似性形成分组","分成几组、采用什么距离都会影响结果"],
+  blocks:[["列表","保存每个点的x与y坐标"],["变量","中心1 / 中心2 坐标"],["运算","计算点到两个中心的距离"],["控制","重复分配点并更新中心"],["外观","为两个簇显示不同颜色"]],
+  projName:"会移动中心的玩具箱",
+  projEff:"程序随机生成两团没有标签的圆点，先放置两个中心，把每个点分给最近中心，再按分组位置移动中心；反复几轮后形成两个簇。CyberPi 最后显示两组数量。",
+  steps:["在舞台上生成两团无标签点并保存坐标","随机放置两个聚类中心","把每个点分给距离更近的中心","分别计算两组平均位置并移动中心","重复3到5轮，观察分组何时稳定"],
+  challenge:"把两个中心的初始位置换掉，或增加第三团点，比较聚类结果为什么可能变化。",
+  tip:"“没有标签”不代表随便用一条阈值规则就成了无监督学习；这里需要让分组中心由数据反复更新。",
+  hardware:["CyberPi 全彩显示屏（显示簇数量）"],
   quiz:[
     {q:"无监督学习给不给“标准答案”？",o:["给","不给","看心情","都行"],a:1,exp:"无监督学习没有标签、没有标准答案，自己找规律。"},
-    {q:"没有标签时，CyberPi 靠什么分组？",o:["相似性","老师","猜拳","天气"],a:0,exp:"它按数据的相似程度自动分组，比如亮的放一组。"},
-    {q:"“数据自己会说话”的意思是？",o:["数据会唱歌","规律藏在数据里，可以自己发现","数据会聊天","数据会消失"],a:1,exp:"不用人告诉它，规律就藏在数据里，自己就能发现。"}
+    {q:"k-means体验中，圆点根据什么选择分组？",o:["离哪个中心更近","老师贴的标签","圆点名字","屏幕颜色"],a:0,exp:"程序比较到各中心的距离，把点暂时分给更近的中心。"},
+    {q:"为什么聚类要重复更新中心？",o:["让中心逐渐代表当前分组","让灯更亮","增加标签","删除数据"],a:0,exp:"分组改变后中心位置也应更新，反复迭代直到较稳定。"}
   ]
 },
 {
@@ -1158,20 +1351,20 @@ const LESSONS_3 = [
 /* ============ 课程数据：第 25–32 课 ============ */
 const LESSONS_4 = [
 {
-  id:25, ch:4, title:"会接话的鹦鹉 2.0", theme:"语言模型",
+  id:25, ch:4, title:"下一个词实验室", theme:"语言模型的概率预测",
   echoId:25, echoTitle:"会接话的鹦鹉2.0", echoBrief:"语言模型根据前面的话预测下一个词，AI 在“接话”而不是“懂”",
-  story:"绘本里，鹦鹉 2.0 学会了接话：听到上一句，接下一句。今天 CyberPi 也当“接话鹦鹉”——听到“你好”就接“你好呀！”，它其实是在做“接话预测”。",
-  knowledge:["语言模型根据前面的话预测下一个词","上下文（之前说了什么）影响 AI 的输出","AI 不是“懂”意思，而是在做“接话预测”"],
-  blocks:[["网络/AI","识别语音 2 秒"],["网络/AI","语音识别结果"],["控制","如果 结果 = 你好 那么"],["声音","朗读 「你好呀！」"],["显示","显示 接的话"]],
-  projName:"接话鹦鹉",
-  projEff:"对着 CyberPi 说“你好”，它识别后接“你好呀！”；说“天气”，它接“今天真不错！”。它每句话都是“听到上一句→猜下一句”，像鹦鹉学舌。",
-  steps:["添加「语音识别」扩展","识别语音 2 秒，得到结果","如果 = “你好”：朗读“你好呀！”","如果 = “天气”：朗读“今天真不错！”","多设计几句“接话”"],
-  challenge:"给鹦鹉设计 3 句新“接话”，再想想：它真的“懂”意思吗？",
-  tip:"AI 聊天其实是“预测下一个词”——听起来聪明，但并不是真的理解。",
-  hardware:["麦克风","扬声器","显示屏","Wi-Fi"],
+  story:"绘本里的鹦鹉根据前面的话接着说。固定写下“如果你好就回答你好呀”只是查表规则，不是语言模型；这一课用在线积木编程统计一个小语料中词语相邻出现的次数，再按频率猜测下一个词，制作可观察的简化语言模型。",
+  knowledge:["语言模型根据上下文估计下一个词或词元的概率","固定问答表不会学习概率，不能冒充语言模型","训练语料不同，预测分布也会不同"],
+  blocks:[["列表","保存句子拆分后的词序列"],["变量","统计候选下一个词次数"],["循环","遍历语料寻找相邻词"],["运算","按次数换算候选概率"],["随机","按权重抽取下一个词"]],
+  projName:"迷你词语接龙模型",
+  projEff:"程序读取老师准备的短句列表，统计“天气”后面出现过“很好”“变冷”“晴朗”各几次，再按频率预测或抽取下一个词。孩子修改语料后观察结果变化；CyberPi 朗读最后生成的短词链。",
+  steps:["准备不含个人信息的短句语料并拆成词序列","选择一个当前词，遍历语料统计它后面的候选词","把候选次数换算成简单概率并显示","选择最高概率词或按权重随机抽取","把新词接到句子后重复两到三轮，标明这是简化模型"],
+  challenge:"分别用“天气故事”和“动物故事”两套语料，从同一个开头生成词链，比较训练数据怎样改变预测。",
+  tip:"本课是帮助理解概率预测的微型模型，不等同于大型语言模型，也不能据此说机器真正理解了句意。",
+  hardware:["CyberPi 扬声器（朗读结果）","全彩显示屏（显示候选词）"],
   quiz:[
     {q:"语言模型主要是做什么的？",o:["预测下一个词","修电脑","画图","炒菜"],a:0,exp:"语言模型根据前面的话，预测接下来最可能出现的词。"},
-    {q:"AI 是“懂”意思，还是在“接话预测”？",o:["真的懂","接话预测","都会","都不会"],a:1,exp:"AI 更像在接话——根据上下文猜下一个词，不是真的理解。"},
+    {q:"固定写下“如果你好就回答你好呀”是什么？",o:["条件查表规则","完整语言模型","聚类","强化学习"],a:0,exp:"它没有从语料学习词语概率，只是执行程序员写好的固定映射。"},
     {q:"上下文对 AI 的输出？",o:["没影响","有影响","只有颜色影响","只有音量影响"],a:1,exp:"之前说了什么会影响 AI 接下来接什么——上下文很重要。"}
   ]
 },
@@ -1194,21 +1387,21 @@ const LESSONS_4 = [
   ]
 },
 {
-  id:27, ch:4, title:"会讲故事的机器人", theme:"生成式 AI",
+  id:27, ch:4, title:"模板故事与生成模型", theme:"生成方式辨析",
   echoId:27, echoTitle:"从乱点点到清图画", echoBrief:"生成式 AI 一步一步创造内容，语音合成把文字变成声音",
-  story:"绘本里，AI 从一团乱点点慢慢画出清晰的图画。今天 CyberPi 当“故事小工厂”：从词库里随机抽句子组合，再用“朗读”积木把故事讲出来——每一步生成一点点内容。",
-  knowledge:["生成式 AI 是一步一步创造内容的","语音合成（朗读）把文字变成声音","随机组合让内容每次都不同"],
-  blocks:[["声音","朗读 文字"],["运算","随机数 1-3"],["变量","建立变量 故事"],["显示","显示 故事内容"],["事件","当按钮A被按下时"]],
-  projName:"故事小工厂",
-  projEff:"按按钮 A，程序从“开头/中间/结尾”三个词库里各随机抽一句，拼成一个新故事，屏幕显示文字、喇叭朗读出来。每次按都有不同的故事！",
-  steps:["准备三个词库：开头、中间、结尾","用「随机数」各抽一句","组合成一个完整故事","屏幕显示 + 朗读积木讲出来","再按一次，生成新故事"],
-  challenge:"加入“角色”和“地点”两个词库，生成更多样的故事。",
-  tip:"生成式 AI 不是变魔术，而是一步步组合、生成内容。",
-  hardware:["扬声器","显示屏","按钮"],
+  story:"绘本里，生成模型逐步创造新内容。随机从三个词库各抽一句会产生新组合，但它仍是我们写好的模板程序，不能直接称为生成式 AI。本课把模板生成器与老师预先准备、注明来源的生成模型样例放在一起比较。",
+  knowledge:["随机模板能生成组合，但不等同于从数据学习的生成模型","生成式模型会根据输入条件逐步产生内容","使用生成内容要记录来源、检查事实与不合适内容"],
+  blocks:[["列表","角色 / 地点 / 事件模板词库"],["运算","随机数抽取模板项"],["变量","组合成模板故事"],["外观","并排展示两种输出"],["列表","记录相同点与不同点"]],
+  projName:"两种故事工厂对比实验",
+  projEff:"孩子先通过在线积木编程做一个可解释的随机模板故事机，再导入老师提供并明确标注的生成模型短文本样例，从变化范围、连贯性、可控性和错误风险四方面比较。CyberPi 负责朗读最终选择的安全文本。",
+  steps:["用三个小词库完成随机模板故事机","连续运行5次并圈出不变的句式骨架","阅读老师提供的生成模型样例并标注来源","用四项观察表比较模板程序与生成模型","检查内容是否合理、安全、有事实错误，再决定是否朗读"],
+  challenge:"修改模板让结果更丰富，同时写一句准确说明：它为什么仍不是训练出来的生成式AI？",
+  tip:"“每次结果不同”不足以证明是生成式AI；随机数、模板程序也能产生不同输出。",
+  hardware:["CyberPi 扬声器（朗读经审核的文本）","全彩显示屏（显示来源标记）"],
   quiz:[
-    {q:"生成式 AI 是怎么产生内容的？",o:["一下变出来","一步一步生成","从天上掉下来","抄别人的"],a:1,exp:"生成式 AI 一步一步地生成内容，像画画一样层层推进。"},
-    {q:"把文字变成声音，靠的是？",o:["语音合成","拍照","写字","画图"],a:0,exp:"语音合成（朗读）能把文字变成好听的声音。"},
-    {q:"故事小工厂每次按出来的故事？",o:["一模一样","不一样","越来越短","都是唱歌"],a:1,exp:"因为随机抽词，每次组合都不同，故事也不同。"}
+    {q:"随机模板每次组合不同，能直接证明它是生成式AI吗？",o:["能","不能，随机模板也会变化","只要有电脑就能","只看故事长度"],a:1,exp:"是否由学习到的数据分布生成，与单纯套模板随机组合是不同问题。"},
+    {q:"把文字读成声音是什么技术？",o:["语音合成","文本生成","图像分类","聚类"],a:0,exp:"语音合成负责把已有文字转成声音，不负责创造故事内容。"},
+    {q:"使用生成模型内容前应该？",o:["核查来源、事实与安全性","直接相信","删除提示","只看是否好听"],a:0,exp:"生成内容可能有事实错误或不合适内容，需要检查并标注来源。"}
   ]
 },
 {
@@ -1248,21 +1441,21 @@ const LESSONS_4 = [
   ]
 },
 {
-  id:30, ch:4, title:"同样努力却分数不同", theme:"偏见与公平",
+  id:30, ch:4, title:"公平要用实验说话", theme:"偏见、公平与数据证据",
   echoId:30, echoTitle:"同样努力却分数不同", echoBrief:"数据不公平会导致 AI 结果偏心，偏见来自训练数据不平衡",
-  story:"绘本里，团团发现同样努力分数却不同。今天让 AI 裁判“偏心”一次：只训练“大声”的样本，不练“小声”，结果小声总是被认错——数据不公平，结果就偏心。",
-  knowledge:["数据不公平会导致 AI 的结果偏心","偏见可能来自训练数据的不平衡","学会质疑不公平的结果，并想办法改进"],
-  blocks:[["扩展","机器学习2.0 · 只训练 大声样本"],["扩展","机器学习2.0 · 识别 声音"],["变量","记录 识别错误次数"],["显示","显示 偏心结果"],["扩展","补训练 小声样本"]],
-  projName:"偏心的裁判",
-  projEff:"先只训练“大声”这一类（数据不平衡），测试时“小声”总是被认成大声音——裁判偏心啦！再补练“小声”样本，裁判变公平。",
-  steps:["只训练“大声”样本（不练小声）","测试小声：总被识别成大声（偏心！）","记录错误次数","补训练“小声”样本","再测：裁判变公平了吗？"],
-  challenge:"讨论：如果训练数据里只有一种声音，会发生什么？数据不公平会造成什么结果？",
-  tip:"训练数据不平衡，AI 就会偏心。想让 AI 公平，先让数据公平。",
-  hardware:["麦克风","显示屏"],
+  story:"绘本里，同样努力的两位同学得到了不同分数。今天先不把一次结果叫作“偏见”：我们通过在线积木编程做一个抽签模拟器，让甲组和乙组各参加很多轮，统计被选中的次数，再检查规则和数据是否给了两组相同机会。",
+  knowledge:["一次不同的结果不一定证明规则不公平，需要多次实验和证据","公平不仅看最终次数，也要检查输入数据、抽样规则和评价标准","发现稳定差异后，应定位原因并重新测试"],
+  blocks:[["变量","甲组次数 / 乙组次数 / 实验轮数"],["运算","在 1 到 100 间取随机数"],["控制","重复执行 100 次"],["控制","如果…那么…否则"],["外观","用列表或柱形图显示统计结果"]],
+  projName:"100轮公平检测器",
+  projEff:"程序连续运行100轮随机抽签，分别累计甲组和乙组被选中的次数。第一轮用相同机会，第二轮故意改变分界值造成规则偏斜；孩子比较数据，说明“哪里不公平、证据是什么”。CyberPi 在每轮实验结束时亮灯提示。",
+  steps:["建立甲组次数、乙组次数和实验轮数并清零","重复100次生成随机数，用相同分界值模拟公平抽签","显示两组统计结果，不因一次差异马上下结论","把分界值改成70/30，重新运行并比较多组结果","指出偏差来自规则还是随机波动，并写下修改建议"],
+  challenge:"把每种规则各运行5组100轮实验，记录差值。什么证据会让你更有把握地说规则不公平？",
+  tip:"“数据平衡就一定公平”过于简单。公平还与任务目标、采集方式、规则和不同人受到的影响有关。",
+  hardware:["CyberPi RGB灯带（实验结束提示）","全彩显示屏（显示轮次）"],
   quiz:[
-    {q:"AI 会偏心，最可能的原因是？",o:["数据不公平","它心情不好","灯光太暗","没吃饭"],a:0,exp:"偏见常来自训练数据的不平衡——数据不公平，结果就偏心。"},
-    {q:"只训练“大声”样本，小声会怎样？",o:["被认对","总被认错","不受影响","消失"],a:1,exp:"没练过小声，它就不认识小声，总是认错。"},
-    {q:"发现 AI 结果偏心，应该？",o:["不管它","想办法改进数据","骂 AI","关掉它"],a:1,exp:"学会质疑不公平的结果，并想办法改进（比如补数据）。"}
+    {q:"两组在一次抽签中的结果不同，能马上证明规则不公平吗？",o:["能","不能，还要多次测试并检查规则","只看输的一组","看灯的颜色"],a:1,exp:"随机过程的一次结果可能不同，需要重复实验并检查机会设置。"},
+    {q:"公平检测除了看结果次数，还应检查什么？",o:["输入数据和规则","屏幕大小","程序名字","音乐音量"],a:0,exp:"输入、分组、抽样规则和评价标准都可能影响不同群体的机会。"},
+    {q:"70/30 的分界连续多轮都让甲组更常被选中，首先应该？",o:["说甲组更幸运","检查并修改分界规则后复测","删除数据","只运行一次"],a:1,exp:"稳定差异有明确的规则来源，应修改规则并用同样方法重新测试。"}
   ]
 },
 {
@@ -1323,7 +1516,26 @@ var COURSE = {};
 ALL.forEach(function(l){ COURSE[l.id] = l; });
 
 /* 积木分类颜色 */
-var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)'};
+var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)',侦测:'var(--cat-sense)',外观:'var(--cat-display)',循环:'var(--cat-control)',列表:'var(--cat-var)',随机:'var(--cat-op)'};
+
+/* 同类积木扩展：用于课程页的可展开积木百科 */
+var BLOCK_FAMILIES = {
+  '事件':['当程序开始运行','当按键被按下','当摇杆向指定方向','当收到广播消息','广播消息'],
+  '控制':['等待若干秒','重复执行若干次','一直重复执行','如果…那么','如果…那么…否则','重复执行直到','停止程序'],
+  '显示':['显示文字','显示数字','设置文字大小与颜色','清空屏幕','绘制点、线与图形','设置显示位置'],
+  '灯':['点亮全部RGB灯','熄灭全部RGB灯','设置RGB颜色','设置第N颗灯','设置灯光亮度','播放灯光动画'],
+  '声音':['播放音符','播放内置音效','设置音量','录制声音','播放录音','停止所有声音'],
+  '传感':['按钮是否按下','摇杆方向与坐标','环境光强度','声音强度','加速度','倾斜角度','摇一摇状态'],
+  '侦测':['询问并等待','读取回答','按键是否按下','鼠标位置','碰到指定对象','计时器'],
+  '外观':['说出文字','切换造型','改变大小','显示或隐藏角色','切换背景','添加图形效果'],
+  '运算':['加减乘除','比较大小','且 / 或 / 不成立','生成随机数','连接文字','判断文字是否包含'],
+  '随机':['生成范围内随机数','按权重抽取结果','随机打乱列表'],
+  '变量':['建立变量','变量设为指定值','变量增加或减少','显示变量','隐藏变量'],
+  '列表':['新建列表','加入一项','读取第N项','替换列表项','删除列表项','获取列表长度'],
+  '扩展':['图像分类','姿态或声音识别','训练并使用模型','读取模型结果','置信度判断'],
+  '网络/AI':['连接网络服务','语音识别','语音合成','读取识别结果','发送或接收数据'],
+  '自制':['定义自制积木','添加输入参数','运行自制积木','设置不刷新屏幕运行']
+};
 
 /* ============ 工具函数 ============ */
 function $(s){ return document.querySelector(s); }
@@ -1399,6 +1611,9 @@ function renderHomeStats(){
     return '<div class="stat-card"><div class="num">'+it[0]+'</div><div class="lab">'+it[1]+'</div></div>';
   }).join('');
 }
+function lessonAsset(id){
+  return 'assets/prototype/lesson-' + (id < 10 ? '0' + id : '' + id) + '-v3-web.jpg';
+}
 
 /* ---- 学习路径 SVG ---- */
 function renderPathSvg(){
@@ -1454,7 +1669,7 @@ function renderChapters(){
       var rec = d.records[l.id] || {};
       var pad = l.id < 10 ? '0' + l.id : '' + l.id;
       html += '<button class="lesson-card'+(rec.done?' done':'')+'" style="--ch-color:'+ch.color+'" onclick="go(\'#/course/'+l.id+'\')">' +
-        '<div class="lc-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'">' +
+        '<div class="lc-cover"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'">' +
         '<span class="lc-no-badge">'+fmtNo(l.id)+'</span>' +
         '<span class="lc-check-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span></div>' +
         '<div class="lc-body">' +
@@ -1471,14 +1686,68 @@ function renderChapters(){
 
 /* ============ 课程详情 ============ */
 var TABS = [
-  {key:'intro', name:'课程导入', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
-  {key:'know', name:'AI 知识点', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
-  {key:'blocks', name:'编程积木', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
-  {key:'demo', name:'CyberPi 演示', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
-  {key:'challenge', name:'动手挑战', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
-  {key:'quiz', name:'知识问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
+  {key:'intro', name:'故事回声', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
+  {key:'know', name:'学习目标', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
+  {key:'blocks', name:'积木程序', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
+  {key:'demo', name:'编程任务', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
+  {key:'challenge', name:'运行与测试', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
+  {key:'quiz', name:'挑战与问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
 ];
+var SAMPLE_CONTENT = {
+  1:{
+    driving:"怎样让程序像小侦探一样，接收线索、作出判断并给出回应？",
+    deliverable:"完成一个能提问、接收回答、判断关键词并反馈结果的“线索回应机”，最后用 CyberPi 按钮和屏幕验证同一套逻辑。",
+    prep:["新建空白角色项目，保留一个提问角色","准备“圆、小球、方形”等测试回答","先在舞台完成调试，确认逻辑后再连接 CyberPi"],
+    stepTitles:["提出线索问题","读取用户回答","判断关键词","连续输入测试","迁移到硬件"],
+    levels:[["必做任务","输入“圆”时回应“收到形状线索”，其他回答提示继续观察。"],["加星任务","让程序同时理解“圆”和“小球”两种说法。"],["创造任务","把题目改造成动物、植物或校园物品猜谜机。"]],
+    tests:[["输入“圆”","显示“收到形状线索”","基础判断"],["输入“小球”","修改前记录结果，修改后正确识别","表达变化"],["输入“方形”","提示“请继续观察”","否则分支"],["按下按钮 A","CyberPi 屏幕显示回应","硬件迁移"]],
+    bugs:[["所有回答都进入同一结果","检查条件中的关键词、比较符号和“否则”连接位置。"],["舞台正确但设备没有回应","确认已连接正确设备，并重新上传修改后的程序。"]],
+    reflection:["程序真正理解“圆”了吗，还是只在匹配文字？","还可以加入哪些表达，让判断更接近人的说法？"]
+  },
+  17:{
+    driving:"怎样证明模型学会了规律，而不是只记住训练时见过的图片？",
+    deliverable:"训练圆形与三角形分类器，用完全没有参与训练的新卡片考试，记录准确率和错误样本，并在 CyberPi 上显示测试结论。",
+    prep:["把图形卡分成训练袋和测试袋，测试袋先封存","保证两类训练样本数量接近，并包含不同角度和光线","建立测试总数、正确数和准确率记录表"],
+    stepTitles:["分开训练与测试","采集两类样本","训练分类模型","新卡片考试","补充样本复测"],
+    levels:[["必做任务","使用独立测试卡完成至少10次测试并计算准确率。"],["加星任务","比较每类5张与每类15张训练图的测试结果。"],["创造任务","增加第三个类别，重新设计训练和测试方案。"]],
+    tests:[["训练图再次识别","通常较容易正确","不能作为考试成绩"],["全新圆形卡","判断为圆形","泛化能力"],["旋转后的三角形","判断为三角形","角度变化"],["光线较暗的新卡","记录判断与置信表现","环境变化"]],
+    bugs:[["测试准确率异常高","检查测试图片是否曾混入训练集，避免“题目泄露”。"],["换角度就识别错误","训练样本可能过于单一，需要补充角度、大小和光线变化。"]],
+    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"]
+  },
+  30:{
+    driving:"一次结果不同就是不公平吗？怎样用重复实验找到真正的规则偏差？",
+    deliverable:"制作100轮公平检测器，对比50/50与70/30两种抽签规则，用多组数据说明差异来自随机波动还是规则偏斜。",
+    prep:["建立甲组次数、乙组次数和实验轮数变量","准备50/50与70/30两套分界规则","设计每组实验的结果记录表"],
+    stepTitles:["变量清零","运行公平规则","记录多组结果","制造偏斜规则","比较并提出修改"],
+    levels:[["必做任务","完成一组50/50规则下的100轮实验并保存结果。"],["加星任务","两种规则各运行5组，比较平均差值。"],["创造任务","设计一种新的抽样规则，并说明它为什么更公平或更不公平。"]],
+    tests:[["50/50运行100轮","两组次数接近但不必完全相同","随机波动"],["50/50重复5组","差异方向不固定","多次证据"],["70/30重复5组","甲组持续明显更高","规则偏斜"],["恢复50/50复测","稳定差异减小","修改验证"]],
+    bugs:[["每组结果越来越大","新一组实验前没有把计数变量清零。"],["50/50实际不是一半机会","检查随机数范围和分界值是否包含或遗漏边界。"]],
+    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"]
+  }
+};
 var quizState = null;
+
+function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
+function sampleDriving(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
+}
+function sampleMediaStudio(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
+    '<div class="media-featured"><div class="video-slot" style="--poster:url(\''+lessonAsset(l.id)+'\')"><div class="play-mark">▶</div><b>最终效果视频</b><span>程序运行 + CyberPi 反馈 · 30–90 秒</span><em>待上传</em></div>'+
+    '<figure class="full-code-slot"><img src="assets/blocks/official-interface-reference.png" alt="在线积木编程界面参考"><figcaption><b>完整程序截图</b><span>当前为界面参考，后续替换本课完整积木链</span><em>待替换</em></figcaption></figure></div>'+
+    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+s.stepTitles.map(function(n,i){return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';}).join('')+'</div>'+
+    '<div class="result-shot"><span>运行结果截图</span><b>记录舞台或设备最终反馈</b><small>待上传 · 与最终视频配合使用</small></div></section>';
+}
+function sampleTaskLab(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
+}
+function sampleTestLab(l){
+  var s = sampleOf(l); if(!s) return '';
+  return '<section class="sample-test-lab"><div class="sample-test-head"><div><span>TEST & DEBUG</span><h4>测试记录与排错</h4></div><p>先预测，再运行；出现不同结果时先找原因，不急着改积木。</p></div><div class="test-table"><div class="test-row test-th"><b>测试条件</b><b>预期现象</b><b>观察重点</b></div>'+s.tests.map(function(r){return '<div class="test-row"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span><span>'+esc(r[2])+'</span></div>';}).join('')+'</div><div class="debug-reflect"><div class="debug-card"><span>文字排错卡</span>'+s.bugs.map(function(n){return '<article><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></article>';}).join('')+'</div><div class="reflect-card"><span>完成后想一想</span>'+s.reflection.map(function(n,i){return '<p><i>0'+(i+1)+'</i>'+esc(n)+'</p>';}).join('')+'</div></div></section>';
+}
 
 function renderCourse(id){
   var l = COURSE[id];
@@ -1488,6 +1757,7 @@ function renderCourse(id){
   var rec = DB.lessonRec(d, id);
 
   document.getElementById('courseTop').style.setProperty('--ch-color', ch.color);
+  document.getElementById('view-course').style.setProperty('--ch-color', ch.color);
   document.getElementById('ctNo').textContent = fmtNo(id);
   document.getElementById('ctTitle').textContent = l.title;
   document.getElementById('ctSub').textContent = '第'+ch.id+'章 · '+ch.name+' ｜ '+l.theme;
@@ -1497,7 +1767,7 @@ function renderCourse(id){
   document.getElementById('ctProgTxt').textContent = rec.done ? '本课已完成' : '完成问答点亮进度';
 
   document.getElementById('courseTabs').innerHTML = TABS.map(function(t, i){
-    return '<button class="tab-btn'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="switchTab(this)">' +
+    return '<button class="tab-btn'+(i===0?' active':'')+'" data-tab="'+t.key+'" aria-selected="'+(i===0?'true':'false')+'" aria-controls="panel-'+t.key+'" onclick="switchTab(this)">' +
       '<span class="t-ico" style="background:'+ch.color+'">'+t.icon+'</span>'+t.name+'</button>';
   }).join('');
 
@@ -1515,21 +1785,37 @@ function renderCourse(id){
   renderQuiz();
 }
 function switchTab(btn){
-  document.querySelectorAll('#courseTabs .tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#courseTabs .tab-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
   var key = btn.getAttribute('data-tab');
   document.querySelectorAll('#coursePanels .tab-panel').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('panel-'+key).classList.add('active');
-  window.scrollTo({top:document.getElementById('view-course').offsetTop - 70, behavior:'smooth'});
 }
-function goNextTab(){
-  var tabs = document.querySelectorAll('#courseTabs .tab-btn');
-  var activeIdx = 0;
-  tabs.forEach(function(b, i){ if(b.classList.contains('active')) activeIdx = i; });
-  if(activeIdx < tabs.length - 1){ switchTab(tabs[activeIdx + 1]); }
+function goStep(key){
+  var btn = document.querySelector('#courseTabs [data-tab="'+key+'"]');
+  if(btn){ switchTab(btn); window.scrollTo(0, document.getElementById('courseTop').offsetHeight || 0); }
 }
-function nextStageBtn(label){
-  return '<div style="margin-top:24px;display:flex;justify-content:flex-end"><button class="btn" onclick="goNextTab()" style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;font-size:15px;font-weight:700;border-radius:14px;background:var(--primary);color:#fff;box-shadow:0 6px 18px -6px hsl(214 77% 46% / .5)">'+label+' <span style="font-size:18px">→</span></button></div>';
+function nextStepButton(key, label){
+  return '<div class="panel-next"><button class="btn" onclick="goStep(\''+key+'\')"><span>下一步</span>'+label+'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
+}
+function blockRole(cat){
+  if(['事件','传感','网络/AI','扩展'].indexOf(cat) >= 0) return 'input';
+  if(['显示','外观','灯','声音','运动'].indexOf(cat) >= 0) return 'output';
+  return 'logic';
+}
+function blockRoleLabel(cat){
+  var r = blockRole(cat);
+  return r === 'input' ? '输入 / 启动' : (r === 'output' ? '反馈 / 输出' : '处理 / 判断');
+}
+function blockFamilyExplorer(l){
+  var seen = {}, cats = [];
+  l.blocks.forEach(function(b){ if(!seen[b[0]]){ seen[b[0]] = true; cats.push(b[0]); } });
+  return '<div class="family-explorer"><div class="family-title"><b>同类型积木还能做什么？</b><span>点击积木类型展开</span></div>' + cats.map(function(cat, i){
+    var items = BLOCK_FAMILIES[cat] || ['更多同类积木将在工程验证后补充'];
+    var color = CAT_COLOR[cat] || 'var(--primary)';
+    return '<details class="block-family"'+(i===0?' open':'')+'><summary><i style="background:'+color+'"></i><b>'+esc(cat)+'类积木</b><span>'+items.length+' 个常用积木</span></summary><div class="family-items">'+items.map(function(n){ return '<span style="--family-color:'+color+'">'+esc(n)+'</span>'; }).join('')+'</div></details>';
+  }).join('') + '</div>';
 }
 
 /* ---- 面板：课程导入 ---- */
@@ -1537,13 +1823,13 @@ function panelIntro(l, ch){
   var pad = l.id < 10 ? '0' + l.id : '' + l.id;
   var steps = [
     {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', t:'读故事', p:'回顾绘本第'+l.echoId+'课《'+l.echoTitle+'》'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'学知识', p:'掌握本节 AI 知识点'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'做项目', p:'在 mBlock 搭积木，CyberPi 现场演示'}
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在线完成AI硬件编程任务'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'先屏幕调试，再用 CyberPi 验证'}
   ];
   return '<div class="panel-card tab-panel active" id="panel-intro">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[0].icon+'</span>课程导入 · 绘本呼应</h3>' +
     '<div class="intro-hero">' +
-      '<div class="intro-cover"><img src="assets/lessons/'+pad+'.jpg" alt="'+esc(l.title)+'"></div>' +
+      '<div class="intro-cover"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'"></div>' +
       '<div class="ih-info">' +
         '<h2>'+esc(l.title)+'</h2>' +
         '<div class="ih-theme">'+esc(l.theme)+' ｜ 第'+ch.id+'章 '+ch.name+'</div>' +
@@ -1555,283 +1841,85 @@ function panelIntro(l, ch){
       '<div class="e-title">'+esc(l.echoBrief)+'</div>' +
       '<div class="e-story">'+esc(l.story)+'</div>' +
     '</div>' +
+    sampleDriving(l) +
+    '<div class="time-plan"><span>故事 10%</span><span>AI编程 55%</span><span>硬件交互 20%</span><span>挑战复盘 15%</span></div>' +
     '<div class="flow-steps">' + steps.map(function(s){
       return '<div class="flow-step"><div class="fs-ico">'+s.ico+'</div><b>'+s.t+'</b><p>'+s.p+'</p></div>';
-    }).join('') + '</div>' + nextStageBtn('下一环节：学知识') + '</div>';
+    }).join('') + '</div>' + nextStepButton('know','查看学习目标') + '</div>';
 }
 
 /* ---- 面板：AI 知识点 ---- */
 function panelKnow(l, ch){
+  var goalNames = ['知道什么','能够做到','解释与迁移'];
+  var goalHints = ['建立本课AI概念','把想法变成程序','把规律说给别人听'];
+  var goals = l.knowledge.map(function(k, i){
+    return '<article class="goal-stage"><span class="goal-stage-no">0'+(i+1)+'</span><div><small>'+goalNames[i%goalNames.length]+'</small><strong>'+esc(k)+'</strong><p>'+goalHints[i%goalHints.length]+'</p></div><i>✓</i></article>';
+  }).join('');
   return '<div class="panel-card tab-panel" id="panel-know">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节 AI 知识点</h3>' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节学习目标</h3>' +
+    '<figure class="goal-visual"><div class="goal-picture"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'学习目标图示"><span>'+fmtNo(l.id)+'</span></div>'+
+      '<div class="goal-map"><div class="goal-map-head"><span>LEARNING MAP · 学习路线</span><h4>'+esc(l.theme)+'</h4><p>从理解概念，到搭建逻辑，再到硬件验证</p></div>'+
+      '<div class="goal-stages">'+goals+'</div><div class="goal-finish"><span>本课达成</span><b>我能理解、搭建并验证一个“'+esc(l.theme)+'”作品</b></div>'+
+      '<figcaption>每完成一个目标，就为本课作品增加一种能力。</figcaption></div></figure>' +
     '<div class="kp-list">' + l.knowledge.map(function(k, i){
       return '<div class="kp-item"><span class="kp-no">'+(i+1)+'</span><p>'+esc(k)+'</p></div>';
-    }).join('') + '</div>' + nextStageBtn('下一环节：看积木') + '</div>';
+    }).join('') + '</div>' + nextStepButton('blocks','进入积木程序') + '</div>';
 }
 
 /* ---- 面板：编程积木 ---- */
-var CAT_DESC = {
-  '事件':'程序的"启动开关"。当某个事情发生时（比如开机、按按钮），挂在它下面的积木就开始运行。',
-  '控制':'程序的"大脑指挥官"。用「如果…就…」做判断、用「重复」做循环、用「等待」暂停，让程序有逻辑地运行。',
-  '显示':'CyberPi的"嘴巴和画笔"。在1.44寸彩屏上显示文字、数字，还能逐点亮起像素画图案。',
-  '灯':'CyberPi的"彩色表情"。5颗RGB灯可以调成红绿蓝任意颜色，亮灭和闪烁都能编程控制。',
-  '声音':'CyberPi的"嗓子"。既能播放音符和音效，也能用「朗读」积木把文字变成说话声（语音合成）。',
-  '传感':'CyberPi的"眼睛和耳朵"。读取光线强度、声音大小、摇杆位置、加速度倾斜，把外界信息变成数字。',
-  '运算':'程序的"计算器"。做加减乘除、生成随机数、比较大小、用「且/或」组合多个条件。',
-  '变量':'程序的"小抽屉"。建立一个有名字的格子来存数字或文字，可以随时取出来用、改掉、清零。',
-  '自制':'程序的"打包盒"。把一串积木打包成一个有名字的新积木，下次用的时候直接拖出来，程序更整洁。',
-  '扩展':'AI和联网功能的"魔法积木"。包括机器学习训练/识别等，需要联网使用。',
-  '网络/AI':'AI和联网功能的"魔法积木"。包括语音识别等，让CyberPi能听懂人话。'
-};
-var BLOCK_LIBRARY = {
-  '事件': [
-    {n:'当 CyberPi 开机时', d:'程序的入口，CyberPi一开机就从这里开始运行下面的积木。'},
-    {n:'当按钮 A 被按下时', d:'每次按下按钮A，就执行一次挂在下面的积木，常用作用户输入触发。'},
-    {n:'当按钮 B 被按下时', d:'每次按下按钮B触发，常和按钮A配合（一个确认、一个返回）。'},
-    {n:'当摇杆向上/下/左/右时', d:'摇杆拨到指定方向时触发，适合做方向控制类游戏。'},
-    {n:'当收到消息 [消息] 时', d:'收到指定广播消息时触发，用于程序不同部分之间通信。'}
-  ],
-  '控制': [
-    {n:'等待 [1] 秒', d:'程序暂停指定秒数，什么都不做，时间到了继续往下执行。'},
-    {n:'重复执行 [10] 次', d:'把里面的积木重复执行指定次数，做完继续往下。'},
-    {n:'重复执行', d:'把里面的积木无限循环执行，永远做下去（除非程序停止）。'},
-    {n:'如果 [条件] 那么', d:'检查条件是否满足，满足就执行里面的积木，不满足就跳过。'},
-    {n:'如果 [条件] 那么…否则', d:'条件满足执行第一组积木，不满足执行「否则」里的积木，二选一。'},
-    {n:'重复执行直到 [条件]', d:'反复执行里面的积木，直到条件满足才停下来，适合"一直做到成功"。'},
-    {n:'停止全部脚本', d:'立刻停止整个程序的运行。'}
-  ],
-  '显示': [
-    {n:'显示文字 [你好]', d:'在屏幕上显示一行文字，是CyberPi跟人"说话"的主要方式。'},
-    {n:'显示数字 [0]', d:'在屏幕上显示一个数字，数字会更新覆盖之前的内容。'},
-    {n:'显示变量 [变量]', d:'把变量里存的值取出来显示在屏幕上，变量变了显示也跟着变。'},
-    {n:'清空屏幕', d:'把屏幕上所有内容擦掉，变成黑屏，准备显示新内容。'},
-    {n:'在 x:[0] y:[0] 绘制像素点', d:'在屏幕指定坐标处点亮一个像素点，坐标从左上角(0,0)开始数。'},
-    {n:'绘制矩形/圆形/线', d:'在屏幕上绘制基本几何图形，可以指定位置、大小和颜色。'}
-  ],
-  '灯': [
-    {n:'RGB灯 亮起 [颜色]', d:'把5颗RGB灯调成指定颜色并亮起，灯立刻发光。'},
-    {n:'RGB灯 熄灭', d:'把所有RGB灯关掉，灯不发光。'},
-    {n:'设置RGB灯 红:[0]绿:[0]蓝:[0]', d:'按红绿蓝三个通道亮度值(0-255)混合出颜色，配比不同颜色就不同。'},
-    {n:'设置第[N]颗灯 颜色', d:'只控制指定的某一颗灯，5颗灯可以分别显示不同颜色。'},
-    {n:'设置RGB灯亮度 [0-100]', d:'调节所有灯的整体亮度，0最暗、100最亮。'}
-  ],
-  '声音': [
-    {n:'播放音符 [C4] [0.5]拍', d:'播放一个指定音高和时长的音符，多个音符可以拼成旋律。'},
-    {n:'播放音效 [提示音]', d:'播放内置的短音效（提示音、奖励音、错误音等），用来给反馈。'},
-    {n:'朗读 [文字]', d:'把文字变成说话声读出来（语音合成），是AI的"嘴巴"，需要联网。'},
-    {n:'设置音量 [0-100]', d:'调节扬声器的整体音量，0静音、100最大声。'},
-    {n:'停止所有声音', d:'立刻停止正在播放的所有声音和音乐。'}
-  ],
-  '传感': [
-    {n:'按钮 A 是否按下', d:'检测按钮A当前有没有被按下，返回"真"或"假"，用于条件判断。'},
-    {n:'摇杆 X 轴 / Y 轴', d:'读取摇杆当前的位置数值，左右拨X轴变化、上下拨Y轴变化。'},
-    {n:'环境光强度', d:'读取当前环境光线的亮暗程度，返回0-100的数字，越亮数字越大。'},
-    {n:'声音强度 / 音量', d:'读取麦克风检测到的周围声音大小，声音越大数字越大。'},
-    {n:'加速度 X/Y/Z 轴', d:'读取加速度传感器数值，能感知摇晃、倾斜和移动方向。'},
-    {n:'陀螺仪角度', d:'读取CyberPi的倾斜角度，能知道设备是正着放还是歪着放。'}
-  ],
-  '运算': [
-    {n:'[1] + [1] / - / × / ÷', d:'加减乘除四则运算，把两个数字算出结果。'},
-    {n:'随机数 [1] 到 [10]', d:'随机生成一个指定范围内的整数，每次运行结果可能不同。'},
-    {n:'[1] < [2] / = / >', d:'比较两个数字的大小或是否相等，结果为"真"或"假"。'},
-    {n:'[条件] 且 [条件]', d:'逻辑"与"：两个条件都满足时结果才为真，缺一不可。'},
-    {n:'[条件] 或 [条件]', d:'逻辑"或"：只要有一个条件满足结果就为真。'},
-    {n:'不 [条件]', d:'逻辑"非"：把条件结果反过来，真变假、假变真。'},
-    {n:'连接 [文字1] [文字2]', d:'把两段文字拼在一起变成一段，比如"你好"+"世界"="你好世界"。'}
-  ],
-  '变量': [
-    {n:'建立变量 [名字]', d:'创建一个有名字的"小抽屉"，用来存数字或文字，程序运行中可随时取用。'},
-    {n:'将 [变量] 设为 [值]', d:'把变量里的内容改成指定的值，覆盖原来的内容。'},
-    {n:'将 [变量] 增加 [1]', d:'把变量的值加上指定数量，比如加1就是每次多1，常用于计数。'},
-    {n:'显示变量 [变量]', d:'在屏幕上显示变量当前的值，变量变了显示也跟着更新。'}
-  ],
-  '自制': [
-    {n:'定义自制积木 [名字]', d:'把一串积木打包成一个新的自定义积木，起个好记的名字。'},
-    {n:'调用自制积木 [名字]', d:'直接使用之前定义好的自制积木，执行它里面打包的整串步骤。'}
-  ],
-  '扩展': [
-    {n:'机器学习2.0 · 训练', d:'采集样本数据训练AI模型，让机器学会认识不同类别（如拍手/吹口哨）。'},
-    {n:'机器学习2.0 · 识别', d:'用训练好的模型识别当前输入属于哪个类别，返回识别结果标签。'},
-    {n:'语音识别', d:'录一段音发送到云端识别成文字（语音转文字），需要联网。'},
-    {n:'获取天气数据', d:'从网络获取指定城市的天气信息（温度、湿度等），需要联网。'}
-  ],
-  '网络/AI': [
-    {n:'识别语音 [2]秒', d:'录制指定秒数的声音，发送到云端识别成文字，需要联网。'},
-    {n:'语音识别结果', d:'取出上一次语音识别得到的文字结果，用来做后续判断和处理。'},
-    {n:'朗读 [文字]', d:'把文字变成说话声读出来（语音合成），AI的"嘴巴"，需要联网。'}
-  ]
-};
-function toggleCat(btn, cat){
-  var panel = btn.nextElementSibling;
-  var isOpen = panel.style.display === 'block';
-  // 关闭所有
-  document.querySelectorAll('.cat-expand').forEach(function(p){ p.style.display='none'; });
-  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('open'); });
-  if(!isOpen){
-    panel.style.display = 'block';
-    btn.classList.add('open');
-  }
-}
-function blockDesc(cat, name){
-  var n = name;
-  if(cat==='事件'){
-    if(n.indexOf('开机')>=0) return '程序上传到CyberPi后，一开机就从这里开始运行，是整个程序的入口。';
-    if(n.indexOf('按钮')>=0) return '当按下按钮A时，挂在下面的积木立刻执行一次，常用作用户输入触发。';
-    return '当指定事件发生时，程序从这里开始运行。';
-  }
-  if(cat==='控制'){
-    if(n.indexOf('重复执行直到')>=0) return '反复执行里面的积木，直到满足某个条件才停下来，适合"一直做直到成功"。';
-    if(n.indexOf('重复执行')>=0 && n.indexOf('次')>=0){ var m=n.match(/(\d+)\s*次/); return '把里面的积木重复执行 '+(m?m[1]:'N')+' 次，做完继续往下。'; }
-    if(n.indexOf('重复执行')>=0) return '把里面的积木无限重复执行，永远循环下去。';
-    if(n.indexOf('等待')>=0){ var m2=n.match(/([\d.]+)\s*秒/); return '程序暂停 '+(m2?m2[1]:'一会儿')+' 秒，时间到了再继续。'; }
-    if(n.indexOf('否则')>=0) return '条件满足就执行第一组，不满足就执行「否则」里的积木，二选一。';
-    if(n.indexOf('如果')>=0) return '检查条件是否满足，满足就执行里面的积木，不满足就跳过。';
-    return '控制程序的执行流程。';
-  }
-  if(cat==='显示'){
-    if(n.indexOf('清空屏幕')>=0 && n.indexOf('绘制')>=0) return '先清屏再在指定位置绘制图案，适合画完一帧再画下一帧。';
-    if(n.indexOf('清空屏幕')>=0) return '把屏幕上所有内容擦掉，变成黑屏，准备显示新内容。';
-    if(n.indexOf('绘制像素')>=0){
-      if(n.indexOf('位置')>=0||n.indexOf('x,y')>=0) return '在屏幕指定坐标(x,y)处点亮一个像素点，从左上角(0,0)开始数。';
-      if(n.indexOf('笑脸')>=0) return '用多个像素点在屏幕上拼出笑脸图案，每个像素就是一个小格子。';
-      return '在屏幕上点亮一个像素点，像素是屏幕最小的发光格子。';
-    }
-    if(n.indexOf('显示')>=0){
-      if(n.indexOf('数字')>=0) return '在屏幕上显示一个数字，数字会更新覆盖之前的内容。';
-      if(n.indexOf('变量')>=0) return '把变量里存的数字取出来显示在屏幕上，变量变了显示也跟着变。';
-      if(n.indexOf('文字')>=0) return '在屏幕上显示一行文字，是CyberPi跟人"说话"的主要方式。';
-      return '在屏幕上显示指定内容（文字、数字或变量值）。';
-    }
-    return '控制屏幕显示内容。';
-  }
-  if(cat==='灯'){
-    if(n.indexOf('熄灭')>=0 && n.indexOf('亮起')>=0) return '切换RGB灯的亮灭状态，让灯在亮和灭之间来回切换。';
-    if(n.indexOf('熄灭')>=0) return '把RGB灯关掉，灯不发光。';
-    if(n.indexOf('亮起')>=0){
-      if(n.indexOf('红=')>=0||n.indexOf('绿=')>=0||n.indexOf('蓝=')>=0) return '按红绿蓝三个通道亮度值(0-255)混合出颜色，三种光配比不同颜色就不同。';
-      var cs=[]; ['红色','绿色','蓝色','黄色'].forEach(function(c){ if(n.indexOf(c)>=0) cs.push(c); });
-      if(cs.length) return '把RGB灯调成'+cs.join('、')+'，灯立刻亮起该颜色。';
-      return '把RGB灯调成指定颜色并亮起。';
-    }
-    return '控制5颗RGB彩灯的颜色和亮灭。';
-  }
-  if(cat==='声音'){
-    if(n.indexOf('朗读')>=0) return '把文字变成说话声读出来（语音合成），是AI的"嘴巴"，需要联网。';
-    if(n.indexOf('播放音符')>=0) return '播放指定音高和时长的音符，可以拼成简单旋律。';
-    if(n.indexOf('播放')>=0){
-      if(n.indexOf('提示')>=0) return '播放一段短促提示音，提醒用户"操作成功了"。';
-      if(n.indexOf('奖励')>=0) return '播放一段欢快奖励音效，做对了给点听觉鼓励。';
-      return '播放指定的音效或声音。';
-    }
-    return '控制扬声器播放声音。';
-  }
-  if(cat==='传感'){
-    if(n.indexOf('环境光')>=0) return '读取当前环境光线亮暗程度，返回0-100的数字，越亮数字越大。';
-    if(n.indexOf('声音强度')>=0||n.indexOf('音量')>=0) return '读取麦克风检测到的声音大小，声音越大数字越大。';
-    if(n.indexOf('加速度')>=0||n.indexOf('摇一摇')>=0||n.indexOf('陀螺仪')>=0){
-      if(n.indexOf('X')>=0||n.indexOf('x')>=0) return '读取X轴加速度，左右倾斜时数值变化，向左摇为负、向右摇为正。';
-      return '读取加速度传感器数值，感知摇晃、倾斜和移动方向。';
-    }
-    if(n.indexOf('按钮')>=0) return '检测按钮是否被按下，返回真/假，判断用户有没有操作。';
-    return '读取传感器检测到的外界信息。';
-  }
-  if(cat==='运算'){
-    if(n.indexOf('随机数')>=0){ var m3=n.match(/(\d+)[-~到](\d+)/); return '随机生成一个'+(m3?m3[1]+'到'+m3[2]:'指定范围')+'之间的整数，每次结果可能不同。'; }
-    if(n.indexOf('增加')>=0) return '把变量的值加上指定数量，比如加1就是每次多1，常用于计数。';
-    if(n.indexOf('总和')>=0||n.indexOf('÷')>=0) return '做除法运算，把总和除以份数得到平均值。';
-    if(n.indexOf('且')>=0||n.indexOf('与')>=0) return '逻辑"与"：两个条件都满足时结果才为真，缺一不可。';
-    if(n.indexOf('比较')>=0||n.indexOf('>')>=0||n.indexOf('<')>=0||n.indexOf('=')>=0) return '比较两个值的大小或是否相等，结果为真或假，用于条件判断。';
-    if(n.indexOf('综合分')>=0||n.indexOf('×')>=0||n.indexOf('+')>=0) return '加权求和：每个输入乘以它的权重（重要程度），再加起来得到综合分。';
-    return '做数学计算和逻辑运算。';
-  }
-  if(cat==='变量'){
-    if(n.indexOf('建立变量')>=0) return '创建一个有名字的"小抽屉"，存数字或文字，程序运行中可随时取用和修改。';
-    if(n.indexOf('记录')>=0) return '把当前读到的传感器数值存进变量，留着后面计算用。';
-    if(n.indexOf('组')>=0&&n.indexOf('+1')>=0) return '对应分组的计数器加1，每检测到一次该组就记一笔。';
-    return '创建和使用变量存储数据。';
-  }
-  if(cat==='自制'){
-    if(n.indexOf('定义')>=0) return '把一串积木打包成一个新的自定义积木，起个好记的名字，以后直接调用就能执行整串步骤。';
-    return '定义和调用自制积木。';
-  }
-  if(cat==='扩展'){
-    if(n.indexOf('训练')>=0){
-      if(n.indexOf('只训练')>=0) return '只采集指定类别样本训练（故意只练一类），用来演示数据偏见的问题。';
-      if(n.indexOf('声音类别')>=0) return '采集一类声音样本作为训练数据，让机器学习认识这种声音。';
-      return '采集样本数据训练机器学习模型。';
-    }
-    if(n.indexOf('识别')>=0) return '用训练好的模型识别当前声音属于哪个类别，返回识别结果标签。';
-    if(n.indexOf('补训练')>=0) return '补充采集之前缺少的类别样本重新训练，让模型学得更全面。';
-    return '机器学习扩展功能。';
-  }
-  if(cat==='网络/AI'){
-    if(n.indexOf('识别语音')>=0) return '录一段音发送到云端识别成文字（语音转文字），需要联网。';
-    if(n.indexOf('语音识别结果')>=0) return '取出上一次语音识别得到的文字结果，用来做后续判断。';
-    return 'AI语音识别功能。';
-  }
-  return '一个编程积木。';
-}
 function panelBlocks(l, ch){
-  var catsUsed = [];
-  l.blocks.forEach(function(b){ if(catsUsed.indexOf(b[0])<0) catsUsed.push(b[0]); });
   var rows = '';
-  l.blocks.forEach(function(b){
+  var roleCount = {input:0,logic:0,output:0};
+  l.blocks.forEach(function(b, i){
     var color = CAT_COLOR[b[0]] || 'var(--primary)';
-    rows += '<div class="blk-card">' +
-      '<div class="blk-card-top">' +
-      '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span></div>' +
-      '<div class="blk-desc">'+blockDesc(b[0], b[1])+'</div></div>';
+    var role = blockRole(b[0]); roleCount[role]++;
+    rows += '<div class="blk-row program-node"><span class="node-index">'+(i+1)+'</span><span class="blk-lab">'+blockRoleLabel(b[0])+'</span>' +
+      '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span><span class="node-check">检查参数</span></div>';
   });
-  // 下方：分类探索按钮（可点击展开）
-  var catExplore = '<div class="cat-explore"><div class="ce-title"><span class="ce-ico">📚</span><b>积木分类探索</b><span class="ce-hint">点击分类查看该分类的常用积木</span></div>';
-  catsUsed.forEach(function(c){
-    var color = CAT_COLOR[c] || 'var(--primary)';
-    var lib = BLOCK_LIBRARY[c] || [];
-    var items = '';
-    lib.forEach(function(item){
-      items += '<div class="ce-item"><span class="ce-blk" style="background:'+color+'">'+esc(item.n)+'</span><p>'+esc(item.d)+'</p></div>';
-    });
-    catExplore += '<button class="cat-btn" style="border-left:4px solid '+color+'" onclick="toggleCat(this,\''+c+'\')">' +
-      '<span class="cb-dot" style="background:'+color+'"></span><b>'+c+'</b>' +
-      '<span class="cb-desc">'+(CAT_DESC[c]||'')+'</span>' +
-      '<span class="cb-arrow">▸</span></button>' +
-      '<div class="cat-expand">'+items+'</div>';
-  });
-  catExplore += '</div>';
+  var proof = sampleMediaStudio(l);
+  var first = l.blocks[0], middle = l.blocks[Math.floor(l.blocks.length/2)], last = l.blocks[l.blocks.length-1];
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>用到的 mBlock 积木</h3>' +
-    '<div class="blk-guide"><div class="bg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>' +
-    '<div><b>什么是积木编程？</b><p>mBlock 用彩色积木块代替打字写代码。不同颜色代表不同功能（事件=黄色、控制=橙色、显示=紫色…），把积木从上到下拼在一起，程序就按顺序执行。就像搭乐高一样，拼对了 CyberPi 就听话。</p></div></div>' +
-    '<div class="blk-cards">'+rows+'</div>' +
-    '<div class="tip-box">在 mBlock 5 中选择「CyberPi」设备，从左侧对应分类里拖出这些积木，像拼乐高一样把它们上下接起来。</div>' +
-    catExplore +
-    nextStageBtn('下一环节：看演示') + '</div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>本课积木程序</h3>' +
+    '<div class="program-summary"><div><span>PROGRAM BLUEPRINT</span><h4>'+esc(l.projName)+'</h4><p>先读懂程序为什么这样连接，再动手搭建。</p></div><div class="program-metrics"><b>'+l.blocks.length+'<small>块核心积木</small></b><b>'+roleCount.input+'<small>输入/启动</small></b><b>'+roleCount.logic+'<small>逻辑处理</small></b><b>'+roleCount.output+'<small>反馈输出</small></b></div></div>'+
+    '<div class="program-runtime"><div class="runtime-head"><b>程序运行路线</b><span>从左到右读一遍，再开始搭建</span></div><div class="runtime-track">'+
+      '<article class="runtime-card input"><span>01 · 启动 / 准备</span><b>'+esc(first[1])+'</b><small>'+esc(first[0])+'类积木</small></article><i>→</i>'+
+      '<article class="runtime-card logic"><span>02 · 处理 / 判断</span><b>'+esc(middle[1])+'</b><small>'+esc(middle[0])+'类积木</small></article><i>→</i>'+
+      '<article class="runtime-card output"><span>03 · 反馈 / 结果</span><b>'+esc(last[1])+'</b><small>'+esc(last[0])+'类积木</small></article></div></div>'+
+    '<div class="program-workbench"><section><div class="workbench-title"><div><span>搭建区</span><b>按顺序连接核心积木</b></div><small>共 '+l.blocks.length+' 步</small></div><div class="blk-list program-sequence">'+rows+'</div></section>'+
+      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样判断？</b><small>关注条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察屏幕、灯光、声音或角色反馈。</small></p></div><div class="guide-tip">搭完一小段就运行一次，更容易发现连接或参数问题。</div></aside></div>'+
+    proof + '<div class="tip-box"><b>搭建顺序：</b>先完成积木逻辑、运行和调试，再连接 CyberPi 完成真实的传感与反馈。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
 }
 
 /* ---- 面板：CyberPi 演示 ---- */
 function panelDemo(l, ch){
+  var phaseNames = ['准备','搭建','连接','测试','改进'];
   return '<div class="panel-card tab-panel" id="panel-demo">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>CyberPi 演示项目</h3>' +
-    '<div class="proj-card"><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div>' +
-    '<div class="p-eff">'+esc(l.projEff)+'</div></div>' +
-    '<div class="steps-list">' + l.steps.map(function(s, i){
-      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><p>'+esc(s)+'</p></div>';
-    }).join('') + '</div>' +
-    '<div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div>' + nextStageBtn('下一环节：做挑战') + '</div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>本节AI硬件编程任务</h3>' +
+    '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 核心任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div><div class="p-eff">'+esc(l.projEff)+'</div></div>'+
+      '<div class="task-stamp"><b>'+l.steps.length+'</b><span>个关键步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
+    sampleTaskLab(l) +
+    '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>BUILD PLAN</span><h4>动手任务路线</h4></div><p>完成一步，检查一步</p></div><div class="steps-list task-steps">' + l.steps.map(function(s, i){
+      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-check">□ 完成</span></div>';
+    }).join('') + '</div></section>'+
+    '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
+      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul><li>程序能按步骤完整运行</li><li>硬件能给出可观察的反馈</li><li>我能解释“'+esc(l.theme)+'”怎样体现在作品中</li></ul></div></aside></div>'+
+    '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
+    '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
 }
 
 /* ---- 面板：动手挑战 ---- */
 function panelChallenge(l, ch){
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>动手挑战</h3>' +
-    '<div class="challenge-box"><span class="c-tag">小创客任务</span><p>'+esc(l.challenge)+'</p></div>' +
-    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStageBtn('下一环节：答问题') + '</div>';
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>运行、测试与改进</h3>' +
+    '<div class="challenge-box"><span class="c-tag">先测程序，再接硬件</span><p>'+esc(l.challenge)+'</p></div>' +
+    sampleTestLab(l) +
+    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','进入挑战与问答') + '</div>';
 }
 
 /* ---- 面板：知识问答 ---- */
 function panelQuiz(l, ch){
   return '<div class="panel-card tab-panel" id="panel-quiz">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[5].icon+'</span>随堂问答</h3>' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[5].icon+'</span>进阶挑战与随堂问答</h3>' +
     '<div class="quiz-wrap"><div class="quiz-head">' +
     '<span class="q-prog" id="quizProg">第 1 / '+l.quiz.length+' 题</span>' +
     '<span class="chip light" id="quizScore">答对 0 题 · 答错 0 次</span></div>' +
@@ -1906,16 +1994,9 @@ function finishQuiz(){
   var done = DB.doneCount(d);
   var msg = done === 32 ? '太厉害了！32 课全部完成，你是毕业工程师！' : '本课完成！继续下一站探险吧。';
   var nextId = quizState.id < 32 ? quizState.id + 1 : quizState.id;
-  var starCount = Math.min(quizState.firstTry, 3);
-  var starSvg = '<svg viewBox="0 0 24 24" width="44" height="44"><defs><linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD93D"/><stop offset="1" stop-color="#F5A623"/></linearGradient></defs><path fill="url(#goldGrad)" stroke="#E8940A" stroke-width="0.8" d="M12 2l2.9 6.26 6.86.72-5.1 4.64 1.42 6.72L12 17.27 5.92 20.34l1.42-6.72-5.1-4.64 6.86-.72z"/></svg>';
-  var starEmpty = '<svg viewBox="0 0 24 24" width="44" height="44"><path fill="#E8ECF2" stroke="#D0D7E2" stroke-width="0.8" d="M12 2l2.9 6.26 6.86.72-5.1 4.64 1.42 6.72L12 17.27 5.92 20.34l1.42-6.72-5.1-4.64 6.86-.72z"/></svg>';
-  var starsHtml = '<div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px">';
-  for(var si=0; si<3; si++){ starsHtml += (si < starCount ? starSvg : starEmpty); }
-  starsHtml += '</div>';
-  var starLabel = '<div style="font-size:14px;color:var(--ink-2);font-weight:700;margin-bottom:12px">答对 '+quizState.firstTry+' 题，获得 '+starCount+' 颗星星</div>';
   document.getElementById('quizCard').innerHTML =
     '<div class="quiz-done">' +
-    starsHtml + starLabel +
+    '<div class="big-emoji" style="font-size:52px;line-height:1">★</div>' +
     '<h3>本课完成！</h3><p>'+msg+'</p>' +
     '<div class="quiz-stats">' +
       '<span class="qs-pill ok">✓ 首次答对 '+quizState.firstTry+' 题</span>' +

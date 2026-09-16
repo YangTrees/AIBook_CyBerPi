@@ -8,8 +8,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
       </div>
       <div>
-        <div class="brand-name">AI通识编程课</div>
-        <div class="brand-sub">与 CyberPi 一起探索 AI</div>
+        <div class="brand-name">AI逻辑与硬件交互课程（CyberPi）</div>
+        <div class="brand-sub">AI硬件编程 · 在线积木实践</div>
       </div>
     </div>
     <nav class="top-nav">
@@ -38,26 +38,28 @@
     <div class="hero">
       <div class="wrap hero-inner">
         <div>
-          <span class="hero-badge"><span class="dot"></span> 32 节课 · 4 大章节 · 全程动手演示</span>
-          <h1>和团团、点点一起<br>用 CyberPi <em>做出 AI</em></h1>
-          <p class="lead">读完一本 AI 绘本，再来搭一个 AI 程序！用 mBlock 彩色积木给 CyberPi（童芯派）编程——传感器当眼睛和耳朵，屏幕和彩灯当嘴巴，把故事里的 AI 知识亲手演出来。</p>
+          <div class="hero-kicker">AI LOGIC × HARDWARE × CODING</div>
+          <span class="hero-badge"><span class="dot"></span> 6–12 岁 · 32 节课 · 每课 45–60 分钟</span>
+          <h1><span class="hero-title-main">AI逻辑与硬件交互课程 <small>（CyBerPi）</small></span><em>让AI连接真实世界</em></h1>
+          <p class="lead">团团和点点把绘本里的 AI 问题带进创客课堂。孩子通过在线积木编程完成每一节AI任务，再用 CyberPi 感知环境、执行程序、反馈结果。</p>
+          <div class="hero-proof"><span>每课都有编程任务</span><span>真实运行与调试</span><span>与原绘本一一呼应</span></div>
           <div class="hero-cta">
             <button class="btn big" onclick="go('#/course/1')">
               开始第一课
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <button class="btn ghost big" onclick="go('#/hardware')">认识 CyberPi</button>
+            <button class="btn ghost big" onclick="go('#/course/17')">查看样板课</button>
           </div>
         </div>
         <div class="hero-fig">
-          <img src="assets/hero.jpg" alt="团团和点点一起探索 CyberPi 编程">
+          <img src="assets/prototype/hero-v3-web.jpg" alt="团团和点点完成在线积木编程与CyberPi互动">
           <div class="float-chip fc1">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>
-            信息 → 程序 → 反应
+            故事 → 编程 → 测试
           </div>
           <div class="float-chip fc2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            每课 10 分钟上手
+            AI硬件编程全程实践
           </div>
         </div>
       </div>
@@ -68,6 +70,12 @@
       <div class="stat-card"><div class="num">4</div><div class="lab">大学习章节</div></div>
       <div class="stat-card"><div class="num">8</div><div class="lab">个 AI 主题</div></div>
       <div class="stat-card"><div class="num">96</div><div class="lab">道随堂问答</div></div>
+    </div>
+
+    <div class="studio-strip">
+      <div class="studio-step"><span class="no">01</span><div><b>在绘本中发现问题</b><p>用熟悉的故事建立AI概念入口</p></div></div>
+      <div class="studio-step"><span class="no">02</span><div><b>在线搭建AI程序</b><p>连接积木、运行、观察并找到错误</p></div></div>
+      <div class="studio-step"><span class="no">03</span><div><b>用 CyberPi 验证</b><p>让程序连接真实世界的输入与输出</p></div></div>
     </div>
 
     <div class="wrap">
@@ -91,6 +99,11 @@
         <span class="en">32 Lessons</span>
         <span class="chip" style="margin-left:auto">和绘本课一一呼应</span>
       </div>
+      <div class="featured-grid">
+        <article class="featured-card"><span class="tag">入门样板 · 第 01 课</span><h3>信息怎么走？</h3><p>从“按键—判断—反馈”理解输入、处理与输出，并完成第一个可运行程序。</p><button onclick="go('#/course/1')">查看课程设计 →</button></article>
+        <article class="featured-card"><span class="tag">核心样板 · 第 17 课</span><h3>让模型接受新题考试</h3><p>在在线积木编程环境中区分训练样本与测试样本，用新数据验证模型是否真的学会。</p><button onclick="go('#/course/17')">查看课程设计 →</button></article>
+        <article class="featured-card"><span class="tag">素养样板 · 第 30 课</span><h3>公平要用实验说话</h3><p>用随机抽签和多轮统计观察差异，讨论数据、规则与结果之间的关系。</p><button onclick="go('#/course/30')">查看课程设计 →</button></article>
+      </div>
       <div id="chapters"></div>
 
       <div class="section-title">
@@ -104,7 +117,7 @@
         </div>
         <div class="hw-feat">
           <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg></div>
-          <div><b>搭积木</b><p>在 mBlock 里拖彩色积木，学会顺序、条件、循环、变量</p></div>
+          <div><b>搭积木</b><p>通过在线积木编程学习顺序、条件、循环、变量与AI扩展</p></div>
         </div>
         <div class="hw-feat">
           <div class="hf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg></div>
@@ -156,7 +169,7 @@
         <span class="en">Hardware Tour</span>
         <span class="chip" style="margin-left:auto">点击图中部件查看功能</span>
       </div>
-      <div class="page-banner"><img src="assets/hardware.jpg" alt="团团和点点探索CyberPi硬件"></div>
+      <figure class="official-hardware"><img src="assets/official/cyberpi-electronic-map.png" alt="CyberPi官方电子特性结构图"><figcaption>官方结构参考：CyberPi 是课程中的硬件交互与验证工具。课程插画严格保留摇杆、A/B键、HOME键、Type-C接口、屏幕和传感器位置。</figcaption></figure>
       <div class="hw-hero">
         <div class="hw-card hw-svg-wrap" id="hwSvgCard"></div>
         <div>
@@ -175,7 +188,7 @@
               <span class="t-ico" style="background:var(--ch2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg></span>
               它能做什么
             </h3>
-            <p>CyberPi 是 Makeblock 出品的迷你编程电脑：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。在 mBlock 里拖积木就能让它"看"光线、"听"说话、"讲"故事。</p>
+            <p>CyberPi 是一台面向AI硬件编程的迷你设备：自带 1.44 英寸全彩屏、按钮、摇杆、麦克风、扬声器、光线传感器、6 轴陀螺仪和 5 颗 RGB 灯，还支持 Wi-Fi/蓝牙。通过在线积木编程，就能让它"看"光线、"听"声音、"讲"故事。</p>
           </div>
         </div>
       </div>

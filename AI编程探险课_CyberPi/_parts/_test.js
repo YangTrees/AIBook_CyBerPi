@@ -1,5 +1,5 @@
 const fs = require("fs");
-const base = "D:\\PROJECTS\\_AI\\AIBook_CyberPi\\AI编程探险课_CyberPi\\_parts";
+const base = __dirname;
 
 function makeEl(id){
   return {
@@ -39,11 +39,11 @@ check("quiz=96", ALL.reduce((n,l)=>n+l.quiz.length,0) === 96);
 renderCourse(1);
 let panelsHtml = els["coursePanels"]._html;
 check("course1 intro has story", /小侦探找线索/.test(panelsHtml));
-check("course1 blocks", /mBlock 积木/.test(panelsHtml));
-check("course1 demo", /演示项目/.test(panelsHtml));
+check("course1 blocks", /本课积木程序/.test(panelsHtml));
+check("course1 task", /AI硬件编程任务/.test(panelsHtml));
 check("course1 challenge", /挑战/.test(panelsHtml));
 check("course1 quiz", /随堂问答/.test(panelsHtml));
-check("course tabs 6", els["courseTabs"]._html.includes("AI 知识点"));
+check("course tabs 6", els["courseTabs"]._html.includes("学习目标"));
 
 // 问答流程：课程1 quiz 共3题，先答错再答对，然后下一题
 quizState.idx = 0; quizState.correct = 0; quizState.wrong = 0; quizState.firstTry = 0;
@@ -97,7 +97,7 @@ let bad = 0;
 for(let i=1;i<=32;i++){
   renderCourse(i);
   let ph = els["coursePanels"]._html;
-  if(!COURSE[i] || ph.length < 50 || !ph.includes("演示项目")){ bad++; }
+  if(!COURSE[i] || ph.length < 50 || !ph.includes("AI硬件编程任务")){ bad++; }
 }
 check("all 32 courses render", bad === 0);
 
