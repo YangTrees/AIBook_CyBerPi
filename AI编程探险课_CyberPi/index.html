@@ -371,6 +371,49 @@ main{padding-bottom:76px}
 
 /* ============ 昵称弹层 ============ */
 .overlay{position:fixed;inset:0;z-index:100;background:hsl(214 70% 30% / .45);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px}
+/* ============ 图片放大弹层 ============ */
+.img-lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);display:grid;place-items:center;padding:30px;cursor:zoom-out}
+.img-lightbox img{max-width:95vw;max-height:88vh;object-fit:contain;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:popIn .25s}
+.img-lightbox .lb-close{position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:.2s;z-index:1}
+.img-lightbox .lb-close:hover{background:rgba(255,255,255,.35);transform:rotate(90deg)}
+.shot-slot.has-shot img{cursor:zoom-in;transition:.2s;border-radius:8px}
+.shot-slot.has-shot img:hover{opacity:.8;transform:scale(1.02)}
+.full-code-slot img{cursor:zoom-in;transition:.2s}
+.full-code-slot img:hover{opacity:.85}
+/* ============ 结果截图展开区 ============ */
+.result-shot-section{margin-top:20px;border-radius:16px;overflow:hidden;border:1px solid var(--line,#e8e4f0);background:#fff}
+.result-shot-toggle{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:.2s;background:linear-gradient(135deg,#f8f6ff,#f0ebff)}
+.result-shot-toggle:hover{background:linear-gradient(135deg,#f0ebff,#e8e0ff)}
+.result-shot-toggle.expanded{background:linear-gradient(135deg,#e8e0ff,#ddd4ff)}
+.result-shot-toggle span{font-size:12px;font-weight:700;color:var(--primary,#7c3aed);background:rgba(124,58,237,.1);padding:4px 10px;border-radius:8px;white-space:nowrap}
+.result-shot-toggle b{flex:1;font-size:14px;color:var(--ink-2,#555);font-weight:600}
+.result-shot-toggle .toggle-arrow{font-size:12px;color:var(--primary,#7c3aed);transition:.3s;display:inline-block}
+.result-shot-content{padding:20px;background:#fff;border-top:1px solid var(--line,#e8e4f0)}
+.result-shot-content img{width:100%;max-height:500px;object-fit:contain;border-radius:12px;cursor:zoom-in;transition:.2s;background:#f5f3fa}
+.result-shot-content img:hover{opacity:.9}
+.result-shot-content p{margin-top:12px;font-size:13px;color:var(--ink-2,#666);line-height:1.6}
+.result-shot-placeholder{text-align:center;padding:40px 20px;color:var(--ink-3,#999)}
+.result-shot-placeholder span{font-size:48px;display:block;margin-bottom:12px}
+.result-shot-placeholder b{font-size:15px;color:var(--ink-2,#666);display:block;margin-bottom:6px}
+.result-shot-placeholder p{font-size:13px;margin:0}
+/* ============ 编程任务标准答案 ============ */
+.answer-section{margin:24px 0;border-radius:18px;overflow:hidden;border:2px solid rgba(124,58,237,.2);background:linear-gradient(135deg,#faf8ff,#f5f0ff)}
+.answer-toggle{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;transition:.2s}
+.answer-toggle:hover{background:rgba(124,58,237,.06)}
+.answer-toggle.expanded{background:rgba(124,58,237,.1)}
+.answer-tag{font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#7c3aed,#a78bfa);padding:6px 14px;border-radius:20px;white-space:nowrap;letter-spacing:.5px}
+.answer-toggle b{flex:1;font-size:15px;color:var(--ink-1,#333);font-weight:700}
+.answer-arrow{font-size:14px;color:#7c3aed;transition:.3s;display:inline-block;font-weight:bold}
+.answer-content{padding:20px 22px;background:#fff;border-top:1px solid rgba(124,58,237,.15)}
+.answer-hint{font-size:13px;color:#7c3aed;background:rgba(124,58,237,.08);padding:10px 16px;border-radius:10px;margin-bottom:16px;line-height:1.6}
+.answer-content img{width:100%;max-height:520px;object-fit:contain;border-radius:12px;cursor:zoom-in;transition:.2s;background:#f5f3fa;border:1px solid #eee}
+.answer-content img:hover{opacity:.92;transform:scale(1.01)}
+.answer-note{margin-top:14px;padding:12px 16px;background:#f8f6ff;border-radius:10px;font-size:13px;color:var(--ink-2,#666);line-height:1.6}
+.answer-note b{color:#7c3aed}
+/* ============ 代码注释说明 ============ */
+.code-annotation{margin-top:12px;padding:12px 16px;background:linear-gradient(135deg,#f0f7ff,#e8f0fe);border-radius:10px;border-left:3px solid #4a90d9;font-size:13px;line-height:1.7;color:#444}
+.code-annotation b{color:#2c6bb5;margin-right:6px}
+.code-annotation span{color:#555}
 .nick-card{background:#fff;border-radius:26px;box-shadow:0 40px 80px -30px hsl(214 70% 30% / .5);padding:34px 32px;max-width:420px;width:100%;text-align:center;animation:popIn .4s}
 @keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 .nick-card .n-logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--primary),hsl(235 80% 62%));display:grid;place-items:center;margin:0 auto 14px;color:#fff}
@@ -900,6 +943,12 @@ main{padding-bottom:95px}
     <input class="nick-input" id="nickInput" maxlength="8" placeholder="你的名字（比如：团团）">
     <button class="nick-go" onclick="saveNick()">开始探索！</button>
   </div>
+</div>
+
+<!-- ============ 图片放大弹层 ============ -->
+<div class="img-lightbox" id="imgLightbox" style="display:none" onclick="closeImgLightbox()">
+  <button class="lb-close" onclick="event.stopPropagation();closeImgLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="放大查看">
 </div>
 
 <script>
@@ -1698,48 +1747,482 @@ var SAMPLE_CONTENT = {
     driving:"怎样让 CyberPi 像小侦探一样，接收按钮输入、作出判断并给出屏幕和灯光回应？",
     deliverable:"在 mBlock 上传模式下完成一个“线索回应机”：按按钮 A 输入线索，程序计数判断，屏幕显示回应、RGB 灯亮绿色，上传到 CyberPi 后断开电脑也能独立运行。",
     prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别（设备名称出现在连接区）","准备好按按钮 A 测试：按1次、按2次分别观察反应"],
-    stepTitles:["连接设备切换上传模式","拖入启动事件显示欢迎语","拖入按钮事件变量计数","条件判断显示不同回应","RGB灯亮绿色上传验证"],
+    stepTitles:["启动事件+显示标签", "按钮A事件+变量计数", "条件判断框架", "完整程序", "上传验证"],
     levels:[["必做任务","按1次显示“收到1条线索”，按2次显示“线索够啦！”，RGB灯亮绿色。"],["加星任务","加入按钮 B：按 B 清零线索计数，屏幕显示“重新开始”。"],["创造任务","把计数器改成“秘密暗号”：按 A-A-B 才显示“解锁成功”。"]],
     tests:[["按按钮 A 1次","屏幕显示“收到1条线索”，灯亮绿色","输入→处理→输出"],["按按钮 A 2次","屏幕显示“线索够啦！”","条件判断分支"],["按按钮 B（如已加）","计数清零，屏幕显示“重新开始”","变量重置"],["断开电脑重启 CyberPi","程序仍能独立运行","上传模式验证"]],
     bugs:[["按按钮没反应","检查是否已切换到上传模式、程序是否已成功上传到 CyberPi。"],["灯不亮但屏幕有字","检查 RGB 灯积木是否接在正确的事件分支下、颜色参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被 mBlock 识别。"]],
-    reflection:["按钮按下是“输入”，程序判断是“处理”，屏幕和灯是“输出”——生活中还有哪些输入→处理→输出的例子？","如果把按钮换成光线传感器，这个“线索回应机”还能怎么玩？"]
+    reflection:["按钮按下是“输入”，程序判断是“处理”，屏幕和灯是“输出”——生活中还有哪些输入→处理→输出的例子？","如果把按钮换成光线传感器，这个“线索回应机”还能怎么玩？"],
+    stepShots:[
+      null,
+      "assets/blocks/lesson-01/step-02-display-text.png",
+      "assets/blocks/lesson-01/step-03-variable-increment.png",
+      "assets/blocks/lesson-01/step-04-if-else-frame.png",
+      null
+    ],
+    fullCodeShot:"assets/blocks/lesson-01/full-program-complete.png"
+  },
+  2:{
+    driving:"怎样用一盏灯的亮和灭，变出 0 和 1，再用两盏灯拼出四种密码？",
+    deliverable:"在 mBlock 上传模式下完成一个“0和1开关灯”：按按钮A切换灯的亮灭，屏幕同步显示0或1；再用两颗灯拼出00、01、10、11四种组合。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","准备好按按钮 A 测试：观察灯的亮灭和屏幕数字"],
+    stepTitles:["启动事件+变量初始化", "按钮A事件+变量切换", "条件判断+灯控制", "完整程序", "上传验证"],
+    levels:[["必做任务","按A切换灯亮（1）和灯灭（0），屏幕同步显示数字。"],["加星任务","用两颗灯拼出00、01、10、11四种组合，每按一次A切换一种。"],["创造任务","用三盏灯摆出8种组合（000到111），给每种组合起一个名字。"]],
+    tests:[["按按钮A 1次","灯亮，屏幕显示1","0变1"],["按按钮A 2次","灯灭，屏幕显示0","1变0"],["两颗灯测试","依次显示00→01→10→11","二进制组合"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["按按钮灯不亮","检查是否已切换到上传模式、程序是否已成功上传。"],["屏幕数字不变化","检查变量切换公式是否正确（1-开关）。"],["灯亮但屏幕不显示","检查显示积木是否接在正确的事件分支下。"]],
+    reflection:["一盏灯只有亮和灭两种状态，为什么两盏灯就能有四种组合？","生活中还有哪些东西只有两种状态（开/关、有/无）？"],
+    stepShots:[
+      null,
+      "assets/blocks/lesson-02/step-02-start-display.png",
+      "assets/blocks/lesson-02/step-03-button-event.png",
+      "assets/blocks/lesson-02/step-04-if-else-frame.png",
+      null
+    ],
+    fullCodeShot:"assets/blocks/lesson-02/full-program-complete.png"
+  },
+  3:{
+    driving:"怎样用灯的短闪和长闪，像小邮差一样发出别人能看懂的密码？",
+    deliverable:"在 mBlock 上传模式下完成一个“摩尔斯密码灯”：用短闪（·）和长闪（—）发出SOS信号（···———···），屏幕显示密码本说明规则。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，切换到上传模式","确认 CyberPi 已被识别","准备好观察灯的闪烁节奏（短闪vs长闪）"],
+    stepTitles:["启动事件+显示密码本", "重复执行+短闪3次", "长闪3次+短闪3次", "完整程序", "上传验证"],
+    levels:[["必做任务","程序循环发送SOS摩尔斯密码（···———···），屏幕显示密码本。"],["加星任务","加入按钮A：按A发送SOS，按B发送另一个字母（比如A=·—）。"],["创造任务","和好朋友约定一套家庭暗号，用灯闪烁发送，看对方能不能解码。"]],
+    tests:[["程序启动","屏幕显示密码本（短闪=点，长闪=划）","编码规则"],["观察前3次闪烁","短闪3次（···）","S"],["观察中间3次闪烁","长闪3次（———）","O"],["观察最后3次闪烁","短闪3次（···）","S"]],
+    bugs:[["灯不闪烁","检查重复执行积木和等待积木是否正确拼接。"],["短闪和长闪分不清","检查等待时间：短闪0.2秒，长闪0.6秒。"],["屏幕不显示密码本","检查显示积木是否在启动事件分支下。"]],
+    reflection:["为什么发送密码和接收密码必须用同一套规则？","如果没有密码本，别人能看懂闪烁的灯吗？这说明什么？"],
+    stepShots:[
+      null,
+      "assets/blocks/lesson-03/step-02-start-display.png",
+      "assets/blocks/lesson-03/step-03-repeat-led.png",
+      "assets/blocks/lesson-03/step-04-long-flash.png",
+      null
+    ],
+    fullCodeShot:"assets/blocks/lesson-03/full-program-complete.png"
+  },
+  4:{
+    driving:"怎样给 CyberPi 装一个“记忆格子”，让它能记住按了几次按钮？",
+    deliverable:"在 mBlock 上传模式下完成一个“小小计数器”：每按一次按钮A，变量+1，屏幕显示收集到的信息数；按按钮B清零，重新开始计数。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，切换到上传模式","确认 CyberPi 已被识别","准备好按按钮A多次测试计数，按B测试清零"],
+    stepTitles:["启动事件+变量初始化", "按钮A事件+变量增加", "显示变量值", "按钮B事件+变量清零", "上传验证"],
+    levels:[["必做任务","按A计数+1，屏幕显示数字；按B清零回到0。"],["加星任务","计数到5时灯亮绿色，提醒“收集完成”，然后自动清零。"],["创造任务","做一个绘本阅读打卡器：每读完一本按A，一周后统计读了几本。"]],
+    tests:[["按按钮A 1次","屏幕显示1","变量+1"],["按按钮A 3次","屏幕显示3","累计计数"],["按按钮B","屏幕显示0","变量清零"],["断开电脑重启","计数从0开始","变量初始化"]],
+    bugs:[["按A数字不增加","检查变量增加积木是否接在按钮A事件下。"],["按B不清零","检查变量设为0积木是否接在按钮B事件下。"],["屏幕不显示数字","检查显示变量积木是否正确引用了变量名。"]],
+    reflection:["变量就像一个小格子，除了存数字，还能存什么？","如果格子满了怎么办？这跟电脑的“内存”有什么关系？"],
+    stepShots:[
+      null,
+      "assets/blocks/lesson-04/step-02-start-display.png",
+      "assets/blocks/lesson-04/step-03-button-a.png",
+      "assets/blocks/lesson-04/step-04-button-b.png",
+      null
+    ],
+    fullCodeShot:"assets/blocks/lesson-04/full-program-complete.png"
   },
   17:{
     driving:"怎样证明模型学会了规律，而不是只记住训练时见过的图片？",
     deliverable:"训练圆形与三角形分类器，用完全没有参与训练的新卡片考试，记录准确率和错误样本，并在 CyberPi 上显示测试结论。",
     prep:["把图形卡分成训练袋和测试袋，测试袋先封存","保证两类训练样本数量接近，并包含不同角度和光线","建立测试总数、正确数和准确率记录表"],
-    stepTitles:["分开训练与测试","采集两类样本","训练分类模型","新卡片考试","补充样本复测"],
+    stepTitles:["启动事件+变量初始化+显示提示", "在线模式训练分类器(概念步骤)", "按钮A事件：测试计数+正确计数", "显示测试总数和准确率", "上传验证"],
     levels:[["必做任务","使用独立测试卡完成至少10次测试并计算准确率。"],["加星任务","比较每类5张与每类15张训练图的测试结果。"],["创造任务","增加第三个类别，重新设计训练和测试方案。"]],
     tests:[["训练图再次识别","通常较容易正确","不能作为考试成绩"],["全新圆形卡","判断为圆形","泛化能力"],["旋转后的三角形","判断为三角形","角度变化"],["光线较暗的新卡","记录判断与置信表现","环境变化"]],
     bugs:[["测试准确率异常高","检查测试图片是否曾混入训练集，避免“题目泄露”。"],["换角度就识别错误","训练样本可能过于单一，需要补充角度、大小和光线变化。"]],
-    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"]
+    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"],
+    stepShots:[null, "assets/blocks/lesson-17/step-02.png", "assets/blocks/lesson-17/step-03.png", "assets/blocks/lesson-17/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-17/full-program.png"
   },
   30:{
     driving:"一次结果不同就是不公平吗？怎样用重复实验找到真正的规则偏差？",
     deliverable:"制作100轮公平检测器，对比50/50与70/30两种抽签规则，用多组数据说明差异来自随机波动还是规则偏斜。",
     prep:["建立甲组次数、乙组次数和实验轮数变量","准备50/50与70/30两套分界规则","设计每组实验的结果记录表"],
-    stepTitles:["变量清零","运行公平规则","记录多组结果","制造偏斜规则","比较并提出修改"],
+    stepTitles:["启动事件+三个变量清零", "重复执行100次+随机数+50/50公平抽签", "显示公平抽签统计结果", "按钮A事件+清零+70/30偏斜规则+显示", "上传验证"],
     levels:[["必做任务","完成一组50/50规则下的100轮实验并保存结果。"],["加星任务","两种规则各运行5组，比较平均差值。"],["创造任务","设计一种新的抽样规则，并说明它为什么更公平或更不公平。"]],
     tests:[["50/50运行100轮","两组次数接近但不必完全相同","随机波动"],["50/50重复5组","差异方向不固定","多次证据"],["70/30重复5组","甲组持续明显更高","规则偏斜"],["恢复50/50复测","稳定差异减小","修改验证"]],
     bugs:[["每组结果越来越大","新一组实验前没有把计数变量清零。"],["50/50实际不是一半机会","检查随机数范围和分界值是否包含或遗漏边界。"]],
-    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"]
+    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"],
+    stepShots:[null, "assets/blocks/lesson-30/step-02.png", "assets/blocks/lesson-30/step-03.png", "assets/blocks/lesson-30/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-30/full-program.png"
+  },
+  5:{
+    driving:"怎样用CyberPi和mBlock积木，实现「小方块拼出大世界」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「小方块拼出大世界」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+清空屏幕", "绘制像素点画眉毛", "绘制像素点画眼睛和嘴", "按钮A事件+清屏画爱心", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-05/step-02.png", "assets/blocks/lesson-05/step-03.png", "assets/blocks/lesson-05/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-05/full-program.png"
+  },
+  6:{
+    driving:"怎样用CyberPi和mBlock积木，实现「红绿蓝的合唱团」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「红绿蓝的合唱团」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+三个变量初始化", "按钮A事件+红色增加", "按钮B事件+绿色增加", "重复执行+摇杆调蓝+灯亮+显示", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-06/step-02.png", "assets/blocks/lesson-06/step-03.png", "assets/blocks/lesson-06/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-06/full-program.png"
+  },
+  7:{
+    driving:"怎样用CyberPi和mBlock积木，实现「行李箱装不下啦」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「行李箱装不下啦」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+清空屏幕", "绘制像素点画精细星星(12格)", "显示格子数+等待", "清屏+画简化星星(4格)+显示", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-07/step-02.png", "assets/blocks/lesson-07/step-03.png", "assets/blocks/lesson-07/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-07/full-program.png"
+  },
+  8:{
+    driving:"怎样用CyberPi和mBlock积木，实现「雾里的传感器」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「雾里的传感器」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+变量初始化", "重复执行+显示原始值", "重复3次+累加光线值", "计算平均值+显示稳定值", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-08/step-02.png", "assets/blocks/lesson-08/step-03.png", "assets/blocks/lesson-08/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-08/full-program.png"
+  },
+  9:{
+    driving:"怎样用CyberPi和mBlock积木，实现「智能红绿灯」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「智能红绿灯」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "重复执行+条件判断", "条件分支：红灯+显示开灯", "否则分支：绿灯+显示白天", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-09/step-02.png", "assets/blocks/lesson-09/step-03.png", "assets/blocks/lesson-09/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-09/full-program.png"
+  },
+  10:{
+    driving:"怎样用CyberPi和mBlock积木，实现「会数数的刷牙计时器」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「会数数的刷牙计时器」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+变量设为20", "重复执行20次+显示+等待+减1", "倒计时结束+灯亮+播放声音", "显示完成提示", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-10/step-02.png", "assets/blocks/lesson-10/step-03.png", "assets/blocks/lesson-10/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-10/full-program.png"
+  },
+  11:{
+    driving:"怎样用CyberPi和mBlock积木，实现「做披萨的流水线」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「做披萨的流水线」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["自制积木：放面包", "自制积木：放肉饼", "自制积木：放蔬菜", "启动事件+按顺序调用三个自制积木", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-11/step-02.png", "assets/blocks/lesson-11/step-03.png", "assets/blocks/lesson-11/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-11/full-program.png"
+  },
+  12:{
+    driving:"怎样用CyberPi和mBlock积木，实现「找 Bug 的小修理工」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「找 Bug 的小修理工」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "重复执行+读取光线", "Bug程序：条件写反(>30亮红灯)", "修正Bug：条件改为(<30亮红灯)", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-12/step-02.png", "assets/blocks/lesson-12/step-03.png", "assets/blocks/lesson-12/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-12/full-program.png"
+  },
+  13:{
+    driving:"怎样用CyberPi和mBlock积木，实现「袜子大整理」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「袜子大整理」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+两个变量初始化", "按钮A事件+读取声音强度", "条件判断：大声组+1或小声组+1", "显示两组数量", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-13/step-02.png", "assets/blocks/lesson-13/step-03.png", "assets/blocks/lesson-13/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-13/full-program.png"
+  },
+  14:{
+    driving:"怎样用CyberPi和mBlock积木，实现「特征放大镜」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「特征放大镜」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "重复执行+读取加速度X轴", "条件判断：向左摇显示←", "条件判断：向右摇→ 和向上摇↑", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-14/step-02.png", "assets/blocks/lesson-14/step-03.png", "assets/blocks/lesson-14/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-14/full-program.png"
+  },
+  15:{
+    driving:"怎样用CyberPi和mBlock积木，实现「猜一猜明天带伞吗」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「猜一猜明天带伞吗」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+三个变量初始化", "按钮A事件+连测3次光线值", "条件判断：三次都亮→晴天", "条件判断：越来越暗→要下雨", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-15/step-02.png", "assets/blocks/lesson-15/step-03.png", "assets/blocks/lesson-15/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-15/full-program.png"
+  },
+  16:{
+    driving:"怎样用CyberPi和mBlock积木，实现「背答案的鹦鹉」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「背答案的鹦鹉」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "按钮A事件：问题1+1→答2", "按钮B事件：问题3+2→答5", "卡壳演示：没背过的问题不会", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-16/step-02.png", "assets/blocks/lesson-16/step-03.png", "assets/blocks/lesson-16/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-16/full-program.png"
+  },
+  18:{
+    driving:"怎样用CyberPi和mBlock积木，实现「奖励真的会改变选择」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「奖励真的会改变选择」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+三个变量初始化", "重复执行50次+探索或选高价值门", "选A门：按概率给奖励并更新价值", "选B门+显示本轮价值", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-18/step-02.png", "assets/blocks/lesson-18/step-03.png", "assets/blocks/lesson-18/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-18/full-program.png"
+  },
+  19:{
+    driving:"怎样用CyberPi和mBlock积木，实现「贴标签的老师」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「贴标签的老师」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "概念步骤：为图形贴标签", "按钮A事件+读取光线+if规则分类", "条件判断：灯色+显示识别结果", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-19/step-02.png", "assets/blocks/lesson-19/step-03.png", "assets/blocks/lesson-19/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-19/full-program.png"
+  },
+  20:{
+    driving:"怎样用CyberPi和mBlock积木，实现「没有标签的玩具箱」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「没有标签的玩具箱」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+四个中心变量初始化", "重复执行+绘制两团像素点", "按钮A事件：按距离分组", "按钮B事件：计算平均位置并移动中心", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-20/step-02.png", "assets/blocks/lesson-20/step-03.png", "assets/blocks/lesson-20/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-20/full-program.png"
+  },
+  21:{
+    driving:"怎样用CyberPi和mBlock积木，实现「点亮聪明灯」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「点亮聪明灯」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "重复执行+读取光线和声音强度", "条件判断：光线>50 且 声音>60", "那么分支：黄灯亮+激活；否则：灯灭", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-21/step-02.png", "assets/blocks/lesson-21/step-03.png", "assets/blocks/lesson-21/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-21/full-program.png"
+  },
+  22:{
+    driving:"怎样用CyberPi和mBlock积木，实现「从边边角角到整张脸」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「从边边角角到整张脸」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["自制积木：第一层判断光线亮暗", "自制积木：第二层判断声音大小", "自制积木：第三层组合两层结果", "启动事件+按顺序调用三层", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-22/step-02.png", "assets/blocks/lesson-22/step-03.png", "assets/blocks/lesson-22/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-22/full-program.png"
+  },
+  23:{
+    driving:"怎样用CyberPi和mBlock积木，实现「音量旋钮」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「音量旋钮」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+三个变量初始化", "按钮A事件+光线权重增加", "按钮B事件+声音权重增加", "重复执行+计算综合分+显示谁权重更大", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-23/step-02.png", "assets/blocks/lesson-23/step-03.png", "assets/blocks/lesson-23/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-23/full-program.png"
+  },
+  24:{
+    driving:"怎样用CyberPi和mBlock积木，实现「慢慢调准的小箭头」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「慢慢调准的小箭头」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+阈值变量初始化", "重复执行+阈值每次+5", "按钮A事件+读取声音+按阈值判断", "按钮B事件+记录最佳阈值+显示", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-24/step-02.png", "assets/blocks/lesson-24/step-03.png", "assets/blocks/lesson-24/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-24/full-program.png"
+  },
+  25:{
+    driving:"怎样用CyberPi和mBlock积木，实现「下一个词实验室」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「下一个词实验室」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "概念步骤：准备词库和候选词", "按钮A事件+随机数选择下一个词", "显示词语接龙结果+继续接龙", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-25/step-02.png", "assets/blocks/lesson-25/step-03.png", "assets/blocks/lesson-25/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-25/full-program.png"
+  },
+  26:{
+    driving:"怎样用CyberPi和mBlock积木，实现「给 AI 的清楚指令」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「给 AI 的清楚指令」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "按钮A事件：模糊指令→不确定", "按钮B事件：清楚指令→灯变红", "对比结果+讨论指令格式", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-26/step-02.png", "assets/blocks/lesson-26/step-03.png", "assets/blocks/lesson-26/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-26/full-program.png"
+  },
+  27:{
+    driving:"怎样用CyberPi和mBlock积木，实现「模板故事与生成模型」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「模板故事与生成模型」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "概念步骤：准备三个词库", "按钮A事件+随机数+从词库选词+显示故事", "连续运行5次+观察不变句式", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-27/step-02.png", "assets/blocks/lesson-27/step-03.png", "assets/blocks/lesson-27/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-27/full-program.png"
+  },
+  28:{
+    driving:"怎样用CyberPi和mBlock积木，实现「小侦探查证」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「小侦探查证」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+显示提示", "显示AI的猜测(可能是假话)", "读取光线传感器实测值", "条件判断：比较猜测和实测+显示结果", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-28/step-02.png", "assets/blocks/lesson-28/step-03.png", "assets/blocks/lesson-28/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-28/full-program.png"
+  },
+  29:{
+    driving:"怎样用CyberPi和mBlock积木，实现「隐私小卫士」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「隐私小卫士」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+变量初始化+显示提示", "按钮A事件+记录A(=1)到序列", "按钮B事件+记录B(=2)到序列", "摇杆按下+比较密码+显示信息或警告", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-29/step-02.png", "assets/blocks/lesson-29/step-03.png", "assets/blocks/lesson-29/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-29/full-program.png"
+  },
+  31:{
+    driving:"怎样用CyberPi和mBlock积木，实现「超级搭档」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「超级搭档」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+变量初始化+显示提示", "摇杆摇动+随机数+显示题目", "按钮A事件+检查答案+答对播放音乐", "按钮B事件+答错提示+红灯", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-31/step-02.png", "assets/blocks/lesson-31/step-03.png", "assets/blocks/lesson-31/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-31/full-program.png"
+  },
+  32:{
+    driving:"怎样用CyberPi和mBlock积木，实现「小小 AI 工程师毕业啦」的核心功能？",
+    deliverable:"在mBlock上传模式下完成「小小 AI 工程师毕业啦」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
+    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
+    stepTitles:["启动事件+变量初始化+绘制像素笑脸", "开机自检+显示欢迎信息", "重复执行+光线暗自动提示开灯", "按钮A事件+模拟语音开灯+按钮B密码设置", "上传验证"],
+    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
+    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
+    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
+    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
+    stepShots:[null, "assets/blocks/lesson-32/step-02.png", "assets/blocks/lesson-32/step-03.png", "assets/blocks/lesson-32/step-04.png", null],
+    fullCodeShot:"assets/blocks/lesson-32/full-program.png"
   }
 };
 var quizState = null;
 
+function openImgLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('imgLightbox').style.display = 'grid';
+}
+function toggleAnswer(el){
+  var content = el.nextElementSibling;
+  var arrow = el.querySelector('.answer-arrow');
+  if(content.style.display === 'none'){
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+    el.classList.add('expanded');
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    el.classList.remove('expanded');
+  }
+}
+function toggleResultShot(el){
+  var content = el.nextElementSibling;
+  var arrow = el.querySelector('.toggle-arrow');
+  if(content.style.display === 'none'){
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+    el.classList.add('expanded');
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    el.classList.remove('expanded');
+  }
+}
+function closeImgLightbox(){
+  document.getElementById('imgLightbox').style.display = 'none';
+}
 function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
 function sampleDriving(l){
   var s = sampleOf(l); if(!s) return '';
   return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
 }
 function sampleMediaStudio(l){
-  var s = sampleOf(l); if(!s) return '';
-  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
+  var s = sampleOf(l);
+  // 没有样板内容时，基于课程steps生成基本截图区
+  var stepTitles = s ? s.stepTitles : (l.steps || []).slice(0,5).map(function(t,i){
+    var short = t.length > 12 ? t.substring(0,12)+'…' : t;
+    return short;
+  });
+  var shots = s ? (s.stepShots || []) : [];
+  var resultShot = s ? s.resultShot : null;
+  var fullShot = s ? (s.fullCodeShot || null) : null;
+  var fullShotSrc = fullShot || "assets/blocks/official-interface-reference.png";
+  var fullShotLabel = fullShot ? "完整程序截图" : "在线积木编程界面参考";
+  var fullShotNote = fullShot ? "本课完整积木链，可放大查看" : "当前为界面参考，后续替换本课完整积木链";
+  var fullShotTag = fullShot ? "已上传" : "待替换";
+
+  var html = '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
     '<div class="media-featured"><div class="video-slot" style="--poster:url(\''+lessonAsset(l.id)+'\')"><div class="play-mark">▶</div><b>最终效果视频</b><span>程序运行 + CyberPi 反馈 · 30–90 秒</span><em>待上传</em></div>'+
-    '<figure class="full-code-slot"><img src="assets/blocks/official-interface-reference.png" alt="在线积木编程界面参考"><figcaption><b>完整程序截图</b><span>当前为界面参考，后续替换本课完整积木链</span><em>待替换</em></figcaption></figure></div>'+
-    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+s.stepTitles.map(function(n,i){return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';}).join('')+'</div>'+
-    '<div class="result-shot"><span>运行结果截图</span><b>记录舞台或设备最终反馈</b><small>待上传 · 与最终视频配合使用</small></div></section>';
+    '<figure class="full-code-slot"><img src="'+fullShotSrc+'" alt="'+fullShotLabel+'" onclick="openImgLightbox(\''+fullShotSrc+'\')"><figcaption><b>'+fullShotLabel+'</b><span>'+fullShotNote+'</span><em>'+fullShotTag+'</em></figcaption></figure>'+(l.id==1?'<div class="code-annotation"><b>条件分支内应填：</b><span>「那么」分支拖入「显示标签」显示"收到1条线索"；「否则」分支拖入「显示标签」显示"线索够啦！"；最后拖入「RGB灯亮起绿色」。</span></div>':'')+'</div>'+
+    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
+      var shot = shots[i];
+      if(shot){
+        return '<div class="shot-slot has-shot"><span>0'+(i+1)+'</span><img src="'+shot+'" alt="'+esc(n)+'" onclick="openImgLightbox(\''+shot+'\')"><b>'+esc(n)+'</b></div>';
+      } else {
+        return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';
+      }
+    }).join('')+'</div>';
+
+  html += '</section>';
+  return html;
 }
+
 function sampleTaskLab(l){
   var s = sampleOf(l); if(!s) return '';
   return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
@@ -1904,6 +2387,7 @@ function panelDemo(l, ch){
     '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
       '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul><li>程序能按步骤完整运行</li><li>硬件能给出可观察的反馈</li><li>我能解释“'+esc(l.theme)+'”怎样体现在作品中</li></ul></div></aside></div>'+
     '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
+    '<div class="answer-section"><div class="answer-toggle" onclick="toggleAnswer(this)"><span class="answer-tag">参考答案</span><b>编程任务标准答案 · mBlock 积木程序</b><i class="answer-arrow">▼</i></div><div class="answer-content" style="display:none"><div class="answer-hint">完成编程任务后，点击展开查看参考积木程序，对照检查自己的搭建是否正确。</div><img src="'+(sampleOf(l) && sampleOf(l).stepShots && sampleOf(l).stepShots[3] ? sampleOf(l).stepShots[3] : (sampleOf(l) && sampleOf(l).fullCodeShot ? sampleOf(l).fullCodeShot : 'assets/blocks/official-interface-reference.png'))+'" alt="编程任务参考实现" onclick="openImgLightbox(this.src)"><div class="answer-note"><b>说明：</b>上图为编程任务的参考实现，实际搭建方式不唯一，核心逻辑正确即可。完整实现请参考「积木程序」环节的完整程序截图。</div></div></div>' +
     '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
 }
 
