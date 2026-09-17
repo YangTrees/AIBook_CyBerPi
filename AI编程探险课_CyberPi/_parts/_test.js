@@ -43,6 +43,10 @@ check("course1 blocks", /本课积木程序/.test(panelsHtml));
 check("course1 task", /AI硬件编程任务/.test(panelsHtml));
 check("course1 challenge", /挑战/.test(panelsHtml));
 check("course1 quiz", /随堂问答/.test(panelsHtml));
+const course1Text = JSON.stringify(COURSE[1]) + panelsHtml;
+check("course1 follows mBlock CyberPi flow", /mBlock/.test(course1Text) && /设备已连接/.test(course1Text) && /实体按钮 A/.test(course1Text));
+check("course1 has no green-flag stage flow", !/绿旗|角色项目|在线积木编程舞台|先在舞台/.test(course1Text));
+check("course1 uses real CyberPi input", COURSE[1].blocks.some(function(b){ return b[0] === "事件" && /CyberPi|按钮|按键/.test(b[1]); }));
 check("course tabs 6", els["courseTabs"]._html.includes("学习目标"));
 
 // 问答流程：课程1 quiz 共3题，先答错再答对，然后下一题
@@ -94,12 +98,51 @@ check("path svg", els["pathSvg"]._html.includes("path-lesson"));
 
 // 全部 32 课渲染一遍
 let bad = 0;
+let missingFlow = 0;
+let missingInput = 0;
+let missingOutput = 0;
+let staleStageFlow = 0;
+let badStepCount = 0;
+let vagueSteps = 0;
+let missingValidation = 0;
+let missingMedia = 0;
+let missingTaskDetail = 0;
+let missingScreenshotFiles = 0;
 for(let i=1;i<=32;i++){
   renderCourse(i);
   let ph = els["coursePanels"]._html;
   if(!COURSE[i] || ph.length < 50 || !ph.includes("AI硬件编程任务")){ bad++; }
+  if(!ph.includes("本课统一实施流程") || !ph.includes("设备已连接") || !ph.includes("真实输入—逻辑处理—硬件输出") || !ph.includes("真机验收")){ missingFlow++; }
+  let cats = COURSE[i].blocks.map(function(b){ return b[0]; });
+  if(!cats.some(function(c){ return ["事件","传感","网络/AI","扩展"].includes(c); })){ missingInput++; }
+  if(!cats.some(function(c){ return ["显示","外观","灯","声音","运动"].includes(c); })){ missingOutput++; }
+  if(/绿旗|在线积木编程舞台|在线编程角色|在舞台上|角色显示识别类别/.test(JSON.stringify(COURSE[i]))){ staleStageFlow++; }
+  if(!Array.isArray(COURSE[i].steps) || COURSE[i].steps.length !== 5){ badStepCount++; }
+  if(COURSE[i].steps.filter(function(s){ return /拖入|建立|新建|准备|按|读取|显示|设置|输入|运行|训练|采集|比较|记录|上传|测试|验证|观察|修改|加入|完成/.test(s); }).length < 4){ vagueSteps++; }
+  if(!/验证|测试|验收|复测|观察|比较|运行/.test(COURSE[i].steps.join(''))){ missingValidation++; }
+  let pad = i < 10 ? '0'+i : ''+i;
+  if(!ph.includes('lesson-'+pad+'/full-program.png') || !ph.includes('lesson-'+pad+'/step-02.png') || !ph.includes('lesson-'+pad+'/step-03.png') || !ph.includes('lesson-'+pad+'/step-04.png') || !ph.includes('openImgLightbox')){ missingMedia++; }
+  if(!ph.includes('作品交付目标') || !ph.includes('分层任务') || !ph.includes('测试记录与排错')){ missingTaskDetail++; }
+  ['full-program.png','step-02.png','step-03.png','step-04.png'].forEach(function(name){
+    if(!fs.existsSync(base+'\\..\\assets\\blocks\\lesson-'+pad+'\\'+name)){ missingScreenshotFiles++; }
+  });
 }
 check("all 32 courses render", bad === 0);
+check("all courses show mBlock to CyberPi workflow", missingFlow === 0);
+check("all courses have real input", missingInput === 0);
+check("all courses have hardware output", missingOutput === 0);
+check("all courses remove stale stage flow", staleStageFlow === 0);
+check("all courses have exactly 5 detailed steps", badStepCount === 0);
+check("all course steps are actionable", vagueSteps === 0);
+check("all courses include validation", missingValidation === 0);
+check("all courses render zoomable full and step screenshots", missingMedia === 0);
+check("all courses have rich task and debugging sections", missingTaskDetail === 0);
+check("all 128 screenshot assets exist", missingScreenshotFiles === 0);
+
+const shell = fs.readFileSync(base + "\\shell.html", "utf8");
+check("image lightbox has zoom controls", /imgLightbox/.test(shell) && /changeImageZoom\(-\.25\)/.test(shell) && /changeImageZoom\(\.25\)/.test(shell) && /resetImageZoom/.test(shell));
+check("image lightbox shows full step caption", /lightboxCaption/.test(shell));
+check("step cards no longer use the distorted zoom glyph", !/⌕/.test(fs.readFileSync(base + "\\app.js", "utf8")));
 
 console.log(results.join("\n"));
 console.log(results.some(r=>r.startsWith("FAIL")) ? "TEST FAIL" : "TEST ALL PASS");

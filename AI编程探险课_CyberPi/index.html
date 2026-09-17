@@ -371,49 +371,6 @@ main{padding-bottom:76px}
 
 /* ============ 昵称弹层 ============ */
 .overlay{position:fixed;inset:0;z-index:100;background:hsl(214 70% 30% / .45);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px}
-/* ============ 图片放大弹层 ============ */
-.img-lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);display:grid;place-items:center;padding:30px;cursor:zoom-out}
-.img-lightbox img{max-width:95vw;max-height:88vh;object-fit:contain;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:popIn .25s}
-.img-lightbox .lb-close{position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:.2s;z-index:1}
-.img-lightbox .lb-close:hover{background:rgba(255,255,255,.35);transform:rotate(90deg)}
-.shot-slot.has-shot img{cursor:zoom-in;transition:.2s;border-radius:8px}
-.shot-slot.has-shot img:hover{opacity:.8;transform:scale(1.02)}
-.full-code-slot img{cursor:zoom-in;transition:.2s}
-.full-code-slot img:hover{opacity:.85}
-/* ============ 结果截图展开区 ============ */
-.result-shot-section{margin-top:20px;border-radius:16px;overflow:hidden;border:1px solid var(--line,#e8e4f0);background:#fff}
-.result-shot-toggle{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:.2s;background:linear-gradient(135deg,#f8f6ff,#f0ebff)}
-.result-shot-toggle:hover{background:linear-gradient(135deg,#f0ebff,#e8e0ff)}
-.result-shot-toggle.expanded{background:linear-gradient(135deg,#e8e0ff,#ddd4ff)}
-.result-shot-toggle span{font-size:12px;font-weight:700;color:var(--primary,#7c3aed);background:rgba(124,58,237,.1);padding:4px 10px;border-radius:8px;white-space:nowrap}
-.result-shot-toggle b{flex:1;font-size:14px;color:var(--ink-2,#555);font-weight:600}
-.result-shot-toggle .toggle-arrow{font-size:12px;color:var(--primary,#7c3aed);transition:.3s;display:inline-block}
-.result-shot-content{padding:20px;background:#fff;border-top:1px solid var(--line,#e8e4f0)}
-.result-shot-content img{width:100%;max-height:500px;object-fit:contain;border-radius:12px;cursor:zoom-in;transition:.2s;background:#f5f3fa}
-.result-shot-content img:hover{opacity:.9}
-.result-shot-content p{margin-top:12px;font-size:13px;color:var(--ink-2,#666);line-height:1.6}
-.result-shot-placeholder{text-align:center;padding:40px 20px;color:var(--ink-3,#999)}
-.result-shot-placeholder span{font-size:48px;display:block;margin-bottom:12px}
-.result-shot-placeholder b{font-size:15px;color:var(--ink-2,#666);display:block;margin-bottom:6px}
-.result-shot-placeholder p{font-size:13px;margin:0}
-/* ============ 编程任务标准答案 ============ */
-.answer-section{margin:24px 0;border-radius:18px;overflow:hidden;border:2px solid rgba(124,58,237,.2);background:linear-gradient(135deg,#faf8ff,#f5f0ff)}
-.answer-toggle{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;transition:.2s}
-.answer-toggle:hover{background:rgba(124,58,237,.06)}
-.answer-toggle.expanded{background:rgba(124,58,237,.1)}
-.answer-tag{font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#7c3aed,#a78bfa);padding:6px 14px;border-radius:20px;white-space:nowrap;letter-spacing:.5px}
-.answer-toggle b{flex:1;font-size:15px;color:var(--ink-1,#333);font-weight:700}
-.answer-arrow{font-size:14px;color:#7c3aed;transition:.3s;display:inline-block;font-weight:bold}
-.answer-content{padding:20px 22px;background:#fff;border-top:1px solid rgba(124,58,237,.15)}
-.answer-hint{font-size:13px;color:#7c3aed;background:rgba(124,58,237,.08);padding:10px 16px;border-radius:10px;margin-bottom:16px;line-height:1.6}
-.answer-content img{width:100%;max-height:520px;object-fit:contain;border-radius:12px;cursor:zoom-in;transition:.2s;background:#f5f3fa;border:1px solid #eee}
-.answer-content img:hover{opacity:.92;transform:scale(1.01)}
-.answer-note{margin-top:14px;padding:12px 16px;background:#f8f6ff;border-radius:10px;font-size:13px;color:var(--ink-2,#666);line-height:1.6}
-.answer-note b{color:#7c3aed}
-/* ============ 代码注释说明 ============ */
-.code-annotation{margin-top:12px;padding:12px 16px;background:linear-gradient(135deg,#f0f7ff,#e8f0fe);border-radius:10px;border-left:3px solid #4a90d9;font-size:13px;line-height:1.7;color:#444}
-.code-annotation b{color:#2c6bb5;margin-right:6px}
-.code-annotation span{color:#555}
 .nick-card{background:#fff;border-radius:26px;box-shadow:0 40px 80px -30px hsl(214 70% 30% / .5);padding:34px 32px;max-width:420px;width:100%;text-align:center;animation:popIn .4s}
 @keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 .nick-card .n-logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--primary),hsl(235 80% 62%));display:grid;place-items:center;margin:0 auto 14px;color:#fff}
@@ -632,6 +589,7 @@ main{padding-bottom:95px}
 /* 编程任务：任务简报、步骤阶段和实验记录 */
 .task-hero{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:22px;align-items:center;padding:25px 26px}.task-hero .p-name{font-size:23px;margin-top:7px}.task-stamp{width:126px;aspect-ratio:1;border:1px solid rgba(255,255,255,.3);border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.13);box-shadow:inset 2px 2px 3px rgba(255,255,255,.16)}.task-stamp b{font-size:36px;line-height:1}.task-stamp span{font-size:11px;font-weight:900;margin-top:5px}.task-stamp small{max-width:100px;margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.24);font-size:10px;text-align:center;opacity:.78}
 .task-dashboard{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.7fr);gap:18px;margin-top:18px}.task-main,.task-side-card,.task-record,.task-preview{border:1px solid rgba(255,255,255,.9);border-radius:24px;background:#FBF9FF;box-shadow:var(--shadow-sm)}.task-main{padding:20px}.task-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}.task-section-head span,.task-side-card>span{font-size:9px;font-weight:900;letter-spacing:.15em;color:var(--primary)}.task-section-head h4,.task-side-card h4{font-size:17px;margin-top:3px}.task-section-head p{font-size:10.5px;color:var(--ink-2)}
+.platform-workflow{margin-top:18px;padding:21px;border:1px solid rgba(255,255,255,.92);border-radius:25px;background:linear-gradient(145deg,#fff,#f5f1ff);box-shadow:var(--shadow-sm)}.workflow-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}.workflow-head span{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--primary)}.workflow-head h4{font-size:18px;margin-top:3px}.workflow-head p{max-width:430px;font-size:11px;line-height:1.65;color:var(--ink-2);text-align:right}.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.workflow-grid article{position:relative;min-height:118px;padding:16px 15px 14px;border:1px solid #ece5fb;border-radius:18px;background:rgba(255,255,255,.88)}.workflow-grid i{display:inline-flex;align-items:center;justify-content:center;width:31px;height:23px;margin-bottom:9px;border-radius:9px;background:var(--primary);color:#fff;font-size:9px;font-style:normal;font-weight:900;box-shadow:0 5px 12px rgba(111,74,210,.2)}.workflow-grid b{display:block;font-size:14px}.workflow-grid p{margin-top:5px;font-size:10.5px;line-height:1.55;color:var(--ink-2)}
 .task-steps{gap:9px}.task-steps .step-item{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;padding:11px 12px;border-radius:17px;background:#F3EFF8;border:1px solid rgba(255,255,255,.9)}.task-steps .s-no{width:32px;height:32px;border-radius:11px}.step-copy small{font-size:9px;font-weight:900;color:var(--ch-color);letter-spacing:.08em}.step-copy p{padding:0;margin-top:3px;font-size:12.5px;line-height:1.45}.step-check{font-size:9px;color:#81758E;white-space:nowrap}
 .task-side{display:grid;gap:14px;align-content:start}.task-side-card{padding:18px}.task-side-card .hw-chips{margin-top:12px}.task-side-card .hw-chip{width:100%;border-radius:13px;padding:8px 10px;background:#F0EBF7;font-size:11px}.criteria ul{list-style:none;margin-top:11px;display:grid;gap:9px}.criteria li{position:relative;padding-left:20px;font-size:11px;line-height:1.5}.criteria li::before{content:"✓";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:5px;background:#DDF7EA;color:#078354;display:grid;place-items:center;font-size:9px;font-weight:900}
 .task-record{margin-top:18px;padding:19px}.task-record-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.task-record-head span{font-size:15px;font-weight:900}.task-record-head b{font-size:10.5px;color:var(--ink-2)}.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px}.record-grid label{min-height:86px;padding:12px;border:1px dashed #C8BBD8;border-radius:16px;background:#F8F5FC}.record-grid span{display:block;font-size:11px;font-weight:900;color:#6D28D9}.record-grid i{display:block;margin-top:12px;font-size:10px;font-style:normal;color:#A096AA}
@@ -645,7 +603,9 @@ main{padding-bottom:95px}
 .media-featured{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:16px}.video-slot,.full-code-slot{position:relative;min-height:250px;border:1px solid rgba(255,255,255,.9);border-radius:21px;overflow:hidden;background:#fff;box-shadow:5px 7px 14px rgba(76,58,106,.1)}
 .video-slot{display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;background-image:linear-gradient(180deg,rgba(34,22,50,.12),rgba(34,22,50,.84)),var(--poster);background-size:cover;background-position:center}.play-mark{position:absolute;left:50%;top:44%;width:54px;height:54px;border:1px solid rgba(255,255,255,.65);border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.24);font-size:18px;transform:translate(-50%,-50%);backdrop-filter:blur(8px)}.video-slot>b{font-size:17px}.video-slot>span{font-size:10.5px;margin-top:4px;opacity:.85}.video-slot>em,.full-code-slot em{position:absolute;right:13px;top:13px;padding:5px 8px;border-radius:9px;background:#F59E0B;color:#fff;font-size:9px;font-style:normal;font-weight:900}
 .full-code-slot{display:grid;grid-template-rows:minmax(0,1fr) auto}.full-code-slot img{width:100%;height:190px;object-fit:contain;padding:12px;background:#F1EDF6}.full-code-slot figcaption{padding:12px 14px}.full-code-slot b{display:block;font-size:13px}.full-code-slot span{display:block;font-size:10px;color:var(--ink-2);margin-top:3px}
-.step-shot-head{display:flex;justify-content:space-between;gap:12px;margin:18px 2px 10px}.step-shot-head b{font-size:14px}.step-shot-head span{font-size:10px;color:var(--ink-2)}.step-shot-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.shot-slot{position:relative;min-height:126px;padding:12px;border:1px dashed #BFB2CF;border-radius:17px;background:rgba(255,255,255,.7)}.shot-slot>span{position:absolute;right:10px;top:8px;font-size:9px;font-weight:900;color:#A398B0}.shot-slot>i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#EDE9FE;color:#7C3AED;font-size:9px;font-style:normal;font-weight:900}.shot-slot>b{display:block;font-size:11.5px;margin-top:10px}.shot-slot>small{display:block;font-size:9.5px;color:#9B90A5;margin-top:4px}.result-shot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:11px;padding:12px 14px;border:1px dashed #88CCB0;border-radius:17px;background:#EEFAF4}.result-shot>span{padding:6px 8px;border-radius:9px;background:#10B981;color:#fff;font-size:9px;font-weight:900}.result-shot>b{font-size:11.5px}.result-shot>small{font-size:9.5px;color:#56806B}
+.zoomable-shot{cursor:zoom-in}.zoomable-shot img{transition:transform .2s,opacity .2s}.zoomable-shot:hover img{transform:scale(1.025);opacity:.9}.zoom-badge{position:absolute!important;left:11px;top:11px;z-index:2;width:auto!important;padding:6px 9px;border-radius:10px;background:rgba(38,26,58,.78)!important;color:#fff!important;font-size:9px!important;font-style:normal;font-weight:900;line-height:1;backdrop-filter:blur(6px)}.shot-slot.has-shot{padding:9px 9px 13px;border-style:solid;background:#fff}.shot-slot.has-shot img{width:100%;height:132px;object-fit:contain;border-radius:11px;background:#f3f0f8}.shot-slot.has-shot b{margin:9px 4px 0;line-height:1.55;white-space:normal;overflow:visible;word-break:break-word}.shot-slot.has-shot small{margin:6px 4px 0;color:#7C6F86}
+.lightbox-open{overflow:hidden}.img-lightbox{position:fixed;inset:0;z-index:300;align-items:stretch;justify-content:center;padding:72px 24px 112px;background:rgba(22,17,30,.93);backdrop-filter:blur(10px)}.lightbox-stage{width:100%;height:100%;overflow:auto;display:block;border-radius:18px}.lightbox-stage img{display:block;height:auto;max-width:none;max-height:none;margin:20px auto;object-fit:contain;transition:width .18s ease;cursor:zoom-in;box-shadow:0 26px 70px rgba(0,0,0,.48);border-radius:10px}.lightbox-toolbar{position:absolute;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff}.lightbox-toolbar button{min-width:38px;height:38px;padding:0 11px;border:0;border-radius:11px;background:rgba(255,255,255,.16);color:#fff;font-size:18px;font-weight:800;cursor:pointer}.lightbox-toolbar button:hover{background:rgba(255,255,255,.28)}.lightbox-toolbar span{min-width:50px;text-align:center;font-size:11px;font-weight:900}.lightbox-toolbar .zoom-reset{font-size:11px}.lightbox-toolbar .lb-close{margin-left:8px;background:#EF476F}.lightbox-caption{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(900px,calc(100vw - 48px));max-height:76px;overflow:auto;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px 15px;border:1px solid rgba(255,255,255,.2);border-radius:15px;background:rgba(255,255,255,.94);box-shadow:0 12px 35px rgba(0,0,0,.3);color:#2F2638}.lightbox-caption span{padding:4px 7px;border-radius:8px;background:#8B5CF6;color:#fff;font-size:9px;font-weight:900;white-space:nowrap}.lightbox-caption b{font-size:13px;line-height:1.55;font-weight:750;word-break:break-word}
+.step-shot-head{display:flex;justify-content:space-between;gap:12px;margin:18px 2px 10px}.step-shot-head b{font-size:14px}.step-shot-head span{font-size:10px;color:var(--ink-2)}.step-shot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}.shot-slot{position:relative;min-height:152px;padding:14px;border:1px dashed #BFB2CF;border-radius:17px;background:rgba(255,255,255,.7)}.shot-slot>span{position:absolute;right:10px;top:8px;font-size:9px;font-weight:900;color:#A398B0}.shot-slot>i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#EDE9FE;color:#7C3AED;font-size:9px;font-style:normal;font-weight:900}.shot-slot>b{display:block;font-size:11.5px;line-height:1.55;margin-top:10px;white-space:normal;overflow:visible;word-break:break-word}.shot-slot>small{display:block;font-size:9.5px;line-height:1.45;color:#9B90A5;margin-top:6px}.result-shot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:11px;padding:12px 14px;border:1px dashed #88CCB0;border-radius:17px;background:#EEFAF4}.result-shot>span{padding:6px 8px;border-radius:9px;background:#10B981;color:#fff;font-size:9px;font-weight:900}.result-shot>b{font-size:11.5px}.result-shot>small{font-size:9.5px;color:#56806B}
 .sample-task-lab{margin:16px 0}.sample-brief{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;padding:15px 17px;border-radius:19px;background:linear-gradient(135deg,#EEF2FF,#F5F3FF);border:1px solid #E1DDF0}.sample-brief span{padding:6px 8px;border-radius:9px;background:#7C3AED;color:#fff;font-size:9px;font-weight:900}.sample-brief b{font-size:12px;line-height:1.6}.sample-task-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px;margin-top:13px}.prep-card,.level-card{padding:17px;border:1px solid rgba(255,255,255,.9);border-radius:21px;background:#FBF9FF;box-shadow:var(--shadow-sm)}.prep-card>span,.level-card>span,.debug-card>span,.reflect-card>span{font-size:11px;font-weight:900;color:#7C3AED}.prep-card ol{display:grid;gap:9px;margin:12px 0 0 19px}.prep-card li{font-size:11px;line-height:1.5;padding-left:3px}.level-card{display:grid;gap:8px}.level-card>article{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:center;padding:9px 10px;border-radius:14px;background:#F3EFF8}.level-card article>i{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#7C3AED;color:#fff;font-size:10px;font-style:normal;font-weight:900}.level-card .level-1>i{background:#F59E0B}.level-card .level-2>i{background:#10B981}.level-card b{font-size:11px}.level-card p{font-size:10px;line-height:1.45;color:var(--ink-2);margin-top:2px}
 .sample-test-lab{margin-top:16px;padding:20px;border:1px solid rgba(255,255,255,.9);border-radius:25px;background:#F8F5FC;box-shadow:var(--shadow-sm)}.test-table{margin-top:15px;border:1px solid #E2DCEB;border-radius:17px;overflow:hidden}.test-row{display:grid;grid-template-columns:.8fr 1.45fr .75fr;background:#fff}.test-row:nth-child(odd){background:#F6F2FA}.test-row>*{padding:10px 12px;border-right:1px solid #E2DCEB;font-size:10.5px;line-height:1.45}.test-row>*:last-child{border:0}.test-th{background:#EDE9FE!important;color:#5B35A5}.test-th b{font-size:10px}.debug-reflect{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.debug-card,.reflect-card{padding:15px;border-radius:18px;background:#fff}.debug-card article{margin-top:10px;padding-left:12px;border-left:3px solid #F59E0B}.debug-card b{font-size:11px}.debug-card p{font-size:10px;line-height:1.5;color:var(--ink-2);margin-top:2px}.reflect-card p{display:flex;gap:8px;margin-top:11px;font-size:10.5px;line-height:1.5}.reflect-card i{flex:none;width:23px;height:23px;border-radius:8px;display:grid;place-items:center;background:#EDE9FE;color:#7C3AED;font-size:9px;font-style:normal;font-weight:900}
 
@@ -654,7 +614,8 @@ main{padding-bottom:95px}
   .tabs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 5px 13px}.tab-btn{flex:0 0 154px;scroll-snap-align:center}
   .goal-visual{grid-template-columns:220px minmax(0,1fr)}.goal-picture{min-height:360px}.goal-map-head h4{font-size:20px}
   .program-summary{align-items:flex-start;flex-direction:column}.program-metrics{width:100%;min-width:0}.program-workbench,.task-dashboard{grid-template-columns:1fr}.program-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.program-guide .guide-kicker,.program-guide .guide-tip{grid-column:1/-1}.program-guide>div:not(.guide-tip){margin-top:4px}
-  .step-shot-grid{grid-template-columns:repeat(3,1fr)}.sample-task-grid{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:repeat(2,1fr)}
+  .step-shot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sample-task-grid{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .topbar{top:6px;width:calc(100% - 16px);margin-top:6px;border-radius:22px}.topbar-inner{height:60px;padding:0 10px}.brand-logo{border-radius:14px}
@@ -668,7 +629,8 @@ main{padding-bottom:95px}
   .goal-visual{grid-template-columns:1fr;padding:12px}.goal-picture{min-height:0}.goal-picture img{height:auto;max-height:none}.goal-map{padding:7px 3px}.goal-map-head h4{font-size:21px}.goal-stage{grid-template-columns:40px minmax(0,1fr) 24px}.goal-finish{align-items:flex-start;flex-direction:column}
   .program-summary{padding:18px}.program-metrics{grid-template-columns:repeat(2,1fr)}.runtime-track{grid-template-columns:1fr}.runtime-track>i{transform:rotate(90deg);text-align:center;line-height:12px}.runtime-card{min-height:0}.program-guide{display:block}.program-guide>div:not(.guide-tip){margin-top:14px}.program-node{grid-template-columns:28px minmax(0,1fr)}.program-node .blk-lab{grid-column:2}.program-node .blk{grid-column:2}.program-node .node-check{display:none}.program-node:not(:last-child)::after{height:34px;bottom:-17px}
   .task-hero{grid-template-columns:1fr;padding:20px}.task-stamp{width:100%;aspect-ratio:auto;min-height:90px;border-radius:20px;display:grid;grid-template-columns:auto auto;column-gap:8px}.task-stamp b{grid-row:1/3}.task-stamp small{grid-column:1/-1;max-width:none}.task-section-head,.task-record-head{align-items:flex-start;flex-direction:column}.task-steps .step-item{grid-template-columns:32px minmax(0,1fr)}.task-steps .step-check{grid-column:2}.record-grid{grid-template-columns:1fr}.task-preview{flex-direction:column}
-  .sample-driving{grid-template-columns:1fr}.sample-driving span{grid-row:auto;justify-self:start}.media-studio{padding:15px}.media-studio-head,.sample-test-head{align-items:flex-start;flex-direction:column}.media-studio-head p,.sample-test-head p{text-align:left}.media-featured{grid-template-columns:1fr}.step-shot-grid{grid-template-columns:1fr 1fr}.result-shot{grid-template-columns:1fr}.sample-brief{grid-template-columns:1fr}.sample-brief span{justify-self:start}.test-row{grid-template-columns:1fr}.test-row>*{border-right:0;border-bottom:1px solid #E2DCEB}.test-th{display:none}.debug-reflect{grid-template-columns:1fr}
+  .workflow-head{align-items:flex-start;flex-direction:column}.workflow-head p{text-align:left}.workflow-grid{grid-template-columns:1fr}
+  .sample-driving{grid-template-columns:1fr}.sample-driving span{grid-row:auto;justify-self:start}.media-studio{padding:15px}.media-studio-head,.sample-test-head{align-items:flex-start;flex-direction:column}.media-studio-head p,.sample-test-head p{text-align:left}.media-featured{grid-template-columns:1fr}.step-shot-grid{grid-template-columns:1fr}.result-shot{grid-template-columns:1fr}.sample-brief{grid-template-columns:1fr}.sample-brief span{justify-self:start}.test-row{grid-template-columns:1fr}.test-row>*{border-right:0;border-bottom:1px solid #E2DCEB}.test-th{display:none}.debug-reflect{grid-template-columns:1fr}.img-lightbox{padding-left:10px;padding-right:10px}.lightbox-caption{width:calc(100vw - 20px);grid-template-columns:1fr;gap:6px;max-height:92px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
@@ -945,10 +907,21 @@ main{padding-bottom:95px}
   </div>
 </div>
 
-<!-- ============ 图片放大弹层 ============ -->
-<div class="img-lightbox" id="imgLightbox" style="display:none" onclick="closeImgLightbox()">
-  <button class="lb-close" onclick="event.stopPropagation();closeImgLightbox()">✕</button>
-  <img id="lightboxImg" src="" alt="放大查看">
+<!-- ============ 积木截图放大查看 ============ -->
+<div class="img-lightbox" id="imgLightbox" style="display:none" onclick="closeImgLightbox()" role="dialog" aria-modal="true" aria-label="积木截图放大查看">
+  <div class="lightbox-toolbar" onclick="event.stopPropagation()">
+    <button onclick="changeImageZoom(-.25)" aria-label="缩小图片">−</button>
+    <span id="zoomValue">100%</span>
+    <button onclick="changeImageZoom(.25)" aria-label="放大图片">＋</button>
+    <button class="zoom-reset" onclick="resetImageZoom()">适应屏幕</button>
+    <button class="lb-close" onclick="closeImgLightbox()" aria-label="关闭">✕</button>
+  </div>
+  <div class="lightbox-stage" onclick="event.stopPropagation()">
+    <img id="lightboxImg" src="" alt="积木程序截图放大查看" onclick="changeImageZoom(imageZoom < 2 ? .5 : -1)">
+  </div>
+  <div class="lightbox-caption" onclick="event.stopPropagation()">
+    <span>步骤说明</span><b id="lightboxCaption">积木程序截图放大查看</b>
+  </div>
 </div>
 
 <script>
@@ -958,15 +931,15 @@ const LESSONS_1 = [
 {
   id:1, ch:1, title:"线索进来了，回应出去了", theme:"输入、处理与输出",
   echoId:1, echoTitle:"小侦探找线索", echoBrief:"信息是能帮助我们做决定的线索",
-  story:"绘本里，团团从“圆圆、滑滑、凉凉”的线索猜出苹果。今天我们在 mBlock 中用积木编程，让 CyberPi 当一名线索小侦探：按按钮输入线索，程序处理判断，屏幕和灯光给出回应——直接在真实设备上体验输入→处理→输出。",
-  knowledge:["能帮助判断的线索可以作为输入","程序按照我们写下的规则处理输入","屏幕显示、灯光和声音都可以成为输出"],
-  blocks:[["事件","当 CyberPi 启动时"],["事件","当按钮A被按下时"],["变量","建立变量「线索计数」"],["控制","如果…那么…否则"],["显示","显示 回应文字"],["LED","RGB 灯 亮起 绿色"]],
-  projName:"线索回应机",
-  projEff:"在 mBlock 上传模式下编程：CyberPi 启动后屏幕显示“我是线索小侦探”；每按一次按钮 A（输入），程序计数并判断（处理），屏幕显示回应文字、RGB 灯亮绿色（输出）。点击上传将程序烧录到 CyberPi，断开电脑也能独立运行，完整演示输入→处理→输出。",
-  steps:["连接 CyberPi，在 mBlock 中切换到上传模式","拖入「当 CyberPi 启动时」，屏幕显示“我是线索小侦探”","拖入「当按钮A被按下时」，变量「线索计数」加 1","用「如果…那么…否则」判断：按过1次显示“收到1条线索”，按过2次显示“线索够啦！”","RGB 灯亮绿色表示收到线索","点击上传，将程序烧录到 CyberPi，按按钮 A 验证输入→处理→输出全过程"],
-  challenge:"故意输入“它像一个小球”而不说“圆”，观察程序是否误判；再修改规则，让它能识别更多表达。",
-  tip:"这一课的重点不是让设备打招呼，而是看见同一条逻辑怎样从 mBlock 积木编程运行到真实 CyberPi 设备。",
-  hardware:["按钮 A","全彩显示屏","RGB 灯"],
+  story:"绘本里，团团要先收到“圆圆、滑滑、凉凉”的线索，才能作出回应。今天我们直接在 mBlock 中添加并连接童芯派：按下 CyberPi 的按钮 A 是输入，积木按顺序执行是处理，屏幕文字和绿色灯光是输出。程序的每一步都在真实设备上看得见。",
+  knowledge:["CyberPi 按钮把“被按下”的信息送进程序，是输入","mBlock 中连接好的积木规定收到输入后要做什么，是处理","CyberPi 屏幕显示文字、RGB 灯改变颜色，是输出"],
+  blocks:[["事件","当 CyberPi 启动时"],["显示","显示标签「我是线索小侦探」"],["变量","线索计数设为 0"],["事件","当按钮 A 被按下时"],["变量","线索计数增加 1"],["控制","如果…那么…否则"],["显示","显示线索数量与回应"],["灯","RGB 灯亮起绿色"]],
+  projName:"CyberPi 线索回应机",
+  projEff:"在 mBlock 上传模式中搭建程序：CyberPi 启动后显示身份；每按一次实体按钮 A，线索计数增加，程序根据数量显示“收到1条线索”或“线索够啦！”，并亮起绿色 RGB 灯，完整验证输入、处理与输出。",
+  steps:["连接CyberPi，在mBlock中切换到上传模式","拖入「当CyberPi启动时」，拖入「显示标签」显示“我是线索小侦探”","建立变量「线索计数」，拖入「当按钮A被按下时」，变量「线索计数」增加1","拖入「如果…那么…否则」：如果线索计数=1，显示标签“收到1条线索”；否则显示标签“线索够啦！”","拖入「RGB灯亮起 绿色」，点击上传，将程序烧录到CyberPi，按按钮A验证输入→处理→输出全过程"],
+  challenge:"复制一组程序，把事件改成「当按键 B 按下时」：屏幕显示“线索还不够”，RGB 灯亮黄色。比较 A、B 两种输入为什么会得到不同输出。",
+  tip:"本课从一开始就连接 CyberPi，并在 mBlock 在线模式中边搭建边验证。若需要拔掉数据线独立运行，再切换上传模式写入设备；在线调试和上传运行不要混在同一步讲解。",
+  hardware:["CyberPi / 童芯派","Type-C 数据线","按钮 A、按钮 B","全彩显示屏","RGB 灯 ×5"],
   quiz:[
     {q:"信息是什么？",o:["一种玩具","能帮助我们做决定的线索","电脑里的零件","别人说的所有话"],a:1,exp:"信息就像小侦探的线索，帮我们做出更好的决定。"},
     {q:"在 CyberPi 上，按钮属于什么？",o:["输出","记忆","输入","电源"],a:2,exp:"按钮把“被按下”的信息送进 CyberPi，所以它是输入。"},
@@ -978,10 +951,10 @@ const LESSONS_1 = [
   echoId:2, echoTitle:"开关城的两兄弟", echoBrief:"0 代表关，1 代表开，0 和 1 排队能表示各种信息",
   story:"开关城里住着“关关”和“开开”两位居民，他们排成不同的队形就能代表不同的意思。今天，让 CyberPi 的彩灯也当开关城的居民——灯亮是 1，灯灭是 0。",
   knowledge:["0 代表关（灯灭），1 代表开（灯亮）","多个 0 和 1 排在一起，能表示很多信息","电脑内部就是用 0 和 1 说话的"],
-  blocks:[["事件","当按钮A被按下时"],["控制","如果 灯亮着 那么"],["LED","RGB 灯 熄灭 / 亮起 黄色"],["显示","显示 数字 0 / 1"]],
+  blocks:[["事件","当按钮A被按下时"],["控制","如果 灯亮着 那么"],["灯","RGB 灯 熄灭 / 亮起 黄色"],["显示","显示 数字 0 / 1"]],
   projName:"0 和 1 的开关灯",
   projEff:"每按一次按钮 A，彩灯在“亮（1）”和“灭（0）”之间切换，屏幕同步显示数字。再用两颗灯，拼出 00、01、10、11 四种不同的“密码”。",
-  steps:["建立变量「开关」，初始为 0","按 A：开关 = 1 - 开关（0 变 1，1 变 0）","开关是 1 就亮黄灯，是 0 就灭灯","屏幕显示当前的 0 或 1","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「开关」，拖入「当CyberPi启动时」，变量「开关」设为0","拖入「当按钮A被按下时」，变量「开关」设为 1 - 开关（0变1，1变0）","拖入「如果…那么…否则」：如果开关=1，RGB灯亮起黄色；否则RGB灯熄灭","拖入「显示标签」显示当前的0或1","点击上传，将程序烧录到CyberPi，验证运行效果"],
   challenge:"用 3 颗灯摆出 8 种组合（000 到 111），每摆一种，就说一个它代表的意思。",
   tip:"两盏灯可以有 2×2=4 种组合，三盏灯是 2×2×2=8 种——位数越多，能表示的信息越多！",
   hardware:["RGB 灯×5","按钮 A","显示屏"],
@@ -996,10 +969,10 @@ const LESSONS_1 = [
   echoId:3, echoTitle:"小邮差的密码信", echoBrief:"编码把信息换一种样子，编码和解码要用同一套规则",
   story:"绘本里，小邮差送的是密码信：约定好规则，别人才能看懂。今天我们用 CyberPi 的彩灯当“小邮差”，用短闪和长闪发出摩尔斯密码。",
   knowledge:["编码 = 把信息换成另一种样子","解码 = 把密码翻译回原来的意思","发送和接收必须用同一套规则，否则会误解"],
-  blocks:[["LED","RGB 灯 亮起/熄灭"],["控制","重复执行 3 次"],["控制","等待 0.2 秒（点）/ 0.6 秒（划）"],["显示","显示 密码本"]],
+  blocks:[["事件","当 CyberPi 启动时"],["显示","显示密码本：短闪=点，长闪=划"],["控制","重复执行 3 次"],["灯","RGB 灯亮起 / 熄灭"],["控制","等待 0.2 秒（点）/ 0.6 秒（划）"]],
   projName:"摩尔斯密码灯",
   projEff:"程序用短闪（·）和长闪（—）发出 SOS：··· ——— ···。屏幕同时显示密码本：“短闪=点，长闪=划”。没有密码本的人就看不懂啦！",
-  steps:["屏幕显示密码本：· 短闪，— 长闪","用灯闪 3 次短的（S）","用灯闪 3 次长的（O）","再闪 3 次短的（S），循环发送","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，拖入「显示标签」显示“密码本：·短闪 —长闪”","拖入「重复执行」，拖入「RGB灯亮起 白色」等待0.2秒「RGB灯熄灭」等待0.2秒，重复3次（S=短闪）","拖入「RGB灯亮起 白色」等待0.6秒「RGB灯熄灭」等待0.2秒，重复3次（O=长闪）","再重复3次短闪（S），循环发送SOS","点击上传，将程序烧录到CyberPi，验证运行效果"],
   challenge:"和好朋友约定一套“家庭暗号”（比如闪 2 次=要喝水），用灯发给他，看他能不能解码。",
   tip:"编码和解码用同一套规则才不会“乱码”。电脑之间传信息也是这个道理。",
   hardware:["RGB 灯","显示屏"],
@@ -1014,10 +987,10 @@ const LESSONS_1 = [
   echoId:4, echoTitle:"仓库管理员机器人", echoBrief:"信息需要格子来存放，变量就是程序里的格子",
   story:"绘本里，仓库管理员把每件货物放进一个小格子里。今天，我们给 CyberPi 的“记忆仓库”装格子——程序里的变量，就是能存数字和文字的格子。",
   knowledge:["信息需要“格子”来存放","变量就是程序里的格子，能存数字和文字","格子（变量）可以加、可以改、可以清零"],
-  blocks:[["变量","建立变量「收集的信息」"],["事件","当按钮A被按下时"],["运算","「收集的信息」增加 1"],["显示","显示 变量「收集的信息」"]],
+  blocks:[["事件","当 CyberPi 启动时"],["变量","建立变量「收集的信息」"],["事件","按钮 A 增加 / 按钮 B 清零"],["运算","「收集的信息」增加 1"],["显示","显示当前数量 / 已清零"]],
   projName:"小小计数器",
   projEff:"每按一次按钮 A，“收集的信息”就 +1，屏幕显示“今天收集到 N 条信息”；按按钮 B 清零，把格子清空重新开始。",
-  steps:["建立变量「收集的信息」，开机设为 0","按 A：变量增加 1","屏幕显示变量（显示“今天收集到”和数字）","按 B：变量设为 0","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「收集的信息」，拖入「当CyberPi启动时」，变量设为0，显示标签“今天收集到0条信息”","拖入「当按钮A被按下时」，变量「收集的信息」增加1","拖入「显示标签」显示“今天收集到N条信息”（N为变量值）","拖入「当按钮B被按下时」，变量「收集的信息」设为0，显示标签“已清零”","点击上传，将程序烧录到CyberPi，验证运行效果"],
   challenge:"做一个“绘本阅读打卡器”：每读完一本绘本按一次 A，一周下来数一数读了几本。",
   tip:"变量就像小仓库：一格存一个数。格子越多，能记的信息越多——这就是“容量”。",
   hardware:["按钮 A/B","显示屏"],
@@ -1032,10 +1005,10 @@ const LESSONS_1 = [
   echoId:5, echoTitle:"小方块拼出大世界", echoBrief:"图片由很多小方块（像素）组成，像素越多越清晰",
   story:"绘本里，团团发现大世界其实是一块块小方块拼出来的。CyberPi 的屏幕只有 128×128 个小格子（像素），今天我们就当“像素画师”，一格一格点亮它。",
   knowledge:["图片由许多小方块（像素）组成","像素越多，图片越清晰","CyberPi 屏幕 128×128，共 16384 个像素"],
-  blocks:[["显示","绘制 像素点 位置(x,y)"],["显示","显示 文字"],["控制","重复执行"],["显示","清空屏幕"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","当按键 A 按下时切换图案"],["显示","绘制 像素点 位置(x,y)"],["显示","显示 文字"],["显示","清空屏幕"]],
   projName:"像素笑脸",
   projEff:"用「绘制像素点」积木，在屏幕上 8×8 的小区域里一格一格点亮，画出笑脸和爱心；再试试放大看，每一格都是一个小方块。",
-  steps:["清空屏幕","用「绘制像素点」画出笑脸的眉毛（两横）","画眼睛（两点）和弯弯的嘴","按按钮 A，清屏换画一颗爱心","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，拖入「清空屏幕」","拖入「绘制像素点 x=2 y=2」和「绘制像素点 x=5 y=2」（眉毛两点）","拖入「绘制像素点 x=2 y=4」「绘制像素点 x=5 y=4」（眼睛），拖入「绘制像素点 x=3 y=6」「绘制像素点 x=4 y=6」（嘴）","拖入「当按钮A被按下时」，拖入「清空屏幕」，用「绘制像素点」画爱心（x=2,y=3; x=5,y=3; x=3,y=4; x=4,y=4; x=3,y=5; x=4,y=5; x=3,y=6）","点击上传，将程序烧录到CyberPi，验证笑脸和爱心切换效果"],
   challenge:"用白色方块 + 蓝色小点，在屏幕上画一个“点点”云朵机器人。",
   tip:"一个像素点虽然小，但几万个拼在一起，就能变成清晰的图片和动画。",
   hardware:["显示屏"],
@@ -1050,10 +1023,10 @@ const LESSONS_1 = [
   echoId:6, echoTitle:"红绿蓝灯的合唱团", echoBrief:"红、绿、蓝三色光混合出各种颜色，颜色可以用数字配方描述",
   story:"绘本里，红绿蓝三盏灯组成的合唱团，唱出了五彩的世界。今天 CyberPi 的 5 颗 RGB 灯就是合唱团——红、绿、蓝三种光，亮度不同，颜色就不同。",
   knowledge:["红、绿、蓝三种光可以混出几乎所有颜色","每种光的亮度（0–255）决定颜色的深浅","颜色可以写成数字“配方”，比如红色 = R255 G0 B0"],
-  blocks:[["LED","RGB 灯 亮起 红=… 绿=… 蓝=…"],["变量","建立变量 R / G / B"],["事件","当按钮A被按下时"],["显示","显示 配方 R=… G=… B=…"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A 调红 / 按钮 B 调绿"],["事件","按下摇杆调蓝"],["变量","建立变量 R / G / B"],["运算","颜色值按 51 循环增加"],["灯","RGB 灯按 R/G/B 数值亮起"],["显示","显示配方 R=… G=… B=…"]],
   projName:"调色小画家",
   projEff:"用按钮 A/B 调节红、绿、蓝三种光的亮度，屏幕实时显示配方数字（R=255 G=0 B=0 是红色），摇杆确认颜色，看 5 颗灯一起变色。",
-  steps:["建立变量 R、G、B，都从 0 开始","按 A 切换要调的颜色（红→绿→蓝）","摇杆上下调整亮度 0–255","灯按 R/G/B 亮起，屏幕显示配方","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「R」「G」「B」，拖入「当CyberPi启动时」，三个变量都设为0","拖入「当按钮A被按下时」，变量R设为 (R+51) % 256（0→51→102→...→255→0循环）","拖入「当按钮B被按下时」，变量G设为 (G+51) % 256（同上循环）","拖入「重复执行」，如果摇杆被按下则B=(B+51)%256；拖入「RGB灯亮起 R红 G绿 B蓝」；拖入「显示标签」显示“R=.. G=.. B=..”","点击上传，将程序烧录到CyberPi，用按钮和摇杆调色验证"],
   challenge:"调出“草莓粉”和“柠檬黄”的配方，写下来分享给同学。",
   tip:"红色+绿色=黄色，绿色+蓝色=青色，红色+蓝色=紫色，红绿蓝全开=白色！",
   hardware:["RGB 灯×5","按钮/摇杆","显示屏"],
@@ -1068,10 +1041,10 @@ const LESSONS_1 = [
   echoId:7, echoTitle:"行李箱装不下啦", echoBrief:"压缩让信息变小，保留重要的、去掉不重要的",
   story:"绘本里，团团的行李箱装不下所有东西，只好挑重要的带走。今天让 CyberPi 的屏幕当行李箱：画一幅“精细”的星星，再画“简化”的星星，比比谁占的格子少。",
   knowledge:["压缩 = 让信息变小，节省空间","有的压缩会丢掉一些细节，但主要内容还看得懂","压缩是一种取舍：保留重要的，去掉不重要的"],
-  blocks:[["显示","绘制 像素点（精细图案）"],["控制","重复执行"],["变量","记录 用掉的像素数"],["显示","清空屏幕 后 绘制 简化图案"]],
+  blocks:[["事件","当 CyberPi 启动时"],["显示","绘制像素点组成精细星星"],["显示","显示精细图案像素数"],["控制","等待 2 秒"],["显示","清空屏幕后绘制简化星星"],["显示","显示压缩后像素数"]],
   projName:"图片瘦身记",
   projEff:"屏幕先显示一颗用很多像素画的“精细星星”，数一数用了多少格；再显示只用几颗像素的“简化星星”，两幅图比比谁占的格子少——简化就是压缩。",
-  steps:["画精细星星：用 20+ 像素点","显示“用了 N 个格子”","清屏，画简化星星：只用 8 个像素","显示“压缩后只有 M 个格子”","比较：两幅图都能认出是星星吗？","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，拖入「清空屏幕」","用「绘制像素点」画精细星星（12个像素点：x=3,y=1; x=4,y=1; x=2,y=2; x=5,y=2; x=1,y=3; x=6,y=3; x=2,y=4; x=5,y=4; x=3,y=5; x=4,y=5; x=3,y=6; x=4,y=6）","拖入「显示标签」显示“精细星星用了12格”，等待2秒","拖入「清空屏幕」，用「绘制像素点」画简化星星（4个像素点：x=3,y=2; x=4,y=2; x=3,y=4; x=4,y=4）","拖入「显示标签」显示“简化星星只用4格”，点击上传验证"],
   challenge:"把笑脸从“精细版”改成“简化版”，看看别人还能不能认出来。",
   tip:"照片、视频在电脑里也会被压缩——挑重要的留下，不重要的丢掉。",
   hardware:["显示屏"],
@@ -1086,10 +1059,10 @@ const LESSONS_1 = [
   echoId:8, echoTitle:"雾气里的照片", echoBrief:"噪声是混在信息里的干扰，多次测量取平均能减少噪声",
   story:"绘本里，照片被雾气罩住，看不清里面的东西。今天 CyberPi 的“眼睛”——光线传感器也遇到了雾：它的数值总在抖，那就是噪声。我们要帮它把雾吹散。",
   knowledge:["噪声 = 混在信息里的干扰，让信息变模糊","数据不稳定，判断就容易出错","多次测量取平均，能减少噪声的影响"],
-  blocks:[["侦测","环境光强度"],["变量","建立变量 光线总和"],["运算","总和 ÷ 3"],["显示","显示 稳定光线值"]],
+  blocks:[["事件","当 CyberPi 启动时"],["循环","重复读取三次"],["传感","环境光强度"],["变量","光线总和 / 平均值"],["运算","总和 ÷ 3"],["显示","显示原始值与稳定值"]],
   projName:"数据过滤器",
   projEff:"屏幕实时显示光线传感器数值（它会抖来抖去——这就是噪声）；程序连续读 3 次，取平均值，显示“稳定值”，数据立刻平稳下来。",
-  steps:["显示“原始值”：实时读取环境光强度","连读 3 次，加起来存进变量","用「÷ 3」算出平均","屏幕显示“稳定值 = 平均结果”","用手遮住传感器再松开，观察变化","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「总和」「平均值」，拖入「当CyberPi启动时」，变量都设为0","拖入「重复执行」，拖入「显示标签」显示“原始值=”+环境光强度","拖入「重复执行3次」：变量总和 = 总和 + 环境光强度，等待0.1秒","变量平均值 = 总和 ÷ 3，拖入「显示标签」显示“稳定值=”+平均值，变量总和设为0","用手遮住传感器再松开，观察原始值抖动和稳定值的区别，点击上传验证"],
   challenge:"试试“取 5 次平均”比“取 3 次平均”哪个更稳？",
   tip:"就像雾气里的照片，噪声多了判断就不准。AI 也要靠“干净”的数据才能做对决定。",
   hardware:["光线传感器","显示屏"],
@@ -1108,15 +1081,15 @@ const LESSONS_2 = [
   echoId:9, echoTitle:"红灯停绿灯行", echoBrief:"“如果…就…”是条件判断，电脑靠无数个条件做决定",
   story:"绘本里，团团学会了“红灯停、绿灯行”的规则。今天 CyberPi 也要遵守规则——光线暗了就亮红灯提醒开灯，光线亮了就亮绿灯。规则就是程序！",
   knowledge:["“如果…就…”是条件判断，用规则做决定","条件可以叠加，多个条件让规则更聪明","电脑就是靠无数个“如果…就…”运行的"],
-  blocks:[["侦测","环境光强度"],["控制","如果 环境光 < 30 那么…否则…"],["LED","RGB 灯 亮起 红色 / 绿色"],["显示","显示 「开灯啦！」/「白天好」"]],
+  blocks:[["传感","环境光强度"],["控制","如果 环境光 < 30 那么…否则…"],["灯","RGB 灯 亮起 红色 / 绿色"],["显示","显示 「开灯啦！」/「白天好」"]],
   projName:"感光小夜灯",
   projEff:"如果光线暗（环境光 < 30），红灯亮，屏幕显示“开灯啦！”；否则绿灯亮，显示“白天好”。把 CyberPi 靠近台灯或用手遮住，它就会自动“变脸”。",
-  steps:["重复执行：读取环境光强度","如果 环境光 < 30：红灯 + “开灯啦！”","否则：绿灯 + “白天好”","用手遮住传感器，看它怎么反应","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，拖入「显示标签」显示“智能红绿灯启动”","拖入「重复执行」，拖入「如果…那么…否则」","如果 环境光强度 < 30：拖入「RGB灯亮起 红色」，拖入「显示标签」显示“开灯啦！”","否则：拖入「RGB灯亮起 绿色」，拖入「显示标签」显示“白天好”","用手遮住传感器，看红灯亮；松开手，看绿灯亮，点击上传验证"],
   challenge:"再加一条规则：如果声音也大，就把灯变成黄色——体验“条件叠加”。",
   tip:"条件判断就是程序做决定的规则。规则越清楚，程序越聪明。",
   hardware:["光线传感器","RGB 灯","显示屏"],
   quiz:[
-    {q:"“如果光线暗，就亮红灯”这是？",o:["控制","条件判断","变量","编码"],a:1,exp:"“如果…就…”是条件判断，根据条件做不同的事。"},
+    {q:"“如果光线暗，就亮红灯”这是？",o:["循环","条件判断","变量","编码"],a:1,exp:"“如果…就…”是条件判断，根据条件做不同的事。"},
     {q:"电脑是靠什么来做决定的？",o:["运气","无数个“如果…就…”规则","猜拳","天气"],a:1,exp:"电脑运行的程序里全是条件和规则。"},
     {q:"想加一条“声音大也提醒”的规则，需要？",o:["换一台电脑","再叠一个条件","删掉旧程序","把灯关掉"],a:1,exp:"多个条件叠加在一起，规则会变得更聪明。"}
   ]
@@ -1126,10 +1099,10 @@ const LESSONS_2 = [
   echoId:10, echoTitle:"会数数的刷牙机器人", echoBrief:"循环就是重复做同一个步骤，可以规定次数或条件",
   story:"绘本里，刷牙机器人会一遍遍数数，帮小朋友刷够时间。今天我们用 CyberPi 做一个刷牙小闹钟——循环 20 次，每次 1 秒，倒计时结束就响铃。",
   knowledge:["循环 = 重复做同一个步骤","循环可以规定“重复几次”或“直到…为止”","电脑最擅长做重复的事"],
-  blocks:[["变量","建立变量 剩余时间"],["控制","重复执行 20 次"],["控制","等待 1 秒"],["显示","显示 剩余时间"],["声音","播放音符 C4 0.5 拍"]],
+  blocks:[["事件","当 CyberPi 启动时"],["变量","剩余时间设为 20"],["控制","重复执行 20 次"],["显示","显示剩余时间"],["控制","等待 1 秒"],["变量","剩余时间减少 1"],["灯","倒计时结束亮绿灯"],["声音","播放完成音效"]],
   projName:"刷牙小闹钟",
   projEff:"开机显示 20，每过 1 秒减 1，倒计时到 0 时，RGB 灯亮起、喇叭播放“刷完啦”的音乐——像绘本里的刷牙机器人一样可靠。",
-  steps:["剩余时间设为 20","重复执行 20 次：显示数字、等待 1 秒、数字减 1","倒计时结束，灯亮 + 播放音乐","改成“重复执行直到按钮被按下”试试","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「剩余时间」，拖入「当CyberPi启动时」，变量设为20","拖入「重复执行20次」：拖入「显示标签」显示剩余时间，拖入「等待1秒」，变量剩余时间减少1","拖入「RGB灯亮起 绿色」，拖入「播放声音 完成」","拖入「显示标签」显示“刷完啦！”","点击上传，将程序烧录到CyberPi，验证倒计时效果"],
   challenge:"把刷牙时间改成 30 秒，倒计时会不会变慢？为什么？",
   tip:"循环让重复的工作稳定、可靠。人怕重复，电脑最爱重复。",
   hardware:["显示屏","RGB 灯","扬声器"],
@@ -1144,10 +1117,10 @@ const LESSONS_2 = [
   echoId:11, echoTitle:"做披萨的流水线", echoBrief:"大任务分解成小步骤，按顺序执行，分工协作更快",
   story:"绘本里，披萨流水线上的每个工人只做一步，大家合作做出大披萨。今天我们用“自制积木”把做汉堡分成几步，让 CyberPi 一步一步画出来。",
   knowledge:["大任务可以分解成小步骤","步骤有先后顺序","合理分解和协作，事情做得更快更好"],
-  blocks:[["我的积木","定义 放面包"],["我的积木","定义 放肉饼"],["我的积木","定义 放蔬菜"],["显示","显示 当前步骤"],["控制","等待 1 秒"]],
+  blocks:[["自制","定义放面包 / 放肉饼 / 放蔬菜"],["显示","各自制积木显示当前步骤"],["控制","每一步等待 0.5 秒"],["事件","当 CyberPi 启动时"],["自制","依次调用三个自制积木"],["显示","显示「汉堡做好啦！」"]],
   projName:"汉堡流水线",
   projEff:"自制 3 个积木——放面包、放肉饼、放蔬菜，再按顺序调用：先面包、再肉饼、最后蔬菜，屏幕一步步画出汉堡，就像一条流水线。",
-  steps:["自制积木「放面包」：画面包 + 显示步骤","自制积木「放肉饼」「放蔬菜」","按顺序调用：面包 → 肉饼 → 蔬菜","完成显示“汉堡做好啦！”","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["自制积木「放面包」：拖入「显示标签」显示“🍞放面包”，等待0.5秒","自制积木「放肉饼」：拖入「显示标签」显示“🥩放肉饼”，等待0.5秒","自制积木「放蔬菜」：拖入「显示标签」显示“🥬放蔬菜”，等待0.5秒","拖入「当CyberPi启动时」，按顺序调用：放面包 → 放肉饼 → 放蔬菜，最后显示标签“汉堡做好啦！”","点击上传，将程序烧录到CyberPi，验证流水线效果"],
   challenge:"把“倒水、放茶叶、搅拌、等待”做成一条“泡茶流水线”。",
   tip:"大任务拆成小步骤，每一步都简单清楚，程序就不容易出错。",
   hardware:["显示屏"],
@@ -1162,10 +1135,10 @@ const LESSONS_2 = [
   echoId:12, echoTitle:"找bug的小修理工", echoBrief:"Bug 是程序里的错误，调试四步：发现问题→找原因→修改→再试",
   story:"绘本里，小修理工拿放大镜找程序里的“小虫子”。今天程序里也藏了一只 Bug：红绿灯的顺序乱了，灯总是不按规则变。帮 CyberPi 把它找出来！",
   knowledge:["Bug = 程序中的错误，会导致结果不对","调试四步：发现问题 → 找到原因 → 修改 → 再试","一步步检查能更快定位问题"],
-  blocks:[["事件","当 CyberPi 启动时"],["控制","如果 按钮A被按下 那么"],["LED","RGB 灯 亮起 绿色（错误：顺序颠倒）"],["显示","显示 提示信息"]],
+  blocks:[["事件","当 CyberPi 启动时"],["循环","重复读取环境光"],["控制","错误条件：环境光 > 30 时开灯"],["控制","修正条件：环境光 < 30 时开灯"],["灯","暗处红灯 / 亮处绿灯"],["显示","显示修改前后的提示"]],
   projName:"修一修红绿灯",
-  projEff:"老师给出一段“生病”的程序：该亮红灯的时候亮成了绿灯，该先显示的字被放到了最后。孩子先预测哪里出错，再修改顺序，最后红灯绿灯恢复正常。",
-  steps:["读一遍程序，说出哪里不对（找 Bug）","找到原因：条件写反 / 顺序颠倒","修改积木（把条件反过来）","再运行一次，灯按规则变色","总结：调试四步法","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"老师给出一段“生病”的光线程序：它把“环境光 > 30”误写成开灯条件，导致亮处开灯、暗处反而不开。孩子先预测结果，再把条件改成“环境光 < 30”，用亮处和暗处复测。",
+  steps:["拖入「当CyberPi启动时」，显示标签“找Bug小修理工”","拖入「重复执行」，读取环境光强度","（Bug程序）如果 环境光强度 > 30：RGB灯亮起红色，显示“开灯啦！”（条件写反了！）","找到Bug：应该是 环境光强度 < 30 才开灯，修改条件积木","修改后重新运行，红灯绿灯恢复正常，点击上传验证修正后的程序"],
   challenge:"和小伙伴交换程序，互相找 Bug，看谁找得又快又准。",
   tip:"发现 Bug 不可怕，按“发现→找因→修改→再试”四步走，程序会越来越健康。",
   hardware:["RGB 灯","按钮","显示屏"],
@@ -1180,10 +1153,10 @@ const LESSONS_2 = [
   echoId:13, echoTitle:"袜子大整理", echoBrief:"分类就是按特征把相似的东西放在一起",
   story:"绘本里，团团把一筐袜子按颜色和大小分好。今天 CyberPi 当“声音分拣员”：把大声和小声自动分成两组，还帮你数一数每组有几只。",
   knowledge:["分类 = 按特征把相似的东西放在一起","分类的规则不同，结果就不同","AI 也是靠分类来认识世界的"],
-  blocks:[["侦测","声音强度"],["控制","如果 声音 > 60 那么…否则…"],["变量","大声组 / 小声组 各 +1"],["显示","显示 两组数量"]],
+  blocks:[["传感","声音强度"],["控制","如果 声音 > 60 那么…否则…"],["变量","大声组 / 小声组 各 +1"],["显示","显示 两组数量"]],
   projName:"声音分拣员",
   projEff:"对着麦克风拍手（大声）→“大声组”加 1；轻轻说话（小声）→“小声组”加 1。屏幕显示两组各有多少，像整理袜子一样整理声音。",
-  steps:["读取声音强度","声音 > 60：大声组 +1，显示“大声！”","否则：小声组 +1，显示“小声…”","屏幕显示两组数量","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「大声组」「小声组」，拖入「当CyberPi启动时」，两个变量都设为0","拖入「当按钮A被按下时」，读取声音强度","拖入「如果…那么…否则」：如果 声音强度 > 60，大声组增加1，显示标签“大声！”；否则小声组增加1，显示标签“小声…”","拖入「显示标签」显示“大声组=N 小声组=M”","对着麦克风拍手或轻轻说话，按按钮A记录，点击上传验证"],
   challenge:"把规则改成按“光线亮暗”分类，整理“亮光组”和“暗光组”。",
   tip:"分类规则不同，结果就不同——用“大小”分是一种分法，用“颜色”分是另一种。",
   hardware:["麦克风（声音传感器）","显示屏"],
@@ -1198,10 +1171,10 @@ const LESSONS_2 = [
   echoId:14, echoTitle:"特征放大镜", echoBrief:"特征是能区分事物的线索，找相同和找不同是识别的基本方法",
   story:"绘本里，团团用放大镜找猫和狗的特征：竖耳朵还是耷耳朵。今天 CyberPi 用“放大镜”看你的动作——向左摇还是向右摇，用方向特征来区分。",
   knowledge:["特征 = 能区分不同事物的线索","有些特征更能帮助识别","找相同和找不同，是识别事物的基本方法"],
-  blocks:[["运动传感","加速度 X 轴 / 陀螺仪"],["控制","如果 加速度X < -1 那么"],["显示","显示 「← 向左摇！」"],["显示","显示 「→ 向右摇！」"]],
+  blocks:[["事件","当 CyberPi 启动时"],["循环","重复读取姿态"],["传感","加速度 X 轴 / Y 轴"],["控制","比较 X、Y 轴与方向阈值"],["显示","显示 ← / → / ↑ 方向"]],
   projName:"摇一摇识方向",
   projEff:"把 CyberPi 向左摇：屏幕显示“←”；向右摇：显示“→”；向上举：显示“↑”。用摇动的方向当“特征”，CyberPi 就能认出你的动作。",
-  steps:["读取加速度 X 轴的值","向左摇（X < -1）：显示“←”","向右摇（X > 1）：显示“→”","加上向上摇（Y 轴）的识别","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，显示标签“摇一摇识方向”","拖入「重复执行」，读取加速度X轴的值","拖入「如果…那么…否则 if」：如果 加速度X < -1，显示标签“← 向左摇”","拖入「如果 加速度X > 1」，显示标签“→ 向右摇”；拖入「如果 加速度Y < -1」，显示标签“↑ 向上举”","左右上下摇动CyberPi，观察屏幕方向显示，点击上传验证"],
   challenge:"设计一个新特征：“摇两下 = 跳一跳”，让 CyberPi 认出来。",
   tip:"好的特征一眼就能区分事物。选特征就像玩“找不同”。",
   hardware:["6 轴陀螺仪+加速度计","显示屏"],
@@ -1216,10 +1189,10 @@ const LESSONS_2 = [
   echoId:15, echoTitle:"猜一猜明天带伞吗", echoBrief:"预测是根据过去的规律猜未来，信息越多预测越靠谱",
   story:"绘本里，团团看天色猜明天要不要带伞。今天 CyberPi 当“小小天气预报员”——连续记录 3 次光线，根据规律猜明天是晴是雨。",
   knowledge:["预测 = 根据过去的规律来猜未来","预测不是 100% 确定，有不确定性","规律越明显、信息越多，预测越靠谱"],
-  blocks:[["变量","记录 光线1 / 光线2 / 光线3"],["运算","光线1 > 50 且 光线2 > 50"],["控制","如果 都亮 那么"],["显示","显示 预测结果"]],
+  blocks:[["事件","当 CyberPi 启动时"],["变量","光1 / 光2 / 光3 设为 0"],["事件","当按钮 A 被按下时"],["传感","读取三次环境光强度"],["运算","三次都大于 50 / 光3小于光1"],["控制","如果…那么…否则 if"],["显示","显示趋势预测结果"]],
   projName:"小小天气预报员",
-  projEff:"程序连续记录 3 次环境光强度：如果三次都很亮，预测“明天是晴天”；如果越来越暗，预测“要下雨啦，带伞！”——像绘本里的团团一样做预测。",
-  steps:["连测 3 次光线，分别存进变量","如果 3 次都 > 50：预测“晴天！”","如果 第3次 < 第1次：预测“要下雨带伞”","屏幕显示预测结果","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"程序连续记录 3 次环境光强度，根据“持续明亮”或“逐渐变暗”的人工规则给出趋势提示。这个作品用来理解预测流程，不是真实天气预报；真正的天气预测需要更多可靠数据。",
+  steps:["建立变量「光1」「光2」「光3」，拖入「当CyberPi启动时」，变量都设为0","拖入「当按钮A被按下时」：光1=环境光强度，等待0.5秒，光2=环境光强度，等待0.5秒，光3=环境光强度","拖入「如果…那么…否则 if」：如果 光1>50 且 光2>50 且 光3>50，显示标签“预测：晴天！”","拖入「如果 光3 < 光1」，显示标签“预测：要下雨带伞！”","在不同光线下按按钮A测试，观察预测结果，点击上传验证"],
   challenge:"每天记录一次光线，坚持一周，看看能不能预测第 7 天的天气。",
   tip:"信息越多、规律越明显，预测越准。但预测永远有不确定性。",
   hardware:["光线传感器","显示屏"],
@@ -1234,10 +1207,10 @@ const LESSONS_2 = [
   echoId:16, echoTitle:"背答案的鹦鹉", echoBrief:"背答案不等于真学会，过拟合是只会做见过的题",
   story:"绘本里，鹦鹉只会背“1+1=2”，换个问题就哑了。今天让 CyberPi 也当一回“背答案的鹦鹉”——它只准备了两个固定问答，遇到新问题就答不上来。",
   knowledge:["只记住答案不等于真正学会","过拟合 = 只会做见过的题，不会做新题","真正的学习是理解规律、能举一反三"],
-  blocks:[["变量","建立变量 问题"],["控制","如果 问题 = 1+1 那么"],["声音","朗读 「答案是 2」"],["显示","显示 回答结果"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A / B 选择已存问答"],["事件","按下摇杆选择陌生问题"],["变量","当前问题"],["控制","按问题编号进入不同分支"],["显示","显示固定答案 / 这个我不会"]],
   projName:"背答案的鹦鹉",
-  projEff:"程序只存了两个固定问答：“1+1=？”答“2”，“3+2=？”答“5”。你问“2+3=？”它就答不上来了——因为它只会背，没有真正学会加法。",
-  steps:["存两个固定问答（问题和答案）","识别输入的问题","如果问题匹配，就朗读背好的答案","问一个没背过的问题，看它怎么“卡壳”","讨论：怎样才算真的会？","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"程序只存了两个固定问答：按钮 A 显示“1+1=2”，按钮 B 显示“3+2=5”。按下摇杆选择没有存过的“2+3=？”时，它只能显示“这个我不会”——说明它是在查固定答案，不是真正掌握加法。",
+  steps:["建立变量「当前问题」，拖入「当CyberPi启动时」，显示标签“背答案的鹦鹉”，当前问题设为0","拖入「当按钮A被按下时」：当前问题设为1，显示标签“问题：1+1=？”，等待1秒，显示标签“答案：2”","拖入「当按钮B被按下时」：当前问题设为2，显示标签“问题：3+2=？”，等待1秒，显示标签“答案：5”","拖入「当摇杆被按下时」：显示标签“问题：2+3=？”，等待1秒，再显示“这个我没背过…”；明确给陌生问题一个可操作入口","上传后分别触发 A、B、摇杆进行验证并记录结果，讨论“查固定答案”和“学会运算”的区别"],
   challenge:"给鹦鹉加 3 组新问答，再讨论：它是在“学会”还是在“背答案”？",
   tip:"背答案的鹦鹉遇到新题就露馅——真正的学习要理解规律，能举一反三。",
   hardware:["显示屏","扬声器","按钮"],
@@ -1254,12 +1227,12 @@ const LESSONS_3 = [
 {
   id:17, ch:3, title:"练习题不能当考试题", theme:"训练集、测试集与泛化",
   echoId:17, echoTitle:"学校里的AI同学", echoBrief:"训练集是练习题，测试集是考试题，用新题检验是否真学会",
-  story:"绘本里的 AI 同学先做练习题，再接受没见过的新题考试。这一课把主要实验放在在线积木编程环境：用不同角度和光线下的图形卡片训练两个类别，并提前留出一组从未参与训练的卡片作为测试集。CyberPi 负责显示最后的测试结论。",
+  story:"绘本里的 AI 同学先做练习题，再接受没见过的新题考试。这一课在 mBlock 的机器学习扩展中，用不同角度和光线下的图形卡片训练两个类别，并提前留出一组从未参与训练的卡片作为测试集。按下 CyberPi 按钮 A 开始测试，真机负责显示最后的测试结论。",
   knowledge:["训练集用于让模型寻找规律，测试集用于独立检验","测试图片不能偷偷混进训练集","在新样本上仍能做对，才说明模型有一定泛化能力"],
-  blocks:[["AI","机器学习 2.0：建立两个图像类别"],["AI","训练并使用模型"],["控制","如果识别类别为…那么"],["变量","记录测试总数与正确数"],["运算","正确数÷总数×100"]],
+  blocks:[["扩展","机器学习 2.0：建立两个图像类别"],["扩展","训练并使用模型"],["事件","按钮 A 记录一次测试"],["事件","按钮 B 记录一次正确"],["变量","记录测试总数与正确数"],["运算","正确数÷总数×100"],["显示","显示测试准确率与结论"]],
   projName:"AI 同学的新题考试",
-  projEff:"孩子分工准备“训练卡”和“考试卡”。在在线积木编程环境中训练圆形与三角形分类器，再逐张测试从未见过的卡片，记录总数、正确数和错误样本。最后把准确率与结论显示到 CyberPi。",
-  steps:["先把卡片分为训练袋和测试袋，测试袋暂时封存","在在线机器学习扩展中分别采集圆形、三角形训练样本","训练模型，并只用测试袋里的新卡片进行考试","每测一张就更新总数和正确数，计算测试准确率","观察错误样本，补充更有代表性的训练数据后重新训练并复测","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"孩子先在 mBlock 机器学习扩展中训练圆形与三角形分类器，并用未参与训练的新卡片测试。CyberPi 不替代摄像头模型：按钮 A 记录一次测试，按钮 B 记录一次正确结果，真机负责计算并显示测试总数、正确数和准确率。",
+  steps:["把图形卡分成训练袋和测试袋；在 mBlock 在线模式打开机器学习扩展，创建“圆形”和“三角形”两个类别","只用训练袋采集样本：每类至少10张，主动改变大小、角度和光线，然后点击训练并保存模型","在 CyberPi 上传程序中建立“测试总数、正确数”变量：按 A 记录一次测试，模型判断正确时再按 B 记录一次正确","每次按键后重新计算 正确数÷测试总数×100，并在 CyberPi 屏幕显示“测试N次 / 正确M次 / 准确率P%”","只用封存的测试袋完成至少10次新卡测试；记录错例，补充有代表性的训练样本后重新训练和复测"],
   challenge:"比较“每类5张训练图”和“每类15张、多角度训练图”的测试结果。不能用训练过的图片冒充测试成绩。",
   tip:"模型训练与测试发生在在线机器学习环境，CyberPi 承担硬件输入、运行反馈与结果展示。",
   hardware:["CyberPi 全彩显示屏（显示测试结果）","RGB 灯带（结果提示）"],
@@ -1272,12 +1245,12 @@ const LESSONS_3 = [
 {
   id:18, ch:3, title:"奖励真的会改变选择", theme:"强化学习循环",
   echoId:18, echoTitle:"小狗学握手", echoBrief:"强化学习通过“奖励”学会行为：做对了得奖励，下次更愿意做",
-  story:"绘本里的小狗会因为奖励而逐渐改变行为。仅仅给玩家加分还不是强化学习；这一课在在线积木编程舞台上做一个简化的“选门智能体”：程序自己选择 A 门或 B 门，根据奖励更新两扇门的分数，并在下一轮更常选择高分门。",
+  story:"绘本里的小狗会因为奖励而逐渐改变行为。仅仅给玩家加分还不是强化学习；这一课在 mBlock 中做一个简化的“选门智能体”：按下 CyberPi 按钮 A 后，程序自己选择 A 门或 B 门，根据奖励更新两扇门的价值，并在下一轮更常选择高价值门。",
   knowledge:["强化学习包含智能体、环境、动作和奖励","关键不是显示奖励，而是程序用奖励更新选择策略","探索新选择与利用已知好选择需要平衡"],
-  blocks:[["变量","A门价值 / B门价值 / 当前动作"],["运算","随机数决定探索或利用"],["控制","如果A门价值>B门价值那么"],["变量","根据奖励更新所选门价值"],["控制","重复多轮并记录选择"]],
+  blocks:[["事件","启动时初始化价值"],["事件","按钮 A 开始 50 轮实验"],["变量","A门价值 / B门价值 / 当前动作"],["运算","随机数决定探索或利用"],["控制","如果A门价值>B门价值那么"],["变量","根据奖励更新所选门价值"],["循环","重复多轮并记录选择"],["显示","显示本轮选择与两门价值"],["灯","获得奖励时 RGB 灯亮绿色"]],
   projName:"会改变策略的选门智能体",
-  projEff:"在线编程角色每轮选择一扇门。环境在 A 门后更常给星星，程序收到奖励后更新对应的“门价值”，随后逐渐更常选择 A 门。孩子用折线或列表观察策略怎样随奖励改变；CyberPi 用灯光显示本轮奖励。",
-  steps:["建立两扇门的价值和选择次数，初始相同","每轮用少量随机探索，否则选择当前价值更高的门","环境按设定概率给出1或0的奖励","把奖励用于更新所选门的价值，而不是只给玩家加分","运行50轮，比较前10轮和后10轮的选择变化","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"按下 CyberPi 实体按钮 A 开始 50 轮实验。程序每轮选择一扇门，A 门更常得到奖励；收到奖励后更新对应的“门价值”，屏幕显示选择与价值，RGB 灯用绿色提示奖励。孩子比较前后 10 轮，观察选择怎样随奖励改变。",
+  steps:["建立变量「门A价值」「门B价值」「轮数」，拖入「当CyberPi启动时」，门A价值=门B价值=50，轮数=0","拖入「当按钮A被按下时」，在下面加入「重复执行50次」：轮数增加1；随机数≤3时随机选门（探索），否则选价值更高的门","（环境奖励）如果选A门，生成随机数1-10，如果≤7则门A价值增加10（A门奖励概率高）","如果选B门，生成随机数1-10，如果≤3则门B价值增加10；显示标签“第N轮：A价值=.. B价值=..”","上传后按 A 运行实验，比较前10轮和后10轮的选择变化，观察策略怎样随奖励改变"],
   challenge:"把奖励更高的门从A换成B，观察程序需要多少轮才改变策略；记录而不是凭感觉回答。",
   tip:"如果程序下一轮的选择规则没有因奖励而更新，这只是奖励小游戏，不是强化学习实验。",
   hardware:["CyberPi RGB灯带（显示奖励）","全彩显示屏（显示轮数）"],
@@ -1292,10 +1265,10 @@ const LESSONS_3 = [
   echoId:19, echoTitle:"贴标签的老师", echoBrief:"监督学习是有标准答案的学习，标签越清楚学得越好",
   story:"绘本里的老师把“猫”和“狗”作为正确答案贴在图片上。固定写下“听到红色就亮红灯”只是条件规则，不是训练模型；今天在在线机器学习扩展中真正采集带标签的图形样本，让模型从例子中学习。",
   knowledge:["监督学习使用带标签的样本训练模型","标签说明每个样本的目标类别","写if规则和训练分类器是两种不同方法"],
-  blocks:[["AI","机器学习 2.0：采集带标签图像"],["AI","训练并使用分类模型"],["控制","如果识别类别为圆形那么"],["显示","角色显示识别类别"],["变量","记录正确与错误次数"]],
+  blocks:[["扩展","机器学习 2.0：采集圆形 / 三角形带标签样本"],["扩展","训练并使用图像分类模型"],["控制","如果识别结果为圆形 / 三角形"],["事件","CyberPi 按钮 A 记录一次测试"],["事件","CyberPi 按钮 B 记录一次正确"],["变量","测试总数 / 正确数 / 准确率"],["显示","CyberPi 显示测试统计与结论"]],
   projName:"贴标签的图形老师",
-  projEff:"孩子为圆形和三角形图片贴上类别标签，在在线积木编程环境中训练分类器，再用新画的图形测试。角色先显示模型判断，再让 CyberPi 用不同灯色表示识别类别。",
-  steps:["准备多种颜色、大小和角度的圆形与三角形","按正确类别采集带标签训练样本","训练模型并保存训练条件","用没参与训练的新图测试并记录错误","对照一个手写if规则，讨论两种方法的区别","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"孩子在 mBlock 机器学习扩展中为圆形和三角形样本贴标签并训练真实分类模型，再用新图测试；CyberPi 的 A/B 按钮负责记录“测试一次/判断正确”，屏幕显示正确率。这样能清楚区分“模型学习”与“硬件统计验证”。",
+  steps:["在 mBlock 在线模式打开机器学习扩展，新建“圆形”和“三角形”两个类别，并准备颜色、大小、角度不同的图形卡","把卡片放到摄像头前，按正确标签采集样本；每类数量保持接近，检查是否误贴标签后点击训练模型","用未参与训练的新图逐张测试；mBlock 显示模型类别，孩子核对答案后按 CyberPi 按钮 A 记“测试+1”，判断正确再按 B 记“正确+1”","在 CyberPi 程序中计算正确数÷测试数×100，屏幕显示准确率；分别记录旋转、遮挡和暗光条件下的结果","挑选错误样本分析原因，补充更有代表性的训练图后重新训练；再次用同一测试组验证改进是否有效"],
   challenge:"故意贴错一张标签再训练，观察错误标签怎样影响结果；修正后重新测试。",
   tip:"语音识别结果再接if判断，是在使用已经训练好的识别服务加规则，并不等于你完成了监督学习训练。",
   hardware:["CyberPi RGB灯带（类别反馈）","全彩显示屏（显示结果）"],
@@ -1308,12 +1281,12 @@ const LESSONS_3 = [
 {
   id:20, ch:3, title:"没有标签的玩具箱", theme:"无监督学习",
   echoId:20, echoTitle:"没有标签的玩具箱", echoBrief:"无监督学习不给标准答案，自己按相似性分组",
-  story:"绘本中的玩具没有标签，需要按相似性自己聚成几堆。把数据与人工指定的平均值比较仍是一条分类规则；这一课在在线积木编程舞台上用两颗会移动的“中心点”，让无标签圆点反复靠近最近的中心，体验简化的 k-means 聚类。",
+  story:"绘本中的玩具没有标签，需要按相似性自己聚成几堆。把数据与人工指定的平均值比较仍是一条分类规则；这一课在 mBlock 中用两组坐标和两颗会移动的“中心点”，让无标签数据反复靠近最近的中心，体验简化的 k-means 聚类。",
   knowledge:["无监督学习的数据没有预先给出的目标标签","聚类根据距离或相似性形成分组","分成几组、采用什么距离都会影响结果"],
-  blocks:[["变量","保存每个点的x与y坐标"],["变量","中心1 / 中心2 坐标"],["运算","计算点到两个中心的距离"],["控制","重复分配点并更新中心"],["显示","为两个簇显示不同颜色"]],
+  blocks:[["事件","当按键 A 按下时运行一轮"],["列表","保存一维无标签数据"],["变量","中心1 / 中心2 / 两组总和与计数"],["运算","计算数据到两个中心的绝对距离"],["控制","分给最近中心并更新中心"],["显示","CyberPi 显示两组数量与中心值"],["灯","两个簇分别显示蓝色 / 黄色"]],
   projName:"会移动中心的玩具箱",
-  projEff:"程序随机生成两团没有标签的圆点，先放置两个中心，把每个点分给最近中心，再按分组位置移动中心；反复几轮后形成两个簇。CyberPi 最后显示两组数量。",
-  steps:["在舞台上生成两团无标签点并保存坐标","随机放置两个聚类中心","把每个点分给距离更近的中心","分别计算两组平均位置并移动中心","重复3到5轮，观察分组何时稳定","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"mBlock 程序读取一组没有标签的一维数据，先设置两个中心，把每个数分给更近的中心，再按组内平均值移动中心；每按一次 CyberPi 按钮 A 运行一轮，3 到 5 轮后观察中心趋于稳定。",
+  steps:["在 mBlock 中建立数据列表，输入 2、3、4、10、11、12 六个没有标签的一维数据；建立中心1=3、中心2=10 和两组计数、总和变量","按 CyberPi 按钮 A 开始一轮：清空两组总和与计数，逐个读取数据，比较它到两个中心的绝对距离","数据离中心1更近就累加到第1组，否则累加到第2组；CyberPi 用蓝灯/黄灯提示当前数据被分到哪一组","一轮结束后分别用“组内总和÷组内数量”更新两个中心，并在 CyberPi 屏幕显示新中心值；避免用固定 x 分界代替距离计算","连续按 A 运行3到5轮，直到中心值不再变化；修改一个数据后重测，观察分组与中心怎样改变"],
   challenge:"把两个中心的初始位置换掉，或增加第三团点，比较聚类结果为什么可能变化。",
   tip:"“没有标签”不代表随便用一条阈值规则就成了无监督学习；这里需要让分组中心由数据反复更新。",
   hardware:["CyberPi 全彩显示屏（显示簇数量）"],
@@ -1328,10 +1301,10 @@ const LESSONS_3 = [
   echoId:21, echoTitle:"点亮聪明灯", echoBrief:"神经元接收多个信号，共同决定是否“点亮”",
   story:"绘本里，聪明灯要收到很多信号才会亮。今天 CyberPi 也有一颗“聪明灯”：光线亮 且 声音大，两个信号都到齐，灯才亮——这就是一个迷你神经元。",
   knowledge:["神经元（节点）是处理信息的小单元","一个神经元接收很多输入信号","多个信号共同决定输出"],
-  blocks:[["侦测","环境光强度"],["侦测","声音强度"],["运算","光线亮 且 声音大"],["控制","如果 两个都满足 那么"],["LED","RGB 灯 亮起 黄色"]],
+  blocks:[["传感","环境光强度"],["传感","声音强度"],["运算","光线亮 且 声音大"],["控制","如果 两个都满足 那么"],["灯","RGB 灯 亮起 黄色"]],
   projName:"小小神经元",
   projEff:"一颗“聪明灯”神经元：只有当光线亮 且 声音大时（比如拍手+开灯），灯才亮；只满足一个条件，灯不亮。像神经元一样“收集信号→决定亮不亮”。",
-  steps:["读取光线强度和声音强度","用「且」把两个条件连起来","两个都满足：黄灯亮 + 显示“神经元激活！”","缺一个条件：灯灭","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["拖入「当CyberPi启动时」，显示标签“聪明灯神经元”","拖入「重复执行」，读取光线强度和声音强度","拖入「如果…那么…否则」：如果 光线强度>50 且 声音强度>60","那么：RGB灯亮起黄色，显示标签“神经元激活！”；否则：RGB灯熄灭，显示标签“等待信号…”","同时开灯并拍手（两个条件都满足），观察灯亮；只满足一个条件灯不亮，点击上传验证"],
   challenge:"把「且」改成「或」，灯什么时候会亮？和“且”有什么区别？",
   tip:"神经元收到多个输入，一起决定输出。大脑里千亿个神经元就是这么工作的。",
   hardware:["光线传感器","麦克风","RGB 灯"],
@@ -1346,10 +1319,10 @@ const LESSONS_3 = [
   echoId:22, echoTitle:"从边边角角到整张脸", echoBrief:"神经网络分层处理：前层看简单局部，后层组合成整体",
   story:"绘本里，神经网络先看见边边角角，再拼出整张脸。今天 CyberPi 当“三层小助手”：第一层看光线，第二层听声音，第三层综合出结论。",
   knowledge:["神经网络有多层，每层看不同层次的信息","前面的层看简单的局部","后面的层把局部组合成整体"],
-  blocks:[["我的积木","定义 第一层：看光线"],["我的积木","定义 第二层：听声音"],["我的积木","定义 第三层：综合结论"],["显示","显示 结论卡"]],
+  blocks:[["事件","当 CyberPi 启动时"],["传感","环境光强度 / 声音强度"],["自制","定义 第一层：看光线"],["自制","定义 第二层：听声音"],["自制","定义 第三层：综合结论"],["显示","显示 结论卡"]],
   projName:"三层小助手",
   projEff:"第一层看光线（亮/暗），第二层听声音（大/小），第三层把两层结果综合成结论卡：亮+大声=“热闹的白天”，暗+小声=“安静的夜晚”——像神经网络一样一层层加工信息。",
-  steps:["自制积木「第一层」：判断光线亮暗","自制积木「第二层」：判断声音大小","自制积木「第三层」：组合两层结果","按“第一层→第二层→第三层”顺序调用","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["自制积木「第一层」：读取光线强度，如果>50则显示标签“第一层：亮”，否则显示标签“第一层：暗”","自制积木「第二层」：读取声音强度，如果>60则显示标签“第二层：大声”，否则显示标签“第二层：小声”","自制积木「第三层」：如果光线亮且声音大，显示标签“结论：热闹的白天”；如果光线暗且声音小，显示标签“结论：安静的夜晚”","拖入「当CyberPi启动时」，按顺序调用：第一层 → 第二层 → 第三层","在不同环境下测试，观察三层怎样一步步加工信息，点击上传验证"],
   challenge:"再加一层“按钮层”，三层变四层，结论会更丰富。",
   tip:"分层让复杂任务变简单：每层只管一小步，组合起来就是大智慧。",
   hardware:["光线传感器","麦克风","按钮","显示屏"],
@@ -1364,10 +1337,10 @@ const LESSONS_3 = [
   echoId:23, echoTitle:"音量旋钮决定谁更重要", echoBrief:"权重像旋钮，控制每个线索的影响力",
   story:"绘本里，音量旋钮决定谁的声音更重要。今天 CyberPi 有两个线索：光线和声音。我们给它们各接一个“旋钮”（权重），调大谁，谁说了就算。",
   knowledge:["不同的线索重要程度不一样","权重就像旋钮，控制每个线索的影响力","调整权重是让 AI 变聪明的关键"],
-  blocks:[["变量","建立变量 光线权重 / 声音权重"],["运算","综合分 = 光线×权重1 + 声音×权重2"],["事件","当按钮A被按下时"],["显示","显示 综合分 和 谁说了算"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A / B 调整两种权重"],["传感","环境光强度 / 声音强度"],["变量","光线权重 / 声音权重 / 综合分"],["运算","综合分 = 光线×权重1 + 声音×权重2"],["显示","显示 综合分 和 谁说了算"]],
   projName:"谁说了算",
   projEff:"综合分 = 光线得分×光线权重 + 声音得分×声音权重。按按钮调大光线权重，光线就“说了算”；调大声音权重，声音就“说了算”。屏幕实时显示综合分。",
-  steps:["建立权重变量（初始各为 1）","按 A：光线权重 +1；按 B：声音权重 +1","计算综合分 = 光线×权重1 + 声音×权重2","屏幕显示综合分和“谁的权重更大”","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「光线权重」「声音权重」「综合分」，拖入「当CyberPi启动时」，光线权重=声音权重=1，综合分=0","拖入「当按钮A被按下时」：光线权重增加1，显示标签“光线权重=..”","拖入「当按钮B被按下时」：声音权重增加1，显示标签“声音权重=..”","拖入「重复执行」：综合分 = 环境光强度×光线权重 + 声音强度×声音权重；显示标签“综合分=..”；如果光线权重>声音权重则显示“光线说了算”否则显示“声音说了算”","按A/B调权重，观察综合分和“谁说了算”的变化，点击上传验证"],
   challenge:"做个小实验：判断“今天冷不冷”，光线和声音哪个线索更重要？",
   tip:"权重大的线索影响大。AI 就是靠调权重，学会“谁更重要”。",
   hardware:["光线传感器","麦克风","按钮","显示屏"],
@@ -1382,12 +1355,12 @@ const LESSONS_3 = [
   echoId:24, echoTitle:"慢慢调准的小箭头", echoBrief:"梯度下降是每次只调一点点，慢慢接近目标",
   story:"绘本里，小箭头每次只动一点点，慢慢对准目标。今天 CyberPi 学“自动调音师”：从阈值 0 开始，每次 +5，慢慢找到一个能把拍手和说话分开的最佳值。",
   knowledge:["每次只调整一点点，慢慢接近目标","方向要对——朝着“更接近答案”的方向调","持续微调，结果越来越好"],
-  blocks:[["变量","建立变量 阈值"],["控制","重复执行直到 找到最佳值"],["运算","阈值 增加 5"],["侦测","声音强度"],["显示","显示 当前阈值"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A 让阈值增加 5"],["事件","按下摇杆测试当前声音"],["事件","按钮 B 保存最佳阈值"],["变量","阈值 / 最佳阈值"],["传感","声音强度"],["控制","比较声音与当前阈值"],["显示","显示 当前阈值与测试结果"]],
   projName:"自动调音师",
-  projEff:"程序从阈值 0 开始，每次 +5，测试“拍手”和“轻轻说话”能不能被分开：声音 > 阈值算“大声”。慢慢地，阈值调整到不偏大也不偏小——这就是一步步逼近最佳值。",
-  steps:["阈值从 0 开始","重复：阈值 +5，测试能否分开拍手和说话","拍手 > 阈值 且 说话 ≤ 阈值 → 记下这个阈值","继续微调，找出“最佳阈值”","显示“找到啦：阈值 = N”","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"程序让阈值从 0 开始每次增加 5，孩子用拍手和轻声说话反复测试并记录错误，逐步找到更合适的分界值。它是“逐步逼近”的参数搜索体验，不把简单扫描冒充真正的梯度计算。",
+  steps:["建立变量「阈值」「最佳阈值」，拖入「当CyberPi启动时」，阈值=0，最佳阈值=0，显示“A调阈值 / 摇杆测试 / B保存”","拖入「当按钮A被按下时」：阈值增加5；如果阈值>100则重新设为0，并显示“当前阈值=..”","拖入「当摇杆被按下时」：读取声音强度；如果声音强度>阈值就显示“大声”，否则显示“小声”，同时显示实测值","交替用轻声说话和拍手测试；每按一次 A 只调高一点，记录哪几个阈值能稳定分开两类声音","找到合适值后按 B 保存为最佳阈值；上传后用多次轻声和拍手复测，说明这是逐步参数搜索而非真正梯度计算"],
   challenge:"换成光线数据，让程序自己找到“亮/暗”的分界线。",
-  tip:"每次调一点点、方向要对，慢慢就接近了目标——这就是“梯度下降”的直觉。",
+  tip:"本课用逐步调参帮助理解“根据误差朝更好的方向改一点”的直觉；真正的梯度下降还需要损失函数和梯度计算。",
   hardware:["麦克风","显示屏"],
   quiz:[
     {q:"梯度下降是怎么接近目标的？",o:["一步跳过去","每次调一点点","原地不动","乱调"],a:1,exp:"每次只调整一点点，方向对了就慢慢接近目标。"},
@@ -1402,12 +1375,12 @@ const LESSONS_4 = [
 {
   id:25, ch:4, title:"下一个词实验室", theme:"语言模型的概率预测",
   echoId:25, echoTitle:"会接话的鹦鹉2.0", echoBrief:"语言模型根据前面的话预测下一个词，AI 在“接话”而不是“懂”",
-  story:"绘本里的鹦鹉根据前面的话接着说。固定写下“如果你好就回答你好呀”只是查表规则，不是语言模型；这一课用在线积木编程统计一个小语料中词语相邻出现的次数，再按频率猜测下一个词，制作可观察的简化语言模型。",
+  story:"绘本里的鹦鹉根据前面的话接着说。固定写下“如果你好就回答你好呀”只是查表规则，不是语言模型；这一课用 mBlock 统计一个小语料中词语相邻出现的次数，再按频率猜测下一个词，制作可观察的简化语言模型。",
   knowledge:["语言模型根据上下文估计下一个词或词元的概率","固定问答表不会学习概率，不能冒充语言模型","训练语料不同，预测分布也会不同"],
-  blocks:[["变量","保存句子拆分后的词序列"],["变量","统计候选下一个词次数"],["控制","遍历语料寻找相邻词"],["运算","按次数换算候选概率"],["运算","按权重抽取下一个词"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A 执行一次加权抽取"],["变量","三个候选次数 / 总次数 / 随机数"],["运算","次数÷总次数得到概率"],["随机","按 3:2:1 区间抽取下一个词"],["显示","CyberPi 显示候选词与概率"],["声音","朗读生成的短词链"]],
   projName:"迷你词语接龙模型",
-  projEff:"程序读取老师准备的短句列表，统计“天气”后面出现过“很好”“变冷”“晴朗”各几次，再按频率预测或抽取下一个词。孩子修改语料后观察结果变化；CyberPi 朗读最后生成的短词链。",
-  steps:["准备不含个人信息的短句语料并拆成词序列","选择一个当前词，遍历语料统计它后面的候选词","把候选次数换算成简单概率并显示","选择最高概率词或按权重随机抽取","把新词接到句子后重复两到三轮，标明这是简化模型","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"孩子先从老师准备的6条短句中统计“天气”后面各候选词出现次数，再把次数输入 mBlock。程序计算概率并按3:2:1的权重抽取下一个词；修改语料和次数后，CyberPi 的生成分布也会变化。",
+  steps:["准备6条不含个人信息的短句，统计“天气”后面各词出现次数，例如：很好3次、变冷2次、晴朗1次；在 mBlock 建立三个次数变量","用 次数÷总次数 计算候选概率，在 CyberPi 屏幕分页显示“很好50%、变冷33%、晴朗17%”，先预测哪个词最常出现","按 CyberPi 按钮 A 生成1到6的随机数：1–3选“很好”、4–5选“变冷”、6选“晴朗”，实现按频率加权抽取，而不是等概率随机","把抽到的词接到“天气”后并显示、朗读；重复20次，统计三种结果次数，检查是否大致接近3:2:1","修改语料中的出现次数，重新计算随机区间并复测；说明这是可观察的简化概率模型，不等同于大型语言模型"],
   challenge:"分别用“天气故事”和“动物故事”两套语料，从同一个开头生成词链，比较训练数据怎样改变预测。",
   tip:"本课是帮助理解概率预测的微型模型，不等同于大型语言模型，也不能据此说机器真正理解了句意。",
   hardware:["CyberPi 扬声器（朗读结果）","全彩显示屏（显示候选词）"],
@@ -1422,10 +1395,10 @@ const LESSONS_4 = [
   echoId:26, echoTitle:"给AI的清楚指令", echoBrief:"提示词就是你给 AI 的指令，指令越清楚回答越靠谱",
   story:"绘本里，团团发现说得越清楚，AI 做得越好。今天做个小实验：对 CyberPi 说“灯”——它不知道怎么办；说“把灯变成红色”——它立刻就懂了。",
   knowledge:["提示词就是你给 AI 的指令","指令越清楚，AI 的回答越靠谱","好的提示词要说明角色、目标和限制"],
-  blocks:[["AI","识别语音 2 秒"],["控制","如果 结果 = 灯 那么（模糊）"],["控制","如果 结果 = 把灯变成红色 那么"],["LED","RGB 灯 亮起 红色"],["显示","显示 提示词对比"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","当按钮 A / B 被按下时"],["显示","A 显示模糊指令「灯」"],["显示","B 显示清楚指令「把灯变红3秒」"],["控制","等待 3 秒"],["灯","RGB 灯亮红后熄灭"]],
   projName:"清楚的魔法指令",
-  projEff:"对比两种指令：说“灯”（模糊指令）→ CyberPi 显示“我不确定你想做什么”；说“把灯变成红色”（清楚指令）→ 灯立刻变红。总结：指令越清楚，效果越好。",
-  steps:["设计模糊指令：“灯”“（程序不知道怎么执行）","设计清楚指令：“把灯变成红色”","分别测试两种指令","对比结果，讨论“为什么”","把指令写成“角色+目标+限制”格式","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"基础版用实体按钮稳定演示提示词差异：按 A 代表只说“灯”，设备提示信息不足；按 B 代表“把灯变成红色并持续3秒”，设备准确执行。进阶版可在联网在线模式中把按钮替换为语音识别。",
+  steps:["在 mBlock 上传模式拖入「当 CyberPi 启动时」，显示“提示词实验：A模糊 / B清楚”，让两种输入条件保持一致","拖入「当按钮 A 被按下时」：显示“指令：灯”，再显示“缺少颜色、动作和时间，我不确定怎么做”，RGB 灯保持熄灭","拖入「当按钮 B 被按下时」：显示“把灯变成红色并持续3秒”，RGB 灯亮红、等待3秒后熄灭，并显示“任务完成”","分别按 A、B 测试并填写对比表：目标是否明确、限制是否明确、结果是否可检查；说明按钮只是稳定模拟两条提示词","把新指令写成“对象+动作+参数+限制”，修改 B 分支真实执行并复测；若课堂网络稳定，再用在线语音识别替换按钮输入"],
   challenge:"把“让 CyberPi 开心”改写成一条清楚的指令（比如“把灯变成黄色并播放音乐”）。",
   tip:"给 AI 下指令（写提示词），越具体、越清楚，结果越靠谱。",
   hardware:["麦克风","RGB 灯","显示屏"],
@@ -1440,10 +1413,10 @@ const LESSONS_4 = [
   echoId:27, echoTitle:"从乱点点到清图画", echoBrief:"生成式 AI 一步一步创造内容，语音合成把文字变成声音",
   story:"绘本里，生成模型逐步创造新内容。随机从三个词库各抽一句会产生新组合，但它仍是我们写好的模板程序，不能直接称为生成式 AI。本课把模板生成器与老师预先准备、注明来源的生成模型样例放在一起比较。",
   knowledge:["随机模板能生成组合，但不等同于从数据学习的生成模型","生成式模型会根据输入条件逐步产生内容","使用生成内容要记录来源、检查事实与不合适内容"],
-  blocks:[["变量","角色 / 地点 / 事件模板词库"],["运算","随机数抽取模板项"],["变量","组合成模板故事"],["显示","并排展示两种输出"],["变量","记录相同点与不同点"]],
+  blocks:[["事件","当按键 A 按下时生成 / B 切换样例"],["列表","角色 / 地点 / 事件模板词库"],["运算","随机数抽取模板项"],["变量","组合成模板故事"],["显示","CyberPi 分页显示两种输出与来源"],["声音","朗读审核后的安全文本"],["列表","记录相同点与不同点"]],
   projName:"两种故事工厂对比实验",
-  projEff:"孩子先通过在线积木编程做一个可解释的随机模板故事机，再导入老师提供并明确标注的生成模型短文本样例，从变化范围、连贯性、可控性和错误风险四方面比较。CyberPi 负责朗读最终选择的安全文本。",
-  steps:["用三个小词库完成随机模板故事机","连续运行5次并圈出不变的句式骨架","阅读老师提供的生成模型样例并标注来源","用四项观察表比较模板程序与生成模型","检查内容是否合理、安全、有事实错误，再决定是否朗读","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"孩子先用 mBlock 做一个可解释的随机模板故事机，按 CyberPi 按钮 A 生成模板故事，按 B 查看老师提供且明确标注来源的生成模型短文本样例；从变化范围、连贯性、可控性和错误风险四方面比较，再由真机朗读审核后的安全文本。",
+  steps:["建立变量「随机数」「样例页」，拖入「当CyberPi启动时」，显示标签“两种故事工厂”","（模板故事机）准备三个词库：人物[“小猫”“小狗”“小兔”]、地点[“在公园”“在家里”“在学校”]、动作[“跑步”“睡觉”“吃饭”]","拖入「当按钮A被按下时」：生成三个随机数，分别从三个词库选词，显示标签“人物+地点+动作”（模板故事）","连续按A 5次，圈出不变的句式骨架；拖入「当按钮B被按下时」，分页显示老师预先审核且标明来源的生成模型样例","比较两类输出的变化范围、连贯性、可控性与错误风险；只朗读审核后的文本，上传后用 A/B 完成真机验证"],
   challenge:"修改模板让结果更丰富，同时写一句准确说明：它为什么仍不是训练出来的生成式AI？",
   tip:"“每次结果不同”不足以证明是生成式AI；随机数、模板程序也能产生不同输出。",
   hardware:["CyberPi 扬声器（朗读经审核的文本）","全彩显示屏（显示来源标记）"],
@@ -1458,10 +1431,10 @@ const LESSONS_4 = [
   echoId:28, echoTitle:"会编故事的机器人", echoBrief:"AI 可能编出像真的假信息（幻觉），要学会查证",
   story:"绘本里，机器人编了一个听起来很像真的故事，团团差点信了。今天 CyberPi 先说“我猜外面很亮！”，再用光线传感器实测——说归说，测过才算数。",
   knowledge:["AI 可能编出听起来很真但不对的内容（幻觉）","不能 AI 说什么就信什么，要学会查证","多方验证是检验信息可靠性的好方法"],
-  blocks:[["显示","显示 AI 说的（可能不准）"],["侦测","环境光强度"],["运算","比较 说的 和 测的"],["控制","如果 不一致 那么"],["显示","显示 查证结果"]],
+  blocks:[["显示","显示 AI 说的（可能不准）"],["传感","环境光强度"],["运算","比较 说的 和 测的"],["控制","如果 不一致 那么"],["显示","显示 查证结果"]],
   projName:"真假小侦探",
   projEff:"程序先“猜测”：外面很亮！（可能是假话），再让光线传感器实测。如果“说的”和“测的”不一致，屏幕显示“我在吹牛，以实测为准！”——学会验证信息。",
-  steps:["屏幕显示 AI 的“猜测”","读取光线传感器实测值","比较猜测和实测","不一致 → 显示“以实测为准”","讨论：还有哪些信息需要查证","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「猜测」「实测」，拖入「当CyberPi启动时」，显示标签“真假小侦探”","拖入「显示标签」显示“AI猜测：外面很亮！”（这可能是假话），等待2秒","拖入「实测」=环境光强度，显示标签“实测光线=..”","拖入「如果…那么…否则」：如果 猜测=“很亮” 且 实测<30，显示标签“我在吹牛，以实测为准！”；否则显示标签“猜测正确！”","在亮处和暗处分别测试，学会验证信息，点击上传验证"],
   challenge:"上网查一条天气信息，再用光线传感器实测验证一次。",
   tip:"AI 会“编故事”（幻觉）。听到任何信息，都要想办法验证一下。",
   hardware:["光线传感器","显示屏","Wi-Fi（可选）"],
@@ -1476,10 +1449,10 @@ const LESSONS_4 = [
   echoId:29, echoTitle:"不要随便给陌生人", echoBrief:"有些个人信息不能随便告诉别人，隐私由自己决定给谁看",
   story:"绘本里，团团学会不把个人信息告诉陌生人。今天 CyberPi 当“个人信息保险箱”：只有输入正确的按钮密码，才显示你的名字；密码错了，谁也别想看。",
   knowledge:["有些个人信息不能随便告诉别人","隐私就像一扇门，你有权决定让谁进来","遇到不确定的情况，要找大人帮忙"],
-  blocks:[["变量","建立变量 密码"],["事件","当按钮A被按下时"],["控制","如果 密码 = AAB 那么"],["显示","显示 我的名字 / 不告诉你！"],["声音","播放 提示音"]],
+  blocks:[["事件","当 CyberPi 启动时"],["事件","按钮 A / B 输入密码"],["事件","按下摇杆确认"],["变量","输入序列 / 密码正确"],["控制","如果 输入序列 = 112 那么"],["显示","显示 我的名字 / 不告诉你！"],["灯","RGB 灯显示通过 / 拒绝"]],
   projName:"个人信息保险箱",
   projEff:"设置一个按钮密码（比如 A、A、B），按顺序按对，屏幕才显示“我的名字：团团”；按错显示“不告诉你！”——像绘本里的团团一样保护自己的隐私。",
-  steps:["设置密码：A → A → B","把每次按的按钮记进变量","比较：密码对不对？","对：显示个人信息；错：警告提示","讨论：哪些是隐私信息","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「输入序列」「密码正确」，拖入「当CyberPi启动时」，输入序列=0，显示标签“隐私小卫士”","拖入「当按钮A被按下时」：输入序列 = 输入序列×10 + 1（记录A=1），显示标签“已输入：..”","拖入「当按钮B被按下时」：输入序列 = 输入序列×10 + 2（记录B=2），显示标签“已输入：..”","拖入「当摇杆被按下时」：如果 输入序列=112（密码A→A→B），则显示标签“我的名字：团团”，RGB灯亮起绿色；否则显示标签“不告诉你！”，RGB灯亮起红色","按对密码显示个人信息，按错警告提示，讨论哪些是隐私信息，点击上传验证"],
   challenge:"和家人约定一个“家庭暗号”，一起讨论：姓名、住址、电话能告诉陌生人吗？",
   tip:"隐私像一扇门，钥匙在自己手里。遇到要“密码”的陌生人，先找大人。",
   hardware:["按钮 A/B","显示屏","扬声器"],
@@ -1492,12 +1465,12 @@ const LESSONS_4 = [
 {
   id:30, ch:4, title:"公平要用实验说话", theme:"偏见、公平与数据证据",
   echoId:30, echoTitle:"同样努力却分数不同", echoBrief:"数据不公平会导致 AI 结果偏心，偏见来自训练数据不平衡",
-  story:"绘本里，同样努力的两位同学得到了不同分数。今天先不把一次结果叫作“偏见”：我们通过在线积木编程做一个抽签模拟器，让甲组和乙组各参加很多轮，统计被选中的次数，再检查规则和数据是否给了两组相同机会。",
+  story:"绘本里，同样努力的两位同学得到了不同分数。今天先不把一次结果叫作“偏见”：我们通过 mBlock 做一个抽签模拟器，按下 CyberPi 按钮 A 让甲组和乙组参加 100 轮实验，统计被选中的次数，再检查规则和数据是否给了两组相同机会。",
   knowledge:["一次不同的结果不一定证明规则不公平，需要多次实验和证据","公平不仅看最终次数，也要检查输入数据、抽样规则和评价标准","发现稳定差异后，应定位原因并重新测试"],
-  blocks:[["变量","甲组次数 / 乙组次数 / 实验轮数"],["运算","在 1 到 100 间取随机数"],["控制","重复执行 100 次"],["控制","如果…那么…否则"],["显示","用列表或柱形图显示统计结果"]],
+  blocks:[["事件","启动时运行 50/50 实验"],["事件","按钮 A 运行 70/30 实验"],["变量","甲组次数 / 乙组次数 / 实验轮数"],["运算","在 1 到 100 间取随机数"],["控制","重复执行 100 次"],["控制","按分界值累计两组次数"],["显示","CyberPi 分页显示两组次数与差值"],["灯","实验结束时 RGB 灯闪烁"]],
   projName:"100轮公平检测器",
   projEff:"程序连续运行100轮随机抽签，分别累计甲组和乙组被选中的次数。第一轮用相同机会，第二轮故意改变分界值造成规则偏斜；孩子比较数据，说明“哪里不公平、证据是什么”。CyberPi 在每轮实验结束时亮灯提示。",
-  steps:["建立甲组次数、乙组次数和实验轮数并清零","重复100次生成随机数，用相同分界值模拟公平抽签","显示两组统计结果，不因一次差异马上下结论","把分界值改成70/30，重新运行并比较多组结果","指出偏差来自规则还是随机波动，并写下修改建议","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  steps:["建立变量「甲组次数」「乙组次数」「实验轮数」，拖入「当CyberPi启动时」，三个变量都设为0","拖入「重复执行100次」：实验轮数增加1，生成随机数1-100，如果随机数≤50则甲组次数增加1，否则乙组次数增加1","拖入「显示标签」显示“公平抽签：甲组=.. 乙组=..”（50/50规则）","拖入「当按钮A被按下时」：清零重新实验，改用70/30规则（随机数≤70则甲组），显示标签“偏斜规则：甲组=.. 乙组=..”","比较两种规则的结果，指出偏差来自规则还是随机波动，点击上传验证"],
   challenge:"把每种规则各运行5组100轮实验，记录差值。什么证据会让你更有把握地说规则不公平？",
   tip:"“数据平衡就一定公平”过于简单。公平还与任务目标、采集方式、规则和不同人受到的影响有关。",
   hardware:["CyberPi RGB灯带（实验结束提示）","全彩显示屏（显示轮次）"],
@@ -1512,10 +1485,10 @@ const LESSONS_4 = [
   echoId:31, echoTitle:"超级搭档", echoBrief:"人和 AI 各有所长，搭档合作比单独做更厉害",
   story:"绘本里，团团和 AI 组成超级搭档，一个想办法、一个算得快。今天玩“合作救援队”：人摇一摇出题，CyberPi 出题验证，一起完成任务。",
   knowledge:["人和 AI 各有擅长的事情","AI 擅长快速处理大量数据、不知疲倦地重复","最好的方式是人机搭档，而不是谁替代谁"],
-  blocks:[["运动传感","加速度（摇一摇）"],["运算","随机数 出题"],["事件","当按钮A被按下时"],["控制","如果 答案正确 那么"],["显示","显示 加油/答对了"]],
+  blocks:[["事件","当 CyberPi 启动时"],["传感","摇一摇生成题目"],["运算","随机加数与真假候选答案"],["事件","按钮 A 选对 / 按钮 B 选错"],["控制","比较选择与真实答案"],["变量","记录正确数"],["显示","显示算式、反馈与得分"],["灯","RGB 灯提示对错"],["声音","播放完成音"]],
   projName:"合作救援队",
-  projEff:"人摇一摇 CyberPi“出发救援”，屏幕随机出算式（如 3+5=？），人算出答案按按钮，CyberPi 负责检查对错并播放加油声——人出脑力，机器出算力，搭档完成任务。",
-  steps:["摇一摇：程序随机出一道算式","人算出答案，按 A/B 选择","CyberPi 检查答案","答对：播放“太棒了” + 显示“救到啦！”","再来一题，合作继续","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"人摇一摇 CyberPi 后，机器随机生成一道带候选答案的加法判断题，如“3+5=9，对吗？”。孩子心算后按 A 选“对”、按 B 选“错”，CyberPi 核对选择、记录得分并反馈。",
+  steps:["建立“加数1、加数2、正确答案、候选答案、正确数”变量；拖入「当 CyberPi 启动时」清零并显示“A=对 / B=错”","摇一摇 CyberPi 后随机生成两个1到9的加数，计算正确答案；再随机决定候选答案等于正确答案或比它多1，屏幕显示“3+5=9，对吗？”","孩子心算后按 A 表示“对”、按 B 表示“错”；程序比较选择和真实答案是否一致，判断本轮回答","回答正确就正确数+1、亮绿灯并播放完成音；错误则亮红灯并显示正确算式，避免把固定按钮直接当成任意数字输入","连续完成5题并显示得分；讨论人负责理解与判断、机器负责生成、计算和重复检查的分工"],
   challenge:"设计一个人机合作小游戏，再想想：什么事交给 AI 做最好，什么事留给自己？",
   tip:"AI 算得快、不喊累；人懂创造、会判断。搭档起来最厉害。",
   hardware:["6 轴陀螺仪","按钮","显示屏","扬声器"],
@@ -1530,10 +1503,10 @@ const LESSONS_4 = [
   echoId:32, echoTitle:"小小AI研究员毕业啦", echoBrief:"信息→规则→学习→安全，AI 素养闭环，毕业是新的开始",
   story:"绘本里，小小 AI 研究员毕业了，但不是终点，是新的开始。今天我们要把学过的本领装进一个毕业作品——AI 安全小管家，然后领毕业证书！",
   knowledge:["回顾整个课程：信息 → 规则 → 学习 → 安全","形成完整的 AI 素养框架","AI 在不断进步，保持好奇心和批判性思维"],
-  blocks:[["声音","朗读 欢迎语"],["侦测","环境光强度（自动调光）"],["AI","语音识别（语音开关）"],["控制","如果 密码正确 那么（隐私保护）"],["显示","绘制 像素笑脸"]],
+  blocks:[["事件","当 CyberPi 启动时"],["显示","绘制像素笑脸并显示欢迎语"],["传感","读取环境光强度"],["控制","光线暗时提示开灯"],["事件","按钮 A 执行开灯指令"],["事件","按钮 B 进入设置验证"],["变量","记录密码输入与设置模式"],["灯","RGB 灯提示状态"]],
   projName:"AI 安全小管家（毕业作品）",
-  projEff:"把四大本领装进一个项目：①语音命令开灯（监督学习）②光线暗自动开灯（条件判断）③按钮密码保护设置（隐私安全）④像素笑脸欢迎（显示）。开机自检后，它就是你的毕业作品！",
-  steps:["开机：屏幕画像素笑脸 + 朗读“欢迎回来”","语音说“开灯”→ 灯亮（贴标签）","光线暗时自动提示开灯（条件判断）","修改设置需输入按钮密码（隐私保护）","展示作品，领取毕业证书","点击上传，将程序烧录到 CyberPi，验证运行效果"],
+  projEff:"把四种能力装进一个可独立运行的毕业作品：像素笑脸欢迎、环境光感知与条件判断、按钮指令控制灯光、密码保护设置。基础版全部可在上传模式完成；联网语音识别作为选做扩展，不影响基础验收。",
+  steps:["在 mBlock 上传模式建立“密码输入、设置模式”变量；拖入「当 CyberPi 启动时」将它们清零，并清空屏幕和灯光","完成开机自检：绘制像素笑脸，显示“AI小管家启动”，播放欢迎音；逐项确认屏幕、灯光和扬声器可用","加入「重复执行」读取环境光：低于阈值时亮黄灯并显示“光线暗，建议开灯”，否则熄灭提示灯；在亮处、暗处各测试一次","加入按钮 A“执行开灯”分支；按钮 B 进入设置验证，按 A→A→B 后摇杆确认，只有密码正确才能修改光线阈值","上传后断开电脑，依次完成开机、亮暗环境、按钮开灯、正确/错误密码五项验收；选做：联网在线模式用语音识别替换按钮 A"],
   challenge:"给学弟学妹录一段“CyberPi 使用小提示”，展示你的毕业作品。",
   tip:"32 课毕业不是终点——保持好奇，AI 世界还有更多奥秘等你探索！",
   hardware:["全传感器","显示屏","RGB 灯","扬声器"],
@@ -1744,491 +1717,130 @@ var TABS = [
 ];
 var SAMPLE_CONTENT = {
   1:{
-    driving:"怎样让 CyberPi 像小侦探一样，接收按钮输入、作出判断并给出屏幕和灯光回应？",
-    deliverable:"在 mBlock 上传模式下完成一个“线索回应机”：按按钮 A 输入线索，程序计数判断，屏幕显示回应、RGB 灯亮绿色，上传到 CyberPi 后断开电脑也能独立运行。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别（设备名称出现在连接区）","准备好按按钮 A 测试：按1次、按2次分别观察反应"],
-    stepTitles:["启动事件+显示标签", "按钮A事件+变量计数", "条件判断框架", "完整程序", "上传验证"],
-    levels:[["必做任务","按1次显示“收到1条线索”，按2次显示“线索够啦！”，RGB灯亮绿色。"],["加星任务","加入按钮 B：按 B 清零线索计数，屏幕显示“重新开始”。"],["创造任务","把计数器改成“秘密暗号”：按 A-A-B 才显示“解锁成功”。"]],
-    tests:[["按按钮 A 1次","屏幕显示“收到1条线索”，灯亮绿色","输入→处理→输出"],["按按钮 A 2次","屏幕显示“线索够啦！”","条件判断分支"],["按按钮 B（如已加）","计数清零，屏幕显示“重新开始”","变量重置"],["断开电脑重启 CyberPi","程序仍能独立运行","上传模式验证"]],
-    bugs:[["按按钮没反应","检查是否已切换到上传模式、程序是否已成功上传到 CyberPi。"],["灯不亮但屏幕有字","检查 RGB 灯积木是否接在正确的事件分支下、颜色参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被 mBlock 识别。"]],
-    reflection:["按钮按下是“输入”，程序判断是“处理”，屏幕和灯是“输出”——生活中还有哪些输入→处理→输出的例子？","如果把按钮换成光线传感器，这个“线索回应机”还能怎么玩？"],
-    stepShots:[
-      null,
-      "assets/blocks/lesson-01/step-02-display-text.png",
-      "assets/blocks/lesson-01/step-03-variable-increment.png",
-      "assets/blocks/lesson-01/step-04-if-else-frame.png",
-      null
-    ],
-    fullCodeShot:"assets/blocks/lesson-01/full-program-complete.png"
-  },
-  2:{
-    driving:"怎样用一盏灯的亮和灭，变出 0 和 1，再用两盏灯拼出四种密码？",
-    deliverable:"在 mBlock 上传模式下完成一个“0和1开关灯”：按按钮A切换灯的亮灭，屏幕同步显示0或1；再用两颗灯拼出00、01、10、11四种组合。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","准备好按按钮 A 测试：观察灯的亮灭和屏幕数字"],
-    stepTitles:["启动事件+变量初始化", "按钮A事件+变量切换", "条件判断+灯控制", "完整程序", "上传验证"],
-    levels:[["必做任务","按A切换灯亮（1）和灯灭（0），屏幕同步显示数字。"],["加星任务","用两颗灯拼出00、01、10、11四种组合，每按一次A切换一种。"],["创造任务","用三盏灯摆出8种组合（000到111），给每种组合起一个名字。"]],
-    tests:[["按按钮A 1次","灯亮，屏幕显示1","0变1"],["按按钮A 2次","灯灭，屏幕显示0","1变0"],["两颗灯测试","依次显示00→01→10→11","二进制组合"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["按按钮灯不亮","检查是否已切换到上传模式、程序是否已成功上传。"],["屏幕数字不变化","检查变量切换公式是否正确（1-开关）。"],["灯亮但屏幕不显示","检查显示积木是否接在正确的事件分支下。"]],
-    reflection:["一盏灯只有亮和灭两种状态，为什么两盏灯就能有四种组合？","生活中还有哪些东西只有两种状态（开/关、有/无）？"],
-    stepShots:[
-      null,
-      "assets/blocks/lesson-02/step-02-start-display.png",
-      "assets/blocks/lesson-02/step-03-button-event.png",
-      "assets/blocks/lesson-02/step-04-if-else-frame.png",
-      null
-    ],
-    fullCodeShot:"assets/blocks/lesson-02/full-program-complete.png"
-  },
-  3:{
-    driving:"怎样用灯的短闪和长闪，像小邮差一样发出别人能看懂的密码？",
-    deliverable:"在 mBlock 上传模式下完成一个“摩尔斯密码灯”：用短闪（·）和长闪（—）发出SOS信号（···———···），屏幕显示密码本说明规则。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，切换到上传模式","确认 CyberPi 已被识别","准备好观察灯的闪烁节奏（短闪vs长闪）"],
-    stepTitles:["启动事件+显示密码本", "重复执行+短闪3次", "长闪3次+短闪3次", "完整程序", "上传验证"],
-    levels:[["必做任务","程序循环发送SOS摩尔斯密码（···———···），屏幕显示密码本。"],["加星任务","加入按钮A：按A发送SOS，按B发送另一个字母（比如A=·—）。"],["创造任务","和好朋友约定一套家庭暗号，用灯闪烁发送，看对方能不能解码。"]],
-    tests:[["程序启动","屏幕显示密码本（短闪=点，长闪=划）","编码规则"],["观察前3次闪烁","短闪3次（···）","S"],["观察中间3次闪烁","长闪3次（———）","O"],["观察最后3次闪烁","短闪3次（···）","S"]],
-    bugs:[["灯不闪烁","检查重复执行积木和等待积木是否正确拼接。"],["短闪和长闪分不清","检查等待时间：短闪0.2秒，长闪0.6秒。"],["屏幕不显示密码本","检查显示积木是否在启动事件分支下。"]],
-    reflection:["为什么发送密码和接收密码必须用同一套规则？","如果没有密码本，别人能看懂闪烁的灯吗？这说明什么？"],
-    stepShots:[
-      null,
-      "assets/blocks/lesson-03/step-02-start-display.png",
-      "assets/blocks/lesson-03/step-03-repeat-led.png",
-      "assets/blocks/lesson-03/step-04-long-flash.png",
-      null
-    ],
-    fullCodeShot:"assets/blocks/lesson-03/full-program-complete.png"
-  },
-  4:{
-    driving:"怎样给 CyberPi 装一个“记忆格子”，让它能记住按了几次按钮？",
-    deliverable:"在 mBlock 上传模式下完成一个“小小计数器”：每按一次按钮A，变量+1，屏幕显示收集到的信息数；按按钮B清零，重新开始计数。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，切换到上传模式","确认 CyberPi 已被识别","准备好按按钮A多次测试计数，按B测试清零"],
-    stepTitles:["启动事件+变量初始化", "按钮A事件+变量增加", "显示变量值", "按钮B事件+变量清零", "上传验证"],
-    levels:[["必做任务","按A计数+1，屏幕显示数字；按B清零回到0。"],["加星任务","计数到5时灯亮绿色，提醒“收集完成”，然后自动清零。"],["创造任务","做一个绘本阅读打卡器：每读完一本按A，一周后统计读了几本。"]],
-    tests:[["按按钮A 1次","屏幕显示1","变量+1"],["按按钮A 3次","屏幕显示3","累计计数"],["按按钮B","屏幕显示0","变量清零"],["断开电脑重启","计数从0开始","变量初始化"]],
-    bugs:[["按A数字不增加","检查变量增加积木是否接在按钮A事件下。"],["按B不清零","检查变量设为0积木是否接在按钮B事件下。"],["屏幕不显示数字","检查显示变量积木是否正确引用了变量名。"]],
-    reflection:["变量就像一个小格子，除了存数字，还能存什么？","如果格子满了怎么办？这跟电脑的“内存”有什么关系？"],
-    stepShots:[
-      null,
-      "assets/blocks/lesson-04/step-02-start-display.png",
-      "assets/blocks/lesson-04/step-03-button-a.png",
-      "assets/blocks/lesson-04/step-04-button-b.png",
-      null
-    ],
-    fullCodeShot:"assets/blocks/lesson-04/full-program-complete.png"
+    driving:"按下 CyberPi 的真实按钮后，输入怎样经过程序处理，变成屏幕和灯光的回应？",
+    deliverable:"在 mBlock 上传模式完成“线索接收器”：开机显示侦探身份；每按一次 A，线索计数增加，并根据数量显示不同回应、亮起绿色 RGB 灯。",
+    prep:["打开 mBlock，在设备区添加“童芯派”","使用 Type-C 数据线连接，确认界面显示“设备已连接”","切换上传模式，准备建立“线索计数”变量并烧录到设备"],
+    stepTitles:["连接设备并选上传模式","加入开机身份提示","按钮 A 让线索计数加一","按数量显示不同回应","上传后按实体 A 键验证"],
+    phases:["设备连接","输入事件","输出搭建","参数调试","真机验证"],
+    levels:[["必做任务","连续按两次实体按钮 A，屏幕先显示“收到1条线索”，再显示“线索够啦！”，同时亮绿灯。"],["加星任务","增加按钮 B 清零程序，屏幕显示“线索已清空”。"],["创造任务","为第3、第4条线索设计新的文字、颜色或声音反馈。"]],
+    tests:[["上传后重新启动","屏幕显示“我是线索小侦探”","初始化"],["第一次按实体按钮 A","计数为1，显示“收到1条线索”","输入与变量"],["第二次按实体按钮 A","计数为2，显示“线索够啦！”","条件分支"],["继续按 A","计数持续增加且绿灯反馈正常","连续运行"],["修改判断阈值后重新上传","回应切换时机随阈值改变","修改—上传—验证"]],
+    bugs:[["按 A 完全没有反应","检查是否选中童芯派、是否已上传成功，以及事件积木下拉项是否为 A。"],["每次都显示同一句话","检查线索计数是否在按钮事件中增加，以及 if 条件是否读取了正确变量。"],["重新开机仍保留旧效果","停止当前程序，重新上传；上传完成后重启 CyberPi 再测试。"]],
+    reflection:["在这套程序里，哪一部分是输入、处理和输出？","mBlock 与 CyberPi 各自负责什么，缺少其中一个还能完成本课验证吗？"],
+    success:["程序已上传并可脱离电脑运行","连续按 A 后计数与文字分支正确变化","能够指出按钮是输入、变量和条件是处理、屏幕与灯光是输出"]
   },
   17:{
     driving:"怎样证明模型学会了规律，而不是只记住训练时见过的图片？",
     deliverable:"训练圆形与三角形分类器，用完全没有参与训练的新卡片考试，记录准确率和错误样本，并在 CyberPi 上显示测试结论。",
     prep:["把图形卡分成训练袋和测试袋，测试袋先封存","保证两类训练样本数量接近，并包含不同角度和光线","建立测试总数、正确数和准确率记录表"],
-    stepTitles:["启动事件+变量初始化+显示提示", "在线模式训练分类器(概念步骤)", "按钮A事件：测试计数+正确计数", "显示测试总数和准确率", "上传验证"],
+    stepTitles:["分开训练与测试","采集两类样本","训练分类模型","新卡片考试","补充样本复测"],
     levels:[["必做任务","使用独立测试卡完成至少10次测试并计算准确率。"],["加星任务","比较每类5张与每类15张训练图的测试结果。"],["创造任务","增加第三个类别，重新设计训练和测试方案。"]],
     tests:[["训练图再次识别","通常较容易正确","不能作为考试成绩"],["全新圆形卡","判断为圆形","泛化能力"],["旋转后的三角形","判断为三角形","角度变化"],["光线较暗的新卡","记录判断与置信表现","环境变化"]],
     bugs:[["测试准确率异常高","检查测试图片是否曾混入训练集，避免“题目泄露”。"],["换角度就识别错误","训练样本可能过于单一，需要补充角度、大小和光线变化。"]],
-    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"],
-    stepShots:[null, "assets/blocks/lesson-17/step-02.png", "assets/blocks/lesson-17/step-03.png", "assets/blocks/lesson-17/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-17/full-program.png"
+    reflection:["为什么训练集成绩高，不代表模型面对新图片也可靠？","补充什么样的样本，比简单复制同一张图片更有用？"]
   },
   30:{
     driving:"一次结果不同就是不公平吗？怎样用重复实验找到真正的规则偏差？",
     deliverable:"制作100轮公平检测器，对比50/50与70/30两种抽签规则，用多组数据说明差异来自随机波动还是规则偏斜。",
     prep:["建立甲组次数、乙组次数和实验轮数变量","准备50/50与70/30两套分界规则","设计每组实验的结果记录表"],
-    stepTitles:["启动事件+三个变量清零", "重复执行100次+随机数+50/50公平抽签", "显示公平抽签统计结果", "按钮A事件+清零+70/30偏斜规则+显示", "上传验证"],
+    stepTitles:["变量清零","运行公平规则","记录多组结果","制造偏斜规则","比较并提出修改"],
     levels:[["必做任务","完成一组50/50规则下的100轮实验并保存结果。"],["加星任务","两种规则各运行5组，比较平均差值。"],["创造任务","设计一种新的抽样规则，并说明它为什么更公平或更不公平。"]],
     tests:[["50/50运行100轮","两组次数接近但不必完全相同","随机波动"],["50/50重复5组","差异方向不固定","多次证据"],["70/30重复5组","甲组持续明显更高","规则偏斜"],["恢复50/50复测","稳定差异减小","修改验证"]],
     bugs:[["每组结果越来越大","新一组实验前没有把计数变量清零。"],["50/50实际不是一半机会","检查随机数范围和分界值是否包含或遗漏边界。"]],
-    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"],
-    stepShots:[null, "assets/blocks/lesson-30/step-02.png", "assets/blocks/lesson-30/step-03.png", "assets/blocks/lesson-30/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-30/full-program.png"
-  },
-  5:{
-    driving:"怎样用CyberPi和mBlock积木，实现「小方块拼出大世界」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「小方块拼出大世界」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+清空屏幕", "绘制像素点画眉毛", "绘制像素点画眼睛和嘴", "按钮A事件+清屏画爱心", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-05/step-02.png", "assets/blocks/lesson-05/step-03.png", "assets/blocks/lesson-05/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-05/full-program.png"
-  },
-  6:{
-    driving:"怎样用CyberPi和mBlock积木，实现「红绿蓝的合唱团」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「红绿蓝的合唱团」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+三个变量初始化", "按钮A事件+红色增加", "按钮B事件+绿色增加", "重复执行+摇杆调蓝+灯亮+显示", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-06/step-02.png", "assets/blocks/lesson-06/step-03.png", "assets/blocks/lesson-06/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-06/full-program.png"
-  },
-  7:{
-    driving:"怎样用CyberPi和mBlock积木，实现「行李箱装不下啦」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「行李箱装不下啦」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+清空屏幕", "绘制像素点画精细星星(12格)", "显示格子数+等待", "清屏+画简化星星(4格)+显示", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-07/step-02.png", "assets/blocks/lesson-07/step-03.png", "assets/blocks/lesson-07/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-07/full-program.png"
-  },
-  8:{
-    driving:"怎样用CyberPi和mBlock积木，实现「雾里的传感器」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「雾里的传感器」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+变量初始化", "重复执行+显示原始值", "重复3次+累加光线值", "计算平均值+显示稳定值", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-08/step-02.png", "assets/blocks/lesson-08/step-03.png", "assets/blocks/lesson-08/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-08/full-program.png"
-  },
-  9:{
-    driving:"怎样用CyberPi和mBlock积木，实现「智能红绿灯」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「智能红绿灯」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "重复执行+条件判断", "条件分支：红灯+显示开灯", "否则分支：绿灯+显示白天", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-09/step-02.png", "assets/blocks/lesson-09/step-03.png", "assets/blocks/lesson-09/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-09/full-program.png"
-  },
-  10:{
-    driving:"怎样用CyberPi和mBlock积木，实现「会数数的刷牙计时器」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「会数数的刷牙计时器」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+变量设为20", "重复执行20次+显示+等待+减1", "倒计时结束+灯亮+播放声音", "显示完成提示", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-10/step-02.png", "assets/blocks/lesson-10/step-03.png", "assets/blocks/lesson-10/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-10/full-program.png"
-  },
-  11:{
-    driving:"怎样用CyberPi和mBlock积木，实现「做披萨的流水线」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「做披萨的流水线」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["自制积木：放面包", "自制积木：放肉饼", "自制积木：放蔬菜", "启动事件+按顺序调用三个自制积木", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-11/step-02.png", "assets/blocks/lesson-11/step-03.png", "assets/blocks/lesson-11/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-11/full-program.png"
-  },
-  12:{
-    driving:"怎样用CyberPi和mBlock积木，实现「找 Bug 的小修理工」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「找 Bug 的小修理工」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "重复执行+读取光线", "Bug程序：条件写反(>30亮红灯)", "修正Bug：条件改为(<30亮红灯)", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-12/step-02.png", "assets/blocks/lesson-12/step-03.png", "assets/blocks/lesson-12/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-12/full-program.png"
-  },
-  13:{
-    driving:"怎样用CyberPi和mBlock积木，实现「袜子大整理」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「袜子大整理」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+两个变量初始化", "按钮A事件+读取声音强度", "条件判断：大声组+1或小声组+1", "显示两组数量", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-13/step-02.png", "assets/blocks/lesson-13/step-03.png", "assets/blocks/lesson-13/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-13/full-program.png"
-  },
-  14:{
-    driving:"怎样用CyberPi和mBlock积木，实现「特征放大镜」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「特征放大镜」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "重复执行+读取加速度X轴", "条件判断：向左摇显示←", "条件判断：向右摇→ 和向上摇↑", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-14/step-02.png", "assets/blocks/lesson-14/step-03.png", "assets/blocks/lesson-14/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-14/full-program.png"
-  },
-  15:{
-    driving:"怎样用CyberPi和mBlock积木，实现「猜一猜明天带伞吗」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「猜一猜明天带伞吗」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+三个变量初始化", "按钮A事件+连测3次光线值", "条件判断：三次都亮→晴天", "条件判断：越来越暗→要下雨", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-15/step-02.png", "assets/blocks/lesson-15/step-03.png", "assets/blocks/lesson-15/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-15/full-program.png"
-  },
-  16:{
-    driving:"怎样用CyberPi和mBlock积木，实现「背答案的鹦鹉」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「背答案的鹦鹉」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "按钮A事件：问题1+1→答2", "按钮B事件：问题3+2→答5", "卡壳演示：没背过的问题不会", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-16/step-02.png", "assets/blocks/lesson-16/step-03.png", "assets/blocks/lesson-16/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-16/full-program.png"
-  },
-  18:{
-    driving:"怎样用CyberPi和mBlock积木，实现「奖励真的会改变选择」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「奖励真的会改变选择」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+三个变量初始化", "重复执行50次+探索或选高价值门", "选A门：按概率给奖励并更新价值", "选B门+显示本轮价值", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-18/step-02.png", "assets/blocks/lesson-18/step-03.png", "assets/blocks/lesson-18/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-18/full-program.png"
-  },
-  19:{
-    driving:"怎样用CyberPi和mBlock积木，实现「贴标签的老师」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「贴标签的老师」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "概念步骤：为图形贴标签", "按钮A事件+读取光线+if规则分类", "条件判断：灯色+显示识别结果", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-19/step-02.png", "assets/blocks/lesson-19/step-03.png", "assets/blocks/lesson-19/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-19/full-program.png"
-  },
-  20:{
-    driving:"怎样用CyberPi和mBlock积木，实现「没有标签的玩具箱」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「没有标签的玩具箱」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+四个中心变量初始化", "重复执行+绘制两团像素点", "按钮A事件：按距离分组", "按钮B事件：计算平均位置并移动中心", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-20/step-02.png", "assets/blocks/lesson-20/step-03.png", "assets/blocks/lesson-20/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-20/full-program.png"
-  },
-  21:{
-    driving:"怎样用CyberPi和mBlock积木，实现「点亮聪明灯」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「点亮聪明灯」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "重复执行+读取光线和声音强度", "条件判断：光线>50 且 声音>60", "那么分支：黄灯亮+激活；否则：灯灭", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-21/step-02.png", "assets/blocks/lesson-21/step-03.png", "assets/blocks/lesson-21/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-21/full-program.png"
-  },
-  22:{
-    driving:"怎样用CyberPi和mBlock积木，实现「从边边角角到整张脸」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「从边边角角到整张脸」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["自制积木：第一层判断光线亮暗", "自制积木：第二层判断声音大小", "自制积木：第三层组合两层结果", "启动事件+按顺序调用三层", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-22/step-02.png", "assets/blocks/lesson-22/step-03.png", "assets/blocks/lesson-22/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-22/full-program.png"
-  },
-  23:{
-    driving:"怎样用CyberPi和mBlock积木，实现「音量旋钮」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「音量旋钮」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+三个变量初始化", "按钮A事件+光线权重增加", "按钮B事件+声音权重增加", "重复执行+计算综合分+显示谁权重更大", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-23/step-02.png", "assets/blocks/lesson-23/step-03.png", "assets/blocks/lesson-23/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-23/full-program.png"
-  },
-  24:{
-    driving:"怎样用CyberPi和mBlock积木，实现「慢慢调准的小箭头」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「慢慢调准的小箭头」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+阈值变量初始化", "重复执行+阈值每次+5", "按钮A事件+读取声音+按阈值判断", "按钮B事件+记录最佳阈值+显示", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-24/step-02.png", "assets/blocks/lesson-24/step-03.png", "assets/blocks/lesson-24/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-24/full-program.png"
-  },
-  25:{
-    driving:"怎样用CyberPi和mBlock积木，实现「下一个词实验室」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「下一个词实验室」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "概念步骤：准备词库和候选词", "按钮A事件+随机数选择下一个词", "显示词语接龙结果+继续接龙", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-25/step-02.png", "assets/blocks/lesson-25/step-03.png", "assets/blocks/lesson-25/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-25/full-program.png"
-  },
-  26:{
-    driving:"怎样用CyberPi和mBlock积木，实现「给 AI 的清楚指令」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「给 AI 的清楚指令」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "按钮A事件：模糊指令→不确定", "按钮B事件：清楚指令→灯变红", "对比结果+讨论指令格式", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-26/step-02.png", "assets/blocks/lesson-26/step-03.png", "assets/blocks/lesson-26/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-26/full-program.png"
-  },
-  27:{
-    driving:"怎样用CyberPi和mBlock积木，实现「模板故事与生成模型」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「模板故事与生成模型」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "概念步骤：准备三个词库", "按钮A事件+随机数+从词库选词+显示故事", "连续运行5次+观察不变句式", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-27/step-02.png", "assets/blocks/lesson-27/step-03.png", "assets/blocks/lesson-27/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-27/full-program.png"
-  },
-  28:{
-    driving:"怎样用CyberPi和mBlock积木，实现「小侦探查证」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「小侦探查证」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+显示提示", "显示AI的猜测(可能是假话)", "读取光线传感器实测值", "条件判断：比较猜测和实测+显示结果", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-28/step-02.png", "assets/blocks/lesson-28/step-03.png", "assets/blocks/lesson-28/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-28/full-program.png"
-  },
-  29:{
-    driving:"怎样用CyberPi和mBlock积木，实现「隐私小卫士」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「隐私小卫士」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+变量初始化+显示提示", "按钮A事件+记录A(=1)到序列", "按钮B事件+记录B(=2)到序列", "摇杆按下+比较密码+显示信息或警告", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-29/step-02.png", "assets/blocks/lesson-29/step-03.png", "assets/blocks/lesson-29/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-29/full-program.png"
-  },
-  31:{
-    driving:"怎样用CyberPi和mBlock积木，实现「超级搭档」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「超级搭档」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+变量初始化+显示提示", "摇杆摇动+随机数+显示题目", "按钮A事件+检查答案+答对播放音乐", "按钮B事件+答错提示+红灯", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-31/step-02.png", "assets/blocks/lesson-31/step-03.png", "assets/blocks/lesson-31/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-31/full-program.png"
-  },
-  32:{
-    driving:"怎样用CyberPi和mBlock积木，实现「小小 AI 工程师毕业啦」的核心功能？",
-    deliverable:"在mBlock上传模式下完成「小小 AI 工程师毕业啦」项目：按照步骤搭建积木程序，上传到CyberPi后验证运行效果。",
-    prep:["用 Type-C 线连接 CyberPi 与电脑，在 mBlock 中切换到上传模式","确认 CyberPi 已被 mBlock 识别","按照步骤说明搭建积木程序"],
-    stepTitles:["启动事件+变量初始化+绘制像素笑脸", "开机自检+显示欢迎信息", "重复执行+光线暗自动提示开灯", "按钮A事件+模拟语音开灯+按钮B密码设置", "上传验证"],
-    levels:[["必做任务","按照步骤完成核心程序，上传到CyberPi验证运行效果。"],["加星任务","在基础程序上增加一个新功能或改进。"],["创造任务","结合本课知识点，设计一个自己的创意项目。"]],
-    tests:[["程序启动","屏幕显示预期内容","初始化正确"],["触发输入事件","程序做出对应反应","事件响应"],["观察输出","屏幕/灯光/声音符合预期","输出正确"],["断开电脑重启","程序仍能独立运行","上传模式验证"]],
-    bugs:[["程序没反应","检查是否已切换到上传模式、程序是否已成功上传。"],["输出不正确","检查积木是否接在正确的事件分支下、参数是否设置。"],["上传失败","检查 Type-C 线是否支持数据传输、CyberPi 是否被识别。"]],
-    reflection:["本课的核心知识点在生活中还有哪些应用？","如果换一种输入方式，程序还能怎么改？"],
-    stepShots:[null, "assets/blocks/lesson-32/step-02.png", "assets/blocks/lesson-32/step-03.png", "assets/blocks/lesson-32/step-04.png", null],
-    fullCodeShot:"assets/blocks/lesson-32/full-program.png"
+    reflection:["什么证据能让你更有把握地说规则存在偏差？","结果次数之外，还需要检查哪些输入、规则和影响？"]
   }
 };
 var quizState = null;
+var imageZoom = 1;
+var imageFitWidth = 0;
 
-function openImgLightbox(src){
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('imgLightbox').style.display = 'grid';
+function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
+function taskSpec(l){
+  var s = sampleOf(l);
+  if(s) return s;
+  return {
+    driving:'怎样在 mBlock 中把“'+l.theme+'”变成一个可以在 CyberPi 上运行和验证的作品？',
+    deliverable:'完成“'+l.projName+'”：按步骤搭建积木、上传到 CyberPi，并用实体按钮或传感器验证“输入—处理—输出”是否符合预期。',
+    prep:['用 Type-C 数据线连接 CyberPi，在 mBlock 设备区确认已识别童芯派','根据本课功能选择在线模式调试或上传模式独立运行','先读一遍完整程序与 5 个步骤，找出输入、处理和输出积木'],
+    levels:[['必做任务','完成核心程序并在 CyberPi 真机上通过基础测试。'],['加星任务',l.challenge],['创造任务','更换一种输入或输出方式，说明改动后程序逻辑有什么变化。']],
+    tests:[['设备连接并启动','CyberPi 显示本课启动提示','连接与初始化'],['触发本课输入','程序进入正确的处理分支','事件与传感输入'],['观察真机输出','屏幕、灯光或声音与任务说明一致','硬件反馈'],['修改一个参数后重测','结果随参数发生可解释的变化','修改与验证']],
+    bugs:[['程序没有反应','确认设备已连接、运行模式正确，并检查事件积木是否接在程序最上方。'],['输出与预期不同','逐段运行，核对条件、变量初值和显示、灯光或声音参数。'],['上传后仍是旧效果','停止当前程序，重新上传；完成后重启 CyberPi 再验证。']],
+    reflection:['本课程序的真实输入、逻辑处理和硬件输出分别是什么？','这个作品是在模拟 AI 概念，还是实际调用了 AI 模型？你能说出证据吗？']
+  };
 }
-function toggleAnswer(el){
-  var content = el.nextElementSibling;
-  var arrow = el.querySelector('.answer-arrow');
-  if(content.style.display === 'none'){
-    content.style.display = 'block';
-    arrow.style.transform = 'rotate(180deg)';
-    el.classList.add('expanded');
-  } else {
-    content.style.display = 'none';
-    arrow.style.transform = 'rotate(0deg)';
-    el.classList.remove('expanded');
-  }
+function conciseStepTitle(step, i){
+  var text = String(step).replace(/^（[^）]+）/,'').replace(/^\([^\)]+\)/,'');
+  return text || ('关键步骤 '+(i+1));
 }
-function toggleResultShot(el){
-  var content = el.nextElementSibling;
-  var arrow = el.querySelector('.toggle-arrow');
-  if(content.style.display === 'none'){
-    content.style.display = 'block';
-    arrow.style.transform = 'rotate(180deg)';
-    el.classList.add('expanded');
-  } else {
-    content.style.display = 'none';
-    arrow.style.transform = 'rotate(0deg)';
-    el.classList.remove('expanded');
+function openImgLightbox(src, label){
+  var box = document.getElementById('imgLightbox');
+  var img = document.getElementById('lightboxImg');
+  imageZoom = 1;
+  imageFitWidth = 0;
+  img.alt = label || '积木程序截图放大查看';
+  document.getElementById('lightboxCaption').textContent = label || '积木程序截图放大查看';
+  img.style.width = '';
+  document.getElementById('zoomValue').textContent = '100%';
+  box.style.display = 'flex';
+  document.body.classList.add('lightbox-open');
+  function fitImage(){
+    var stage = document.querySelector('.lightbox-stage');
+    var fit = Math.min((stage.clientWidth-40)/img.naturalWidth, (stage.clientHeight-40)/img.naturalHeight, 1);
+    imageFitWidth = Math.max(1, Math.round(img.naturalWidth*fit));
+    img.style.width = imageFitWidth+'px';
   }
+  img.onload = fitImage;
+  img.src = src;
+  if(img.complete && img.naturalWidth) fitImage();
 }
 function closeImgLightbox(){
   document.getElementById('imgLightbox').style.display = 'none';
+  document.body.classList.remove('lightbox-open');
 }
-function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
+function setImageZoom(next){
+  imageZoom = Math.max(.5, Math.min(3, next));
+  var img = document.getElementById('lightboxImg');
+  if(imageFitWidth) img.style.width = Math.round(imageFitWidth*imageZoom)+'px';
+  document.getElementById('zoomValue').textContent = Math.round(imageZoom*100)+'%';
+}
+function changeImageZoom(delta){ setImageZoom(imageZoom + delta); }
+function resetImageZoom(){ setImageZoom(1); }
 function sampleDriving(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
 }
 function sampleMediaStudio(l){
-  var s = sampleOf(l);
-  // 没有样板内容时，基于课程steps生成基本截图区
-  var stepTitles = s ? s.stepTitles : (l.steps || []).slice(0,5).map(function(t,i){
-    var short = t.length > 12 ? t.substring(0,12)+'…' : t;
-    return short;
-  });
-  var shots = s ? (s.stepShots || []) : [];
-  var resultShot = s ? s.resultShot : null;
-  var fullShot = s ? (s.fullCodeShot || null) : null;
-  var fullShotSrc = fullShot || "assets/blocks/official-interface-reference.png";
-  var fullShotLabel = fullShot ? "完整程序截图" : "在线积木编程界面参考";
-  var fullShotNote = fullShot ? "本课完整积木链，可放大查看" : "当前为界面参考，后续替换本课完整积木链";
-  var fullShotTag = fullShot ? "已上传" : "待替换";
-
-  var html = '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
+  var pad = l.id < 10 ? '0'+l.id : ''+l.id;
+  var codeImage = 'assets/blocks/lesson-'+pad+'/full-program.png';
+  var codeAlt = '第'+l.id+'课 mBlock 积木搭建示意';
+  var stepTitles = l.steps.map(conciseStepTitle);
+  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>mBlock 积木搭建示意与 CyberPi 效果</h4></div><p>当前图片用于讲解搭建思路，后续可替换为真实操作截图；点击可放大到 300%。</p></div>'+
     '<div class="media-featured"><div class="video-slot" style="--poster:url(\''+lessonAsset(l.id)+'\')"><div class="play-mark">▶</div><b>最终效果视频</b><span>程序运行 + CyberPi 反馈 · 30–90 秒</span><em>待上传</em></div>'+
-    '<figure class="full-code-slot"><img src="'+fullShotSrc+'" alt="'+fullShotLabel+'" onclick="openImgLightbox(\''+fullShotSrc+'\')"><figcaption><b>'+fullShotLabel+'</b><span>'+fullShotNote+'</span><em>'+fullShotTag+'</em></figcaption></figure>'+(l.id==1?'<div class="code-annotation"><b>条件分支内应填：</b><span>「那么」分支拖入「显示标签」显示"收到1条线索"；「否则」分支拖入「显示标签」显示"线索够啦！"；最后拖入「RGB灯亮起绿色」。</span></div>':'')+'</div>'+
-    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
-      var shot = shots[i];
-      if(shot){
-        return '<div class="shot-slot has-shot"><span>0'+(i+1)+'</span><img src="'+shot+'" alt="'+esc(n)+'" onclick="openImgLightbox(\''+shot+'\')"><b>'+esc(n)+'</b></div>';
-      } else {
-        return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';
-      }
-    }).join('')+'</div>';
-
-  html += '</section>';
-  return html;
+    '<figure class="full-code-slot zoomable-shot" onclick="openImgLightbox(\''+codeImage+'\',\''+esc(codeAlt)+'\')"><img src="'+codeImage+'" alt="'+codeAlt+'"><span class="zoom-badge">点击放大</span><figcaption><b>积木搭建示意图</b><span>根据本课步骤生成 · 点击查看细节</span><em>可替换实拍</em></figcaption></figure></div>'+
+    '<div class="step-shot-head"><b>关键步骤截图</b><span>第 2–4 步已配图，点击可放大</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
+      var shot = (i >= 1 && i <= 3) ? 'assets/blocks/lesson-'+pad+'/step-0'+(i+1)+'.png' : '';
+      return shot ? '<div class="shot-slot has-shot zoomable-shot" onclick="openImgLightbox(\''+shot+'\',\''+esc(n)+'\')"><span>0'+(i+1)+'</span><img src="'+shot+'" alt="'+esc(n)+'"><b>'+esc(n)+'</b><small>点击图片放大查看</small></div>' : '<div class="shot-slot"><span>0'+(i+1)+'</span><i>'+((i===0)?'准备':'验证')+'</i><b>'+esc(n)+'</b><small>'+((i===0)?'先完成设备与变量准备':'在 CyberPi 真机完成验收')+'</small></div>';
+    }).join('')+'</div></section>';
 }
-
 function sampleTaskLab(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
 }
+function platformWorkflow(l){
+  var seen = {}, cats = [];
+  l.blocks.forEach(function(b){ if(!seen[b[0]]){ seen[b[0]] = true; cats.push(b[0]); } });
+  var outputs = l.blocks.filter(function(b){ return blockRole(b[0]) === 'output'; }).map(function(b){ return b[0]; });
+  var verify = outputs.length ? outputs.filter(function(n,i,a){ return a.indexOf(n) === i; }).join('、') : '屏幕、灯光或声音';
+  return '<section class="platform-workflow"><div class="workflow-head"><div><span>MBLOCK → CYBERPI</span><h4>本课统一实施流程</h4></div><p>编程在 mBlock 完成，CyberPi 用来接收真实输入并验证结果。</p></div><div class="workflow-grid">'+
+    '<article><i>01</i><b>添加设备</b><p>在 mBlock 添加“童芯派”，用数据线连接，看到“设备已连接”。</p></article>'+
+    '<article><i>02</i><b>选择模式</b><p>先用在线模式边搭边测；作品稳定后，可切换上传模式独立运行。</p></article>'+
+    '<article><i>03</i><b>找到积木</b><p>本课会用到：'+esc(cats.join('、'))+'。</p></article>'+
+    '<article><i>04</i><b>分段搭建</b><p>按“真实输入—逻辑处理—硬件输出”连接，每完成一段就运行一次。</p></article>'+
+    '<article><i>05</i><b>实体触发</b><p>操作 CyberPi 的按钮、摇杆或传感器，不用舞台角色代替硬件输入。</p></article>'+
+    '<article><i>06</i><b>真机验收</b><p>观察 CyberPi 的'+esc(verify)+'反馈，并记录一次修改前后的差异。</p></article>'+
+  '</div></section>';
+}
 function sampleTestLab(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<section class="sample-test-lab"><div class="sample-test-head"><div><span>TEST & DEBUG</span><h4>测试记录与排错</h4></div><p>先预测，再运行；出现不同结果时先找原因，不急着改积木。</p></div><div class="test-table"><div class="test-row test-th"><b>测试条件</b><b>预期现象</b><b>观察重点</b></div>'+s.tests.map(function(r){return '<div class="test-row"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span><span>'+esc(r[2])+'</span></div>';}).join('')+'</div><div class="debug-reflect"><div class="debug-card"><span>文字排错卡</span>'+s.bugs.map(function(n){return '<article><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></article>';}).join('')+'</div><div class="reflect-card"><span>完成后想一想</span>'+s.reflection.map(function(n,i){return '<p><i>0'+(i+1)+'</i>'+esc(n)+'</p>';}).join('')+'</div></div></section>';
 }
 
@@ -2306,8 +1918,8 @@ function panelIntro(l, ch){
   var pad = l.id < 10 ? '0' + l.id : '' + l.id;
   var steps = [
     {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', t:'读故事', p:'回顾绘本第'+l.echoId+'课《'+l.echoTitle+'》'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在线完成AI硬件编程任务'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'先屏幕调试，再用 CyberPi 验证'}
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在 mBlock 中搭建AI硬件程序'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'连接 CyberPi，边搭建边在真机验证'}
   ];
   return '<div class="panel-card tab-panel active" id="panel-intro">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[0].icon+'</span>课程导入 · 绘本呼应</h3>' +
@@ -2360,7 +1972,10 @@ function panelBlocks(l, ch){
       '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span><span class="node-check">检查参数</span></div>';
   });
   var proof = sampleMediaStudio(l);
-  var first = l.blocks[0], middle = l.blocks[Math.floor(l.blocks.length/2)], last = l.blocks[l.blocks.length-1];
+  var first = l.blocks.find(function(b){ return blockRole(b[0]) === 'input'; }) || l.blocks[0];
+  var middle = l.blocks.find(function(b){ return blockRole(b[0]) === 'logic'; }) || l.blocks[Math.floor(l.blocks.length/2)];
+  var outputs = l.blocks.filter(function(b){ return blockRole(b[0]) === 'output'; });
+  var last = outputs[outputs.length-1] || l.blocks[l.blocks.length-1];
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>本课积木程序</h3>' +
     '<div class="program-summary"><div><span>PROGRAM BLUEPRINT</span><h4>'+esc(l.projName)+'</h4><p>先读懂程序为什么这样连接，再动手搭建。</p></div><div class="program-metrics"><b>'+l.blocks.length+'<small>块核心积木</small></b><b>'+roleCount.input+'<small>输入/启动</small></b><b>'+roleCount.logic+'<small>逻辑处理</small></b><b>'+roleCount.output+'<small>反馈输出</small></b></div></div>'+
@@ -2369,25 +1984,27 @@ function panelBlocks(l, ch){
       '<article class="runtime-card logic"><span>02 · 处理 / 判断</span><b>'+esc(middle[1])+'</b><small>'+esc(middle[0])+'类积木</small></article><i>→</i>'+
       '<article class="runtime-card output"><span>03 · 反馈 / 结果</span><b>'+esc(last[1])+'</b><small>'+esc(last[0])+'类积木</small></article></div></div>'+
     '<div class="program-workbench"><section><div class="workbench-title"><div><span>搭建区</span><b>按顺序连接核心积木</b></div><small>共 '+l.blocks.length+' 步</small></div><div class="blk-list program-sequence">'+rows+'</div></section>'+
-      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样判断？</b><small>关注条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察屏幕、灯光、声音或角色反馈。</small></p></div><div class="guide-tip">搭完一小段就运行一次，更容易发现连接或参数问题。</div></aside></div>'+
-    proof + '<div class="tip-box"><b>搭建顺序：</b>先完成积木逻辑、运行和调试，再连接 CyberPi 完成真实的传感与反馈。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
+      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样处理？</b><small>关注执行顺序、条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察 CyberPi 的屏幕、灯光、声音或运动反馈。</small></p></div><div class="guide-tip">设备保持连接，搭完一小段就在真机上运行一次，更容易发现连接或参数问题。</div></aside></div>'+
+    proof + '<div class="tip-box"><b>mBlock + CyberPi 流程：</b>先添加并连接童芯派，确认模式，再按“事件输入—逻辑处理—硬件输出”搭建；每完成一段就用实体按钮或传感器在 CyberPi 上验证。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
 }
 
 /* ---- 面板：CyberPi 演示 ---- */
 function panelDemo(l, ch){
   var phaseNames = ['准备','搭建','连接','测试','改进'];
+  var sample = sampleOf(l);
+  if(sample && sample.phases) phaseNames = sample.phases;
+  var success = sample && sample.success ? sample.success : ['程序能按步骤完整运行','硬件能给出可观察的反馈','我能解释“'+l.theme+'”怎样体现在作品中'];
   return '<div class="panel-card tab-panel" id="panel-demo">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>本节AI硬件编程任务</h3>' +
     '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 核心任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div><div class="p-eff">'+esc(l.projEff)+'</div></div>'+
       '<div class="task-stamp"><b>'+l.steps.length+'</b><span>个关键步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
-    sampleTaskLab(l) +
+    platformWorkflow(l) + sampleTaskLab(l) +
     '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>BUILD PLAN</span><h4>动手任务路线</h4></div><p>完成一步，检查一步</p></div><div class="steps-list task-steps">' + l.steps.map(function(s, i){
       return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-check">□ 完成</span></div>';
     }).join('') + '</div></section>'+
     '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
-      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul><li>程序能按步骤完整运行</li><li>硬件能给出可观察的反馈</li><li>我能解释“'+esc(l.theme)+'”怎样体现在作品中</li></ul></div></aside></div>'+
+      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul>'+success.map(function(n){ return '<li>'+esc(n)+'</li>'; }).join('')+'</ul></div></aside></div>'+
     '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
-    '<div class="answer-section"><div class="answer-toggle" onclick="toggleAnswer(this)"><span class="answer-tag">参考答案</span><b>编程任务标准答案 · mBlock 积木程序</b><i class="answer-arrow">▼</i></div><div class="answer-content" style="display:none"><div class="answer-hint">完成编程任务后，点击展开查看参考积木程序，对照检查自己的搭建是否正确。</div><img src="'+(sampleOf(l) && sampleOf(l).stepShots && sampleOf(l).stepShots[3] ? sampleOf(l).stepShots[3] : (sampleOf(l) && sampleOf(l).fullCodeShot ? sampleOf(l).fullCodeShot : 'assets/blocks/official-interface-reference.png'))+'" alt="编程任务参考实现" onclick="openImgLightbox(this.src)"><div class="answer-note"><b>说明：</b>上图为编程任务的参考实现，实际搭建方式不唯一，核心逻辑正确即可。完整实现请参考「积木程序」环节的完整程序截图。</div></div></div>' +
     '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
 }
 
@@ -2395,7 +2012,7 @@ function panelDemo(l, ch){
 function panelChallenge(l, ch){
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>运行、测试与改进</h3>' +
-    '<div class="challenge-box"><span class="c-tag">先测程序，再接硬件</span><p>'+esc(l.challenge)+'</p></div>' +
+    '<div class="challenge-box"><span class="c-tag">连接设备 · 边搭边测 · 真机验证</span><p>'+esc(l.challenge)+'</p></div>' +
     sampleTestLab(l) +
     (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','进入挑战与问答') + '</div>';
 }
@@ -2656,6 +2273,9 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 document.addEventListener('keydown', function(e){
   if(e.key === 'Enter' && document.getElementById('nickOverlay').style.display === 'grid'){ saveNick(); }
+  if(e.key === 'Escape' && document.getElementById('imgLightbox').style.display !== 'none'){ closeImgLightbox(); }
+  if(document.getElementById('imgLightbox').style.display !== 'none' && (e.key === '+' || e.key === '=')){ changeImageZoom(.25); }
+  if(document.getElementById('imgLightbox').style.display !== 'none' && e.key === '-'){ changeImageZoom(-.25); }
 });
 
 </script>

@@ -4,10 +4,11 @@
 基于修正后的课程数据，精确解析每步积木内容
 """
 import sys, os, json, re
-sys.path.insert(0, r"D:\PROJECTS\_AI\AIBook_CyberPi\_tools")
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT_DIR, "_tools"))
 from _mblock_renderer import draw_mblock_interface, COLORS
 
-BASE_DIR = r"D:\PROJECTS\_AI\AIBook_CyberPi\AI编程探险课_CyberPi\assets\blocks"
+BASE_DIR = os.path.join(ROOT_DIR, "AI编程探险课_CyberPi", "assets", "blocks")
 
 def extract_var_name(s):
     """从步骤描述中提取变量名"""
@@ -360,7 +361,7 @@ def generate_lesson_screenshots(lid, steps):
 
 def main():
     # 读取修正后的课程数据
-    with open(r"D:\PROJECTS\_AI\AIBook_CyberPi\_tools\_lessons_data_fixed.json", encoding='utf-8') as f:
+    with open(os.path.join(ROOT_DIR, "_tools", "_lessons_data_fixed.json"), encoding='utf-8') as f:
         lessons_fixed = json.load(f)
     
     count = 0

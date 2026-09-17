@@ -195,14 +195,16 @@ var TABS = [
 ];
 var SAMPLE_CONTENT = {
   1:{
-    driving:"怎样让程序像小侦探一样，接收线索、作出判断并给出回应？",
-    deliverable:"完成一个能提问、接收回答、判断关键词并反馈结果的“线索回应机”，最后用 CyberPi 按钮和屏幕验证同一套逻辑。",
-    prep:["新建空白角色项目，保留一个提问角色","准备“圆、小球、方形”等测试回答","先在舞台完成调试，确认逻辑后再连接 CyberPi"],
-    stepTitles:["提出线索问题","读取用户回答","判断关键词","连续输入测试","迁移到硬件"],
-    levels:[["必做任务","输入“圆”时回应“收到形状线索”，其他回答提示继续观察。"],["加星任务","让程序同时理解“圆”和“小球”两种说法。"],["创造任务","把题目改造成动物、植物或校园物品猜谜机。"]],
-    tests:[["输入“圆”","显示“收到形状线索”","基础判断"],["输入“小球”","修改前记录结果，修改后正确识别","表达变化"],["输入“方形”","提示“请继续观察”","否则分支"],["按下按钮 A","CyberPi 屏幕显示回应","硬件迁移"]],
-    bugs:[["所有回答都进入同一结果","检查条件中的关键词、比较符号和“否则”连接位置。"],["舞台正确但设备没有回应","确认已连接正确设备，并重新上传修改后的程序。"]],
-    reflection:["程序真正理解“圆”了吗，还是只在匹配文字？","还可以加入哪些表达，让判断更接近人的说法？"]
+    driving:"按下 CyberPi 的真实按钮后，输入怎样经过程序处理，变成屏幕和灯光的回应？",
+    deliverable:"在 mBlock 上传模式完成“线索接收器”：开机显示侦探身份；每按一次 A，线索计数增加，并根据数量显示不同回应、亮起绿色 RGB 灯。",
+    prep:["打开 mBlock，在设备区添加“童芯派”","使用 Type-C 数据线连接，确认界面显示“设备已连接”","切换上传模式，准备建立“线索计数”变量并烧录到设备"],
+    stepTitles:["连接设备并选上传模式","加入开机身份提示","按钮 A 让线索计数加一","按数量显示不同回应","上传后按实体 A 键验证"],
+    phases:["设备连接","输入事件","输出搭建","参数调试","真机验证"],
+    levels:[["必做任务","连续按两次实体按钮 A，屏幕先显示“收到1条线索”，再显示“线索够啦！”，同时亮绿灯。"],["加星任务","增加按钮 B 清零程序，屏幕显示“线索已清空”。"],["创造任务","为第3、第4条线索设计新的文字、颜色或声音反馈。"]],
+    tests:[["上传后重新启动","屏幕显示“我是线索小侦探”","初始化"],["第一次按实体按钮 A","计数为1，显示“收到1条线索”","输入与变量"],["第二次按实体按钮 A","计数为2，显示“线索够啦！”","条件分支"],["继续按 A","计数持续增加且绿灯反馈正常","连续运行"],["修改判断阈值后重新上传","回应切换时机随阈值改变","修改—上传—验证"]],
+    bugs:[["按 A 完全没有反应","检查是否选中童芯派、是否已上传成功，以及事件积木下拉项是否为 A。"],["每次都显示同一句话","检查线索计数是否在按钮事件中增加，以及 if 条件是否读取了正确变量。"],["重新开机仍保留旧效果","停止当前程序，重新上传；上传完成后重启 CyberPi 再测试。"]],
+    reflection:["在这套程序里，哪一部分是输入、处理和输出？","mBlock 与 CyberPi 各自负责什么，缺少其中一个还能完成本课验证吗？"],
+    success:["程序已上传并可脱离电脑运行","连续按 A 后计数与文字分支正确变化","能够指出按钮是输入、变量和条件是处理、屏幕与灯光是输出"]
   },
   17:{
     driving:"怎样证明模型学会了规律，而不是只记住训练时见过的图片？",
@@ -226,26 +228,97 @@ var SAMPLE_CONTENT = {
   }
 };
 var quizState = null;
+var imageZoom = 1;
+var imageFitWidth = 0;
 
 function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
+function taskSpec(l){
+  var s = sampleOf(l);
+  if(s) return s;
+  return {
+    driving:'怎样在 mBlock 中把“'+l.theme+'”变成一个可以在 CyberPi 上运行和验证的作品？',
+    deliverable:'完成“'+l.projName+'”：按步骤搭建积木、上传到 CyberPi，并用实体按钮或传感器验证“输入—处理—输出”是否符合预期。',
+    prep:['用 Type-C 数据线连接 CyberPi，在 mBlock 设备区确认已识别童芯派','根据本课功能选择在线模式调试或上传模式独立运行','先读一遍完整程序与 5 个步骤，找出输入、处理和输出积木'],
+    levels:[['必做任务','完成核心程序并在 CyberPi 真机上通过基础测试。'],['加星任务',l.challenge],['创造任务','更换一种输入或输出方式，说明改动后程序逻辑有什么变化。']],
+    tests:[['设备连接并启动','CyberPi 显示本课启动提示','连接与初始化'],['触发本课输入','程序进入正确的处理分支','事件与传感输入'],['观察真机输出','屏幕、灯光或声音与任务说明一致','硬件反馈'],['修改一个参数后重测','结果随参数发生可解释的变化','修改与验证']],
+    bugs:[['程序没有反应','确认设备已连接、运行模式正确，并检查事件积木是否接在程序最上方。'],['输出与预期不同','逐段运行，核对条件、变量初值和显示、灯光或声音参数。'],['上传后仍是旧效果','停止当前程序，重新上传；完成后重启 CyberPi 再验证。']],
+    reflection:['本课程序的真实输入、逻辑处理和硬件输出分别是什么？','这个作品是在模拟 AI 概念，还是实际调用了 AI 模型？你能说出证据吗？']
+  };
+}
+function conciseStepTitle(step, i){
+  var text = String(step).replace(/^（[^）]+）/,'').replace(/^\([^\)]+\)/,'');
+  return text || ('关键步骤 '+(i+1));
+}
+function openImgLightbox(src, label){
+  var box = document.getElementById('imgLightbox');
+  var img = document.getElementById('lightboxImg');
+  imageZoom = 1;
+  imageFitWidth = 0;
+  img.alt = label || '积木程序截图放大查看';
+  document.getElementById('lightboxCaption').textContent = label || '积木程序截图放大查看';
+  img.style.width = '';
+  document.getElementById('zoomValue').textContent = '100%';
+  box.style.display = 'flex';
+  document.body.classList.add('lightbox-open');
+  function fitImage(){
+    var stage = document.querySelector('.lightbox-stage');
+    var fit = Math.min((stage.clientWidth-40)/img.naturalWidth, (stage.clientHeight-40)/img.naturalHeight, 1);
+    imageFitWidth = Math.max(1, Math.round(img.naturalWidth*fit));
+    img.style.width = imageFitWidth+'px';
+  }
+  img.onload = fitImage;
+  img.src = src;
+  if(img.complete && img.naturalWidth) fitImage();
+}
+function closeImgLightbox(){
+  document.getElementById('imgLightbox').style.display = 'none';
+  document.body.classList.remove('lightbox-open');
+}
+function setImageZoom(next){
+  imageZoom = Math.max(.5, Math.min(3, next));
+  var img = document.getElementById('lightboxImg');
+  if(imageFitWidth) img.style.width = Math.round(imageFitWidth*imageZoom)+'px';
+  document.getElementById('zoomValue').textContent = Math.round(imageZoom*100)+'%';
+}
+function changeImageZoom(delta){ setImageZoom(imageZoom + delta); }
+function resetImageZoom(){ setImageZoom(1); }
 function sampleDriving(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
 }
 function sampleMediaStudio(l){
-  var s = sampleOf(l); if(!s) return '';
-  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>操作截图与最终效果</h4></div><p>以下位置已按统一规格预留，上传真实素材后可直接替换。</p></div>'+
+  var pad = l.id < 10 ? '0'+l.id : ''+l.id;
+  var codeImage = 'assets/blocks/lesson-'+pad+'/full-program.png';
+  var codeAlt = '第'+l.id+'课 mBlock 积木搭建示意';
+  var stepTitles = l.steps.map(conciseStepTitle);
+  return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>mBlock 积木搭建示意与 CyberPi 效果</h4></div><p>当前图片用于讲解搭建思路，后续可替换为真实操作截图；点击可放大到 300%。</p></div>'+
     '<div class="media-featured"><div class="video-slot" style="--poster:url(\''+lessonAsset(l.id)+'\')"><div class="play-mark">▶</div><b>最终效果视频</b><span>程序运行 + CyberPi 反馈 · 30–90 秒</span><em>待上传</em></div>'+
-    '<figure class="full-code-slot"><img src="assets/blocks/official-interface-reference.png" alt="在线积木编程界面参考"><figcaption><b>完整程序截图</b><span>当前为界面参考，后续替换本课完整积木链</span><em>待替换</em></figcaption></figure></div>'+
-    '<div class="step-shot-head"><b>关键步骤截图</b><span>每张图只突出一个动作，便于课堂投屏讲解</span></div><div class="step-shot-grid">'+s.stepTitles.map(function(n,i){return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>截图</i><b>'+esc(n)+'</b><small>待上传本步骤操作图</small></div>';}).join('')+'</div>'+
-    '<div class="result-shot"><span>运行结果截图</span><b>记录舞台或设备最终反馈</b><small>待上传 · 与最终视频配合使用</small></div></section>';
+    '<figure class="full-code-slot zoomable-shot" onclick="openImgLightbox(\''+codeImage+'\',\''+esc(codeAlt)+'\')"><img src="'+codeImage+'" alt="'+codeAlt+'"><span class="zoom-badge">点击放大</span><figcaption><b>积木搭建示意图</b><span>根据本课步骤生成 · 点击查看细节</span><em>可替换实拍</em></figcaption></figure></div>'+
+    '<div class="step-shot-head"><b>关键步骤截图</b><span>第 2–4 步已配图，点击可放大</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
+      var shot = (i >= 1 && i <= 3) ? 'assets/blocks/lesson-'+pad+'/step-0'+(i+1)+'.png' : '';
+      return shot ? '<div class="shot-slot has-shot zoomable-shot" onclick="openImgLightbox(\''+shot+'\',\''+esc(n)+'\')"><span>0'+(i+1)+'</span><img src="'+shot+'" alt="'+esc(n)+'"><b>'+esc(n)+'</b><small>点击图片放大查看</small></div>' : '<div class="shot-slot"><span>0'+(i+1)+'</span><i>'+((i===0)?'准备':'验证')+'</i><b>'+esc(n)+'</b><small>'+((i===0)?'先完成设备与变量准备':'在 CyberPi 真机完成验收')+'</small></div>';
+    }).join('')+'</div></section>';
 }
 function sampleTaskLab(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
 }
+function platformWorkflow(l){
+  var seen = {}, cats = [];
+  l.blocks.forEach(function(b){ if(!seen[b[0]]){ seen[b[0]] = true; cats.push(b[0]); } });
+  var outputs = l.blocks.filter(function(b){ return blockRole(b[0]) === 'output'; }).map(function(b){ return b[0]; });
+  var verify = outputs.length ? outputs.filter(function(n,i,a){ return a.indexOf(n) === i; }).join('、') : '屏幕、灯光或声音';
+  return '<section class="platform-workflow"><div class="workflow-head"><div><span>MBLOCK → CYBERPI</span><h4>本课统一实施流程</h4></div><p>编程在 mBlock 完成，CyberPi 用来接收真实输入并验证结果。</p></div><div class="workflow-grid">'+
+    '<article><i>01</i><b>添加设备</b><p>在 mBlock 添加“童芯派”，用数据线连接，看到“设备已连接”。</p></article>'+
+    '<article><i>02</i><b>选择模式</b><p>先用在线模式边搭边测；作品稳定后，可切换上传模式独立运行。</p></article>'+
+    '<article><i>03</i><b>找到积木</b><p>本课会用到：'+esc(cats.join('、'))+'。</p></article>'+
+    '<article><i>04</i><b>分段搭建</b><p>按“真实输入—逻辑处理—硬件输出”连接，每完成一段就运行一次。</p></article>'+
+    '<article><i>05</i><b>实体触发</b><p>操作 CyberPi 的按钮、摇杆或传感器，不用舞台角色代替硬件输入。</p></article>'+
+    '<article><i>06</i><b>真机验收</b><p>观察 CyberPi 的'+esc(verify)+'反馈，并记录一次修改前后的差异。</p></article>'+
+  '</div></section>';
+}
 function sampleTestLab(l){
-  var s = sampleOf(l); if(!s) return '';
+  var s = taskSpec(l);
   return '<section class="sample-test-lab"><div class="sample-test-head"><div><span>TEST & DEBUG</span><h4>测试记录与排错</h4></div><p>先预测，再运行；出现不同结果时先找原因，不急着改积木。</p></div><div class="test-table"><div class="test-row test-th"><b>测试条件</b><b>预期现象</b><b>观察重点</b></div>'+s.tests.map(function(r){return '<div class="test-row"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span><span>'+esc(r[2])+'</span></div>';}).join('')+'</div><div class="debug-reflect"><div class="debug-card"><span>文字排错卡</span>'+s.bugs.map(function(n){return '<article><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></article>';}).join('')+'</div><div class="reflect-card"><span>完成后想一想</span>'+s.reflection.map(function(n,i){return '<p><i>0'+(i+1)+'</i>'+esc(n)+'</p>';}).join('')+'</div></div></section>';
 }
 
@@ -323,8 +396,8 @@ function panelIntro(l, ch){
   var pad = l.id < 10 ? '0' + l.id : '' + l.id;
   var steps = [
     {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', t:'读故事', p:'回顾绘本第'+l.echoId+'课《'+l.echoTitle+'》'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在线完成AI硬件编程任务'},
-    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'先屏幕调试，再用 CyberPi 验证'}
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h.01M16 9h.01M8 15h8"/></svg>', t:'写程序', p:'在 mBlock 中搭建AI硬件程序'},
+    {ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>', t:'测一测', p:'连接 CyberPi，边搭建边在真机验证'}
   ];
   return '<div class="panel-card tab-panel active" id="panel-intro">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[0].icon+'</span>课程导入 · 绘本呼应</h3>' +
@@ -377,7 +450,10 @@ function panelBlocks(l, ch){
       '<span class="blk" style="background:'+color+'"><span class="blk-cat">'+b[0]+'</span>'+esc(b[1])+'</span><span class="node-check">检查参数</span></div>';
   });
   var proof = sampleMediaStudio(l);
-  var first = l.blocks[0], middle = l.blocks[Math.floor(l.blocks.length/2)], last = l.blocks[l.blocks.length-1];
+  var first = l.blocks.find(function(b){ return blockRole(b[0]) === 'input'; }) || l.blocks[0];
+  var middle = l.blocks.find(function(b){ return blockRole(b[0]) === 'logic'; }) || l.blocks[Math.floor(l.blocks.length/2)];
+  var outputs = l.blocks.filter(function(b){ return blockRole(b[0]) === 'output'; });
+  var last = outputs[outputs.length-1] || l.blocks[l.blocks.length-1];
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>本课积木程序</h3>' +
     '<div class="program-summary"><div><span>PROGRAM BLUEPRINT</span><h4>'+esc(l.projName)+'</h4><p>先读懂程序为什么这样连接，再动手搭建。</p></div><div class="program-metrics"><b>'+l.blocks.length+'<small>块核心积木</small></b><b>'+roleCount.input+'<small>输入/启动</small></b><b>'+roleCount.logic+'<small>逻辑处理</small></b><b>'+roleCount.output+'<small>反馈输出</small></b></div></div>'+
@@ -386,23 +462,26 @@ function panelBlocks(l, ch){
       '<article class="runtime-card logic"><span>02 · 处理 / 判断</span><b>'+esc(middle[1])+'</b><small>'+esc(middle[0])+'类积木</small></article><i>→</i>'+
       '<article class="runtime-card output"><span>03 · 反馈 / 结果</span><b>'+esc(last[1])+'</b><small>'+esc(last[0])+'类积木</small></article></div></div>'+
     '<div class="program-workbench"><section><div class="workbench-title"><div><span>搭建区</span><b>按顺序连接核心积木</b></div><small>共 '+l.blocks.length+' 步</small></div><div class="blk-list program-sequence">'+rows+'</div></section>'+
-      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样判断？</b><small>关注条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察屏幕、灯光、声音或角色反馈。</small></p></div><div class="guide-tip">搭完一小段就运行一次，更容易发现连接或参数问题。</div></aside></div>'+
-    proof + '<div class="tip-box"><b>搭建顺序：</b>先完成积木逻辑、运行和调试，再连接 CyberPi 完成真实的传感与反馈。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
+      '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样处理？</b><small>关注执行顺序、条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察 CyberPi 的屏幕、灯光、声音或运动反馈。</small></p></div><div class="guide-tip">设备保持连接，搭完一小段就在真机上运行一次，更容易发现连接或参数问题。</div></aside></div>'+
+    proof + '<div class="tip-box"><b>mBlock + CyberPi 流程：</b>先添加并连接童芯派，确认模式，再按“事件输入—逻辑处理—硬件输出”搭建；每完成一段就用实体按钮或传感器在 CyberPi 上验证。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
 }
 
 /* ---- 面板：CyberPi 演示 ---- */
 function panelDemo(l, ch){
   var phaseNames = ['准备','搭建','连接','测试','改进'];
+  var sample = sampleOf(l);
+  if(sample && sample.phases) phaseNames = sample.phases;
+  var success = sample && sample.success ? sample.success : ['程序能按步骤完整运行','硬件能给出可观察的反馈','我能解释“'+l.theme+'”怎样体现在作品中'];
   return '<div class="panel-card tab-panel" id="panel-demo">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>本节AI硬件编程任务</h3>' +
     '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 核心任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div><div class="p-eff">'+esc(l.projEff)+'</div></div>'+
       '<div class="task-stamp"><b>'+l.steps.length+'</b><span>个关键步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
-    sampleTaskLab(l) +
+    platformWorkflow(l) + sampleTaskLab(l) +
     '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>BUILD PLAN</span><h4>动手任务路线</h4></div><p>完成一步，检查一步</p></div><div class="steps-list task-steps">' + l.steps.map(function(s, i){
       return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-check">□ 完成</span></div>';
     }).join('') + '</div></section>'+
     '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
-      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul><li>程序能按步骤完整运行</li><li>硬件能给出可观察的反馈</li><li>我能解释“'+esc(l.theme)+'”怎样体现在作品中</li></ul></div></aside></div>'+
+      '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul>'+success.map(function(n){ return '<li>'+esc(n)+'</li>'; }).join('')+'</ul></div></aside></div>'+
     '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
     '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
 }
@@ -411,7 +490,7 @@ function panelDemo(l, ch){
 function panelChallenge(l, ch){
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>运行、测试与改进</h3>' +
-    '<div class="challenge-box"><span class="c-tag">先测程序，再接硬件</span><p>'+esc(l.challenge)+'</p></div>' +
+    '<div class="challenge-box"><span class="c-tag">连接设备 · 边搭边测 · 真机验证</span><p>'+esc(l.challenge)+'</p></div>' +
     sampleTestLab(l) +
     (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','进入挑战与问答') + '</div>';
 }
@@ -672,4 +751,7 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 document.addEventListener('keydown', function(e){
   if(e.key === 'Enter' && document.getElementById('nickOverlay').style.display === 'grid'){ saveNick(); }
+  if(e.key === 'Escape' && document.getElementById('imgLightbox').style.display !== 'none'){ closeImgLightbox(); }
+  if(document.getElementById('imgLightbox').style.display !== 'none' && (e.key === '+' || e.key === '=')){ changeImageZoom(.25); }
+  if(document.getElementById('imgLightbox').style.display !== 'none' && e.key === '-'){ changeImageZoom(-.25); }
 });

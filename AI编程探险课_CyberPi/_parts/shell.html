@@ -270,5 +270,22 @@
   </div>
 </div>
 
+<!-- ============ 积木截图放大查看 ============ -->
+<div class="img-lightbox" id="imgLightbox" style="display:none" onclick="closeImgLightbox()" role="dialog" aria-modal="true" aria-label="积木截图放大查看">
+  <div class="lightbox-toolbar" onclick="event.stopPropagation()">
+    <button onclick="changeImageZoom(-.25)" aria-label="缩小图片">−</button>
+    <span id="zoomValue">100%</span>
+    <button onclick="changeImageZoom(.25)" aria-label="放大图片">＋</button>
+    <button class="zoom-reset" onclick="resetImageZoom()">适应屏幕</button>
+    <button class="lb-close" onclick="closeImgLightbox()" aria-label="关闭">✕</button>
+  </div>
+  <div class="lightbox-stage" onclick="event.stopPropagation()">
+    <img id="lightboxImg" src="" alt="积木程序截图放大查看" onclick="changeImageZoom(imageZoom < 2 ? .5 : -1)">
+  </div>
+  <div class="lightbox-caption" onclick="event.stopPropagation()">
+    <span>步骤说明</span><b id="lightboxCaption">积木程序截图放大查看</b>
+  </div>
+</div>
+
 </body>
 </html>
