@@ -13,7 +13,18 @@ var CHAPTERS = [
 /* ============ 课程数据汇总 ============ */
 var ALL = [].concat(LESSONS_1, LESSONS_2, LESSONS_3, LESSONS_4);
 var COURSE = {};
-ALL.forEach(function(l){ COURSE[l.id] = l; });
+ALL.forEach(function(l){
+  var refinement = CURRICULUM_REFINEMENTS[l.id];
+  if(refinement){
+    l.programMeaning = refinement.meaning;
+    l.programObserve = refinement.observe;
+    l.programHook = refinement.hook;
+    l.programGoal = refinement.goal;
+    l.programWatch = refinement.watch;
+    l.transfer = refinement.transfer;
+  }
+  COURSE[l.id] = l;
+});
 
 /* 积木分类颜色 */
 var CAT_COLOR = {事件:'var(--cat-event)',控制:'var(--cat-control)',显示:'var(--cat-display)',灯:'var(--cat-light)',声音:'var(--cat-sound)',传感:'var(--cat-sense)',运算:'var(--cat-op)',变量:'var(--cat-var)','网络/AI':'var(--cat-ai)',扩展:'var(--cat-ext)',自制:'var(--cat-my)',侦测:'var(--cat-sense)',外观:'var(--cat-display)',循环:'var(--cat-control)',列表:'var(--cat-var)',随机:'var(--cat-op)'};
@@ -190,8 +201,13 @@ var TABS = [
   {key:'know', name:'学习目标', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 19.5a5.5 5.5 0 0 1-5.5-5.5V5h16v9a5.5 5.5 0 0 1-5.5 5.5h-5z"/><path d="M12 5v10"/></svg>'},
   {key:'blocks', name:'积木程序', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="2.5"/><rect x="16.5" y="7" width="4.5" height="10" rx="2"/><path d="M9 7V5"/></svg>'},
   {key:'demo', name:'编程任务', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="3.2"/><path d="M7 6V4h10v2"/></svg>'},
-  {key:'challenge', name:'运行与测试', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
+  {key:'challenge', name:'试玩与升级', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>'},
   {key:'quiz', name:'挑战与问答', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.8.3-.9 1-.9 1.7M12 17h.01"/></svg>'}
+];
+var TASK_LEVEL_ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18"/><path d="M5 5h11l-2.5 3L16 11H5"/><path d="m8.5 16.5 2 2 4-4"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"/><path d="M8.4 14.5A6 6 0 1 1 15.6 14.5C14.6 15.2 14 16 14 17h-4c0-1-.6-1.8-1.6-2.5z"/><path d="M12 6v3M8.8 8.2l2.1 2.1M15.2 8.2l-2.1 2.1"/></svg>'
 ];
 var SAMPLE_CONTENT = {
   1:{
@@ -233,6 +249,17 @@ var imageFitWidth = 0;
 
 function sampleOf(l){ return SAMPLE_CONTENT[l.id] || null; }
 function taskSpec(l){
+  if(l.transfer){
+    return {
+      driving:'学会“'+l.projName+'”以后，怎样保留核心逻辑，把它改造成“'+l.transfer.name+'”？',
+      deliverable:l.transfer.eff,
+      prep:['先完成并解释前一模块的“'+l.projName+'”示范程序','复制原工程并另存为新名称，不在原程序上直接覆盖','圈出需要保留、替换和新增的积木，先画出改造路线'],
+      levels:[['必做任务','按5个迁移步骤完成“'+l.transfer.name+'”，并通过基础测试。'],['加星任务',l.transfer.challenge],['创造任务','再更换一种输入、规则或反馈，说明它与示范程序的相同点和不同点。']],
+      tests:[['运行原示范程序','能说出原程序的输入、处理和输出','先理解再改造'],['运行迁移任务基础情境','新作品按规则产生正确反馈','核心逻辑迁移'],['测试边界或相反情境','不同条件进入不同分支','规则完整性'],['修改一个参数后复测','现象随修改产生可解释变化','改进与证据']],
+      bugs:[['改完后仍像原作品','检查是否真正替换了输入情境、处理规则或输出目标，而不只是改文字。'],['新功能互相覆盖','逐个关闭新增模块分段测试，确认变量、事件和屏幕输出不会冲突。'],['结果偶尔不稳定','记录触发时的真实传感数值，检查阈值、等待时间和边界条件。']],
+      reflection:['示范程序中哪一条核心逻辑被保留下来？迁移任务改变了什么？','如果把新任务交给另一位同学，他能根据说明独立完成和验证吗？']
+    };
+  }
   var s = sampleOf(l);
   if(s) return s;
   return {
@@ -283,8 +310,8 @@ function setImageZoom(next){
 function changeImageZoom(delta){ setImageZoom(imageZoom + delta); }
 function resetImageZoom(){ setImageZoom(1); }
 function sampleDriving(l){
-  var s = taskSpec(l);
-  return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(s.driving)+'</b><p>先说出你的猜想，完成作品后再回来修正答案。</p></div>';
+  var question = '“'+l.theme+'”怎样通过“'+l.projName+'”变成可以观察、运行和解释的程序？';
+  return '<div class="sample-driving"><span>本课驱动问题</span><b>'+esc(question)+'</b><p>先说出你的猜想，完成示范程序后再回来修正答案。</p></div>';
 }
 function sampleMediaStudio(l){
   var pad = l.id < 10 ? '0'+l.id : ''+l.id;
@@ -301,7 +328,7 @@ function sampleMediaStudio(l){
 }
 function sampleTaskLab(l){
   var s = taskSpec(l);
-  return '<section class="sample-task-lab"><div class="sample-brief"><span>作品交付目标</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>开始前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>分层任务</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i>'+['必','星','创'][i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
+  return '<section class="sample-task-lab"><div class="sample-brief"><span>今天要做出</span><b>'+esc(s.deliverable)+'</b></div><div class="sample-task-grid"><div class="prep-card"><span>出发前准备</span><ol>'+s.prep.map(function(n){return '<li>'+esc(n)+'</li>';}).join('')+'</ol></div><div class="level-card"><span>选择你的挑战</span>'+s.levels.map(function(n,i){return '<article class="level-'+i+'"><i aria-hidden="true">'+TASK_LEVEL_ICONS[i]+'</i><div><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div></article>';}).join('')+'</div></div></section>';
 }
 function platformWorkflow(l){
   var seen = {}, cats = [];
@@ -319,7 +346,16 @@ function platformWorkflow(l){
 }
 function sampleTestLab(l){
   var s = taskSpec(l);
-  return '<section class="sample-test-lab"><div class="sample-test-head"><div><span>TEST & DEBUG</span><h4>测试记录与排错</h4></div><p>先预测，再运行；出现不同结果时先找原因，不急着改积木。</p></div><div class="test-table"><div class="test-row test-th"><b>测试条件</b><b>预期现象</b><b>观察重点</b></div>'+s.tests.map(function(r){return '<div class="test-row"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span><span>'+esc(r[2])+'</span></div>';}).join('')+'</div><div class="debug-reflect"><div class="debug-card"><span>文字排错卡</span>'+s.bugs.map(function(n){return '<article><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></article>';}).join('')+'</div><div class="reflect-card"><span>完成后想一想</span>'+s.reflection.map(function(n,i){return '<p><i>0'+(i+1)+'</i>'+esc(n)+'</p>';}).join('')+'</div></div></section>';
+  var playIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7 8 5-8 5V7z"/><circle cx="12" cy="12" r="9"/></svg>';
+  var searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/><path d="M8 10.5h5M10.5 8v5"/></svg>';
+  var upgradeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V6M6 12l6-6 6 6"/><path d="M5 20h14"/></svg>';
+  var testCases = s.tests.slice(0,3).map(function(r){ return '<div class="play-case"><span>这样试</span><b>'+esc(r[0])+'</b><i>看看是不是</i><p>'+esc(r[1])+'</p></div>'; }).join('');
+  var bugCards = s.bugs.slice(0,2).map(function(n){ return '<div class="bug-clue"><b>'+esc(n[0])+'</b><p>'+esc(n[1])+'</p></div>'; }).join('');
+  return '<section class="sample-test-lab kid-test-lab"><div class="sample-test-head"><div><span>PLAY LAB · 试玩站</span><h4>试一试，找一找，再升级</h4></div><p>每次只改一个地方，马上在 CyberPi 上再试一次。</p></div><div class="kid-test-route">'+
+    '<article class="kid-test-card try-card"><header><i>'+playIcon+'</i><div><small>第 1 步</small><b>先试一试</b></div></header><p class="card-lead">换几种按法或环境，看看作品会怎样回应。</p><div class="play-cases">'+testCases+'</div></article>'+
+    '<article class="kid-test-card find-card"><header><i>'+searchIcon+'</i><div><small>第 2 步</small><b>不对就找一找</b></div></header><p class="card-lead">先找到没反应的那一步，不用把所有积木都拆掉。</p><div class="bug-clues">'+bugCards+'</div></article>'+
+    '<article class="kid-test-card upgrade-card"><header><i>'+upgradeIcon+'</i><div><small>第 3 步</small><b>改一处，再试一次</b></div></header><p class="card-lead">挑一个数字、颜色、声音或判断规则，改完马上运行。</p><div class="upgrade-action"><span>说一说</span><p>'+esc(s.reflection[0])+'</p></div><div class="upgrade-action"><span>小目标</span><p>我能说出改了哪里，以及 CyberPi 的回应有什么不同。</p></div></article>'+
+  '</div></section>';
 }
 
 function renderCourse(id){
@@ -423,20 +459,15 @@ function panelIntro(l, ch){
 
 /* ---- 面板：AI 知识点 ---- */
 function panelKnow(l, ch){
-  var goalNames = ['知道什么','能够做到','解释与迁移'];
-  var goalHints = ['建立本课AI概念','把想法变成程序','把规律说给别人听'];
+  var goalNames = ['看懂它','搭出来','试明白'];
   var goals = l.knowledge.map(function(k, i){
-    return '<article class="goal-stage"><span class="goal-stage-no">0'+(i+1)+'</span><div><small>'+goalNames[i%goalNames.length]+'</small><strong>'+esc(k)+'</strong><p>'+goalHints[i%goalHints.length]+'</p></div><i>✓</i></article>';
+    return '<article class="goal-stage"><span class="goal-stage-no">0'+(i+1)+'</span><div><small>'+goalNames[i%goalNames.length]+'</small><strong>'+esc(k)+'</strong></div></article>';
   }).join('');
   return '<div class="panel-card tab-panel" id="panel-know">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[1].icon+'</span>本节学习目标</h3>' +
     '<figure class="goal-visual"><div class="goal-picture"><img src="'+lessonAsset(l.id)+'" alt="'+esc(l.title)+'学习目标图示"><span>'+fmtNo(l.id)+'</span></div>'+
-      '<div class="goal-map"><div class="goal-map-head"><span>LEARNING MAP · 学习路线</span><h4>'+esc(l.theme)+'</h4><p>从理解概念，到搭建逻辑，再到硬件验证</p></div>'+
-      '<div class="goal-stages">'+goals+'</div><div class="goal-finish"><span>本课达成</span><b>我能理解、搭建并验证一个“'+esc(l.theme)+'”作品</b></div>'+
-      '<figcaption>每完成一个目标，就为本课作品增加一种能力。</figcaption></div></figure>' +
-    '<div class="kp-list">' + l.knowledge.map(function(k, i){
-      return '<div class="kp-item"><span class="kp-no">'+(i+1)+'</span><p>'+esc(k)+'</p></div>';
-    }).join('') + '</div>' + nextStepButton('blocks','进入积木程序') + '</div>';
+      '<div class="goal-map"><div class="goal-map-head"><span>TODAY · 今天学什么</span><h4>'+esc(l.theme)+'</h4></div>'+
+      '<div class="goal-stages">'+goals+'</div></div></figure>' + nextStepButton('blocks','进入积木程序') + '</div>';
 }
 
 /* ---- 面板：编程积木 ---- */
@@ -451,16 +482,25 @@ function panelBlocks(l, ch){
   });
   var proof = sampleMediaStudio(l);
   var first = l.blocks.find(function(b){ return blockRole(b[0]) === 'input'; }) || l.blocks[0];
-  var middle = l.blocks.find(function(b){ return blockRole(b[0]) === 'logic'; }) || l.blocks[Math.floor(l.blocks.length/2)];
+  var logicBlocks = l.blocks.filter(function(b){ return blockRole(b[0]) === 'logic'; });
+  var middle = l.blocks.find(function(b){ return b[0] === '控制' || b[0] === '运算'; }) || logicBlocks[Math.min(1,logicBlocks.length-1)] || l.blocks[Math.floor(l.blocks.length/2)];
   var outputs = l.blocks.filter(function(b){ return blockRole(b[0]) === 'output'; });
   var last = outputs[outputs.length-1] || l.blocks[l.blocks.length-1];
+  var kidHook = l.programHook || ('团团想把 CyberPi 变成“'+l.projName+'”。它会在什么时候收到消息，又会怎样回答？先猜一猜。');
+  var kidGoal = l.programGoal || ('今天把“'+l.projName+'”做出来。先搭一小段就试一次，看看 CyberPi 是不是真的听懂了。');
+  var kidWatch = l.programWatch || ('程序跑起来后别急着翻页。动手试一试：'+(l.programObserve || ('“'+l.theme+'”会让结果发生什么变化？')));
   return '<div class="panel-card tab-panel" id="panel-blocks">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[2].icon+'</span>本课积木程序</h3>' +
     '<div class="program-summary"><div><span>PROGRAM BLUEPRINT</span><h4>'+esc(l.projName)+'</h4><p>先读懂程序为什么这样连接，再动手搭建。</p></div><div class="program-metrics"><b>'+l.blocks.length+'<small>块核心积木</small></b><b>'+roleCount.input+'<small>输入/启动</small></b><b>'+roleCount.logic+'<small>逻辑处理</small></b><b>'+roleCount.output+'<small>反馈输出</small></b></div></div>'+
-    '<div class="program-runtime"><div class="runtime-head"><b>程序运行路线</b><span>从左到右读一遍，再开始搭建</span></div><div class="runtime-track">'+
-      '<article class="runtime-card input"><span>01 · 启动 / 准备</span><b>'+esc(first[1])+'</b><small>'+esc(first[0])+'类积木</small></article><i>→</i>'+
-      '<article class="runtime-card logic"><span>02 · 处理 / 判断</span><b>'+esc(middle[1])+'</b><small>'+esc(middle[0])+'类积木</small></article><i>→</i>'+
-      '<article class="runtime-card output"><span>03 · 反馈 / 结果</span><b>'+esc(last[1])+'</b><small>'+esc(last[0])+'类积木</small></article></div></div>'+
+    '<section class="program-lesson-brief"><div class="program-brief-head"><span>团团和点点的编程小剧场</span><h4>先玩明白，再动手搭</h4><p>别急着找积木。先听故事，猜一猜，再让 CyberPi 真的动起来。</p></div><div class="program-brief-grid">'+
+      '<article class="brief-guess"><i>想</i><div><b>先猜猜</b><p>'+esc(kidHook)+'</p></div></article>'+
+      '<article class="brief-build"><i>做</i><div><b>今天做这个</b><p>'+esc(kidGoal)+'</p></div></article>'+
+      '<article class="brief-watch"><i>看</i><div><b>小眼睛看这里</b><p>'+esc(kidWatch)+'</p></div></article>'+
+    '</div></section>'+
+    '<div class="program-runtime"><div class="runtime-head"><b>程序模块地图</b><span>每个模块先单独试玩，再把它们连起来</span></div><div class="runtime-track">'+
+      '<article class="runtime-card input"><span>01 · 触发模块</span><b>'+esc(first[1])+'</b><small>负责接收事件或传感信息</small></article><i>→</i>'+
+      '<article class="runtime-card logic"><span>02 · 思考模块</span><b>'+esc(middle[1])+'</b><small>负责变量、判断、运算或循环</small></article><i>→</i>'+
+      '<article class="runtime-card output"><span>03 · 反馈模块</span><b>'+esc(last[1])+'</b><small>负责屏幕、灯光、声音或动作</small></article></div></div>'+
     '<div class="program-workbench"><section><div class="workbench-title"><div><span>搭建区</span><b>按顺序连接核心积木</b></div><small>共 '+l.blocks.length+' 步</small></div><div class="blk-list program-sequence">'+rows+'</div></section>'+
       '<aside class="program-guide"><span class="guide-kicker">读程序三问</span><div><i>1</i><p><b>什么时候开始？</b><small>找到事件、传感或AI输入。</small></p></div><div><i>2</i><p><b>程序怎样处理？</b><small>关注执行顺序、条件、变量、运算与循环。</small></p></div><div><i>3</i><p><b>结果在哪里出现？</b><small>观察 CyberPi 的屏幕、灯光、声音或运动反馈。</small></p></div><div class="guide-tip">设备保持连接，搭完一小段就在真机上运行一次，更容易发现连接或参数问题。</div></aside></div>'+
     proof + '<div class="tip-box"><b>mBlock + CyberPi 流程：</b>先添加并连接童芯派，确认模式，再按“事件输入—逻辑处理—硬件输出”搭建；每完成一段就用实体按钮或传感器在 CyberPi 上验证。</div>' + blockFamilyExplorer(l) + nextStepButton('demo','开始编程任务') + '</div>';
@@ -468,31 +508,36 @@ function panelBlocks(l, ch){
 
 /* ---- 面板：CyberPi 演示 ---- */
 function panelDemo(l, ch){
+  var task = l.transfer || {name:l.projName, eff:l.projEff, steps:l.steps, challenge:l.challenge};
   var phaseNames = ['准备','搭建','连接','测试','改进'];
   var sample = sampleOf(l);
   if(sample && sample.phases) phaseNames = sample.phases;
   var success = sample && sample.success ? sample.success : ['程序能按步骤完整运行','硬件能给出可观察的反馈','我能解释“'+l.theme+'”怎样体现在作品中'];
   return '<div class="panel-card tab-panel" id="panel-demo">' +
     '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[3].icon+'</span>本节AI硬件编程任务</h3>' +
-    '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 核心任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(l.projName)+'</div><div class="p-eff">'+esc(l.projEff)+'</div></div>'+
-      '<div class="task-stamp"><b>'+l.steps.length+'</b><span>个关键步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
+    '<div class="transfer-banner"><span>举一反三 · 基于“'+esc(l.projName)+'”进行改造</span><b>不是重做一遍，而是保留核心逻辑、改变使用情境</b></div>'+
+    '<div class="task-hero proj-card"><div class="task-hero-copy"><span class="task-kicker">MISSION · '+fmtNo(l.id)+' 迁移任务</span><div class="p-name"><span class="t-ico" style="background:hsl(0 0% 100% / .22)">'+TABS[3].icon+'</span>'+esc(task.name)+'</div><div class="p-eff">'+esc(task.eff)+'</div></div>'+
+      '<div class="task-stamp"><b>'+task.steps.length+'</b><span>个改造步骤</span><small>'+esc(l.theme)+'</small></div></div>'+
     platformWorkflow(l) + sampleTaskLab(l) +
-    '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>BUILD PLAN</span><h4>动手任务路线</h4></div><p>完成一步，检查一步</p></div><div class="steps-list task-steps">' + l.steps.map(function(s, i){
-      return '<div class="step-item"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-check">□ 完成</span></div>';
+    '<div class="task-dashboard"><section class="task-main"><div class="task-section-head"><div><span>POWER-UP PLAN</span><h4>创意升级路线</h4></div><p>跟着步骤，让作品变得更有趣</p></div><div class="steps-list task-steps">' + task.steps.map(function(s, i){
+      var blockIndex = task.steps.length < 2 ? 0 : Math.round(i * (l.blocks.length - 1) / (task.steps.length - 1));
+      var stepBlock = l.blocks[blockIndex] || l.blocks[0] || ['事件',''];
+      var stepColor = CAT_COLOR[stepBlock[0]] || 'var(--primary)';
+      return '<div class="step-item" style="--step-color:'+stepColor+'"><span class="s-no">'+(i+1)+'</span><div class="step-copy"><small>'+phaseNames[Math.min(i,phaseNames.length-1)]+'阶段</small><p>'+esc(s)+'</p></div><span class="step-block-tag">'+esc(stepBlock[0])+'积木</span></div>';
     }).join('') + '</div></section>'+
     '<aside class="task-side"><div class="task-side-card materials"><span>HARDWARE</span><h4>本课工具箱</h4><div class="hw-chips">'+ l.hardware.map(function(h){ return '<span class="hw-chip">'+esc(h)+'</span>'; }).join('') + '</div></div>'+
       '<div class="task-side-card criteria"><span>SUCCESS CHECK</span><h4>成功标准</h4><ul>'+success.map(function(n){ return '<li>'+esc(n)+'</li>'; }).join('')+'</ul></div></aside></div>'+
-    '<div class="task-record"><div class="task-record-head"><span>实验记录卡</span><b>先预测，再观察，最后改进</b></div><div class="record-grid"><label><span>我的预测</span><i>运行前，我认为会……</i></label><label><span>实际结果</span><i>我看见 / 听见……</i></label><label><span>下一次改进</span><i>我准备修改……</i></label></div></div>'+
-    '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(l.challenge)+'</p></div>' + nextStepButton('challenge','进入运行与测试') + '</div>';
+    '<div class="task-preview"><span>完成后的加分挑战</span><p>'+esc(task.challenge)+'</p></div>' + nextStepButton('challenge','进入试玩与升级') + '</div>';
 }
 
 /* ---- 面板：动手挑战 ---- */
 function panelChallenge(l, ch){
+  var task = l.transfer || {challenge:l.challenge};
   return '<div class="panel-card tab-panel" id="panel-challenge">' +
-    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>运行、测试与改进</h3>' +
-    '<div class="challenge-box"><span class="c-tag">连接设备 · 边搭边测 · 真机验证</span><p>'+esc(l.challenge)+'</p></div>' +
+    '<h3><span class="t-ico" style="background:'+ch.color+'">'+TABS[4].icon+'</span>试玩、找错和升级</h3>' +
+    '<div class="challenge-box"><span class="c-tag">团团和点点的试玩站</span><p>让 CyberPi 跑起来，多试几种玩法。没成功也没关系：看一看、改一处，再试一次。</p></div>' +
     sampleTestLab(l) +
-    (l.tip ? '<div class="tip-box"><b>老师小贴士：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','进入挑战与问答') + '</div>';
+    (l.tip ? '<div class="tip-box"><b>团团小提醒：</b>'+esc(l.tip)+'</div>' : '') + nextStepButton('quiz','去闯关答题') + '</div>';
 }
 
 /* ---- 面板：知识问答 ---- */
@@ -612,17 +657,25 @@ var HW_PARTS = [
 function renderHardware(){
   var W = 480, H = 270;
   var svg = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="CyberPi 硬件图解">';
-  svg += '<defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2F8FF"/><stop offset="1" stop-color="#DCEBFB"/></linearGradient></defs>';
-  svg += '<rect x="14" y="14" width="452" height="242" rx="28" fill="url(#bd)" stroke="#A9C9EC" stroke-width="2"/>';
-  svg += '<rect x="24" y="24" width="432" height="222" rx="20" fill="none" stroke="#C8DFF4" stroke-width="1.2" stroke-dasharray="5 5"/>';
-  svg += '<text x="38" y="44" font-size="12" font-weight="800" fill="#5D82A8" letter-spacing="1">CyberPi · 童芯派</text>';
+  svg += '<defs>' +
+    '<linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBFAFF"/><stop offset=".52" stop-color="#EDE9FA"/><stop offset="1" stop-color="#DCEEFF"/></linearGradient>' +
+    '<linearGradient id="screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#203D66"/><stop offset="1" stop-color="#0B1E38"/></linearGradient>' +
+    '<filter id="boardShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#51456F" flood-opacity=".18"/></filter>' +
+    '<filter id="partShadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#51456F" flood-opacity=".24"/></filter>' +
+    '<filter id="activeGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#8B5CF6" flood-opacity=".8"/></filter>' +
+    '</defs>';
+  svg += '<circle cx="43" cy="35" r="22" fill="#DDF7F1" opacity=".75"/><circle cx="444" cy="39" r="29" fill="#FCE3F0" opacity=".7"/><circle cx="437" cy="229" r="19" fill="#FFF0C8" opacity=".78"/>';
+  svg += '<rect x="14" y="14" width="452" height="242" rx="31" fill="url(#bd)" stroke="#FFFFFF" stroke-width="3" filter="url(#boardShadow)"/>';
+  svg += '<rect x="24" y="24" width="432" height="222" rx="23" fill="none" stroke="#CFC5E4" stroke-width="1.4" stroke-dasharray="5 6"/>';
+  svg += '<rect x="34" y="30" width="118" height="24" rx="12" fill="#FFFFFF" opacity=".88"/><text x="46" y="46" font-size="11" font-weight="800" fill="#6E5A91" letter-spacing=".8">CyberPi · 童芯派</text>';
+  svg += '<rect x="379" y="31" width="66" height="22" rx="11" fill="#FFFFFF" opacity=".9"/><text x="412" y="46" text-anchor="middle" font-size="9.5" font-weight="800" fill="#7C3AED">点击部件</text>';
 
-  svg += '<g class="hotspot" data-hw="display" onclick="hwInfo(\'display\')"><rect x="150" y="52" width="180" height="112" rx="10" fill="#12294A" stroke="#0A1B30" stroke-width="2"/>' +
+  svg += '<g class="hotspot" data-hw="display" onclick="hwInfo(\'display\')"><rect x="145" y="47" width="190" height="122" rx="16" fill="#FFFFFF" opacity=".72"/><rect x="150" y="52" width="180" height="112" rx="11" fill="url(#screen)" stroke="#FFFFFF" stroke-width="2" filter="url(#partShadow)"/>' +
     '<circle cx="196" cy="96" r="7" fill="#FFD166"/><circle cx="250" cy="96" r="7" fill="#FFD166"/>' +
     '<path d="M196 130 q28 26 54 0" stroke="#7EE0A3" stroke-width="6" fill="none" stroke-linecap="round"/>' +
     '<text x="240" y="40" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">显示屏</text></g>';
 
-  svg += '<g class="hotspot" data-hw="joystick" onclick="hwInfo(\'joystick\')"><circle cx="70" cy="88" r="19" fill="#fff" stroke="#7FA8D8" stroke-width="2.5"/>' +
+  svg += '<g class="hotspot" data-hw="joystick" onclick="hwInfo(\'joystick\')"><circle cx="70" cy="88" r="27" fill="#FFFFFF" opacity=".7"/><circle cx="70" cy="88" r="19" fill="#fff" stroke="#7FA8D8" stroke-width="2.5" filter="url(#partShadow)"/>' +
     '<circle cx="70" cy="88" r="9" fill="#BBD8F5"/><path d="M70 66v44M48 88h44" stroke="#9DC2E8" stroke-width="3" stroke-linecap="round"/>' +
     '<text x="70" y="132" text-anchor="middle" font-size="11" font-weight="800" fill="#2E5B92">五向摇杆</text></g>';
 
@@ -680,8 +733,12 @@ function hwInfo(key){
   var p = null;
   HW_PARTS.forEach(function(x){ if(x.key === key) p = x; });
   if(!p) return;
+  document.querySelectorAll('#hwSvgCard .hotspot').forEach(function(el){
+    el.classList.toggle('active', el.getAttribute('data-hw') === key);
+  });
   document.getElementById('hwInfo').innerHTML =
-    '<div class="hi-name"><span style="display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff">●</span>'+p.name+'</div>' +
+    '<div class="hi-kicker">当前选中部件</div>' +
+    '<div class="hi-name"><span class="hi-dot">●</span>'+p.name+'</div>' +
     '<div class="hi-desc">'+p.desc+'</div>';
 }
 

@@ -5,7 +5,7 @@ parts = os.path.join(base, "_parts")
 head = io.open(os.path.join(parts, "head.html"), encoding="utf-8").read()
 shell = io.open(os.path.join(parts, "shell.html"), encoding="utf-8").read()
 data = ""
-for f in ["data1.js", "data2.js", "data3.js", "data4.js"]:
+for f in ["data1.js", "data2.js", "data3.js", "data4.js", "refinements.js"]:
     data += io.open(os.path.join(parts, f), encoding="utf-8").read() + "\n"
 app = io.open(os.path.join(parts, "app.js"), encoding="utf-8").read()
 

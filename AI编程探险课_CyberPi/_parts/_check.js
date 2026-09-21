@@ -7,7 +7,7 @@ global.confirm = function(){ return false; };
 const path = require("path");
 const base = __dirname;
 let src = "";
-["data1.js","data2.js","data3.js","data4.js"].forEach(f => src += fs.readFileSync(base + "\\" + f, "utf8") + "\n");
+["data1.js","data2.js","data3.js","data4.js","refinements.js"].forEach(f => src += fs.readFileSync(base + "\\" + f, "utf8") + "\n");
 src += fs.readFileSync(base + "\\app.js", "utf8") + "\n";
 src += 'console.log("JS OK, lessons:", ALL.length, "quiz:", ALL.reduce((n,l)=>n+l.quiz.length,0), "chapters:", CHAPTERS.length);';
 eval(src);

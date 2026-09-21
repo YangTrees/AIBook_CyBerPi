@@ -25,7 +25,7 @@ global.location = { hash: "#/course/1" };
 global.confirm = function(){ return false; };
 
 let src = "";
-["data1.js","data2.js","data3.js","data4.js"].forEach(f => src += fs.readFileSync(base + "\\" + f, "utf8") + "\n");
+["data1.js","data2.js","data3.js","data4.js","refinements.js"].forEach(f => src += fs.readFileSync(base + "\\" + f, "utf8") + "\n");
 src += fs.readFileSync(base + "\\app.js", "utf8") + "\n";
 eval(src);
 
@@ -108,6 +108,9 @@ let missingValidation = 0;
 let missingMedia = 0;
 let missingTaskDetail = 0;
 let missingScreenshotFiles = 0;
+let missingRefinement = 0;
+let repeatedProgramTask = 0;
+let weakProgramExplanation = 0;
 for(let i=1;i<=32;i++){
   renderCourse(i);
   let ph = els["coursePanels"]._html;
@@ -118,11 +121,14 @@ for(let i=1;i<=32;i++){
   if(!cats.some(function(c){ return ["显示","外观","灯","声音","运动"].includes(c); })){ missingOutput++; }
   if(/绿旗|在线积木编程舞台|在线编程角色|在舞台上|角色显示识别类别/.test(JSON.stringify(COURSE[i]))){ staleStageFlow++; }
   if(!Array.isArray(COURSE[i].steps) || COURSE[i].steps.length !== 5){ badStepCount++; }
-  if(COURSE[i].steps.filter(function(s){ return /拖入|建立|新建|准备|按|读取|显示|设置|输入|运行|训练|采集|比较|记录|上传|测试|验证|观察|修改|加入|完成/.test(s); }).length < 4){ vagueSteps++; }
-  if(!/验证|测试|验收|复测|观察|比较|运行/.test(COURSE[i].steps.join(''))){ missingValidation++; }
+  if(COURSE[i].steps.filter(function(s){ return /拖入|建立|新建|准备|按|读取|显示|设置|输入|运行|训练|采集|比较|记录|上传|测试|验证|观察|修改|加入|完成|自制|计算|绘制|切换|调用|检查|修复|调整|选择|试玩|辨认|对比/.test(s); }).length < 4){ vagueSteps++; }
+  if(!/验证|测试|验收|复测|观察|比较|运行|试玩|检查|确认|辨认|对比/.test(COURSE[i].steps.join(''))){ missingValidation++; }
   let pad = i < 10 ? '0'+i : ''+i;
   if(!ph.includes('lesson-'+pad+'/full-program.png') || !ph.includes('lesson-'+pad+'/step-02.png') || !ph.includes('lesson-'+pad+'/step-03.png') || !ph.includes('lesson-'+pad+'/step-04.png') || !ph.includes('openImgLightbox')){ missingMedia++; }
-  if(!ph.includes('作品交付目标') || !ph.includes('分层任务') || !ph.includes('测试记录与排错')){ missingTaskDetail++; }
+  if(!ph.includes('今天要做出') || !ph.includes('选择你的挑战') || !ph.includes('试一试，找一找，再升级')){ missingTaskDetail++; }
+  if(!COURSE[i].transfer || !Array.isArray(COURSE[i].transfer.steps) || COURSE[i].transfer.steps.length !== 5 || !ph.includes('举一反三')){ missingRefinement++; }
+  if(COURSE[i].transfer && (COURSE[i].transfer.name === COURSE[i].projName || COURSE[i].transfer.eff === COURSE[i].projEff || COURSE[i].transfer.steps.join('') === COURSE[i].steps.join(''))){ repeatedProgramTask++; }
+  if(!COURSE[i].programMeaning || COURSE[i].programMeaning.length < 30 || !COURSE[i].programObserve || !ph.includes('先玩明白，再动手搭') || !ph.includes('小眼睛看这里')){ weakProgramExplanation++; }
   ['full-program.png','step-02.png','step-03.png','step-04.png'].forEach(function(name){
     if(!fs.existsSync(base+'\\..\\assets\\blocks\\lesson-'+pad+'\\'+name)){ missingScreenshotFiles++; }
   });
@@ -137,6 +143,20 @@ check("all course steps are actionable", vagueSteps === 0);
 check("all courses include validation", missingValidation === 0);
 check("all courses render zoomable full and step screenshots", missingMedia === 0);
 check("all courses have rich task and debugging sections", missingTaskDetail === 0);
+check("all courses separate demonstration and transfer tasks", missingRefinement === 0 && repeatedProgramTask === 0);
+check("all courses explain program meaning and observation focus", weakProgramExplanation === 0);
+check("lesson 3 explains SOS before coding", /国际通用的求救信号/.test(COURSE[3].programMeaning) && /三个短信号/.test(COURSE[3].programMeaning));
+check("lesson 1 uses child-facing program copy", /团团按一下 A/.test(COURSE[1].programHook) && /按钮 A → 数字加1/.test(COURSE[1].programWatch));
+renderCourse(4);
+const course4TaskHtml = els["coursePanels"]._html;
+check("task steps use block colors without completion checkboxes", !course4TaskHtml.includes('□ 完成') && course4TaskHtml.includes('--step-color:') && course4TaskHtml.includes('step-block-tag'));
+check("task levels use icons instead of character badges", course4TaskHtml.includes('aria-hidden="true"><svg') && !course4TaskHtml.includes('<i>必</i>') && !course4TaskHtml.includes('<i>星</i>') && !course4TaskHtml.includes('<i>创</i>'));
+check("challenge panel uses child-friendly play flow", course4TaskHtml.includes('试玩、找错和升级') && course4TaskHtml.includes('先试一试') && course4TaskHtml.includes('不对就找一找') && course4TaskHtml.includes('改一处，再试一次'));
+check("learning goals render once without repeated summary", (course4TaskHtml.split(COURSE[4].knowledge[0]).length - 1) === 1 && !course4TaskHtml.includes('kp-list') && !course4TaskHtml.includes('本课达成'));
+check("program section presents a modular map", course4TaskHtml.includes('程序模块地图') && course4TaskHtml.includes('触发模块') && course4TaskHtml.includes('思考模块') && course4TaskHtml.includes('反馈模块'));
+check("experiment record card was removed", !course4TaskHtml.includes('实验记录卡') && !course4TaskHtml.includes('运行前，我认为会'));
+check("lesson 4 uses a visual variable warehouse", COURSE[4].projName === '团团的记忆仓库' && COURSE[4].blocks.some(function(b){ return b[0] === '自制'; }) && /库存柱/.test(COURSE[4].projEff));
+check("targeted lessons use theme-matched modular programs", [5,7,11,12,14,16].every(function(id){ return COURSE[id].blocks.some(function(b){ return b[0] === '自制'; }); }) && /披萨/.test(COURSE[11].projName) && /对决/.test(COURSE[16].projName));
 check("all 128 screenshot assets exist", missingScreenshotFiles === 0);
 
 const shell = fs.readFileSync(base + "\\shell.html", "utf8");
