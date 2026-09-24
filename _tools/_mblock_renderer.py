@@ -95,45 +95,91 @@ def draw_stack_block(draw, x, y, text, color='#9966FF', width=240, inputs=None):
             ix += iw + 8
     return h + 4
 
-def draw_c_block(draw, x, y, text, color='#FFAB19', width=260, inner_blocks=None):
-    """绘制C形积木（如果...那么...否则）"""
-    h = 100
+
+def _block_height(block, width=260):
+    """递归计算单个块的绘制高度（含内部嵌套）"""
+    shape = block.get('shape', 'stack')
+    if shape in ('c', 'repeat'):
+        inner = block.get('inner_blocks') or []
+        else_b = block.get('else_blocks') or []
+        n_inner = sum(_block_height(ib, width-50) for ib in inner)
+        n_else = sum(_block_height(eb, width-50) for eb in else_b)
+        if shape == 'c':
+            else_bar = 30 if else_b else 0
+            return 35 + 45 + n_inner + else_bar + n_else + 8 + 4
+        else:
+            return 35 + 45 + n_inner + 8 + 4
+    return 42 + 4
+
+def _draw_block_any(draw, x, y, block, width=260):
+    """按块形状递归绘制，返回实际高度"""
+    shape = block.get('shape', 'stack')
+    text = block.get('text', '')
+    color = block.get('color', '#FFAB19')
+    if shape == 'hat':
+        return draw_hat_block(draw, x, y, text, color, block.get('width', 240))
+    elif shape == 'c':
+        inner = block.get('inner_blocks') or []
+        else_b = block.get('else_blocks') or []
+        return draw_c_block(draw, x, y, text, color, width, inner, else_b)
+    elif shape == 'repeat':
+        inner = block.get('inner_blocks') or []
+        return draw_repeat_block(draw, x, y, text, color, width, inner)
+    else:
+        return draw_stack_block(draw, x, y, text, color, block.get('width', 240), block.get('inputs'))
+
+def draw_c_block(draw, x, y, text, color='#FFAB19', width=260, inner_blocks=None, else_blocks=None):
+    """绘制C形积木（如果...那么...否则），高度随内部分支动态增长"""
+    inner_blocks = inner_blocks or []
+    else_blocks = else_blocks or []
+    then_h = sum(_block_height(ib, width-50) for ib in inner_blocks)
+    else_h = sum(_block_height(eb, width-50) for eb in else_blocks)
+    else_bar = 30 if else_blocks else 0
+    body_h = 45 + then_h + else_bar + else_h + 8
+    h = 35 + body_h
     # 顶部凸口
     draw.rectangle([x+12, y-2, x+32, y+4], fill=color)
     # 顶部横条
     draw.rectangle([x, y, x+width, y+35], fill=color)
     # 左侧竖条
-    draw.rectangle([x, y+35, x+20, y+h-35], fill=color)
-    # 中间横条（那么/否则分隔）
-    draw.rectangle([x, y+h-35, x+width, y+h], fill=color)
+    draw.rectangle([x, y+35, x+20, y+h-8], fill=color)
+    # 底部横条
+    draw.rectangle([x, y+h-8, x+width, y+h], fill=color)
     # 底部凹槽
     draw.rectangle([x+12, y+h-2, x+32, y+h+4], fill='#FFFFFF')
     # 文字
     font = get_font(14)
     draw.text((x+12, y+8), text, fill='#FFFFFF', font=font)
-    # 内部积木
-    if inner_blocks:
-        iy = y + 40
-        for ib in inner_blocks:
-            draw_stack_block(draw, x+25, iy, ib.get('text',''), ib.get('color','#9966FF'), width-50)
-            iy += 46
+    # 那么分支
+    iy = y + 40
+    for ib in inner_blocks:
+        iy += _draw_block_any(draw, x+25, iy, ib, width-50)
+    # 否则分支
+    if else_blocks:
+        ey = iy + 10
+        draw.rectangle([x, ey-8, x+width, ey+16], fill=color)
+        font_s = get_font(12)
+        draw.text((x+12, ey-3), '否则', fill='#FFFFFF', font=font_s)
+        ey += 26
+        for eb in else_blocks:
+            ey += _draw_block_any(draw, x+25, ey, eb, width-50)
     return h + 4
 
 def draw_repeat_block(draw, x, y, text, color='#FFAB19', width=260, inner_blocks=None):
-    """绘制重复执行C形积木"""
-    h = 90
+    """绘制重复执行C形积木，高度随内部积木数量动态增长"""
+    inner_blocks = inner_blocks or []
+    body_h = 45 + sum(_block_height(ib, width-50) for ib in inner_blocks) + 8
+    h = 35 + body_h
     draw.rectangle([x+12, y-2, x+32, y+4], fill=color)
     draw.rectangle([x, y, x+width, y+35], fill=color)
-    draw.rectangle([x, y+35, x+20, y+h], fill=color)
-    draw.rectangle([x, y+h-5, x+width, y+h], fill=color)
+    draw.rectangle([x, y+35, x+20, y+h-8], fill=color)
+    draw.rectangle([x, y+h-8, x+width, y+h], fill=color)
     draw.rectangle([x+12, y+h-2, x+32, y+h+4], fill='#FFFFFF')
     font = get_font(14)
     draw.text((x+12, y+8), text, fill='#FFFFFF', font=font)
-    if inner_blocks:
-        iy = y + 40
-        for ib in inner_blocks:
-            draw_stack_block(draw, x+25, iy, ib.get('text',''), ib.get('color','#CF63CF'), width-50)
-            iy += 46
+    iy = y + 40
+    for ib in inner_blocks:
+        iy += _draw_block_any(draw, x+25, iy, ib, width-50)
     return h + 4
 
 def draw_mblock_interface(blocks_config, lesson_id=5, step_name='step'):
@@ -229,16 +275,10 @@ def draw_mblock_interface(blocks_config, lesson_id=5, step_name='step'):
         color = block.get('color', COLORS.get(block.get('category','event'), '#FFAB19'))
         shape = block.get('shape', 'stack')
         inner = block.get('inner_blocks', None)
+        else_b = block.get('else_blocks', None)
         inputs = block.get('inputs', None)
         
-        if shape == 'hat':
-            dh = draw_hat_block(draw, bx, by, text, color, block.get('width', 240))
-        elif shape == 'c':
-            dh = draw_c_block(draw, bx, by, text, color, block.get('width', 260), inner)
-        elif shape == 'repeat':
-            dh = draw_repeat_block(draw, bx, by, text, color, block.get('width', 260), inner)
-        else:
-            dh = draw_stack_block(draw, bx, by, text, color, block.get('width', 240), inputs)
+        dh = _draw_block_any(draw, bx, by, block, 260)
         by += dh + 8
     
     # 底部提示条
