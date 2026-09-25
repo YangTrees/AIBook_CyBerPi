@@ -15,3 +15,12 @@ desktop.ini
 .workbuddy/
 *.swp
 *.swo
+
+# 语雀原始素材（数百MB，不入库；网页仅引用 yuque_web 压缩版）
+AI编程探险课_CyberPi/assets/yuque/
+AI编程探险课_CyberPi/bak_index_gif.html
+
+# 工具临时产物
+_tools/sheets/
+_tools/sheets2/
+_tools/*_out.txt
