@@ -24,3 +24,8 @@ AI编程探险课_CyberPi/bak_index_gif.html
 _tools/sheets/
 _tools/sheets2/
 _tools/*_out.txt
+
+# 未引用素材子目录（网页仅用 lesson-XX.gif）
+AI编程探险课_CyberPi/assets/yuque_web/basic/
+AI编程探险课_CyberPi/assets/yuque_web/advanced/
+AI编程探险课_CyberPi/assets/yuque_web/python/
