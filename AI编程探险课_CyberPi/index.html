@@ -2233,10 +2233,13 @@ function sampleMediaStudio(l){
   return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>mBlock 积木搭建示意与 CyberPi 效果</h4></div><p>当前图片用于讲解搭建思路，后续可替换为真实操作截图；点击可放大到 300%。</p></div>'+
     '<div class="media-featured"><figure class="official-gif zoomable-shot" onclick="openImgLightbox(\'assets/yuque_web/lesson-'+pad+'.gif\',\'官方演示动图 - '+esc(l.title)+'\')"><img src="assets/yuque_web/lesson-'+pad+'.gif" alt="官方演示动图 - '+esc(l.title)+'"><span class="zoom-badge">点击放大</span><figcaption><b>官方演示动图</b><span>语雀官方课程效果演示 · 点击放大</span><em class="gif-badge">动图</em></figcaption></figure>'+
     '<figure class="full-code-slot zoomable-shot" onclick="openImgLightbox(\''+codeImage+'\',\''+esc(codeAlt)+'\')"><img src="'+codeImage+'" alt="'+codeAlt+'"><span class="zoom-badge">点击放大</span><figcaption><b>积木搭建示意图</b><span>根据本课步骤生成 · 点击查看细节</span><em>可替换实拍</em></figcaption></figure></div>'+
-    '<div class="step-shot-head"><b>关键步骤截图</b><span>第 2–4 步已配图，点击可放大</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
+    '<div class="step-shot-head"><b>关键步骤</b><span>'+((OFFICIAL_STEPS[l.id])?'第2步官方动画 · 其余为文字步骤':'第 2–4 步已配图，点击可放大')+'</span></div><div class="step-shot-grid">'+stepTitles.map(function(n,i){
       var off = (i === 1) ? (OFFICIAL_STEPS[l.id] || '') : '';
-      var shot = off || ((i >= 1 && i <= 3) ? 'assets/blocks/lesson-'+pad+'/step-0'+(i+1)+'.png' : '');
-      if(!shot) return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>'+((i===0)?'准备':'验证')+'</i><b>'+esc(n)+'</b><small>'+((i===0)?'先完成设备与变量准备':'在 CyberPi 真机完成验收')+'</small></div>';
+      var hasOfficial = !!OFFICIAL_STEPS[l.id];
+      var shot = '';
+      if(off) shot = off;
+      else if(!hasOfficial && i >= 1 && i <= 3) shot = 'assets/blocks/lesson-'+pad+'/step-0'+(i+1)+'.png';
+      if(!shot) return '<div class="shot-slot"><span>0'+(i+1)+'</span><i>'+((i===0)?'准备':(i===4?'验证':'搭建'))+'</i><b>'+esc(n)+'</b><small>'+((i===0)?'先完成设备与变量准备':(i===4?'在 CyberPi 真机完成验收':'按文字说明完成本步搭建'))+'</small></div>';
       var isGif = off.slice(-4) === '.gif';
       return '<div class="shot-slot has-shot zoomable-shot'+(off?' official-step':'')+'" onclick="openImgLightbox(\''+shot+'\',\''+esc(n)+'\')"><span>0'+(i+1)+'</span><img src="'+shot+'" alt="'+esc(n)+'"><b>'+esc(n)+'</b><small>'+(off?(isGif?'官方步骤动画 · 点击放大':'官方步骤图 · 点击放大'):'点击图片放大查看')+'</small></div>';
     }).join('')+'</div></section>';
