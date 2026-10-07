@@ -1,0 +1,42 @@
+﻿python : D:\PROJECTS\_AI\AIBook_CyberPi\_tools\_recompress_gifs_v3.py:73: DeprecationWarning: Image.Image.getdata is de
+precated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+所在位置 行:1 字符: 1
++ python D:\PROJECTS\_AI\AIBook_CyberPi\_tools\_recompress_gifs_v3.py 2 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\PROJECTS\_AI...d_data instead.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  samples.append(list(sm.getdata()))
+L01: 4032KB (43帧)
+L02: 4143KB (39帧)
+L03: 6014KB (65帧)
+L04: 311KB (59帧)
+L05: 3707KB (38帧)
+L06: 4798KB (48帧)
+L07: 3043KB (42帧)
+L08: 3809KB (44帧)
+L09: 311KB (59帧)
+L10: 3437KB (36帧)
+L11: 4054KB (42帧)
+L12: 5473KB (60帧)
+L13: 3414KB (37帧)
+L14: 4251KB (42帧)
+L15: 282KB (38帧)
+L16: 4054KB (42帧)
+L17: 562KB (37帧)
+L18: 409KB (38帧)
+L19: 610KB (39帧)
+L20: 3881KB (44帧)
+L21: 311KB (59帧)
+L22: 3220KB (39帧)
+L23: 304KB (38帧)
+L24: 7157KB (71帧)
+L25: 4081KB (47帧)
+L26: 311KB (59帧)
+L27: 5707KB (65帧)
+L28: 3022KB (36帧)
+L29: 311KB (59帧)
+L30: 3544KB (37帧)
+L31: 3573KB (51帧)
+L32: 5543KB (69帧)
+TOTAL 95 MB
