@@ -1241,6 +1241,7 @@ const LESSONS_3 = [
 {
   id:19, ch:3, title:"跳动的心", theme:"循环+屏幕图形",
   echoId:19, echoTitle:"屏幕上的爱心", echoBrief:"用精灵模块创建爱心精灵，让它一鼓一鼓地跳动",
+  extraGif:"assets/yuque_steps/lesson-19/heart-draw.webp", extraGifTitle:"绘制爱心的方式",
   story:"点点想让CyberPi表达爱意。这次不用一格一格画像素点，而是先在mBlock里添加「精灵」模块，创建一个爱心精灵，再用「设置大小」让爱心一会儿大一会儿小，跳起来！",
   knowledge:["认识「添加扩展」里的精灵模块","新建爱心精灵并设置图案","用「设置大小」+「手动渲染」实现跳动动画"],
   blocks:[["事件", "当CyberPi启动时"], ["控制", "重复执行"], ["精灵", "精灵 爱心 设置为 ❤️"], ["精灵", "精灵 爱心 设置大小为 300%"], ["精灵", "手动渲染"], ["等待", "等待0.5秒"], ["精灵", "精灵 爱心 设置为 ❤️"], ["精灵", "精灵 爱心 设置大小为 200%"], ["精灵", "手动渲染"], ["等待", "等待0.5秒"]],
@@ -2249,6 +2250,7 @@ function sampleMediaStudio(l){
   return '<section class="media-studio"><div class="media-studio-head"><div><span>COURSE MEDIA · 素材区</span><h4>mBlock 积木搭建示意与 CyberPi 效果</h4></div><p>当前图片用于讲解搭建思路，后续可替换为真实操作截图；点击可放大到 300%。</p></div>'+
     '<div class="media-featured"><figure class="official-gif zoomable-shot" onclick="openImgLightbox(this.querySelector(\'img\').currentSrc,\'官方演示动图 - '+esc(l.title)+'\')"><img src="assets/yuque_web/lesson-'+pad+'.webp" onerror="this.onerror=null;this.src=\'assets/yuque_web/lesson-'+pad+'.gif\';" alt="官方演示动图 - '+esc(l.title)+'"><span class="zoom-badge">点击放大</span><figcaption><b>官方演示动图</b><span>语雀官方课程效果演示 · 点击放大</span><em class="gif-badge">动图</em></figcaption></figure>'+
     (codeImage ? '<figure class="full-code-slot zoomable-shot" onclick="openImgLightbox(\''+codeImage+'\',\''+esc(codeAlt)+'\')"><img src="'+codeImage+'" alt="'+codeAlt+'"><span class="zoom-badge">点击放大</span><figcaption><b>积木搭建示意图</b><span>根据本课步骤生成 · 点击查看细节</span><em>可替换实拍</em></figcaption></figure>' : '<figure class="full-code-slot placeholder-shot"><div class="shot-placeholder"><b>积木搭建示意图</b><span>本课截图待补充，先按步骤文字搭建</span></div></figure>')+'</div>'+
+    (l.extraGif ? '<div class="step-shot-head" style="margin-top:4px"><b>'+esc(l.extraGifTitle||'补充演示')+'</b><span>打开精灵编辑器，逐格点出爱心图案</span></div><figure class="official-step-card zoomable-shot" onclick="openImgLightbox(this.querySelector(\'img\').currentSrc,\''+esc(l.extraGifTitle||'补充演示')+'\')"><img src="'+l.extraGif+'" onerror="this.onerror=null;this.src=this.src.replace(\'.webp\',\'.gif\');" alt="'+esc(l.extraGifTitle||'补充演示')+'"><span class="zoom-badge">点击放大</span></figure>' : '')+
     '<div class="step-shot-head"><b>关键步骤</b><span>'+(OFFICIAL_STEPS[l.id]?'官方搭建动画 + 文字步骤':'第 2–4 步已配图，点击可放大')+'</span></div>'+((OFFICIAL_STEPS[l.id])?
       '<figure class="official-step-card zoomable-shot" onclick="openImgLightbox(this.querySelector(\'img\').currentSrc,\''+esc(l.title)+' 搭建动画\')"><img src="'+OFFICIAL_STEPS[l.id]+'" onerror="this.onerror=null;this.src=this.src.replace(\'.webp\',\'.gif\');" alt="'+esc(l.title)+' 搭建动画"><span class="zoom-badge">点击放大</span></figure>'+
       '<div class="step-list">'+stepTitles.map(function(n,i){
