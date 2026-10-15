@@ -533,7 +533,7 @@ body::after{width:340px;height:340px;right:-150px;bottom:8%;background:rgba(125,
 .path-card,.hw-card,.featured-card{transition:transform .22s,box-shadow .22s}.path-card:hover,.hw-card:hover,.featured-card:hover{transform:translateY(-6px);box-shadow:17px 21px 38px rgba(76,58,106,.15),-10px -10px 25px #fff}
 .chapter-head{border-left:1px solid rgba(255,255,255,.9);padding:23px 25px;overflow:hidden}.chapter-head:hover{transform:translateY(-3px)}
 .lesson-card{border-radius:28px;overflow:hidden;transition:transform .22s,box-shadow .22s}.lesson-card:hover{transform:translateY(-7px) rotate(-.3deg);box-shadow:16px 20px 34px rgba(76,58,106,.16),-9px -9px 22px #fff}
-.lc-cover{aspect-ratio:3/4;margin:10px 10px 0;border:0;border-radius:21px;background:#ECE7F3;overflow:hidden}.lc-cover img{width:100%;height:100%;object-fit:contain;filter:none}.lesson-card:hover .lc-cover img{transform:scale(1.018)}
+.lc-cover{aspect-ratio:3/4;margin:0;padding:0;border:0;border-radius:0;background:#ECE7F3;overflow:hidden;display:block}.lc-cover img{width:100%;height:100%;object-fit:cover;filter:none}.lesson-card:hover .lc-cover img{transform:scale(1.018)}
 .featured-card{border-radius:28px;padding:23px}.featured-card .tag{color:#7C3AED}.featured-card button{color:var(--primary)}
 
 .course-top{width:min(1240px,calc(100% - 28px));margin:24px auto 0;border:1px solid rgba(255,255,255,.55);border-radius:42px;background:linear-gradient(135deg,color-mix(in srgb,var(--ch-color) 88%,#fff),var(--ch-color));box-shadow:14px 18px 34px color-mix(in srgb,var(--ch-color) 25%,transparent),-9px -9px 22px rgba(255,255,255,.8),inset 2px 2px 3px rgba(255,255,255,.3);overflow:hidden}
@@ -658,7 +658,7 @@ main{padding-bottom:95px}
   .topbar{top:6px;width:calc(100% - 16px);margin-top:6px;border-radius:22px}.topbar-inner{height:60px;padding:0 10px}.brand-logo{border-radius:14px}
   .hero{width:calc(100% - 16px);margin-top:14px;border-radius:30px}.hero-inner{padding:28px 17px 34px;gap:25px}.hero h1{font-size:31px}.hero-fig{padding:8px;border-radius:25px}.hero-fig img{border-radius:19px}
   .hero-cta{display:grid;grid-template-columns:1fr}.hero-cta .btn{width:100%;justify-content:center}.stats-bar{gap:10px}.stat-card{border-radius:22px;padding:15px 7px}.studio-step{border-radius:23px}
-  .path-card,.chapter-head,.lesson-card,.panel-card,.hw-card,.grow-hero,.featured-card{border-radius:25px}.lc-cover{border-radius:18px}
+  .path-card,.chapter-head,.lesson-card,.panel-card,.hw-card,.grow-hero,.featured-card{border-radius:25px}.lc-cover{border-radius:0}
   .course-top{width:calc(100% - 16px);margin-top:14px;border-radius:29px}.course-top-inner{padding-left:15px;padding-right:15px}.tabs{border-radius:19px}.panel-card{padding:21px 16px}
   .echo-box,.flow-step,.kp-item,.q-card,.tip-box,.challenge-box,.verify-list,.official-hardware,.family-explorer,.block-family,.program-frame,.goal-visual{border-radius:19px}
   .bottom-nav{bottom:8px;width:calc(100% - 16px);border-radius:23px}.bottom-nav button{min-height:48px;border-radius:16px}
@@ -1634,7 +1634,8 @@ function renderHomeStats(){
   }).join('');
 }
 function lessonAsset(id){
-  return 'assets/prototype/lesson-' + (id < 10 ? '0' + id : '' + id) + '-v3-web.jpg';
+  var version = id === 6 ? 'v6' : (id === 27 ? 'v5' : 'v4');
+  return 'assets/prototype/lesson-' + (id < 10 ? '0' + id : '' + id) + '-' + version + '-web.jpg';
 }
 
 /* ---- 学习路径 SVG ---- */
