@@ -29,3 +29,6 @@ _tools/*_out.txt
 AI编程探险课_CyberPi/assets/yuque_web/basic/
 AI编程探险课_CyberPi/assets/yuque_web/advanced/
 AI编程探险课_CyberPi/assets/yuque_web/python/
+
+# 打包文件（322MB 超 GitHub 100MB 限制，不入库）
+*.zip
